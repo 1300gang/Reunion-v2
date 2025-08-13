@@ -1,0 +1,1182 @@
+{
+  "scenario_info": {
+    "title": "Sensibilisation LGBTQIA+ - Gaëtan et Nicolas",
+    "description": "Un scénario éducatif sur les orientations sexuelles, l'identité de genre et la lutte contre les discriminations LGBTQIA+.",
+    "characters": ["Gaëtan", "Nicolas", "Groupe de lycéens", "Un ami", "Un élève", "Père de Nicolas"],
+    "start_question": "scene1"
+  },
+  "questions": {
+    "scene1": {
+      "id": "scene1",
+      "type": "messenger_scenario",
+      "context": "Gaëtan et Nicolas se rencontrent à la marche des fiertés. Nicolas semble gêné alors Gaëtan va lui parler.",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_content.png",
+            "content": "Salut, c'est la première fois que tu viens à la marche des fiertés ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_géné.png",
+            "content": "Oui et toi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Non, chaque année je prépare les banderoles avec les associations qui l'organisent. Mais tu as l'air gêné : Est-ce que tu vas bien ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_apeuré.png",
+            "content": "Oui oui, mais je me sens bizarre, j'ai l'impression d'être attiré par les filles et les garçons.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_neutre.png",
+            "content": "Est-ce que tu as déjà entendu parler de la bisexualité ?",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_perplexe.png",
+            "content": "Qu'est-ce que c'est la bisexualité ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Qu'est-ce que c'est la bisexualité ?",
+      "choices": [
+        "C'est quand une personne est attiré·e par les deux genres",
+        "C'est quand on aime seulement deux couleurs",
+        "C'est quand un garçon est attiré par les filles"
+      ],
+      "nextQuestions": {
+        "A": "scene1a",
+        "B": "scene1b",
+        "C": "scene1c"
+      },
+      "metadata": {
+        "themes_abordes": ["bisexualité", "orientation sexuelle", "marche des fiertés"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene1a": {
+      "id": "scene1a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_content.png",
+            "content": "C'est quand une personne est attiré·e par les deux genres",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_surpris.png",
+            "content": "Ah d'accord : Donc je suis sûrement bisexuel !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["bisexualité", "acceptation de soi"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene1b": {
+      "id": "scene1b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_géné.png",
+            "content": "C'est quand on aime seulement deux couleurs.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_perplexe.png",
+            "content": "Ah bon, t'es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_heureux.png",
+            "content": "Ah non, je me trompe, c'est plutôt quand une personne est attiré·e par les deux genres.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["bisexualité", "correction d'erreur"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene1c": {
+      "id": "scene1c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_neutre.png",
+            "content": "C'est quand un garçon est attiré par les filles.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_perplexe.png",
+            "content": "Ah bon, t'es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_content.png",
+            "content": "Ah non, ça c'est être hétérosexuel. La bisexualité c'est plutôt quand une personne est attiré·e par les deux genres.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["bisexualité", "hétérosexualité", "correction d'erreur"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene2": {
+      "id": "scene2",
+      "type": "messenger_scenario",
+      "context": "Gaëtan propose son aide à Nicolas concernant le coming-out à ses parents.",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_content.png",
+            "content": "Si tu veux tu peux passer me voir à l'association, on a plein d'infos intéressantes sur ces sujets là !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_content.png",
+            "content": "Oui pourquoi pas, en plus j'aimerais en parler à mes parents.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_heureux.png",
+            "content": "On pourra préparer cette discussion si tu veux.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_peur.png",
+            "content": "Oui ce serait bien. J'espère que ça ira… J'ai peur qu'ils me rejettent quand ils sauront que je suis bisexuel.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Est-ce que les parents ont le droit d'abandonner leurs enfants en fonction de leur orientation sexuelle ?",
+      "choices": [
+        "Oui, les parents ont tous les droits sur leurs enfants.",
+        "Non, les parents doivent soutenir et protéger leurs enfants, peu importe leur orientation sexuelle.",
+        "Non, on ne peut pas l'abandonner, mais on peut essayer de le faire changer d'orientation sexuelle."
+      ],
+      "nextQuestions": {
+        "A": "scene2a",
+        "B": "scene2b",
+        "C": "scene2c"
+      },
+      "metadata": {
+        "themes_abordes": ["coming-out", "droits parentaux", "protection de l'enfance"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene2a": {
+      "id": "scene2a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_neutre.png",
+            "content": "Oui, les parents ont tous les droits sur leurs enfants.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_content.png",
+            "content": "Non… peut-être qu'ils doivent plutôt soutenir et protéger leurs enfants, peu importe leur orientation sexuelle.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3"
+      },
+      "metadata": {
+        "themes_abordes": ["droits de l'enfant", "correction d'erreur"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene2b": {
+      "id": "scene2b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_content.png",
+            "content": "Non, les parents doivent soutenir et protéger leurs enfants, peu importe leur orientation sexuelle.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_heureux.png",
+            "content": "Tout à fait ! Sinon, ils peuvent être punis par la loi.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3"
+      },
+      "metadata": {
+        "themes_abordes": ["droits de l'enfant", "protection légale"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene2c": {
+      "id": "scene2c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_géné.png",
+            "content": "Non, on ne peut pas l'abandonner, mais on peut essayer de le faire changer d'orientation sexuelle.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_content.png",
+            "content": "Non… peut-être qu'ils doivent plutôt soutenir et protéger leurs enfants, peu importe leur orientation sexuelle.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_neutre.png",
+            "content": "Exactement ! C'est interdit d'essayer de modifier l'orientation sexuelle de quelqu'un, c'est une violence. En plus, ce n'est pas quelque chose qui peut être contrôlé.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3"
+      },
+      "metadata": {
+        "themes_abordes": ["thérapies de conversion", "violence", "droits humains"],
+        "characters": ["Gaëtan", "Nicolas"]
+      }
+    },
+    "scene3": {
+      "id": "scene3",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_content.png",
+            "content": "D'accord, ça me rassure un peu, je vais leur en parler bientôt alors.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene4"
+      },
+      "metadata": {
+        "themes_abordes": ["courage", "coming-out"],
+        "characters": ["Nicolas"]
+      }
+    },
+    "scene4": {
+      "id": "scene4",
+      "type": "messenger_scenario",
+      "context": "Gaëtan marche dans le parc de la bibliothèque de La Rivière pour se rendre à son intervention au lycée Jean Joly, et passe à côté d'un groupe de lycéen·nes. Il entend une personne raconter une histoire en insultant les personnes homosexuelles.",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "personne_groupe",
+            "name": "Une personne dans le groupe",
+            "isCurrentUser": false
+          },
+          {
+            "id": "groupe",
+            "name": "Le groupe",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "personne_groupe",
+            "avatar": "img/perso_emo/émotions_jeune_moqueur.png",
+            "content": "On était en sport et Max a dit à Killian qu'il courait comme un PD, c'était trop drôle",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "groupe",
+            "avatar": "img/perso_emo/émotions_jeune_méchant.png",
+            "content": "Hahahaha",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe2.png",
+            "content": "Désolé, je vous ai entendu·es parler, et je me demande ce que vous trouvez drôle dans cette histoire ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "groupe",
+            "avatar": "img/perso_emo/émotions_jeune_surpris.png",
+            "content": "Comment ça ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Est-ce que d'après-vous on a le droit d'utiliser ce genre d'insultes ?",
+      "choices": [
+        "Oui, on a le droit, ça permet de les faire changer d'orientation sexuelle et/ou d'identité de genre.",
+        "On a le droit de dire ce qu'on veut, c'est la liberté d'expression !",
+        "Non, ce n'est pas autorisé. L'homophobie, la lesbophobie et la transphobie sont interdites par la loi."
+      ],
+      "nextQuestions": {
+        "A": "scene4a",
+        "B": "scene4b",
+        "C": "scene4c"
+      },
+      "metadata": {
+        "themes_abordes": ["homophobie", "insultes", "discrimination"],
+        "characters": ["Gaëtan", "Groupe de lycéens"]
+      }
+    },
+    "scene4a": {
+      "id": "scene4a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "ami",
+            "name": "Un ami",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "ami",
+            "avatar": "img/perso_emo/émotions_jeune_moqueur.png",
+            "content": "Oui, on a le droit, ça permet de les faire changer d'orientation sexuelle et/ou d'identité de genre.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "ami",
+            "avatar": "img/perso_emo/émotions_jeune_triste.png",
+            "content": "Ou peut-être que ce n'est pas autorisé. L'homophobie, la lesbophobie et la transphobie sont interdites par la loi.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene5"
+      },
+      "metadata": {
+        "themes_abordes": ["homophobie", "correction d'erreur", "loi"],
+        "characters": ["Gaëtan", "Un ami"]
+      }
+    },
+    "scene4b": {
+      "id": "scene4b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "ami",
+            "name": "Un ami",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "ami",
+            "avatar": "img/perso_emo/émotions_jeune_neutre.png",
+            "content": "On a le droit de dire ce qu'on veut, c'est la liberté d'expression !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "ami",
+            "avatar": "img/perso_emo/émotions_jeune_triste.png",
+            "content": "Ah non… je crois que la liberté d'expression a des limites. L'homophobie, la lesbophobie et la transphobie sont interdites par la loi.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene5"
+      },
+      "metadata": {
+        "themes_abordes": ["liberté d'expression", "limites légales", "discrimination"],
+        "characters": ["Gaëtan", "Un ami"]
+      }
+    },
+    "scene4c": {
+      "id": "scene4c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "ami",
+            "name": "Un ami",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          },
+          {
+            "id": "groupe",
+            "name": "Le groupe",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "ami",
+            "avatar": "img/perso_emo/émotions_jeune_neutre.png",
+            "content": "Non, ce n'est pas autorisé. L'homophobie, la lesbophobie et la transphobie sont interdites par la loi.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_content.png",
+            "content": "Exactement ! Les insultes envers la communauté LGBTQIA+ sont une violence interdite par la loi. L'homophobie c'est envers les hommes homosexuels, la lesbophobie c'est envers les femmes lesbiennes, et la transphobie c'est envers les personnes transgenres. Ces discriminations peuvent créer une grande souffrance pour les personnes visées.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "groupe",
+            "avatar": "img/perso_emo/émotions_jeune_triste.png",
+            "content": "D'accord, désolé, on ne se rendait pas compte que c'était une insulte homophobe et que c'était violent : on ne recommencera pas.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene5"
+      },
+      "metadata": {
+        "themes_abordes": ["homophobie", "lesbophobie", "transphobie", "violences", "prise de conscience"],
+        "characters": ["Gaëtan", "Un ami", "Le groupe"]
+      }
+    },
+    "scene5": {
+      "id": "scene5",
+      "type": "messenger_scenario",
+      "context": "Gaëtan arrive au lycée Jean Joly, dans la classe de Nicolas, pour faire une intervention sur les orientations sexuelles et les identités de genre.",
+      "contextual_image": "img/img_contextuel/gaetan_en_cours .png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Selon vous, quelle est la différence entre orientation sexuelle et identité de genre ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Quelle est la différence entre orientation sexuelle et identité de genre ?",
+      "choices": [
+        "L'orientation sexuelle c'est un groupe sanguin (OS), et l'identité de genre c'est une partie de l'ADN.",
+        "Il n'y a pas de différence, quelqu'un qui change de genre est forcément homosexuel.",
+        "L'orientation sexuelle c'est l'attirance affective et/ou sexuelle envers une autre personne (qu'elle soit du même genre, du genre opposé, des deux ou plus) et l'identité de genre c'est la catégorie de genre à laquelle une personne estime appartenir."
+      ],
+      "nextQuestions": {
+        "A": "scene5a",
+        "B": "scene5b",
+        "C": "scene5c"
+      },
+      "metadata": {
+        "themes_abordes": ["orientation sexuelle", "identité de genre", "éducation"],
+        "characters": ["Gaëtan"]
+      }
+    },
+    "scene5a": {
+      "id": "scene5a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/gaetan_en_cours .png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "eleve",
+            "name": "Un élève",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "eleve",
+            "avatar": "img/perso_emo/émotions_eleve_neutre.png",
+            "content": "L'orientation sexuelle c'est un groupe sanguin, et l'identité de genre c'est une partie de l'ADN.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "eleve",
+            "avatar": "img/perso_emo/émotions_eleve_géné.png",
+            "content": "Ah non, j'ai mélangé avec mes cours de science ! L'orientation sexuelle c'est l'attirance affective et/ou sexuelle envers une autre personne (qu'elle soit du même genre, du genre opposé, des deux ou plus) et l'identité de genre c'est la catégorie de genre à laquelle une personne estime appartenir.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene6"
+      },
+      "metadata": {
+        "themes_abordes": ["orientation sexuelle", "identité de genre", "correction d'erreur"],
+        "characters": ["Gaëtan", "Un élève"]
+      }
+    },
+    "scene5b": {
+      "id": "scene5b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/gaetan_en_cours .png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "eleve",
+            "name": "Un élève",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "eleve",
+            "avatar": "img/perso_emo/émotions_eleve_neutre.png",
+            "content": "Il n'y a pas de différence, quelqu'un qui change de genre est forcément homosexuel.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_perplexe.png",
+            "content": "Tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "eleve",
+            "avatar": "img/perso_emo/émotions_eleve_géné.png",
+            "content": "Ah non mince, je me suis trompé… L'orientation sexuelle c'est l'attirance affective et/ou sexuelle envers une autre personne (qu'elle soit du même genre, du genre opposé, des deux ou plus) et l'identité de genre c'est la catégorie de genre à laquelle une personne estime appartenir.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene6"
+      },
+      "metadata": {
+        "themes_abordes": ["orientation sexuelle", "identité de genre", "stéréotypes"],
+        "characters": ["Gaëtan", "Un élève"]
+      }
+    },
+    "scene5c": {
+      "id": "scene5c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/gaetan_en_cours .png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "eleve",
+            "name": "Un élève",
+            "isCurrentUser": false
+          },
+          {
+            "id": "gaetan",
+            "name": "Gaëtan",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "eleve",
+            "avatar": "img/perso_emo/émotions_eleve_neutre.png",
+            "content": "L'orientation sexuelle c'est l'attirance affective et/ou sexuelle envers une autre personne (qu'elle soit du même genre, du genre opposé, des deux ou plus) et l'identité de genre c'est la catégorie de genre à laquelle une personne estime appartenir.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gaetan",
+            "avatar": "img/perso_emo/émotions_gaetan_content.png",
+            "content": "Exactement ! Et on ne peut pas décider de ces choses-là à la place des autres. C'est la personne qui le dit pour elle-même.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene6"
+      },
+      "metadata": {
+        "themes_abordes": ["orientation sexuelle", "identité de genre", "autodétermination"],
+        "characters": ["Gaëtan", "Un élève"]
+      }
+    },
+    "scene6": {
+      "id": "scene6",
+      "type": "messenger_scenario",
+      "context": "Nicolas est avec ses parents chez lui.",
+      "contextual_image": "img/img_contextuel/nico_et_ces_parents.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          },
+          {
+            "id": "pere",
+            "name": "Son père",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_content.png",
+            "content": "Ce matin un gars est venu faire une intervention dans la classe, il parlait d'orientation sexuelle c'était intéressant.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_triste.png",
+            "content": "Ah d'accord…",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_géné2.png",
+            "content": "Ca m'a fait réfléchir et j'ai compris que si les gens se moquent de moi c'est parce que je suis bisexuel.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_colère.png",
+            "content": "En même temps c'est ton choix, tu ne peux pas te plaindre d'être embêté.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Tu crois qu'on peut choisir son orientation sexuelle ?",
+      "choices": [
+        "Non, on ne peut pas choisir. Les sentiments et l'attirance ne se contrôlent pas.",
+        "Oui, dans certaines familles c'est même les parents qui décident à la naissance.",
+        "Oui, on peut choisir selon la mode du moment."
+      ],
+      "nextQuestions": {
+        "A": "scene6a",
+        "B": "scene6b",
+        "C": "scene6c"
+      },
+      "metadata": {
+        "themes_abordes": ["coming-out", "orientation sexuelle", "choix", "famille"],
+        "characters": ["Nicolas", "Père de Nicolas"]
+      }
+    },
+    "scene6a": {
+      "id": "scene6a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_et_ces_parents.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Son père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_content.png",
+            "content": "Non, on ne peut pas choisir. Les sentiments et l'attirance ne se contrôlent pas. Désolé que tu sois embêté par les autres, on va en parler au principal.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_heureux.png",
+            "content": "Merci de me soutenir, ça me fait du bien.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene7"
+      },
+      "metadata": {
+        "themes_abordes": ["soutien parental", "acceptation"],
+        "characters": ["Nicolas", "Père de Nicolas"]
+      }
+    },
+    "scene6b": {
+      "id": "scene6b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_et_ces_parents.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Son père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_perplexe.png",
+            "content": "Oui, dans certaines familles c'est même les parents qui décident à la naissance.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_perplexe.png",
+            "content": "Ah bon, tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_content.png",
+            "content": "Non je me trompe, on ne peut pas choisir. Les sentiments et l'attirance ne se contrôlent pas.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene7"
+      },
+      "metadata": {
+        "themes_abordes": ["orientation sexuelle", "correction d'erreur"],
+        "characters": ["Nicolas", "Père de Nicolas"]
+      }
+    },
+    "scene6c": {
+      "id": "scene6c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/img_contextuel/nico_et_ces_parents.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Son père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_triste.png",
+            "content": "Oui, on peut choisir selon la mode du moment.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_perplexe.png",
+            "content": "Ah bon, tu es sûr ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_content.png",
+            "content": "Non, en fait ce n'est pas une question de mode. On ne peut pas choisir. Les sentiments et l'attirance ne se contrôlent pas.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene7"
+      },
+      "metadata": {
+        "themes_abordes": ["orientation sexuelle", "correction d'erreur"],
+        "characters": ["Nicolas", "Père de Nicolas"]
+      }
+    },
+    "scene7": {
+      "id": "scene7",
+      "type": "messenger_scenario",
+      "context": "Le père de Nicolas lui propose son soutien.",
+      "contextual_image": "img/img_contextuel/nico_et_ces_parents.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "nicolas",
+            "name": "Nicolas",
+            "isCurrentUser": true
+          },
+          {
+            "id": "pere",
+            "name": "Son père",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_géné2.png",
+            "content": "J'aimerais bien me sentir autant en sécurité à la maison qu'au lycée.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_heureux.png",
+            "content": "Je suis d'accord. Je te trouve très courageux de nous en avoir parlé à ta mère et moi. Est-ce que ça t'aiderait si on en parlait avec la CPE de ton lycée ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "nicolas",
+            "avatar": "img/perso_emo/émotions_nicolas_peur.png",
+            "content": "J'ai peur qu'on dise que je suis une poucave, et que ça soit encore plus difficile après.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "pere",
+            "avatar": "img/perso_emo/émotions_père_nicolas_content2.png",
+            "content": "Je comprends que ça te fasse peur. Tu as le temps d'y réfléchir, dans tous les cas on te soutiendra toujours.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": {
+        "themes_abordes": ["soutien familial", "courage", "sécurité", "acceptation"],
+        "characters": ["Nicolas", "Père de Nicolas"]
+      }
+    }
+  }
+}
