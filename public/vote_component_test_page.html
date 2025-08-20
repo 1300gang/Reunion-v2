@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Vote Component - Glassmorphism</title>
+  
+  <!-- Import des polices -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* === VARIABLES CSS === */
+    :root {
+      --couleur-noirVolcan: #322a22;
+      --couleur-beigeVif: #f1e1b8;
+      --couleur-grisFonce: #415a51;
+      --couleur-jaunePeps: #e9bc40;
+      --couleur-grisBleuClair: #c9e2e5;
+      --couleur-blancSite: #fafff6;
+      --couleur-beigeNorm: #ede0cf;
+    }
+
+    /* === RESET & BASE === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #c9e2e5 0%, #fafff6 50%, #ede0cf 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: var(--couleur-noirVolcan);
+    }
+
+    /* Police Mefta simulée avec une police serif */
+    @font-face {
+      font-family: 'Mefta';
+      src: local('Georgia'), local('Times New Roman');
+      font-weight: 700;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: var(--couleur-noirVolcan);
+    }
+
+    .question-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(50, 42, 34, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .question-title {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: var(--couleur-noirVolcan);
+    }
+
+    .stats {
+      background: rgba(201, 226, 229, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    .stats h3 {
+      margin-bottom: 15px;
+      color: var(--couleur-grisFonce);
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: var(--couleur-jaunePeps);
+      color: var(--couleur-noirVolcan);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(233, 188, 64, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--couleur-grisBleuClair);
+    }
+
+    /* === VOTE COMPONENT STYLES === */
+    .vote-component {
+      position: relative;
+      min-height: 60px;
+      margin: 12px 0;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .vote-component.disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .component-inner {
+      position: relative;
+      min-height: 60px;
+      padding: 12px 20px 12px 70px;
+      border-radius: 40px;
+      /* border-top-left-radius: 40px; */
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+      border-bottom-left-radius: 40px;
+      background: rgba(201, 226, 229, 0.4);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 2px solid rgba(250, 255, 246, 0.6);
+      box-shadow: 
+        0 8px 32px 0 rgba(50, 42, 34, 0.1),
+        inset 0 2px 8px 0 rgba(250, 255, 246, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      /* overflow: hidden; retiré pour voir l'ombre de l'icon */
+    }
+
+    .vote-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #e9bc40 0%, #f4d03f 50%, #e9bc40 100%);
+      border-radius: 40px 12px 12px 40px; /* Correspond au component-inner */
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+      overflow: hidden;
+      width: 70px; /* Largeur initiale */
+    }
+
+    .icon-container {
+      position: absolute;
+      top: 50%;
+      left: 3px;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: #00000003;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border: 2px solid rgba(250, 255, 246, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 
+        -15px 13px 16px 0 rgb(0 0 0 / 27%), 
+        inset 0 0px 13px 0 rgb(255 255 255 / 68%), 
+        inset -1px 2px 4px 0 rgb(50 34 34 / 13%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .icon-letter {
+      font-family: 'Georgia', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fafff6;
+      user-select: none;
+      text-shadow: 0 1px 2px rgba(50, 42, 34, 0.2);
+    }
+
+    .text-container {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 36px;
+    }
+
+    .vote-text {
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: #322a22;
+      line-height: 1.4;
+    }
+
+    .vote-count {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: #322a22;
+      font-size: 0.9rem;
+      padding: 4px 10px;
+      background: rgba(233, 188, 64, 0.25);
+      border-radius: 16px;
+      white-space: nowrap;
+    }
+
+    /* Étoiles animées */
+    .star-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .star {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .star.animate {
+      animation: starBurst 0.6s ease-out forwards;
+    }
+
+    @keyframes starBurst {
+      0% {
+        opacity: 0;
+        transform: scale(0) translateY(0);
+      }
+      25% {
+        opacity: 1;
+        transform: scale(1.2) translateY(-15px);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1) translateY(-25px);
+      }
+      75% {
+        opacity: 0.8;
+        transform: scale(1.1) translateY(-35px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-45px);
+      }
+    }
+
+    /* Section des votants */
+    .voters-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      min-height: 28px;
+    }
+
+    .voters-section .voter-pill {
+      background: rgba(201, 226, 229, 0.6);
+      color: #322a22;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 2px 4px 0 rgba(50, 42, 34, 0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-width: 60px;
+    }
+
+    /* Hover states */
+    .vote-component:hover:not(.disabled) .component-inner {
+      background: rgba(233, 188, 64, 0.15);
+      border-color: rgba(233, 188, 64, 0.4);
+      box-shadow: 
+        0 8px 32px 0 rgba(233, 188, 64, 0.15),
+        inset 0 2px 8px 0 rgba(250, 255, 246, 0.4);
+    }
+
+    .vote-component:hover:not(.disabled) .icon-container {
+      background: #00000005;
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 
+        -15px 13px 16px 0 rgb(0 0 0 / 30%),
+        inset 0 0px 13px 0 rgb(255 255 255 / 75%),
+        inset -1px 2px 4px 0 rgb(50 34 34 / 15%);
+    }
+
+    .vote-component.selected .component-inner {
+      background: rgba(233, 188, 64, 0.2);
+      border-color: rgba(233, 188, 64, 0.6);
+    }
+
+    .vote-component.selected .icon-container {
+      background: #00000008;
+      border-color: rgba(250, 255, 246, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎮 Test du Vote Component</h1>
+    
+    <div class="question-card">
+      <h2 class="question-title">Qu'est-ce que la bisexualité ?</h2>
+      
+      <!-- Option A -->
+      <div class="vote-component" data-option="A">
+        <div class="component-inner">
+          <div class="vote-progress" style="width: 70px;"></div>
+          <div class="icon-container">
+            <div class="icon-letter">A</div>
+          </div>
+          <div class="text-container">
+            <div class="vote-text">C'est quand une personne est attirée par les deux genres</div>
+          </div>
+          <div class="star-container">
+            <div class="star" style="top: 20%; left: 60px;">✨</div>
+            <div class="star" style="top: 50%; left: 45%;">✨</div>
+            <div class="star" style="bottom: 20%; right: 30px;">✨</div>
+          </div>
+        </div>
+        <div class="voters-section"></div>
+      </div>
+
+      <!-- Option B -->
+      <div class="vote-component" data-option="B">
+        <div class="component-inner">
+          <div class="vote-progress" style="width: 70px;"></div>
+          <div class="icon-container">
+            <div class="icon-letter">B</div>
+          </div>
+          <div class="text-container">
+            <div class="vote-text">C'est quand on aime seulement deux couleurs</div>
+          </div>
+          <div class="star-container">
+            <div class="star" style="top: 20%; left: 60px;">✨</div>
+            <div class="star" style="top: 50%; left: 45%;">✨</div>
+            <div class="star" style="bottom: 20%; right: 30px;">✨</div>
+          </div>
+        </div>
+        <div class="voters-section"></div>
+      </div>
+
+      <!-- Option C -->
+      <div class="vote-component" data-option="C">
+        <div class="component-inner">
+          <div class="vote-progress" style="width: 70px;"></div>
+          <div class="icon-container">
+            <div class="icon-letter">C</div>
+          </div>
+          <div class="text-container">
+            <div class="vote-text">C'est quand un garçon est attiré par les filles (avec un texte très long pour tester l'adaptation de la hauteur du composant)</div>
+          </div>
+          <div class="star-container">
+            <div class="star" style="top: 20%; left: 60px;">✨</div>
+            <div class="star" style="top: 50%; left: 45%;">✨</div>
+            <div class="star" style="bottom: 20%; right: 30px;">✨</div>
+          </div>
+        </div>
+        <div class="voters-section"></div>
+      </div>
+
+      <div class="stats">
+        <h3>📊 Statistiques</h3>
+        <div class="stat-row">
+          <span>Total des votes :</span>
+          <span id="totalVotes">0</span>
+        </div>
+        <div class="stat-row">
+          <span>Option A :</span>
+          <span id="percentA">0%</span>
+        </div>
+        <div class="stat-row">
+          <span>Option B :</span>
+          <span id="percentB">0%</span>
+        </div>
+        <div class="stat-row">
+          <span>Option C :</span>
+          <span id="percentC">0%</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" onclick="simulateVote()">🎲 Simuler un vote</button>
+        <button class="btn btn-secondary" onclick="resetVotes()">🔄 Réinitialiser</button>
+        <button class="btn btn-secondary" onclick="addMultipleVotes(5)">➕ Ajouter 5 votes</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // État des votes
+    let votes = {
+      A: 0,
+      B: 0,
+      C: 0
+    };
+
+    // Noms aléatoires pour les votants
+    const randomNames = ['Alex', 'Jordan', 'Charlie', 'Sam', 'Robin', 'Casey', 'Taylor', 'Morgan', 'Jamie', 'Avery'];
+
+    // Fonction pour animer les étoiles
+    function animateStars(component) {
+      const stars = component.querySelectorAll('.star');
+      stars.forEach((star, index) => {
+        star.classList.remove('animate');
+        void star.offsetWidth; // Force reflow
+        setTimeout(() => {
+          star.classList.add('animate');
+        }, index * 100);
+      });
+    }
+
+    // Fonction pour mettre à jour l'affichage
+    function updateDisplay() {
+      const total = votes.A + votes.B + votes.C;
+      
+      // Mettre à jour les barres de progression seulement
+      document.querySelectorAll('.vote-component').forEach(component => {
+        const option = component.dataset.option;
+        const count = votes[option];
+        
+        // Mettre à jour la largeur de la barre de progression
+        const progress = component.querySelector('.vote-progress');
+        const percentage = total > 0 ? (count / total) * 100 : 0;
+        
+        // Calculer la largeur (min 70px pour l'icône, max 100%)
+        const minWidth = 70;
+        const maxWidth = component.querySelector('.component-inner').offsetWidth;
+        const targetWidth = minWidth + ((maxWidth - minWidth) * (percentage / 100));
+        
+        progress.style.width = `${targetWidth}px`;
+        
+        // Garder toujours le même border-radius
+        progress.style.borderRadius = '40px 12px 12px 40px';
+      });
+      
+      // Mettre à jour les statistiques
+      document.getElementById('totalVotes').textContent = total;
+      document.getElementById('percentA').textContent = total > 0 ? `${Math.round((votes.A / total) * 100)}%` : '0%';
+      document.getElementById('percentB').textContent = total > 0 ? `${Math.round((votes.B / total) * 100)}%` : '0%';
+      document.getElementById('percentC').textContent = total > 0 ? `${Math.round((votes.C / total) * 100)}%` : '0%';
+    }
+
+    // Fonction pour voter sur une option
+    function voteForOption(option) {
+      votes[option]++;
+      
+      const component = document.querySelector(`[data-option="${option}"]`);
+      
+      // Animer les étoiles
+      animateStars(component);
+      
+      // Ajouter un votant
+      const votersSection = component.querySelector('.voters-section');
+      const voterPill = document.createElement('span');
+      voterPill.className = 'voter-pill';
+      voterPill.textContent = randomNames[Math.floor(Math.random() * randomNames.length)];
+      votersSection.appendChild(voterPill);
+      
+      // Effet de sélection temporaire
+      component.classList.add('selected');
+      setTimeout(() => component.classList.remove('selected'), 500);
+      
+      updateDisplay();
+    }
+
+    // Simuler un vote aléatoire
+    function simulateVote() {
+      const options = ['A', 'B', 'C'];
+      const randomOption = options[Math.floor(Math.random() * options.length)];
+      voteForOption(randomOption);
+    }
+
+    // Ajouter plusieurs votes
+    function addMultipleVotes(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => simulateVote(), i * 200);
+      }
+    }
+
+    // Réinitialiser les votes
+    function resetVotes() {
+      votes = { A: 0, B: 0, C: 0 };
+      
+      // Vider les sections de votants
+      document.querySelectorAll('.voters-section').forEach(section => {
+        section.innerHTML = '';
+      });
+      
+      // Réinitialiser les barres
+      document.querySelectorAll('.vote-progress').forEach(progress => {
+        progress.style.width = '70px';
+      });
+      
+      updateDisplay();
+    }
+
+    // Ajouter les événements de clic sur les composants
+    document.querySelectorAll('.vote-component').forEach(component => {
+      component.addEventListener('click', function() {
+        const option = this.dataset.option;
+        voteForOption(option);
+      });
+    });
+
+    // Initialiser l'affichage
+    updateDisplay();
+  </script>
+</body>
+</html>

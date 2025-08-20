@@ -31,13 +31,18 @@ class VoteComponent {
     }
     
     // Structure HTML - Afficher le compteur seulement pour le MJ
-    this.element.innerHTML = `
+        this.element.innerHTML = `
       <div class="component-inner">
         <div class="vote-background"></div>
         <div class="vote-progress"></div>
+        <div class="icon-container">
+          <div class="icon-letter">${this.letter}</div>
+        </div>
         <div class="text-container">
           <div class="vote-text">${this.text}</div>
-          ${this.showVoters ? `<div class="vote-count">(${this.count})</div>` : ''}
+          ${/* Vote count commenté pour utilisation future
+          this.showVoters ? `<div class="vote-count">(${this.count})</div>` : '' */
+          ''}
         </div>
         <div class="star-container">
           <div class="star star-1"></div>
@@ -45,15 +50,12 @@ class VoteComponent {
           <div class="star star-3"></div>
         </div>
       </div>
-      <div class="icon-container">
-        <div class="icon-letter">${this.letter}</div>
-      </div>
       ${this.showVoters ? '<div class="voters-section"></div>' : ''}
     `;
     
     // Références aux éléments importants
     this.progressBar = this.element.querySelector('.vote-progress');
-    this.countElement = this.element.querySelector('.vote-count');
+    //this.countElement = this.element.querySelector('.vote-count');
     this.stars = Array.from(this.element.querySelectorAll('.star'));
     
     if (this.showVoters) {
@@ -66,15 +68,15 @@ class VoteComponent {
     this.container.appendChild(this.element);
     
     // Ajuster la position initiale de la barre de progression
-    const iconContainer = this.element.querySelector('.icon-container');
-    const iconRect = iconContainer.getBoundingClientRect();
-    const elementRect = this.element.getBoundingClientRect();
-    const relativeLeft = iconRect.left - elementRect.left;
-    const relativeTop = iconRect.top - elementRect.top;
+    // const iconContainer = this.element.querySelector('.icon-container');
+    // const iconRect = iconContainer.getBoundingClientRect();
+    // const elementRect = this.element.getBoundingClientRect();
+    // const relativeLeft = iconRect.left - elementRect.left;
+    // const relativeTop = iconRect.top - elementRect.top;
     
-    this.progressBar.style.left = `${relativeLeft}px`;
-    this.progressBar.style.top = `${relativeTop}px`;
-    this.progressBar.style.height = `${iconContainer.offsetHeight}px`;
+    // this.progressBar.style.left = `${relativeLeft}px`;
+    // this.progressBar.style.top = `${relativeTop}px`;
+    // this.progressBar.style.height = `${iconContainer.offsetHeight}px`;
   }
   
   attachEvents() {
@@ -101,10 +103,9 @@ class VoteComponent {
     });
   }
   
-  updateProgress() {
+updateProgress() {
     const percentage = this.totalVotes > 0 ? (this.count / this.totalVotes) * 100 : 0;
     
-    // Important: utiliser les dimensions après que l'élément soit rendu
     setTimeout(() => {
       const iconContainer = this.element.querySelector('.icon-container');
       const componentInner = this.element.querySelector('.component-inner');
@@ -113,22 +114,16 @@ class VoteComponent {
       
       const iconWidth = iconContainer.offsetWidth;
       const iconLeft = iconContainer.offsetLeft;
-      const maxWidth = componentInner.offsetWidth - iconLeft;
+      const maxWidth = componentInner.offsetWidth - iconLeft - 5;
       
       const minWidth = iconWidth;
       const targetWidth = minWidth + ((maxWidth - minWidth) * (percentage / 100));
       
       this.progressBar.style.width = `${targetWidth}px`;
       
-      // Ajuster le border-radius
-      if (targetWidth > iconWidth + 5) {
-        this.progressBar.style.borderTopRightRadius = '0px';
-        this.progressBar.style.borderBottomRightRadius = '0px';
-      } else {
-        this.progressBar.style.borderTopRightRadius = '100px';
-        this.progressBar.style.borderBottomRightRadius = '100px';
-      }
-    }, 50); // Petit délai pour s'assurer que le DOM est prêt
+      // Border-radius fixe, ne change plus
+      this.progressBar.style.borderRadius = '40px 12px 12px 40px';
+    }, 50);
   }
   
   updateVoters() {
@@ -173,12 +168,14 @@ class VoteComponent {
     this.element.classList.add('disabled');
   }
   
-  update(data) {
+update(data) {
     if (data.count !== undefined) {
       this.count = data.count;
+      /* Commenté pour utilisation future
       if (this.countElement) {
         this.countElement.textContent = `(${this.count})`;
       }
+      */
     }
     
     if (data.totalVotes !== undefined) {

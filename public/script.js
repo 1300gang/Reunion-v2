@@ -146,8 +146,8 @@ function generateQRCode(text) {
         element: canvas,
         value: text,
         size: 200,
-        foreground: '#FF6B6B',
-        background: '#ffffff'
+        foreground: '#322a22',
+        background: '#fafff6'
       });
       
       qrCodeElement.appendChild(canvas);

@@ -1,21 +1,14 @@
-/* === VOTE COMPONENT STYLES - REFONTE COMPLÈTE === */
+/* === VOTE COMPONENT STYLES - REFONTE GLASSMORPHISM === */
 
 /* Conteneur principal du composant de vote */
 .vote-component {
   position: relative;
-  width: 100%;
-  max-width: 320px;
-  height: 56px;
+  min-height: 60px;
   margin: 12px 0;
   cursor: pointer;
   user-select: none;
-  transition: filter 0.3s ease-in-out;
-  /* PAS de overflow: hidden pour permettre aux ombres de déborder */
-}
-
-.vote-component:hover,
-.vote-component.selected {
-  filter: drop-shadow(-9px 8px 11.8px rgba(50, 42, 34, 0.25));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Pas d'overflow hidden pour afficher les ombres */
 }
 
 .vote-component.disabled {
@@ -23,286 +16,285 @@
   opacity: 0.7;
 }
 
-/* Inner container */
+/* Inner container avec glassmorphism amélioré */
 .component-inner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  overflow: hidden; /* Important pour que le yellow-expander ne dépasse pas */
-  border-radius: 9px;
-}
-
-/* Background principal (gris-bleu clair) */
-.vote-background {
-  box-sizing: border-box;
-  position: absolute;
-  left: -1%;
-  right: -1%;
-  top: -1%;
-  bottom: -1%;
-  background: var(--couleur-grisBleuClair);
-  border: 1px solid rgba(168, 191, 193, 0.5);
-  backdrop-filter: blur(23.7px);
-  -webkit-backdrop-filter: blur(23.7px);
-  border-radius: 9px;
-  z-index: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-/* Barre de progression jaune expansible */
-.vote-progress {
-  position: absolute;
-  background: var(--couleur-jaunePeps);
-  border-radius: 100px; /* Rond par défaut */
-  z-index: 1;
-  transition: width 0.3s ease-out, 
-              border-top-right-radius 0.3s ease-out, 
-              border-bottom-right-radius 0.3s ease-out;
-  /* Position et taille seront définies dynamiquement en JS */
-  left: 3px; /* Aligné avec l'icon-container */
-  top: 3px; /* Centré verticalement */
-  height: 50px; /* Même hauteur que l'icon-container */
-  width: 50px; /* Largeur initiale = cercle parfait */
-}
-
-/* Quand la progression s'étend, ajuster les coins droits */
-.vote-progress.expanded {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-/* Conteneur de texte */
-.text-container {
-  position: absolute;
-  left: 60px; /* Espace après l'icône */
-  right: 10px;
-  top: 0;
-  bottom: 0;
-  z-index: 5;
+  position: relative;
+  min-height: 60px;
+  padding: 12px 20px 12px 70px;
+  border-radius: 40px;
+  /* border-top-left-radius: 40px; */
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 40px;
+  background: rgba(201, 226, 229, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid rgba(250, 255, 246, 0.6);
+  box-shadow: 
+    0 8px 32px 0 rgba(50, 42, 34, 0.1),
+    inset 0 2px 8px 0 rgba(250, 255, 246, 0.3);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  /* Pas d'overflow hidden pour voir l'ombre de l'icon */
 }
 
-.vote-text {
-  font-family: 'Satoshi-Regular', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  color: var(--couleur-noirVolcan);
-  word-wrap: break-word;
-  padding-right: 5px;
-  /* PAS de text-overflow pour voir le texte en entier */
-  display: block;
+/* Background avec texture papier */
+.vote-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: linear-gradient(135deg, 
+    rgba(201, 226, 229, 0.15), 
+    rgba(255, 255, 255, 0.1)
+  ); */
+  z-index: 1;
 }
 
-/* Compteur de votes (pour le MJ) */
-.vote-count {
-  margin-left: auto;
-  font-family: 'Satoshi-Medium', sans-serif;
-  font-weight: 600;
-  color: var(--couleur-grisFonce);
-  font-size: 0.85rem;
-  padding: 2px 8px;
-  background: rgba(233, 188, 64, 0.2);
-  border-radius: 12px;
-  white-space: nowrap;
+.vote-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/img/css/painted-relief-texture.jpg");
+  background-size: cover;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
-/* Icon container - Plus petit et élégant */
+/* Barre de progression avec texture jaune peps */
+.vote-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 90%;
+  top: 50%; transform: translateY(-50%);
+  background: linear-gradient(135deg, #e9bc40 0%, #f4d03f 50%, #e9bc40 100%);
+  border-radius: 40px 12px 12px 40px; /* Correspond au component-inner */
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  overflow: hidden;
+  width: 80px; /* Largeur initiale minimale */
+}
+
+/* Texture papier sur la barre de progression */
+.vote-progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/img/css/painted-relief-texture.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+}
+
+/* Icon container avec glassmorphism premium */
 .icon-container {
   position: absolute;
-  left: 3px; /* Petit décalage du bord */
-  top: 3px; /* Centré verticalement avec un petit décalage */
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
   width: 50px;
   height: 50px;
+  background: #00000003;
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 2px solid rgba(250, 255, 246, 0.8);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: var(--couleur-jaunePeps);
-  border-radius: 100px;
-  box-sizing: border-box;
-}
-
-/* Pattern de l'icône (optionnel) */
-.icon-pattern {
-  box-sizing: border-box;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(65, 90, 81, 0.01);
-  background-blend-mode: difference, normal;
-  backdrop-filter: blur(23.7px);
-  -webkit-backdrop-filter: blur(23.7px);
-  border-radius: 100px;
-  z-index: 1;
-}
-
-/* Bordure de l'icône */
-.icon-ellipse-border {
-  position: absolute;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  z-index: 2;
-}
-
-.ellipse-39 {
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: rgba(217, 217, 217, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: -9px 8px 11.8px rgba(50, 42, 34, 0.25), 
-              inset 0px 0px 22.4px rgba(255, 255, 255, 0.49);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  border-radius: 100px;
+  box-shadow: 
+    -15px 13px 16px 0 rgb(0 0 0 / 27%), 
+    inset 0 0px 13px 0 rgb(255 255 255 / 68%), 
+    inset -1px 2px 4px 0 rgb(50 34 34 / 13%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Lettre de l'icône */
 .icon-letter {
-  position: absolute;
+  font-family: 'Mefta', 'Satoshi-Bold', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fafff6; /* Blanc site */
+  user-select: none;
+  text-shadow: 0 1px 2px rgba(50, 42, 34, 0.2);
+}
+
+/* Conteneur de texte */
+.text-container {
+  position: relative;
+  z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-family: 'Mefta', 'Satoshi-Bold', sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--couleur-blancSite); /* Blanc site comme demandé */
-  z-index: 3;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 24px;
-  height: 25px;
-  background: none;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Légère ombre pour la lisibilité */
+  gap: 12px;
+  /* Pas de padding-left */
+  min-height: 36px;
 }
+
+.vote-text {
+  flex: 1;
+  font-family: 'Satoshi-Regular', sans-serif;
+  font-size: 1rem;
+  color: #322a22; /* Noir volcan */
+  line-height: 1.4;
+}
+
+/* Vote count - Commenté pour utilisation future */
+/*
+.vote-count {
+  font-family: 'Satoshi-Medium', sans-serif;
+  font-weight: 600;
+  color: #322a22;
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  background: rgba(233, 188, 64, 0.25);
+  border-radius: 16px;
+  white-space: nowrap;
+}
+*/
 
 /* Conteneur des étoiles animées */
 .star-container {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
-  z-index: 4;
+  z-index: 20;
 }
 
 .star {
   position: absolute;
-  background: #D9D9D9;
-  border-radius: 2px;
-  width: 4px;
-  height: 4px;
+  width: 20px;
+  height: 20px;
   opacity: 0;
-  transform: scale(0) rotate(0deg);
-  transition: opacity 0.1s, transform 0.1s;
+  pointer-events: none;
 }
 
-/* Positions des étoiles */
-.star-1 { 
-  left: 57.21%; 
-  top: 24.05%; 
-}
-
-.star-2 { 
-  left: 39.69%; 
-  top: 68.36%; 
-}
-
-.star-3 { 
-  left: 52.99%; 
-  top: 54.43%; 
-}
-
-/* Animation des étoiles */
-@keyframes starJump {
-  0% { 
-    transform: translateY(0) scale(0) rotate(0deg); 
-    opacity: 0; 
-  }
-  25% { 
-    transform: translateY(-8px) scale(1.8) rotate(45deg); 
-    opacity: 1; 
-  }
-  50% { 
-    transform: translateY(0) scale(1.5) rotate(90deg); 
-    opacity: 1; 
-  }
-  75% { 
-    transform: translateY(-5px) scale(1.6) rotate(135deg); 
-    opacity: 1; 
-  }
-  100% { 
-    transform: translateY(0) scale(0) rotate(180deg); 
-    opacity: 0; 
-  }
+.star::before {
+  content: '✨';
+  font-size: 20px;
 }
 
 .star.animate {
-  animation: starJump 0.8s ease-in-out forwards;
+  animation: starBurst 0.6s ease-out forwards;
 }
 
-/* Section des votants (pour le MJ) */
+/* Animation sautillante des étoiles */
+@keyframes starBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(0);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-15px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) translateY(-25px);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(-35px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-45px);
+  }
+}
+
+.star-1 {
+  top: 20%;
+  left: 60px;
+}
+
+.star-2 {
+  top: 50%;
+  left: 45%;
+}
+
+.star-3 {
+  bottom: 20%;
+  right: 30px;
+}
+
+/* Section des votants */
 .voters-section {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 8px;
-  padding-left: 63px; /* Aligné avec le texte */
+  /* Pas de padding-left */
   min-height: 28px;
 }
 
 .voters-section .player-pill {
   background: rgba(201, 226, 229, 0.6);
-  color: var(--couleur-noirVolcan);
+  color: #322a22;
   padding: 4px 10px;
   border-radius: 14px;
   font-size: 0.75rem;
   font-family: 'Satoshi-Medium', sans-serif;
-  box-shadow: -1px 1px 1.4px 0px rgba(50, 42, 34, 0.15);
+  box-shadow: 0 2px 4px 0 rgba(50, 42, 34, 0.1);
+  /* Centrage du texte dans les pills */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 60px;
 }
 
-/* États hover et interactions */
-.vote-component:hover:not(.disabled) {
-  transform: translateY(-2px);
+/* États hover - Changement de couleur élégant, pas de translation */
+.vote-component:hover:not(.disabled) .component-inner {
+  background: rgba(233, 188, 64, 0.15); /* Légère teinte jaune au hover */
+  border-color: rgba(233, 188, 64, 0.4);
+  box-shadow: 
+    0 8px 32px 0 rgba(233, 188, 64, 0.15),
+    inset 0 2px 8px 0 rgba(250, 255, 246, 0.4);
 }
 
 .vote-component:hover:not(.disabled) .icon-container {
-  transform: scale(1.05);
+  background: #00000005;
+  transform: translateY(-50%) scale(1.05); /* Léger grossissement seulement */
+  box-shadow: 
+    -15px 13px 16px 0 rgb(0 0 0 / 30%),
+    inset 0 0px 13px 0 rgb(255 255 255 / 75%),
+    inset -1px 2px 4px 0 rgb(50 34 34 / 15%);
 }
 
 /* État sélectionné */
-.vote-component.selected .vote-background {
-  border-color: var(--couleur-jaunePeps);
+.vote-component.selected .component-inner {
+  background: rgba(233, 188, 64, 0.2);
+  border-color: rgba(233, 188, 64, 0.6);
   border-width: 2px;
 }
 
 .vote-component.selected .icon-container {
-  box-shadow: -12px 6px 14px 0px rgba(233, 188, 64, 0.4);
+  background: #00000008;
+  border-color: rgba(250, 255, 246, 0.9);
 }
 
-/* Animation de vote */
-@keyframes voteClick {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.98);
-  }
-  100% {
-    transform: scale(1);
-  }
+.vote-component.selected .icon-letter {
+  color: #fafff6;
+  transform: scale(1.1);
 }
 
+/* Animation de vote - Supprimée */
 .vote-component.voting {
-  animation: voteClick 0.3s ease;
+  /* Animation supprimée comme demandé */
 }
 
 /* Ajustement pour les conteneurs avec votants */
@@ -313,64 +305,77 @@
 /* Responsive */
 @media (max-width: 768px) {
   .vote-component {
-    max-width: 100%;
-    height: 55px;
+    min-height: 56px;
   }
   
-  .text-container {
-    left: 58px;
-    right: 8px;
-  }
-  
-  .icon-container {
-    width: 48px;
-    height: 48px;
+  .component-inner {
+    padding: 10px 16px 10px 64px;
+    border-radius: 36px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   
   .vote-progress {
-    height: 48px;
-    width: 48px;
+    border-radius: 36px 10px 10px 36px;
+  }
+  
+  .text-container {
+    /* Pas de padding */
+  }
+  
+  .icon-container {
+    width: 46px;
+    height: 46px;
+    left: 3px;
   }
   
   .icon-letter {
-    font-size: 22px;
+    font-size: 1.1rem;
   }
   
   .vote-text {
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 0.95rem;
   }
   
   .voters-section {
-    padding-left: 60px;
+    /* Pas de padding */
   }
 }
 
 @media (max-width: 480px) {
   .vote-component {
-    height: 52px;
+    min-height: 52px;
   }
   
-  .text-container {
-    left: 55px;
-  }
-  
-  .icon-container {
-    width: 45px;
-    height: 45px;
+  .component-inner {
+    padding: 8px 14px 8px 60px;
+    border-radius: 32px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
   
   .vote-progress {
-    height: 45px;
-    width: 45px;
+    border-radius: 32px 8px 8px 32px;
+  }
+  
+  .icon-container {
+    width: 42px;
+    height: 42px;
+    left: 2px;
+    border-width: 2px;
   }
   
   .icon-letter {
-    font-size: 20px;
+    font-size: 1rem;
   }
   
   .vote-text {
-    font-size: 11px;
-    line-height: 15px;
+    font-size: 0.9rem;
   }
+}
+
+/* Amélioration de l'accessibilité */
+.vote-component:focus-visible .component-inner {
+  outline: 3px solid var(--couleur-jaunePeps);
+  outline-offset: 2px;
 }

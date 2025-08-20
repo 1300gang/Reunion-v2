@@ -2,7 +2,7 @@
 .chapter-navigation {
   position: relative;
   min-height: 500px;
-  background: white;
+  background: var(--fon);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -11,7 +11,7 @@
 /* Header avec titre */
 .chapter-nav-header {
   padding: 1.5rem;
-  border-bottom: 1px solid #f0f0f0;
+  /* border-bottom: 1px solid #f0f0f0; */
   background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
   position: relative;
   z-index: 10;
@@ -74,13 +74,13 @@
 /* États des chapitres */
 .chapter-item.current {
   background: var(--primary-color);
-  color: white;
+  color: var (--couleur-blancSite);
   border-color: var(--primary-color);
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
 .chapter-item.current::before {
-  background: white;
+  background: var (--couleur-blancSite);
 }
 
 .chapter-item.completed {
@@ -93,7 +93,7 @@
 }
 
 .chapter-item.not-played {
-  background: white;
+  background: var (--couleur-blancSite);
   border-color: #e0e0e0;
 }
 
@@ -108,7 +108,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: white;
+  background: var (--couleur-blancSite);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +124,7 @@
 
 .chapter-item.completed .chapter-icon {
   background: var(--primary-color);
-  color: white;
+  color: var (--couleur-blancSite);
 }
 
 .chapter-content {
@@ -138,7 +138,7 @@
 }
 
 .chapter-item.current .chapter-title {
-  color: white;
+  color: var (--couleur-blancSite);
 }
 
 .chapter-description {
@@ -172,7 +172,7 @@
 }
 
 .chapter-item.current .status-indicator {
-  background: white;
+  background: var (--couleur-blancSite);
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
   animation: pulse 2s infinite;
 }
@@ -188,7 +188,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: white;
+  background: var (--couleur-blancSite);
   z-index: 20;
   opacity: 0;
   transform: translateX(20px);
@@ -249,12 +249,12 @@
 
 .status-current {
   background: var(--primary-color);
-  color: white;
+  color: var (--couleur-blancSite);
 }
 
 .status-completed {
   background: #27ae60;
-  color: white;
+  color: var (--couleur-blancSite);
 }
 
 .status-not-played {
@@ -293,7 +293,7 @@
 
 /* Choix de réponses */
 .answer-option {
-  background: white;
+  background: var (--couleur-blancSite);
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -316,7 +316,7 @@
   width: 32px;
   height: 32px;
   background: var(--primary-color);
-  color: white;
+  color: var (--couleur-blancSite);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -346,7 +346,7 @@
 
 .voter-pill {
   background: var(--secondary-color);
-  color: white;
+  color: var (--couleur-blancSite);
   padding: 3px 10px;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -372,7 +372,7 @@
   left: 0;
   right: 0;
   padding: 1rem;
-  background: linear-gradient(to top, white 60%, transparent);
+  background: linear-gradient(to top, var (--couleur-blancSite) 60%, transparent);
   border-top: 1px solid #f0f0f0;
   display: flex;
   gap: 1rem;

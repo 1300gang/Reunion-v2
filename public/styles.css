@@ -1,7 +1,7 @@
 /* === IMPORT DES POLICES === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* === AJOUT DE LA POLICE MEFTA === */
+/* === AJOUT DE LA POLICE MEFTA ===
 @font-face {
   font-family: 'Mefta';
   src: url('../fonts/Mefta-Regular.woff2') format('woff2'),
@@ -16,7 +16,7 @@
        url('../fonts/Mefta-Bold.woff') format('woff');
   font-weight: 700;
   font-display: swap;
-}
+} */
 
 /* === VARIABLES CSS COHÉRENTES === */
 :root {
@@ -65,7 +65,7 @@
 }
 
 body {
-  font-family: 'Satoshi-Regular', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* font-family: 'Satoshi-Regular', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; */
   background: var(--couleur-blancSite);
   background-image: 
     linear-gradient(rgba(201, 226, 229, 0.1) 1px, transparent 1px),
@@ -80,7 +80,7 @@ body {
 
 /* === TYPOGRAPHIE AVEC MEFTA === */
 h1, h2, h3 {
-  font-family: 'Mefta', 'Satoshi-Bold', sans-serif;
+  /* font-family: 'Mefta', 'Satoshi-Bold', sans-serif; */
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -98,7 +98,7 @@ h1, h2, h3 {
 }
 
 .subtitle {
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   text-align: center;
   color: var(--text-light);
   margin-bottom: 2rem;
@@ -108,7 +108,7 @@ h1, h2, h3 {
 .screen {
   display: none;
   min-height: 100vh;
-  padding: 20px;
+  padding: 70px 20px 20px 20px; /* 70px en haut pour la pill */
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -164,8 +164,37 @@ h1, h2, h3 {
   transform: translateY(-2px);
 }
 
-/* === PILLS === */
+/* === MODIFICATION 2: Intervenant-creation avec fond gris clair === */
+#intervenant-creation {
+  background: var(--couleur-grisBleuClair) !important;
+}
+
+#intervenant-creation::after {
+  background: none !important;
+}
+
+/* Institutional card avec fond blanc site */
+.institutional-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--couleur-blancSite);
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+/* === MODIFICATION 1 & 9: PILLS === */
 .pill {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -173,14 +202,37 @@ h1, h2, h3 {
   color: var(--couleur-noirVolcan);
   padding: 8px 16px;
   border-radius: 20px;
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-weight: 600;
   font-size: 0.9rem;
-  margin: 0 auto 1.5rem auto;
   box-shadow: var(--effet-miniDropShadow);
-  /* Centrer la pill */
-  display: flex;
   width: fit-content;
+}
+
+/* Nouvelle pill intervenant (noir volcan / blanc site) */
+#intervenant-screen .pill,
+.intervenant-pill {
+  background: var(--couleur-noirVolcan) !important;
+  color: var(--couleur-blancSite) !important;
+}
+
+/* Pill dans player-screen toujours visible */
+#player-screen .pill {
+  position: fixed !important;
+  top: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+  background: var(--couleur-jaunePeps);
+  color: var(--couleur-noirVolcan);
+}
+
+.floating-pill {
+  position: fixed !important;
+  top: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
 }
 
 /* === BUTTONS INSTITUTIONNELS === */
@@ -191,8 +243,8 @@ h1, h2, h3 {
   gap: 8px;
   padding: 12px 24px;
   border: none;
-  border-radius: 50px; /* Bords très arrondis */
-  font-family: 'Satoshi-Medium', sans-serif;
+  border-radius: 50px;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -260,6 +312,27 @@ h1, h2, h3 {
   box-shadow: none !important;
 }
 
+/* === MODIFICATION 3: CreateLobbyBtn centré === */
+#createLobbyBtn {
+  display: block;
+  margin: 0 auto;
+}
+
+/* === MODIFICATION 6: CopyLinkBtn style === */
+#copyLinkBtn {
+  background: var(--couleur-noirVolcan) !important;
+  color: var(--couleur-blancSite) !important;
+  width: 50%;
+  display: block;
+  margin: 1rem auto;
+  box-shadow: var(--effet-grosDropShadow);
+}
+
+#copyLinkBtn:hover {
+  background: var(--couleur-noirVolcan) !important;
+  filter: brightness(1.2);
+}
+
 /* === FORMS === */
 .form-group {
   margin-bottom: 1.5rem;
@@ -267,7 +340,7 @@ h1, h2, h3 {
 
 .form-group label {
   display: block;
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: var(--text-dark);
@@ -280,7 +353,7 @@ h1, h2, h3 {
   border: 2px solid var(--couleur-grisBleuClair);
   border-radius: 24px;
   font-size: 1rem;
-  font-family: 'Satoshi-Regular', sans-serif;
+  /* font-family: 'Satoshi-Regular', sans-serif; */
   transition: var(--transition);
   background: var(--couleur-blancSite);
   box-shadow: var(--effet-innerShadow);
@@ -300,25 +373,24 @@ h1, h2, h3 {
   margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
-  /* Pas de couleur de fond */
 }
 
 .brief p {
   position: relative;
   margin-bottom: 0.75rem;
-  font-family: 'Satoshi-Regular', sans-serif;
+  /* font-family: 'Satoshi-Regular', sans-serif; */
   color: var(--couleur-noirVolcan);
 }
 
-/* === IMAGES CONTEXTUELLES === */
+/* === MODIFICATION 4: IMAGES CONTEXTUELLES sans background === */
 .image-container {
   position: relative;
   width: 100%;
-  height: 30vh; /* 30% de la hauteur de la vue */
+  height: 30vh;
   margin-bottom: 1.5rem;
   border-radius: 12px;
   overflow: hidden;
-  background: var(--couleur-beigeNorm);
+
 }
 
 .image-container img,
@@ -334,8 +406,8 @@ h1, h2, h3 {
 
 .image-placeholder {
   width: 100%;
-  height: 30vh; /* 30% de la hauteur de la vue */
-  background: var(--couleur-beigeNorm);
+  height: 100%;
+
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 1.5rem;
@@ -349,18 +421,24 @@ h1, h2, h3 {
   object-position: center;
 }
 
-/* === QR CODE SECTION === */
+/* === MODIFICATION 5: QR CODE SECTION === */
+#qr-overlay {
+  /* Pas de overflow: hidden */
+  position: relative;
+}
+
 .qr-container {
   margin: 1.5rem 0;
   display: flex;
   justify-content: center;
 }
 
-.qr-container canvas {
-  border: 3px solid var(--couleur-jaunePeps);
+/* === MODIFICATION 7: QRcode sans border-radius === */
+#qrcode canvas {
+  /* border: 3px solid var(--couleur-jaunePeps); */
   border-radius: 12px;
   padding: 12px;
-  background: white;
+  background: var(--couleur-blancSite);
   box-shadow: var(--effet-mediumDropShadow);
 }
 
@@ -384,136 +462,25 @@ h1, h2, h3 {
   min-height: 40px;
 }
 
+/* === MODIFICATION 8: Player-pill centrage === */
 .player-pill {
   background: var(--couleur-grisBleuClair);
   color: var(--couleur-noirVolcan);
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 0.875rem;
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-weight: 500;
   box-shadow: var(--effet-miniDropShadow);
   animation: slideIn 0.3s ease-out;
-}
-
-/* === VOTING OPTIONS AVEC GLASSMORPHISM === */
-.voting-options {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.voting-option {
-  position: relative;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: var(--effet-glassmorphism);
-  -webkit-backdrop-filter: var(--effet-glassmorphism);
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: var(--transition);
-  overflow: hidden;
-}
-
-.voting-option::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: var(--texture-papier-image);
-  background-size: cover;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-.voting-option:hover {
-  border-color: var(--couleur-jaunePeps);
-  box-shadow: var(--effet-mediumDropShadow);
-  transform: translateY(-2px);
-}
-
-/* === VOTE COMPONENT STYLES === */
-.vote-component {
-  position: relative;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: var(--effet-glassmorphism);
-  -webkit-backdrop-filter: var(--effet-glassmorphism);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 16px;
-  transition: var(--transition);
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.vote-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(201, 226, 229, 0.2), rgba(255, 255, 255, 0.1));
-  z-index: 1;
-}
-
-.vote-progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: var(--couleur-jaunePeps);
-  border-radius: 12px;
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
-  overflow: hidden;
-}
-
-/* Texture sur la barre de progression */
-.vote-progress::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: var(--texture-papier-image);
-  background-size: cover;
-  opacity: 0.2;
-  mix-blend-mode: multiply;
-}
-
-.icon-container {
-  position: relative;
-  z-index: 10;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: var(--effet-glassmorphism);
-  -webkit-backdrop-filter: var(--effet-glassmorphism);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
+  /* Centrage horizontal et vertical */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--effet-grosDropShadow);
-  transition: var(--transition);
+  text-align: center;
 }
 
-.vote-component:hover .icon-container {
-  transform: scale(1.1);
-  box-shadow: -12px 6px 14px 0px rgba(50, 42, 34, 0.4);
-}
 
-.icon-letter {
-  font-family: 'Mefta', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--couleur-noirVolcan);
-}
 
 /* === MESSENGER VIEW INSTITUTIONNEL === */
 .messenger-container {
@@ -555,6 +522,26 @@ h1, h2, h3 {
   animation: messageSlide 0.3s ease-out;
 }
 
+/* === MODIFICATION 10: Message-right avec avatar à droite === */
+.message-right {
+  flex-direction: row-reverse !important;
+}
+
+.message-right .message-content {
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.message-right .message-name {
+  text-align: right;
+}
+
+.message-right .message-text {
+  background: var(--couleur-jaunePeps);
+  color: var(--couleur-noirVolcan);
+  margin-left: auto;
+}
+
 .message-avatar {
   width: 40px;
   height: 40px;
@@ -569,11 +556,14 @@ h1, h2, h3 {
   box-shadow: var(--effet-grosDropShadow);
 }
 
+/* === MODIFICATION 11: Images dans messages avec scale 1.5 === */
 .message-avatar .avatar-image {
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
   border-radius: 50%;
+  transform-origin: top center;
+  transform: scale(1.5);
 }
 
 .message-content {
@@ -581,7 +571,7 @@ h1, h2, h3 {
 }
 
 .message-name {
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-size: 0.875rem;
   color: var(--text-light);
   margin-bottom: 4px;
@@ -593,21 +583,16 @@ h1, h2, h3 {
   border-radius: 16px;
   position: relative;
   box-shadow: var(--effet-miniDropShadow);
-  font-family: 'Satoshi-Regular', sans-serif;
+  /* font-family: 'Satoshi-Regular', sans-serif; */
 }
 
-.message-right .message-text {
-  background: var(--couleur-jaunePeps);
-  color: var(--couleur-noirVolcan);
-}
-
-/* === ANSWER PANEL === */
+/* === MODIFICATION 13: ANSWER PANEL avec fond gris foncé et texture papier === */
 .answer-panel {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--couleur-blancSite);
+  background: var(--couleur-grisFonce) !important;
   border-radius: 24px 24px 0 0;
   box-shadow: 0 -4px 20px rgba(50, 42, 34, 0.15);
   transform: translateY(100%);
@@ -617,6 +602,7 @@ h1, h2, h3 {
   overflow-y: auto;
 }
 
+/* Texture papier pour answerPanel */
 .answer-panel::before {
   content: '';
   position: absolute;
@@ -624,11 +610,13 @@ h1, h2, h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: var(--texture-papier-image);
+  background-image: url("img/css/painted-relief-texture.jpg");
   background-size: cover;
-  opacity: 0.08;
-  mix-blend-mode: multiply;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  mix-blend-mode: screen;
   pointer-events: none;
+  border-radius: 24px 24px 0 0;
 }
 
 .answer-panel.show {
@@ -642,14 +630,14 @@ h1, h2, h3 {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid var(--couleur-beigeNorm);
-  background: var(--couleur-blancSite);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--couleur-grisFonce) !important;
 }
 
 .answer-panel-header h3 {
   font-family: 'Mefta', sans-serif;
   margin: 0;
-  color: var(--couleur-noirVolcan);
+  color: var(--couleur-blancSite) !important;
 }
 
 .answer-choices {
@@ -659,6 +647,7 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background: transparent;
 }
 
 .answer-button {
@@ -666,20 +655,22 @@ h1, h2, h3 {
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: var(--effet-glassmorphism);
   -webkit-backdrop-filter: var(--effet-glassmorphism);
-  border: 2px solid rgba(241, 225, 184, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   cursor: pointer;
   transition: var(--transition);
   text-align: left;
   width: 100%;
   font-size: 1rem;
-  font-family: 'Satoshi-Regular', sans-serif;
+  /* font-family: 'Satoshi-Regular', sans-serif; */
+  color: var(--couleur-blancSite);
 }
 
 .answer-button:hover:not(.disabled) {
+  background: rgba(255, 255, 255, 0.2) !important;
   border-color: var(--couleur-jaunePeps);
   transform: translateX(4px);
   box-shadow: var(--effet-mediumDropShadow);
@@ -691,8 +682,8 @@ h1, h2, h3 {
 }
 
 .answer-letter {
-  background: var(--couleur-jaunePeps);
-  color: var(--couleur-noirVolcan);
+  background: var(--couleur-jaunePeps) !important;
+  color: var(--couleur-noirVolcan) !important;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -705,6 +696,130 @@ h1, h2, h3 {
   box-shadow: var(--effet-miniDropShadow);
 }
 
+/* === MODIFICATION 12: Boutons Answer avec style === */
+#closeAnswersBtn,
+#showAnswersBtn {
+  background: var(--couleur-noirVolcan) !important;
+  color: var(--couleur-blancSite) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 12px 24px;
+  border-radius: 50px;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--effet-grosDropShadow);
+}
+
+#closeAnswersBtn:hover,
+#showAnswersBtn:hover {
+  /* transform: translateY(-2px); */
+  filter: brightness(1.2);
+}
+
+#closeAnswersBtn {
+  position: absolute;
+  /* top: -20px; */
+  right: 20px;
+  background: var(--couleur-noirVolcan) !important;
+  color: var(--couleur-blancSite) !important;
+  border: none !important;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--effet-grosDropShadow);
+  z-index: 10;
+}
+
+#closeAnswersBtn:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+#showAnswersBtn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Animation vers le bas quand cliqué */
+#showAnswersBtn.clicked {
+  transform: translateY(-10px) translateX(-50%);
+}
+
+#showAnswersBtn .arrow {
+  transition: transform 0.3s ease;
+}
+
+#showAnswersBtn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* === MODIFICATION 14: AnswerStatus popup avec animation ease-in-out === */
+#answerStatus {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--couleur-noirVolcan);
+  color: var(--couleur-blancSite);
+  padding: 16px 32px;
+  border-radius: 50px;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
+  font-weight: 600;
+  box-shadow: var(--effet-grosDropShadow);
+  z-index: 2000;
+  transition: bottom 1s ease-in-out;
+  white-space: nowrap;
+}
+
+#answerStatus.show {
+  bottom: 30px;
+}
+
+@keyframes slideUpPopup {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownPopup {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: -100px;
+    opacity: 0;
+  }
+}
+
+.answer-status-popup {
+  animation: slideUpPopup 1s ease-in-out forwards;
+}
+
+.answer-status-popup.hide {
+  animation: slideDownPopup 1s ease-in-out forwards;
+}
+
 /* === NOTIFICATION TOAST === */
 .notification-toast {
   position: fixed;
@@ -715,7 +830,7 @@ h1, h2, h3 {
   color: var(--couleur-blancSite);
   padding: 12px 24px;
   border-radius: 8px;
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-weight: 500;
   box-shadow: var(--effet-grosDropShadow);
   opacity: 0;
@@ -742,7 +857,7 @@ h1, h2, h3 {
   border: none;
   border-radius: 16px;
   font-size: 1.2rem;
-  font-family: 'Satoshi-Medium', sans-serif;
+  /* font-family: 'Satoshi-Medium', sans-serif; */
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
@@ -774,6 +889,12 @@ h1, h2, h3 {
 .continue-button.clicked {
   animation: continuePulse 0.6s ease;
   background: var(--couleur-grisBleuClair);
+}
+
+/* === AJUSTEMENTS SUPPLÉMENTAIRES === */
+.answer-panel .waiting-message-panel {
+  color: var(--couleur-blancSite);
+  opacity: 0.8;
 }
 
 /* === ANIMATIONS === */
@@ -822,54 +943,6 @@ h1, h2, h3 {
   }
 }
 
-/* === JAUGE ANIMÉE === */
-.progress-bar-animated {
-  position: relative;
-  height: 8px;
-  background: var(--couleur-beigeNorm);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 1rem 0;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background: var(--couleur-jaunePeps);
-  border-radius: 4px;
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-bar-fill::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: var(--texture-papier-image);
-  background-size: cover;
-  opacity: 0.2;
-  mix-blend-mode: multiply;
-}
-
-.progress-bar-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  100% {
-    left: 100%;
-  }
-}
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
