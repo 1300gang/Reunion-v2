@@ -632,12 +632,30 @@ function sendPlayerFeedback() {
 }
 
 // ============================================================================
-// 8. FONCTIONS MODE SOLO (HARMONISÉES AVEC MODE JOUEUR)
+// 8. FONCTIONS MODE SOLO (HARMONISÉES AVEC MODE JOUEUR + DÉTECTION FIN)
 // ============================================================================
+
+// Fonction pour détecter la fin du scénario
+function isEndOfScenario(questionData) {
+  // Vérifier si c'est la fin du scénario :
+  // - Pas de choix OU choix vide
+  // - Pas de questions suivantes OU questions suivantes vides
+  return (
+    (!questionData.choices || questionData.choices.length === 0) &&
+    (!questionData.nextQuestions || Object.keys(questionData.nextQuestions).length === 0)
+  );
+}
 
 async function displaySoloQuestion(questionData) {
   gameState.currentQuestion = questionData;
   gameState.hasVoted = false;
+  
+  // NOUVEAU : Vérifier si c'est la fin du scénario
+  if (isEndOfScenario(questionData)) {
+    console.log('🎯 Fin du scénario détectée');
+    await handleSoloScenarioEnd(questionData);
+    return;
+  }
   
   // Cacher le panneau de réponses au début
   hideSoloAnswerPanel();
@@ -676,6 +694,160 @@ async function displaySoloQuestion(questionData) {
   
   // Question normale
   setupSoloChoices(questionData);
+}
+
+// Nouvelle fonction pour gérer la fin du scénario
+async function handleSoloScenarioEnd(finalQuestion) {
+  console.log('🏁 Gestion de la fin du scénario');
+  
+  // Si c'est une conversation messenger finale, l'afficher d'abord
+  if (finalQuestion.type === 'messenger_scenario' && finalQuestion.conversation) {
+    // Afficher l'image finale
+    if (finalQuestion.contextual_image) {
+      const imageEl = document.getElementById('soloContextImage');
+      if (imageEl) imageEl.src = finalQuestion.contextual_image;
+    }
+    
+    // Afficher la conversation finale
+    await displaySoloMessengerConversation(finalQuestion.conversation);
+    showElement('soloMessengerView');
+    
+    // Attendre un peu pour que le joueur puisse lire
+    await sleep(3000);
+    
+    // Ajouter un message de fin
+    showNotification('🎉 Félicitations ! Vous avez terminé le scénario', 'success', 4000);
+    
+    // Attendre encore un peu avant de passer à l'écran de fin
+    await sleep(2000);
+  }
+  
+  // Préparer les données pour l'écran de fin
+  prepareSoloEndScreen();
+  
+  // Passer à l'écran de fin
+  showScreen('solo-end-screen');
+}
+
+// Fonction pour préparer l'écran de fin
+function prepareSoloEndScreen() {
+  console.log('📊 Préparation de l\'écran de fin');
+  
+  // Récupérer les infos du scénario
+  const scenarioTitle = gameConfig.scenario?.scenario_info?.title || 'Scénario';
+  const scenarioCreators = gameConfig.scenario?.scenario_info?.creators || ['les créateurs'];
+  
+  // Calculer les statistiques
+  const stats = calculateSoloStats();
+  
+  // Mettre à jour l'écran de fin
+  updateSoloEndScreen(scenarioTitle, scenarioCreators, stats);
+}
+
+// Fonction pour calculer les statistiques
+function calculateSoloStats() {
+  // Récupérer les réponses stockées
+  const responses = gameState.responses[gameConfig.lobby] || {};
+  const questionCount = Object.keys(responses).length;
+  
+  // Extraire les thèmes abordés
+  const themes = new Set();
+  if (gameConfig.scenario && gameConfig.scenario.questions) {
+    Object.values(gameConfig.scenario.questions).forEach(q => {
+      if (q.metadata && q.metadata.themes_abordes) {
+        q.metadata.themes_abordes.forEach(theme => themes.add(theme));
+      }
+    });
+  }
+  
+  return {
+    questionCount,
+    themes: Array.from(themes),
+    responses
+  };
+}
+
+// Fonction pour mettre à jour l'écran de fin
+function updateSoloEndScreen(scenarioTitle, creators, stats) {
+  // Titre du scénario
+  const scenarioEl = document.getElementById('solo-completed-scenario');
+  if (scenarioEl) scenarioEl.textContent = scenarioTitle;
+  
+  // Créateurs
+  const creatorsEl = document.getElementById('solo-creators');
+  if (creatorsEl) {
+    creatorsEl.textContent = Array.isArray(creators) ? creators.join(', ') : creators;
+  }
+  
+  // Nombre de questions
+  const answersEl = document.getElementById('solo-total-answers');
+  if (answersEl) answersEl.textContent = stats.questionCount;
+  
+  // Retirer ou masquer l'élément durée totale
+  const timeSection = document.querySelector('.summary-stat:has(#solo-total-time)');
+  if (timeSection) {
+    timeSection.style.display = 'none';
+  }
+  
+  // Parcours emprunté
+  const pathEl = document.getElementById('solo-path-taken');
+  if (pathEl) {
+    pathEl.textContent = `${stats.questionCount} décisions prises`;
+  }
+  
+  // Thèmes abordés (limité à 7 thèmes)
+  const themesContainer = document.getElementById('solo-themes-list');
+  if (themesContainer && stats.themes.length > 0) {
+    themesContainer.innerHTML = '';
+    
+    // Prendre seulement les 7 premiers thèmes
+    const themesToDisplay = stats.themes.slice(0, 7);
+    
+    themesToDisplay.forEach(theme => {
+      const pill = document.createElement('span');
+      pill.className = 'theme-pill';
+      pill.textContent = theme;
+      themesContainer.appendChild(pill);
+    });
+    
+    // Ajouter un indicateur s'il y a plus de 7 thèmes
+    if (stats.themes.length > 7) {
+      const morePill = document.createElement('span');
+      morePill.className = 'theme-pill';
+      morePill.style.fontStyle = 'italic';
+      morePill.textContent = `+${stats.themes.length - 7} autres...`;
+      themesContainer.appendChild(morePill);
+    }
+  }
+  
+  // Choix clés (les 3 derniers choix)
+  const keyChoicesContainer = document.getElementById('solo-key-choices');
+  if (keyChoicesContainer && Object.keys(stats.responses).length > 0) {
+    keyChoicesContainer.innerHTML = '';
+    
+    // Prendre les 3 derniers choix comme "choix clés"
+    const responseEntries = Object.entries(stats.responses);
+    const keyChoices = responseEntries.slice(-3);
+    
+    keyChoices.forEach(([questionId, answer]) => {
+      const question = gameConfig.scenario?.questions?.[questionId];
+      if (question) {
+        const choiceDiv = document.createElement('div');
+        choiceDiv.className = 'key-choice-item';
+        
+        const choiceIndex = answer.charCodeAt(0) - 65;
+        const choiceText = question.choices?.[choiceIndex] || answer;
+        
+        choiceDiv.innerHTML = `
+          <div>
+            <strong>${question.question || 'Question'}</strong><br>
+            <span>→ ${choiceText}</span>
+          </div>
+        `;
+        keyChoicesContainer.appendChild(choiceDiv);
+      }
+    });
+  }
 }
 
 function handleSoloContinue(questionData) {
@@ -751,6 +923,13 @@ function submitSoloAnswer(questionId, answer, nextQuestionId) {
   if (gameState.hasVoted) return;
   
   gameState.hasVoted = true;
+  
+  // Stocker la réponse
+  if (!gameState.responses[gameConfig.lobby]) {
+    gameState.responses[gameConfig.lobby] = {};
+  }
+  gameState.responses[gameConfig.lobby][questionId] = answer;
+  
   socket.emit('player-answer', { questionId, answer });
   
   // Désactiver tous les choix
@@ -775,6 +954,12 @@ function submitSoloAnswer(questionId, answer, nextQuestionId) {
     setTimeout(() => {
       socket.emit('choose-next-question', { nextQuestionId });
       hideSoloAnswerPanel();
+    }, 1000);
+  } else {
+    // Si pas de question suivante, c'est peut-être la fin
+    setTimeout(() => {
+      console.log('Pas de question suivante - vérification de fin');
+      // Le serveur devrait envoyer soit une nouvelle question, soit déclencher la fin
     }, 1000);
   }
 }
@@ -1201,7 +1386,7 @@ socket.on('joined-lobby', ({ scenarioTitle }) => {
   if (gameLobbyEl) gameLobbyEl.textContent = gameConfig.lobby;
 });
 
-// === Événements Jeu ===
+// === Événements Jeu (MODIFIÉ pour stocker les réponses) ===
 
 socket.on('game-start', () => {
   console.log('🎮 Partie démarrée');
@@ -1217,6 +1402,11 @@ socket.on('game-start', () => {
 
 socket.on('question', (questionData) => {
   console.log('Question reçue:', questionData);
+  
+  // Initialiser le stockage des réponses si nécessaire
+  if (!gameState.responses[gameConfig.lobby]) {
+    gameState.responses[gameConfig.lobby] = {};
+  }
   
   // Ajouter le flag isContinue si absent
   if (!questionData.hasOwnProperty('isContinue')) {
@@ -1256,7 +1446,8 @@ socket.on('game-over', () => {
     hideElement('game-control');
     showElement('game-over-gm');
   } else if (gameConfig.mode === 'solo') {
-    showScreen('solo-end-screen');
+    // Ne pas afficher immédiatement l'écran de fin, cela sera géré par handleSoloScenarioEnd
+    console.log('🏁 Fin de partie solo détectée');
   }
 });
 
@@ -1645,4 +1836,4 @@ window.gameManager = {
   restartGame: () => location.reload()
 };
 
-console.log('🎮 Game.js chargé avec succès (version avec mode Solo harmonisé)');
+console.log('🎮 Game.js chargé avec succès (version avec mode Solo harmonisé et détection de fin)');
