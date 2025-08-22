@@ -14,11 +14,11 @@
   
   <!-- Feuilles de style refondues -->
   <!-- <link rel="stylesheet" href="styles/satoshi.css"> -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles/game.css">
   <link rel="stylesheet" href="styles/vote-component.css">
   <link rel="stylesheet" href="styles/chapter-menu.css">
   
-  <!-- Ajout de la police Mefta -->
+  <!-- Ajout de la police Mefta
   <style>
     @font-face {
       font-family: 'Mefta';
@@ -33,7 +33,7 @@
            url('fonts/Mefta-Bold.woff') format('woff');
       font-weight: 700;
       font-display: swap;
-    }
+    } -->
   </style>
 </head>
 <body>
@@ -43,10 +43,6 @@
   <!-- Écran Intervenant - Création -->
   <div id="intervenant-screen" class="screen">
     <div class="container">
-      <div class="pill">
-        <span class="pill-icon">🎓</span>
-        <span>Mode Intervenant</span>
-      </div>
       
       <div id="intervenant-creation" class="card institutional-card">
         <h2 class="card-title">Bienvenue dans le mode Intervenant</h2>
@@ -326,85 +322,149 @@
       </div>
     </div>
   </div>
+<!-- Écran Mode Solo -->
+<!-- NOUVELLE STRUCTURE HTML POUR LE MODE SOLO -->
+<!-- À remplacer dans index.html -->
 
-  <!-- Overlay de texture papier global -->
-  <style>
-    .paper-texture-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url('img/painted-relief-texture.jpg');
-      background-size: cover;
-      opacity: 0.03;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: 9999;
-    }
+<!-- Écran Mode Solo (simplifié comme le mode joueur) -->
+<div id="solo-screen" class="screen">
+  <div class="container">
+    <!-- Pill flottant avec couleur du niveau -->
+    <div class="pill floating-pill">
+      <span class="pill-icon">🎮</span>
+      <span id="soloLobbyName">Mode Solo</span>
+    </div>
     
-    .institutional-card {
-      position: relative;
-      overflow: visible;
-    }
+    <!-- Interface de jeu identique au mode joueur -->
+    <div class="game-content">
+      <!-- Image contextuelle -->
+      <div class="image-placeholder">
+        <img id="soloContextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+      </div>
+      
+      <!-- Contexte de la question -->
+      <div id="soloQuestionContext" class="context-box"></div>
+      
+      <!-- Vue Messenger pour les dialogues -->
+      <div id="soloMessengerView" class="messenger-container">
+        <div class="typing-indicator hidden">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      
+      <!-- Bouton pour afficher les réponses -->
+      <button id="soloShowAnswersBtn" class="answer-toggle">
+        <span>Répondre</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
     
-    .institutional-card::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(135deg, 
-        var(--couleur-jaunePeps) 0%, 
-        transparent 30%, 
-        transparent 70%, 
-        var(--couleur-grisBleuClair) 100%
-      );
-      border-radius: 14px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
-    
-    .institutional-card:hover::after {
-      opacity: 0.2;
-    }
-    
-    .waiting-indicator {
-      width: 8px;
-      height: 8px;
-      background: var(--couleur-jaunePeps);
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 8px;
-      animation: pulse 2s infinite;
-    }
-    
-    .institutional-loader {
-      border-color: var(--couleur-beigeNorm);
-      border-top-color: var(--couleur-jaunePeps);
-    }
-    
-    .floating-pill {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      box-shadow: var(--effet-grosDropShadow);
-    }
-    
-    .pill-icon {
-      font-size: 1.1rem;
-    }
-  </style>
+    <!-- Panneau de réponses (identique au mode joueur) -->
+    <div id="soloAnswerPanel" class="answer-panel">
+      <div id="soloWaitingMessage" class="waiting-message-panel hidden">
+        <div class="waiting-indicator"></div>
+        <span>Chargement de la suite...</span>
+      </div>
+      <div class="answer-panel-header">
+        <h3 id="soloQuestionTitle">Que faire ?</h3>
+        <button id="soloCloseAnswersBtn" class="close-btn">×</button>
+      </div>
+      <div id="soloAnswerChoices" class="answer-choices"></div>
+      <p id="soloAnswerStatus" class="answer-status"></p>
+    </div>
+  </div>
+</div>
 
+<!-- Écran de fin Mode Solo (conservé tel quel) -->
+<div id="solo-end-screen" class="screen">
+  <div class="container">
+    <div class="card end-card">
+      <div class="pill pill-success">🎉 Partie Terminée</div>
+      
+      <h1 class="end-title">Bravo ! Vous avez terminé le scénario</h1>
+      
+      <!-- Résumé de la partie -->
+      <div class="solo-summary">
+        <h3>📊 Résumé de votre parcours</h3>
+        
+        <div class="summary-stats">
+          <div class="summary-stat">
+            <span class="summary-icon">📖</span>
+            <div class="summary-content">
+              <span class="summary-label">Scénario complété</span>
+              <span class="summary-value" id="solo-completed-scenario">-</span>
+            </div>
+          </div>
+          
+          <div class="summary-stat">
+            <span class="summary-icon">❓</span>
+            <div class="summary-content">
+              <span class="summary-label">Questions répondues</span>
+              <span class="summary-value" id="solo-total-answers">0</span>
+            </div>
+          </div>
+          
+          <div class="summary-stat">
+            <span class="summary-icon">⏱️</span>
+            <div class="summary-content">
+              <span class="summary-label">Durée totale</span>
+              <span class="summary-value" id="solo-total-time">00:00</span>
+            </div>
+          </div>
+          
+          <div class="summary-stat">
+            <span class="summary-icon">🎯</span>
+            <div class="summary-content">
+              <span class="summary-label">Parcours emprunté</span>
+              <span class="summary-value" id="solo-path-taken">-</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Thèmes abordés -->
+        <div class="themes-section">
+          <h4>🏷️ Thèmes abordés durant votre parcours</h4>
+          <div id="solo-themes-list" class="themes-pills"></div>
+        </div>
+        
+        <!-- Choix marquants -->
+        <div class="key-choices-section">
+          <h4>🔑 Vos choix clés</h4>
+          <div id="solo-key-choices" class="key-choices-list"></div>
+        </div>
+      </div>
+      
+      <!-- Actions finales -->
+      <div class="solo-end-actions">
+        <button id="soloDownloadBtn" class="button button-primary">
+          📥 Télécharger mon parcours (PDF)
+        </button>
+        <button id="soloShareBtn" class="button button-secondary">
+          📤 Partager mon expérience
+        </button>
+        <button id="soloReplayBtn" class="button button-secondary">
+          🔄 Rejouer ce scénario
+        </button>
+        <button id="soloNewLevelBtn" class="button button-success">
+          🎮 Choisir un autre niveau
+        </button>
+      </div>
+      
+      <!-- Message de remerciement -->
+      <div class="thank-you-message">
+        <p>Merci d'avoir joué ! Votre parcours a été unique et nous espérons que vous avez apprécié l'expérience.</p>
+        <p class="creator-credit">Ce scénario a été créé par <span id="solo-creators">les créateurs</span></p>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- Scripts -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="scripts/vote-component.js"></script>
   <script src="scripts/chapter-menu.js"></script>
-  <script src="script.js"></script>
+  <script src="scripts/game.js"></script>
 </body>
 </html>

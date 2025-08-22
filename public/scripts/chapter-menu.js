@@ -1,391 +1,563 @@
-// === CHAPTERS MENU CLASS ===
+// === CHAPTERS MENU CLASS - VERSION FINALE ===
+
 class ChaptersMenu {
   constructor(container, options = {}) {
+    // Configuration
     this.container = container;
     this.scenario = options.scenario || null;
     this.currentQuestion = options.currentQuestion || null;
     this.responses = options.responses || {};
     this.questionPath = options.questionPath || [];
-    this.onQuestionSelect = options.onQuestionSelect || null;
     
+    // État
+    this.isOpen = false;
     this.currentView = 'list'; // 'list' ou 'details'
-    this.selectedChapter = null;
+    this.currentChapter = null;
+    this.elements = {};
     
+    // Données des joueurs (mises à jour via update())
+    this.playersData = options.playersData || {
+      allPlayers: [],
+      votedPlayers: {},
+      waitingPlayers: []
+    };
+    
+    // Callbacks optionnels
+    this.onChapterSelect = options.onChapterSelect || null;
+    this.onMenuToggle = options.onMenuToggle || null;
+    
+    // Initialisation
     this.init();
   }
   
+  // ============================================
+  // INITIALISATION
+  // ============================================
+  
   init() {
-    this.render();
+    // Remplacer complètement le container
+    this.createWrapper();
+    this.createTogglePill();
+    this.createOverlay();
+    this.createModal();
     this.attachEvents();
+    
+    // Charger les chapitres si scenario disponible
+    if (this.scenario) {
+      this.loadChapters();
+    }
   }
   
-  render() {
-    this.container.innerHTML = `
-      <div class="chapters-menu-container">
-        <div class="chapters-list-view" id="chaptersListView">
-          ${this.renderListView()}
-        </div>
-        <div class="chapter-details-view" id="chapterDetailsView">
-          <!-- Contenu dynamique -->
-        </div>
-      </div>
+  createWrapper() {
+    // Créer un wrapper qui remplace le container original
+    const wrapper = document.createElement('div');
+    wrapper.className = 'chapters-menu-wrapper';
+    
+    // Remplacer le container
+    this.container.parentNode.replaceChild(wrapper, this.container);
+    this.container = wrapper;
+  }
+  
+  // ============================================
+  // CRÉATION DES ÉLÉMENTS
+  // ============================================
+  
+  createTogglePill() {
+    const pill = document.createElement('button');
+    pill.className = 'chapters-toggle-pill';
+    pill.innerHTML = `
+      <span class="pill-icon">📚</span>
+      <span>Chapitres</span>
     `;
+    
+    document.body.appendChild(pill);
+    this.elements.togglePill = pill;
   }
   
-  renderListView() {
-    const chapters = this.getChapters();
+  createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'chapters-overlay';
     
-    return `
-      <div class="chapters-header">
-        <div class="chapters-title">
-          <span class="chapters-title-icon">📚</span>
-          <span>Chapitres & Scènes</span>
-        </div>
-        <div class="chapters-legend">
-          <div class="legend-item">
-            <div class="legend-dot current"></div>
-            <span>En cours</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-dot completed"></div>
-            <span>Complété</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-dot pending"></div>
-            <span>À venir</span>
-          </div>
-        </div>
-      </div>
-      <div class="chapters-list">
-        ${chapters.map(chapter => this.renderChapterItem(chapter)).join('')}
-      </div>
-    `;
+    document.body.appendChild(overlay);
+    this.elements.overlay = overlay;
   }
   
-  renderChapterItem(chapter) {
-    const status = this.getChapterStatus(chapter.id);
-    const voteInfo = this.getVoteInfo(chapter.id);
-    
-    return `
-      <div class="chapter-item ${status}" data-chapter-id="${chapter.id}">
-        <div class="chapter-number">${chapter.number}</div>
-        <div class="chapter-info">
-          <div class="chapter-name">${chapter.title}</div>
-          <div class="chapter-description">${chapter.context || ''}</div>
-        </div>
-        <div class="chapter-status">
-          ${status === 'current' ? '<span class="status-icon">📍</span>' : ''}
-          ${status === 'completed' ? '<span class="status-icon">✅</span>' : ''}
-          ${status === 'pending' ? '<span class="status-icon">⏳</span>' : ''}
-          ${voteInfo.total > 0 ? `<span class="vote-count">${voteInfo.total} votes</span>` : ''}
-        </div>
-      </div>
-    `;
-  }
-  
-  renderDetailsView(chapterId) {
-    const chapter = this.getChapterById(chapterId);
-    if (!chapter) return '';
-    
-    const status = this.getChapterStatus(chapterId);
-    const voteInfo = this.getVoteInfo(chapterId);
-    
-    return `
-      <div class="details-header">
-        <button class="back-button" id="backToListBtn">
-          <span>←</span>
+  createModal() {
+    const modal = document.createElement('div');
+    modal.className = 'chapters-modal-card';
+    modal.innerHTML = `
+      <!-- Header -->
+      <div class="chapters-card-header">
+        <h2 class="chapters-header-title">
+          <span>📖</span>
+          <span>Chapitres du scénario</span>
+        </h2>
+        <button class="chapters-close-btn">
+          <span>✕</span>
         </button>
-        <div class="details-title">${chapter.title}</div>
-        <div class="details-status ${status}">
-          ${status === 'current' ? 'En cours' : ''}
-          ${status === 'completed' ? 'Complété' : ''}
-          ${status === 'pending' ? 'À venir' : ''}
-        </div>
       </div>
-      <div class="details-content">
-        ${this.renderDetailsContent(chapter, status, voteInfo)}
-      </div>
-    `;
-  }
-  
-  renderDetailsContent(chapter, status, voteInfo) {
-    let content = '';
-    
-    // Contexte
-    if (chapter.context) {
-      content += `
-        <div class="detail-section">
-          <div class="detail-section-title">
-            <span>📍</span>
-            <span>Contexte</span>
-          </div>
-          <div class="detail-section-content">
-            ${chapter.context}
-          </div>
-        </div>
-      `;
-    }
-    
-    // Question
-    if (chapter.question) {
-      content += `
-        <div class="detail-section">
-          <div class="detail-section-title">
-            <span>❓</span>
-            <span>Question</span>
-          </div>
-          <div class="detail-section-content">
-            ${chapter.question}
-          </div>
-        </div>
-      `;
-    }
-    
-    // Choix et résultats
-    if (chapter.choices && chapter.choices.length > 0) {
-      content += `
-        <div class="detail-section">
-          <div class="detail-section-title">
-            <span>📊</span>
-            <span>${status === 'pending' ? 'Choix possibles' : 'Résultats'}</span>
-          </div>
-          <div class="detail-section-content">
-            ${this.renderVoteResults(chapter, voteInfo, status)}
-          </div>
-        </div>
-      `;
-    }
-    
-    // Message si pas encore joué
-    if (status === 'pending' && !chapter.question) {
-      content = `
-        <div class="not-played-message">
-          Cette scène n'a pas encore été jouée.
-          Elle sera disponible prochainement dans la progression du jeu.
-        </div>
-      `;
-    }
-    
-    return content;
-  }
-  
-  renderVoteResults(chapter, voteInfo, status) {
-    if (!chapter.choices) return '';
-    
-    return `
-      <div class="vote-results">
-        ${chapter.choices.map((choice, index) => {
-          const letter = String.fromCharCode(65 + index);
-          const votes = voteInfo.details[letter] || 0;
-          const voters = voteInfo.voters[letter] || [];
-          const percentage = voteInfo.total > 0 ? (votes / voteInfo.total * 100) : 0;
-          
-          return `
-            <div class="vote-option">
-              <div class="vote-option-header">
-                <div class="vote-letter">${letter}</div>
-                <div class="vote-text">${choice}</div>
-                ${status !== 'pending' ? `<div class="vote-count-badge">${votes}</div>` : ''}
-              </div>
-              ${status !== 'pending' && voteInfo.total > 0 ? `
-                <div class="vote-progress">
-                  <div class="vote-progress-bar" style="width: ${percentage}%"></div>
-                </div>
-                ${voters.length > 0 ? `
-                  <div class="vote-voters">
-                    ${voters.map(voter => `<span class="voter-pill">${voter}</span>`).join('')}
-                  </div>
-                ` : ''}
-              ` : ''}
-            </div>
-          `;
-        }).join('')}
-      </div>
-    `;
-  }
-  
-  // === MÉTHODES UTILITAIRES ===
-  
-  getChapters() {
-    if (!this.scenario || !this.scenario.questions) return [];
-    
-    const chapters = [];
-    let chapterNumber = 1;
-    
-    // Parcourir les questions dans l'ordre du scénario
-    for (const [questionId, questionData] of Object.entries(this.scenario.questions)) {
-      // Ignorer les questions "Continuer"
-      if (questionData.choices && 
-          questionData.choices.length === 1 && 
-          (questionData.choices[0].toLowerCase() === 'continuer' || !questionData.question)) {
-        continue;
-      }
       
-      chapters.push({
-        id: questionId,
-        number: chapterNumber++,
-        title: this.getChapterTitle(questionData),
-        context: questionData.context || '',
-        question: questionData.question || '',
-        choices: questionData.choices || [],
-        metadata: questionData.metadata || {}
-      });
-    }
+      <!-- Contenu -->
+      <div class="chapters-modal-content">
+        <!-- Vue Liste -->
+        <div class="chapters-list-view">
+          <!-- Légende -->
+          <div class="chapters-legend">
+            <div class="chapters-legend-item">
+              <span class="chapters-legend-dot current"></span>
+              <span>En cours</span>
+            </div>
+            <div class="chapters-legend-item">
+              <span class="chapters-legend-dot completed"></span>
+              <span>Complété</span>
+            </div>
+            <div class="chapters-legend-item">
+              <span class="chapters-legend-dot pending"></span>
+              <span>À venir</span>
+            </div>
+          </div>
+          
+          <!-- Liste des chapitres -->
+          <div class="chapters-list"></div>
+        </div>
+        
+        <!-- Vue Détails -->
+        <div class="chapter-details-view">
+          <div class="chapter-details-header">
+            <button class="chapter-back-button">
+              <span>←</span>
+            </button>
+            <div class="chapter-details-title-container">
+              <h3 class="chapter-details-title">Titre du chapitre</h3>
+              <div class="chapter-details-status-badge">En cours</div>
+            </div>
+          </div>
+          
+          <div class="chapter-details-content">
+            <!-- Section Contexte -->
+            <div class="chapter-detail-section">
+              <div class="chapter-detail-section-title">
+                <span>📍</span>
+                <span>Contexte</span>
+              </div>
+              <div class="chapter-detail-section-content" id="chapter-detail-context">
+                <!-- Contexte -->
+              </div>
+            </div>
+            
+            <!-- Section Question -->
+            <div class="chapter-detail-section">
+              <div class="chapter-detail-section-title">
+                <span>❓</span>
+                <span>Question posée</span>
+              </div>
+              <div class="chapter-detail-section-content" id="chapter-detail-question">
+                <!-- Question -->
+              </div>
+            </div>
+            
+            <!-- Section Votes -->
+            <div class="chapter-detail-section">
+              <div class="chapter-detail-section-title">
+                <span>📊</span>
+                <span>Réponses et votes</span>
+              </div>
+              <div class="chapter-votes-container">
+                <!-- VoteComponents seront insérés ici -->
+              </div>
+              
+              <!-- Section joueurs en attente -->
+              <div class="chapter-waiting-players-section" style="display: none;">
+                <div class="chapter-waiting-players-title">⏳ En attente de vote :</div>
+                <div class="chapter-waiting-players-list">
+                  <!-- Pills des joueurs en attente -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
     
-    return chapters;
+    document.body.appendChild(modal);
+    this.elements.modal = modal;
+    
+    // Stocker les références aux éléments importants
+    this.elements.closeBtn = modal.querySelector('.chapters-close-btn');
+    this.elements.listView = modal.querySelector('.chapters-list-view');
+    this.elements.detailsView = modal.querySelector('.chapter-details-view');
+    this.elements.chaptersList = modal.querySelector('.chapters-list');
+    this.elements.backButton = modal.querySelector('.chapter-back-button');
+    this.elements.detailsTitle = modal.querySelector('.chapter-details-title');
+    this.elements.detailsStatusBadge = modal.querySelector('.chapter-details-status-badge');
+    this.elements.votesContainer = modal.querySelector('.chapter-votes-container');
+    this.elements.waitingSection = modal.querySelector('.chapter-waiting-players-section');
+    this.elements.waitingList = modal.querySelector('.chapter-waiting-players-list');
   }
   
-  getChapterById(chapterId) {
-    const chapters = this.getChapters();
-    return chapters.find(c => c.id === chapterId);
-  }
-  
-  getChapterTitle(questionData) {
-    // Essayer d'extraire un titre du contexte ou utiliser l'ID
-    if (questionData.metadata && questionData.metadata.scene_title) {
-      return questionData.metadata.scene_title;
-    }
-    
-    // Utiliser les premiers mots du contexte
-    if (questionData.context) {
-      const words = questionData.context.split(' ').slice(0, 5);
-      return words.join(' ') + (questionData.context.split(' ').length > 5 ? '...' : '');
-    }
-    
-    // Utiliser l'ID formaté
-    if (questionData.id) {
-      return questionData.id.replace(/_/g, ' ').replace(/scene/gi, 'Scène');
-    }
-    
-    return 'Scène';
-  }
-  
-  getChapterStatus(chapterId) {
-    if (this.currentQuestion === chapterId) {
-      return 'current';
-    }
-    if (this.questionPath.includes(chapterId)) {
-      return 'completed';
-    }
-    return 'pending';
-  }
-  
-  getVoteInfo(chapterId) {
-    const voteInfo = {
-      total: 0,
-      details: {},
-      voters: {}
-    };
-    
-    if (!this.responses || !this.responses[chapterId]) {
-      return voteInfo;
-    }
-    
-    // Compter les votes par option
-    const votes = { A: 0, B: 0, C: 0, D: 0 };
-    const voters = { A: [], B: [], C: [], D: [] };
-    
-    for (const [playerName, answer] of Object.entries(this.responses[chapterId])) {
-      if (votes[answer] !== undefined) {
-        votes[answer]++;
-        voters[answer].push(playerName);
-        voteInfo.total++;
-      }
-    }
-    
-    voteInfo.details = votes;
-    voteInfo.voters = voters;
-    
-    return voteInfo;
-  }
-  
-  // === GESTION DES ÉVÉNEMENTS ===
+  // ============================================
+  // GESTION DES ÉVÉNEMENTS
+  // ============================================
   
   attachEvents() {
-    // Délégation d'événements pour les éléments dynamiques
-    this.container.addEventListener('click', (e) => {
-      // Clic sur un chapitre
-      const chapterItem = e.target.closest('.chapter-item');
-      if (chapterItem) {
-        const chapterId = chapterItem.dataset.chapterId;
-        this.showDetails(chapterId);
-        return;
-      }
-      
-      // Clic sur le bouton retour
-      if (e.target.closest('#backToListBtn')) {
-        this.showList();
-        return;
+    // Toggle menu
+    this.elements.togglePill.addEventListener('click', () => this.toggleMenu());
+    
+    // Fermer via overlay
+    this.elements.overlay.addEventListener('click', () => this.closeMenu());
+    
+    // Fermer via bouton close
+    this.elements.closeBtn.addEventListener('click', () => this.closeMenu());
+    
+    // Retour à la liste
+    this.elements.backButton.addEventListener('click', () => this.backToList());
+    
+    // Échap pour fermer
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.closeMenu();
       }
     });
   }
   
-  showDetails(chapterId) {
-    this.selectedChapter = chapterId;
-    
-    const listView = document.getElementById('chaptersListView');
-    const detailsView = document.getElementById('chapterDetailsView');
-    const header = listView.querySelector('.chapters-header');
-    
-    // Animation de sortie de la liste
-    header.classList.add('slide-up');
-    listView.classList.add('hiding');
-    
-    // Préparer le contenu des détails
-    detailsView.innerHTML = this.renderDetailsView(chapterId);
-    
-    // Animation d'entrée des détails
-    setTimeout(() => {
-      listView.style.display = 'none';
-      detailsView.classList.add('active');
-      this.currentView = 'details';
-    }, 300);
+  // ============================================
+  // MÉTHODES DE NAVIGATION
+  // ============================================
+  
+  toggleMenu() {
+    if (this.isOpen) {
+      this.closeMenu();
+    } else {
+      this.openMenu();
+    }
   }
   
-  showList() {
-    const listView = document.getElementById('chaptersListView');
-    const detailsView = document.getElementById('chapterDetailsView');
-    const header = listView.querySelector('.chapters-header');
+  openMenu() {
+    this.isOpen = true;
+    this.elements.togglePill.classList.add('active');
+    this.elements.overlay.classList.add('active');
+    this.elements.modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
     
-    // Animation de sortie des détails
-    detailsView.classList.remove('active');
+    // Callback
+    if (this.onMenuToggle) {
+      this.onMenuToggle(true);
+    }
     
-    setTimeout(() => {
-      listView.style.display = 'block';
+    // Rafraîchir les données
+    this.refreshChaptersData();
+  }
+  
+  closeMenu() {
+    this.isOpen = false;
+    this.elements.togglePill.classList.remove('active');
+    this.elements.overlay.classList.remove('active');
+    this.elements.modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Revenir à la liste si on était dans les détails
+    if (this.currentView === 'details') {
+      this.backToList();
+    }
+    
+    // Callback
+    if (this.onMenuToggle) {
+      this.onMenuToggle(false);
+    }
+  }
+  
+  showChapterDetails(chapterId) {
+    this.currentChapter = chapterId;
+    this.currentView = 'details';
+    
+    // Masquer liste, afficher détails
+    this.elements.listView.classList.add('hidden');
+    this.elements.detailsView.classList.add('active');
+    
+    // Charger les détails du chapitre
+    this.loadChapterDetails(chapterId);
+    
+    // Callback
+    if (this.onChapterSelect) {
+      this.onChapterSelect(chapterId);
+    }
+  }
+  
+  backToList() {
+    this.currentView = 'list';
+    this.currentChapter = null;
+    
+    this.elements.detailsView.classList.remove('active');
+    this.elements.listView.classList.remove('hidden');
+  }
+  
+  // ============================================
+  // CHARGEMENT DES DONNÉES
+  // ============================================
+  
+  loadChapters() {
+    if (!this.scenario || !this.scenario.questions) return;
+    
+    const chaptersList = this.elements.chaptersList;
+    chaptersList.innerHTML = '';
+    
+    // Parcourir les questions et créer les chapitres
+    let chapterIndex = 1;
+    
+    for (const [questionId, questionData] of Object.entries(this.scenario.questions)) {
+      // Déterminer le statut
+      let status = 'pending';
+      if (this.responses[questionId]) {
+        status = 'completed';
+      } else if (questionId === this.currentQuestion) {
+        status = 'current';
+      }
       
-      // Petite pause pour que le display soit appliqué
-      setTimeout(() => {
-        listView.classList.remove('hiding');
-        header.classList.remove('slide-up');
-        this.currentView = 'list';
-      }, 50);
-    }, 300);
+      // Calculer le nombre de votes
+      const voteCount = this.calculateVotes(questionId);
+      
+      // Créer l'élément chapitre
+      const chapterEl = this.createChapterElement({
+        id: questionId,
+        index: chapterIndex,
+        title: questionData.question || `Chapitre ${chapterIndex}`,
+        context: questionData.context || '',
+        status: status,
+        voteCount: voteCount
+      });
+      
+      chaptersList.appendChild(chapterEl);
+      chapterIndex++;
+    }
   }
   
-  // === MÉTHODES PUBLIQUES ===
+  createChapterElement(chapterData) {
+    const div = document.createElement('div');
+    div.className = `chapter-option ${chapterData.status}`;
+    div.onclick = () => this.showChapterDetails(chapterData.id);
+    
+    // Badge de statut
+    let statusText = '';
+    if (chapterData.status === 'current') statusText = 'En cours';
+    else if (chapterData.status === 'completed') statusText = 'Complété';
+    else statusText = 'À venir';
+    
+    div.innerHTML = `
+      <div class="chapter-option-header">
+        <div class="chapter-number">${chapterData.index}</div>
+        <div class="chapter-name">${this.truncateText(chapterData.title, 50)}</div>
+        <div class="chapter-status-badge ${chapterData.status}">${statusText}</div>
+      </div>
+      <div class="chapter-context">
+        ${this.truncateText(chapterData.context, 100)}
+      </div>
+      <div class="chapter-votes-info">
+        <span>📊</span>
+        <span class="chapter-vote-badge">${chapterData.voteCount} votes</span>
+      </div>
+    `;
+    
+    return div;
+  }
   
-  update(data) {
-    if (data.currentQuestion !== undefined) {
-      this.currentQuestion = data.currentQuestion;
-    }
-    if (data.responses !== undefined) {
-      this.responses = data.responses;
-    }
-    if (data.questionPath !== undefined) {
-      this.questionPath = data.questionPath;
+  loadChapterDetails(chapterId) {
+    if (!this.scenario || !this.scenario.questions[chapterId]) return;
+    
+    const questionData = this.scenario.questions[chapterId];
+    
+    // Déterminer le statut
+    let status = 'pending';
+    let statusText = 'À venir';
+    if (this.responses[chapterId]) {
+      status = 'completed';
+      statusText = 'Complété';
+    } else if (chapterId === this.currentQuestion) {
+      status = 'current';
+      statusText = 'En cours';
     }
     
-    // Re-render si on est en vue liste
-    if (this.currentView === 'list') {
-      const listView = document.getElementById('chaptersListView');
-      if (listView) {
-        listView.innerHTML = this.renderListView();
+    // Mettre à jour le titre et le badge
+    this.elements.detailsTitle.textContent = questionData.question || 'Question';
+    this.elements.detailsStatusBadge.textContent = statusText;
+    this.elements.detailsStatusBadge.className = `chapter-details-status-badge ${status}`;
+    
+    // Mettre à jour le contexte et la question
+    document.getElementById('chapter-detail-context').textContent = questionData.context || 'Aucun contexte disponible';
+    document.getElementById('chapter-detail-question').textContent = questionData.question || 'Aucune question';
+    
+    // Créer les vote components
+    this.createVoteComponents(questionData);
+    
+    // Mettre à jour les joueurs en attente
+    this.updateWaitingPlayers();
+  }
+  
+  createVoteComponents(questionData) {
+    const container = this.elements.votesContainer;
+    container.innerHTML = '';
+    
+    if (!questionData.choices) return;
+    
+    // Calculer les votes totaux
+    const voteData = this.getVoteData(questionData.id);
+    const totalVotes = Object.values(voteData.counts).reduce((sum, count) => sum + count, 0);
+    
+    // Créer un VoteComponent pour chaque choix
+    questionData.choices.forEach((choice, index) => {
+      const letter = String.fromCharCode(65 + index);
+      const voteDiv = document.createElement('div');
+      container.appendChild(voteDiv);
+      
+      // Créer le VoteComponent (utilise la classe existante)
+      if (typeof VoteComponent !== 'undefined') {
+        new VoteComponent(voteDiv, {
+          letter: letter,
+          text: choice,
+          count: voteData.counts[letter] || 0,
+          totalVotes: totalVotes,
+          voters: voteData.voters[letter] || [],
+          showVoters: true,
+          isClickable: false
+        });
+        
+        // Ajouter les pills des joueurs
+        if (voteData.voters[letter] && voteData.voters[letter].length > 0) {
+          const votersDiv = document.createElement('div');
+          votersDiv.className = 'chapter-voters-pills';
+          votersDiv.innerHTML = voteData.voters[letter].map(voter => 
+            `<span class="chapter-voter-pill">${voter}</span>`
+          ).join('');
+          voteDiv.appendChild(votersDiv);
+        }
+      }
+    });
+  }
+  
+  updateWaitingPlayers() {
+    const waitingPlayers = this.playersData.waitingPlayers || [];
+    
+    if (waitingPlayers.length > 0) {
+      this.elements.waitingSection.style.display = 'block';
+      this.elements.waitingList.innerHTML = waitingPlayers.map(player => 
+        `<span class="chapter-waiting-pill">${player}</span>`
+      ).join('');
+    } else {
+      this.elements.waitingSection.style.display = 'none';
+    }
+  }
+  
+  // ============================================
+  // MÉTHODES UTILITAIRES
+  // ============================================
+  
+  calculateVotes(questionId) {
+    // Compter les votes pour cette question
+    if (!this.responses[questionId]) return 0;
+    
+    const response = this.responses[questionId];
+    let total = 0;
+    
+    if (response.voteCounts) {
+      total = Object.values(response.voteCounts).reduce((sum, count) => sum + count, 0);
+    }
+    
+    return total;
+  }
+  
+  getVoteData(questionId) {
+    const response = this.responses[questionId] || {};
+    const voteData = {
+      counts: {},
+      voters: {}
+    };
+    
+    if (response.voteCounts) {
+      voteData.counts = response.voteCounts;
+    }
+    
+    if (response.voteDetails) {
+      voteData.voters = response.voteDetails;
+    }
+    
+    // Si pas de données, utiliser les données des joueurs actuels
+    if (questionId === this.currentQuestion && this.playersData.votedPlayers) {
+      for (const [choice, players] of Object.entries(this.playersData.votedPlayers)) {
+        voteData.voters[choice] = players;
+        voteData.counts[choice] = players.length;
+      }
+    }
+    
+    return voteData;
+  }
+  
+  truncateText(text, maxLength) {
+    if (!text) return '';
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  }
+  
+  refreshChaptersData() {
+    // Recharger les chapitres avec les données actuelles
+    if (this.scenario) {
+      this.loadChapters();
+    }
+  }
+  
+  // ============================================
+  // MÉTHODE DE MISE À JOUR (appelée lors des changements de question)
+  // ============================================
+  
+  update(options = {}) {
+    // Mettre à jour les propriétés
+    if (options.currentQuestion !== undefined) {
+      this.currentQuestion = options.currentQuestion;
+    }
+    
+    if (options.responses !== undefined) {
+      this.responses = options.responses;
+    }
+    
+    if (options.questionPath !== undefined) {
+      this.questionPath = options.questionPath;
+    }
+    
+    if (options.playersData !== undefined) {
+      this.playersData = options.playersData;
+    }
+    
+    // Rafraîchir l'affichage si le menu est ouvert
+    if (this.isOpen) {
+      if (this.currentView === 'list') {
+        this.refreshChaptersData();
+      } else if (this.currentView === 'details' && this.currentChapter) {
+        this.loadChapterDetails(this.currentChapter);
       }
     }
   }
   
+  // ============================================
+  // DESTRUCTION
+  // ============================================
+  
   destroy() {
-    this.container.innerHTML = '';
+    // Supprimer tous les éléments créés
+    if (this.elements.togglePill) {
+      this.elements.togglePill.remove();
+    }
+    
+    if (this.elements.overlay) {
+      this.elements.overlay.remove();
+    }
+    
+    if (this.elements.modal) {
+      this.elements.modal.remove();
+    }
+    
+    // Restaurer le body overflow
+    document.body.style.overflow = '';
+    
+    // Nettoyer les références
+    this.elements = {};
   }
 }
 

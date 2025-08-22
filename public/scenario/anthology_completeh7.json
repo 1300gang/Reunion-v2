@@ -1,0 +1,5540 @@
+{
+  "scenario_info": {
+    "title": "Parcours de Vie - Anthologie d'éducation à la santé et à la citoyenneté",
+    "description": "Une anthologie interactive explorant 7 thématiques essentielles de santé, de relations et de prévention à travers les histoires de jeunes de La Réunion",
+    "characters": ["Yasmina", "Mamadou", "Elodie", "Jack", "Emmy", "Antoine", "Camélia", "Jean-Michela", "Steven", "Olivia", "Lina", "Camille", "Cassandra", "Marc", "Cristelle", "Ti Jean"],
+    "start_question": "introduction"
+  },
+  "questions": {
+    "introduction": {
+      "id": "introduction",
+      "type": "messenger_scenario",
+      "context": "Bienvenue dans cette anthologie éducative interactive",
+      "contextual_image": "Collage représentant la diversité des jeunes de La Réunion",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "utilisateur",
+            "name": "Vous",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "🌺",
+            "content": "Bienvenue dans \"Parcours de Vie\"",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🎭",
+            "content": "Une anthologie créée par et pour les jeunes de La Réunion",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💭",
+            "content": "Vous allez vivre 7 histoires, 7 situations réelles",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "🎯",
+            "content": "Chaque choix compte, chaque décision a des conséquences",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "narrateur",
+            "avatar": "❤️",
+            "content": "Ces histoires sont les vôtres, celles de vos amis, de vos proches",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Êtes-vous prêt(e) à explorer ces parcours de vie ?",
+      "choices": [
+        "Découvrir les situations",
+        "Non"
+      ],
+      "nextQuestions": {
+        "A": "scene1",
+        "B": "scene1"
+      },
+      "metadata": {
+        "themes_abordes": ["éducation", "prévention", "choix", "apprentissage", "empowerment"]
+      }
+    },
+    "scene1": {
+      "id": "scene1",
+      "type": "messenger_scenario",
+      "context": "Yasmina se pose des questions sur la première fois. Elle est dans un parc avec son oncle Mamadou.",
+      "contextual_image": "Deux personnes discutant dans un parc verdoyant",
+      "conversation": {
+        "participants": [
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mamadou",
+            "name": "Mamadou",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yasmina",
+            "avatar": "😟",
+            "content": "Je me demande si lors de la première fois ça saigne ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yasmina",
+            "avatar": "🤔",
+            "content": "Mamadou, est-ce que ça saigne la première fois ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Mamadou devrait-il répondre à Yasmina ?",
+      "choices": [
+        "Ça dépend des personnes, de leur hymen etc... Je te conseillerai d'aller voir un gynéco",
+        "Enfin Yasmina, tu n'as pas honte de me parler de ça ?",
+        "Oui, la première fois déchire ton hymen et tu vas saigner"
+      ],
+      "nextQuestions": {
+        "A": "scene1A",
+        "B": "scene1B",
+        "C": "scene1C"
+      },
+      "metadata": {
+        "themes_abordes": ["première_fois", "virginité", "saignement", "tabou", "communication_familiale"]
+      }
+    },
+    "scene1A": {
+      "id": "scene1A",
+      "type": "messenger_scenario",
+      "context": "Mamadou répond de manière bienveillante et informative à Yasmina",
+      "contextual_image": "Discussion ouverte et bienveillante entre oncle et nièce",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mamadou",
+            "name": "Mamadou",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mamadou",
+            "avatar": "😊",
+            "content": "Ça dépend des personnes, de leur hymen etc... Je te conseillerai d'aller voir un gynéco",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yasmina",
+            "avatar": "🤔",
+            "content": "Hummm... Ok Mamadou !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mamadou",
+            "avatar": "💬",
+            "content": "Dans tous les cas, rassure-toi, saigner n'est pas lié au fait de perdre sa virginité",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Yasmina décide de suivre le conseil. Que fait-elle ensuite ?",
+      "choices": ["Elle va voir un gynécologue pour poser ses questions"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["éducation_sexuelle", "bienveillance", "information_correcte", "santé"]
+      }
+    },
+    "scene1B": {
+      "id": "scene1B",
+      "type": "messenger_scenario",
+      "context": "Mamadou réagit avec gêne et évite le sujet",
+      "contextual_image": "Oncle mal à l'aise détournant le regard",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mamadou",
+            "name": "Mamadou",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mamadou",
+            "avatar": "😣",
+            "content": "Enfin Yasmina, tu n'as pas honte de me parler de ça ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mamadou",
+            "avatar": "🙈",
+            "content": "Va voir ta tante ou tes amies, tu ne dois pas en parler ouvertement comme ça !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à cette réaction, que ressent Yasmina ?",
+      "choices": [
+        "Elle se sent honteuse et garde ses questions pour elle",
+        "Elle décide quand même d'aller voir un professionnel"
+      ],
+      "nextQuestions": {
+        "A": "fin_negative1",
+        "B": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["tabou", "honte", "manque_communication", "ignorance"]
+      }
+    },
+    "scene1C": {
+      "id": "scene1C",
+      "type": "messenger_scenario",
+      "context": "Mamadou transmet de fausses croyances à Yasmina",
+      "contextual_image": "Transmission de fausses informations",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mamadou",
+            "name": "Mamadou",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mamadou",
+            "avatar": "😠",
+            "content": "Oui, la première fois déchire ton hymen et tu vas saigner",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mamadou",
+            "avatar": "⚠️",
+            "content": "Si tu ne saignes pas ça veut dire que tu n'étais plus vierge et personne ne voudra de toi !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Yasmina réagit-elle à ces fausses informations ?",
+      "choices": [
+        "Elle croit son oncle et développe des peurs",
+        "Elle doute et décide de vérifier auprès d'un professionnel"
+      ],
+      "nextQuestions": {
+        "A": "fin_negative2",
+        "B": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["fausses_croyances", "désinformation", "mythes_virginité", "pression_sociale"]
+      }
+    },
+    "scene2": {
+      "id": "scene2",
+      "type": "messenger_scenario",
+      "context": "Yasmina se rend chez un gynécologue pour poser ses questions",
+      "contextual_image": "Cabinet médical, consultation gynécologique",
+      "conversation": {
+        "participants": [
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yasmina",
+            "avatar": "💭",
+            "content": "Je vais aller voir un gynécologue pour mes questions",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment se passe la consultation ?",
+      "choices": [
+        "Gynécologue : Ce n'est pas obligé que ça saigne, cela dépend des personnes",
+        "Yasmina : Maman, peux-tu prendre un rendez-vous chez le gynéco pour moi ?",
+        "Gynécologue : Vous les jeunes aujourd'hui c'est toujours plus tôt hein !?"
+      ],
+      "nextQuestions": {
+        "A": "scene2A",
+        "B": "scene2B",
+        "C": "scene2C"
+      },
+      "metadata": {
+        "themes_abordes": ["consultation_médicale", "prévention", "contraception", "IST"]
+      }
+    },
+    "scene2A": {
+      "id": "scene2A",
+      "type": "messenger_scenario",
+      "context": "Consultation bienveillante avec le gynécologue",
+      "contextual_image": "Échange respectueux dans un cabinet médical",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gyneco",
+            "name": "Gynécologue",
+            "isCurrentUser": false
+          },
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gyneco",
+            "avatar": "👩‍⚕️",
+            "content": "Ce n'est pas obligé que ça saigne, cela dépend des personnes",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gyneco",
+            "avatar": "💬",
+            "content": "Il est important d'être bien détendu et en confiance pour réduire le risque de douleur",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gyneco",
+            "avatar": "📋",
+            "content": "Tu connais les moyens de contraception ? Il en existe plusieurs ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "yasmina",
+            "avatar": "😯",
+            "content": "Ha bon ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "gyneco",
+            "avatar": "💊",
+            "content": "Oui, il y a les moyens de contraception hormonaux comme la pilule, le patch, l'anneau intravaginal et l'implant",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "yasmina",
+            "avatar": "😊",
+            "content": "Bah, je vais prendre la pilule alors",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Yasmina repart avec toutes les informations nécessaires. Fin positive !",
+      "choices": ["Terminer l'histoire"],
+      "nextQuestions": {
+        "A": "fin_positive"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement", "prévention", "contraception", "IST", "bien_être"]
+      }
+    },
+    "scene2B": {
+      "id": "scene2B",
+      "type": "messenger_scenario",
+      "context": "La mère de Yasmina refuse la consultation",
+      "contextual_image": "Conflit mère-fille",
+      "conversation": {
+        "participants": [
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": true
+          },
+          {
+            "id": "mere",
+            "name": "Mère",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yasmina",
+            "avatar": "🙏",
+            "content": "Maman, peux-tu prendre un rendez-vous chez le gynéco pour moi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mere",
+            "avatar": "😤",
+            "content": "Mais ça va pas la tête, c'est quoi ça, tu vas aller coucher à droite à gauche maintenant ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mere",
+            "avatar": "🚫",
+            "content": "Tu es bien trop jeune, je t'interdis de faire ça !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Yasmina se retrouve sans accès aux informations. Que faire ?",
+      "choices": [
+        "Elle abandonne et reste dans l'ignorance",
+        "Elle cherche d'autres moyens de s'informer"
+      ],
+      "nextQuestions": {
+        "A": "fin_negative3",
+        "B": "fin_mitigee"
+      },
+      "metadata": {
+        "themes_abordes": ["tabou_familial", "interdiction", "manque_accès_soins"]
+      }
+    },
+    "scene2C": {
+      "id": "scene2C",
+      "type": "messenger_scenario",
+      "context": "Consultation avec un gynécologue culpabilisant",
+      "contextual_image": "Médecin peu bienveillant",
+      "conversation": {
+        "participants": [
+          {
+            "id": "gyneco",
+            "name": "Gynécologue",
+            "isCurrentUser": false
+          },
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "gyneco",
+            "avatar": "😒",
+            "content": "Vous les jeunes aujourd'hui c'est toujours plus tôt hein !?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "gyneco",
+            "avatar": "⚠️",
+            "content": "Juste avant vous j'ai annoncé à une jeune fille qu'elle était enceinte, son copain l'a quittée...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "gyneco",
+            "avatar": "💊",
+            "content": "Je vais vous mettre sous pilule et on en parle plus",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à ce médecin peu bienveillant, que devrait faire Yasmina ?",
+      "choices": [
+        "Elle accepte sans poser de questions",
+        "Elle décide de changer de professionnel"
+      ],
+      "nextQuestions": {
+        "A": "fin_negative4",
+        "B": "fin_positive2"
+      },
+      "metadata": {
+        "themes_abordes": ["jugement", "culpabilisation", "mauvaise_pratique_médicale"]
+      }
+    },
+    "fin_positive": {
+      "id": "fin_positive",
+      "type": "messenger_scenario",
+      "context": "Yasmina a reçu toutes les informations nécessaires",
+      "contextual_image": "Jeune femme confiante et informée",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Yasmina repart avec toutes les informations nécessaires pour vivre sa sexualité de manière éclairée et en sécurité.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin de l'histoire - Bravo pour avoir fait les bons choix !",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["autonomie", "information", "santé_sexuelle", "prévention"]
+      }
+    },
+    "fin_positive2": {
+      "id": "fin_positive2",
+      "type": "messenger_scenario",
+      "context": "Yasmina trouve un meilleur professionnel",
+      "contextual_image": "Nouveau départ médical",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Yasmina décide de changer de professionnel et trouve un médecin bienveillant qui répondra à toutes ses questions.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin de l'histoire - Il est important de trouver un professionnel respectueux !",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["persévérance", "accès_aux_soins", "respect"]
+      }
+    },
+    "fin_mitigee": {
+      "id": "fin_mitigee",
+      "type": "messenger_scenario",
+      "context": "Yasmina cherche d'autres sources d'information",
+      "contextual_image": "Recherche d'information alternative",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Yasmina décide de chercher des informations par d'autres moyens : sites officiels, planning familial, infirmière scolaire...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin de l'histoire - Il existe toujours des alternatives pour s'informer !",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["autonomie", "ressources_alternatives", "persévérance"]
+      }
+    },
+    "fin_negative1": {
+      "id": "fin_negative1",
+      "type": "messenger_scenario",
+      "context": "Yasmina reste dans l'ignorance à cause du tabou",
+      "contextual_image": "Jeune femme isolée avec ses questions",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Le tabou empêche Yasmina d'accéder aux informations dont elle a besoin, ce qui augmente les risques pour sa santé.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Le tabou peut avoir des conséquences dangereuses",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["isolement", "ignorance", "risques"]
+      }
+    },
+    "fin_negative2": {
+      "id": "fin_negative2",
+      "type": "messenger_scenario",
+      "context": "Yasmina intériorise de fausses croyances",
+      "contextual_image": "Peurs et anxiété",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Yasmina développe des peurs et de l'anxiété basées sur de fausses informations sur la virginité.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Les fausses croyances peuvent causer des dommages psychologiques",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["fausses_croyances", "anxiété", "désinformation"]
+      }
+    },
+    "fin_negative3": {
+      "id": "fin_negative3",
+      "type": "messenger_scenario",
+      "context": "Yasmina n'a pas accès aux soins",
+      "contextual_image": "Barrières à l'accès aux soins",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Sans accès aux informations et aux soins, Yasmina reste vulnérable et mal informée.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - L'accès aux soins est un droit fondamental",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["manque_accès", "vulnérabilité", "risques"]
+      }
+    },
+    "fin_negative4": {
+      "id": "fin_negative4",
+      "type": "messenger_scenario",
+      "context": "Yasmina subit une mauvaise prise en charge médicale",
+      "contextual_image": "Consultation inadéquate",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Yasmina n'a pas reçu les informations complètes dont elle avait besoin à cause d'un professionnel peu bienveillant.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Un professionnel de santé doit toujours être à l'écoute",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2_1"
+      },
+      "metadata": {
+        "themes_abordes": ["mauvaise_pratique", "manque_information", "vulnérabilité"]
+      }
+    },
+    "scene2_1": {
+      "id": "scene2_1",
+      "type": "messenger_scenario",
+      "context": "Elodie et Jack, deux amis, font une promenade dans la forêt. C'est une belle journée ensoleillée.",
+      "contextual_image": "Deux amis marchant sur un sentier forestier ensoleillé",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jack",
+            "name": "Jack",
+            "isCurrentUser": true
+          },
+          {
+            "id": "elodie",
+            "name": "Elodie",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jack",
+            "avatar": "😊",
+            "content": "C'est magnifique ici !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "elodie",
+            "avatar": "😌",
+            "content": "Oui, j'adore cet endroit...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🌲",
+            "content": "Ils continuent leur promenade quand soudain...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Que se passe-t-il ensuite ?",
+      "choices": ["Continuer la promenade"],
+      "nextQuestions": {
+        "A": "scene2_2"
+      },
+      "metadata": {
+        "themes_abordes": ["amitié", "nature", "bien_être"]
+      }
+    },
+    "scene2_2": {
+      "id": "scene2_2",
+      "type": "messenger_scenario",
+      "context": "Pendant la promenade, Elodie ressent soudainement de fortes douleurs au ventre",
+      "contextual_image": "Jeune fille se tenant le ventre avec expression de douleur",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jack",
+            "name": "Jack",
+            "isCurrentUser": true
+          },
+          {
+            "id": "elodie",
+            "name": "Elodie",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "elodie",
+            "avatar": "😣",
+            "content": "Aïe !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "elodie",
+            "avatar": "😰",
+            "content": "Eh, j'ai des fortes douleurs au ventre...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "📍",
+            "content": "Elodie est paralysée par la douleur, elle ne peut plus avancer et manque de tomber dans les pommes",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "elodie",
+            "avatar": "😱",
+            "content": "Oh non, j'ai mes règles !!!",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Jack devrait-il réagir face à la situation d'Elodie ?",
+      "choices": [
+        "Appeler les pompiers immédiatement",
+        "Paniquer et imaginer le pire",
+        "Minimiser la douleur d'Elodie"
+      ],
+      "nextQuestions": {
+        "A": "scene2_3A",
+        "B": "scene2_3B",
+        "C": "scene2_3C"
+      },
+      "metadata": {
+        "themes_abordes": ["douleurs_menstruelles", "premières_règles", "urgence_médicale", "symptômes"]
+      }
+    },
+    "scene2_3A": {
+      "id": "scene2_3A",
+      "type": "messenger_scenario",
+      "context": "Jack réagit de manière appropriée et appelle les secours",
+      "contextual_image": "Jeune homme au téléphone appelant les pompiers",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jack",
+            "name": "Jack",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jack",
+            "avatar": "📱",
+            "content": "J'appelle les pompiers !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jack",
+            "avatar": "🚨",
+            "content": "Nous sommes dans la forêt, je suis avec une personne qui a très mal au ventre !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Les pompiers sont en route. Que va-t-il se passer ?",
+      "choices": ["Les pompiers arrivent et prennent en charge Elodie"],
+      "nextQuestions": {
+        "A": "scene2_4A"
+      },
+      "metadata": {
+        "themes_abordes": ["solidarité", "bonne_réaction", "urgence", "soutien"]
+      }
+    },
+    "scene2_3B": {
+      "id": "scene2_3B",
+      "type": "messenger_scenario",
+      "context": "Jack panique et imagine des scénarios catastrophiques",
+      "contextual_image": "Jeune homme paniqué avec expression inquiète",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jack",
+            "name": "Jack",
+            "isCurrentUser": true
+          },
+          {
+            "id": "elodie",
+            "name": "Elodie",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jack",
+            "avatar": "😱",
+            "content": "Si ça se trouve c'est super grave...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jack",
+            "avatar": "😰",
+            "content": "Un jour on m'a raconté que des douleurs comme ça ça pouvait être un cancer de l'utérus",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "jack",
+            "avatar": "😭",
+            "content": "Si ça se trouve tu vas mourir !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Cette réaction aggrave l'anxiété d'Elodie. Que faire ?",
+      "choices": [
+        "Elodie demande quand même d'appeler les secours",
+        "Elodie est trop paniquée pour réagir"
+      ],
+      "nextQuestions": {
+        "A": "scene2_4A",
+        "B": "fin2_negative1"
+      },
+      "metadata": {
+        "themes_abordes": ["panique", "désinformation", "anxiété", "mauvaise_réaction"]
+      }
+    },
+    "scene2_3C": {
+      "id": "scene2_3C",
+      "type": "messenger_scenario",
+      "context": "Jack minimise la douleur d'Elodie avec des stéréotypes sexistes",
+      "contextual_image": "Jeune homme faisant un geste dédaigneux",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jack",
+            "name": "Jack",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jack",
+            "avatar": "🙄",
+            "content": "Roooh ça va hein, vous les femmes vous avez toujours un problème",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jack",
+            "avatar": "😤",
+            "content": "Pense à autre chose ça va passer",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "jack",
+            "avatar": "🚶",
+            "content": "Viens on continue la rando",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à cette minimisation dangereuse, que se passe-t-il ?",
+      "choices": [
+        "Elodie insiste sur la gravité de sa douleur",
+        "Elodie essaie de continuer malgré la douleur"
+      ],
+      "nextQuestions": {
+        "A": "scene2_4A",
+        "B": "fin2_negative2"
+      },
+      "metadata": {
+        "themes_abordes": ["stéréotypes_genre", "minimisation", "sexisme", "manque_empathie"]
+      }
+    },
+    "scene2_4A": {
+      "id": "scene2_4A",
+      "type": "messenger_scenario",
+      "context": "Les pompiers arrivent sur place et évaluent la situation",
+      "contextual_image": "Pompiers prenant en charge une jeune fille",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pompiers",
+            "name": "Pompiers",
+            "isCurrentUser": false
+          },
+          {
+            "id": "elodie",
+            "name": "Elodie",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pompiers",
+            "avatar": "🚑",
+            "content": "Qu'est ce qu'il se passe ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "elodie",
+            "avatar": "😣",
+            "content": "J'ai des fortes douleurs au ventre",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🏥",
+            "content": "Les pompiers font les gestes des premiers secours et emmènent Elodie chez le médecin",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment va se passer la consultation médicale ?",
+      "choices": [
+        "Le médecin fait un diagnostic approprié",
+        "Les pompiers minimisent les symptômes",
+        "Le médecin minimise la douleur"
+      ],
+      "nextQuestions": {
+        "A": "scene2_5A",
+        "B": "scene2_5B",
+        "C": "scene2_5C"
+      },
+      "metadata": {
+        "themes_abordes": ["secours", "prise_en_charge", "professionnalisme"]
+      }
+    },
+    "scene2_5A": {
+      "id": "scene2_5A",
+      "type": "messenger_scenario",
+      "context": "Consultation médicale bienveillante et professionnelle",
+      "contextual_image": "Médecin en consultation avec une jeune patiente",
+      "conversation": {
+        "participants": [
+          {
+            "id": "medecin",
+            "name": "Médecin",
+            "isCurrentUser": false
+          },
+          {
+            "id": "elodie",
+            "name": "Elodie",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "medecin",
+            "avatar": "👨‍⚕️",
+            "content": "Vous avez quel âge Elodie ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "elodie",
+            "avatar": "💬",
+            "content": "J'ai 13 ans",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "medecin",
+            "avatar": "📋",
+            "content": "Est-ce que vous avez eu des saignements dans vos sous-vêtements ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "elodie",
+            "avatar": "😳",
+            "content": "Oui effectivement j'ai remarqué ça",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "medecin",
+            "avatar": "🩺",
+            "content": "Au vu de vos symptômes et de votre âge je pense que vous avez vos premières règles",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "medecin",
+            "avatar": "⚕️",
+            "content": "Cependant il est inhabituel d'avoir des douleurs aussi fortes",
+            "type": "text"
+          },
+          {
+            "id": "msg7",
+            "sender": "medecin",
+            "avatar": "📝",
+            "content": "Nous allons mener des examens complémentaires pour vérifier que tout va bien",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Elodie est bien prise en charge. Fin positive !",
+      "choices": ["Terminer l'histoire"],
+      "nextQuestions": {
+        "A": "fin2_positive"
+      },
+      "metadata": {
+        "themes_abordes": ["diagnostic", "premières_règles", "bienveillance_médicale", "examens"]
+      }
+    },
+    "scene2_5B": {
+      "id": "scene2_5B",
+      "type": "messenger_scenario",
+      "context": "Les pompiers minimisent l'urgence liée aux règles",
+      "contextual_image": "Pompiers avec attitude dédaigneuse",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pompiers",
+            "name": "Pompiers",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pompiers",
+            "avatar": "😤",
+            "content": "Quoi ? Vous nous avez fait déplacer pour ça ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "pompiers",
+            "avatar": "🙄",
+            "content": "Écoutez Madame, prenez un doliprane et allez chez le médecin toute seule !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pompiers",
+            "avatar": "😠",
+            "content": "Vous n'avez pas honte ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à ce manque de professionnalisme, que faire ?",
+      "choices": [
+        "Jack insiste sur la gravité de la situation",
+        "Ils abandonnent et rentrent"
+      ],
+      "nextQuestions": {
+        "A": "scene2_5A",
+        "B": "fin2_negative3"
+      },
+      "metadata": {
+        "themes_abordes": ["minimisation", "manque_professionnalisme", "stéréotypes"]
+      }
+    },
+    "scene2_5C": {
+      "id": "scene2_5C",
+      "type": "messenger_scenario",
+      "context": "Le médecin minimise les douleurs menstruelles",
+      "contextual_image": "Médecin avec attitude dismissive",
+      "conversation": {
+        "participants": [
+          {
+            "id": "medecin",
+            "name": "Médecin",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "medecin",
+            "avatar": "🤷",
+            "content": "Vous n'avez pas à vous inquiéter",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "medecin",
+            "avatar": "📖",
+            "content": "Il est normal de ressentir des douleurs et des désagréments pendant les règles",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "medecin",
+            "avatar": "💬",
+            "content": "Vous êtes une femme maintenant, cela fait partie de votre vie",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Cette minimisation est problématique. Que devrait faire Elodie ?",
+      "choices": [
+        "Demander un second avis médical",
+        "Accepter ce diagnostic"
+      ],
+      "nextQuestions": {
+        "A": "fin2_positive2",
+        "B": "fin2_negative4"
+      },
+      "metadata": {
+        "themes_abordes": ["minimisation_médicale", "stéréotypes", "mauvaise_pratique"]
+      }
+    },
+    "fin2_positive": {
+      "id": "fin2_positive",
+      "type": "messenger_scenario",
+      "context": "Elodie reçoit les soins appropriés",
+      "contextual_image": "Jeune fille soulagée avec équipe médicale bienveillante",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Elodie est bien prise en charge. Les examens révèlent qu'elle souffre de dysménorrhée",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "💊",
+            "content": "Elle reçoit un traitement adapté et des conseils pour gérer ses règles",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "📚",
+            "content": "Elle apprend que les règles ne devraient pas faire mal à ce point et qu'il faut consulter en cas de douleurs intenses",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Une prise en charge appropriée est essentielle !",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3_1"
+      },
+      "metadata": {
+        "themes_abordes": ["soins_appropriés", "soulagement", "éducation_santé"]
+      }
+    },
+    "fin2_positive2": {
+      "id": "fin2_positive2",
+      "type": "messenger_scenario",
+      "context": "Elodie obtient un second avis médical",
+      "contextual_image": "Consultation avec un spécialiste",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "🏥",
+            "content": "Elodie consulte un gynécologue spécialisé qui prend ses douleurs au sérieux",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Des examens appropriés sont réalisés et un traitement adapté est prescrit",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Il est important de chercher un second avis si nécessaire !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene3_1"
+      },
+      "metadata": {
+        "themes_abordes": ["second_avis", "persévérance", "soins_appropriés"]
+      }
+    },
+    "fin2_negative1": {
+      "id": "fin2_negative1",
+      "type": "messenger_scenario",
+      "context": "La panique empêche une prise en charge appropriée",
+      "contextual_image": "Deux jeunes paniqués dans la forêt",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "La panique de Jack a empiré la situation d'Elodie",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "❌",
+            "content": "Sans aide médicale, Elodie continue à souffrir sans savoir ce qui lui arrive",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La panique n'aide jamais en situation d'urgence",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene3_1"
+      },
+      "metadata": {
+        "themes_abordes": ["panique", "danger", "manque_action"]
+      }
+    },
+    "fin2_negative2": {
+      "id": "fin2_negative2",
+      "type": "messenger_scenario",
+      "context": "Elodie tente de continuer malgré la douleur intense",
+      "contextual_image": "Jeune fille souffrant en silence",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "En minimisant sa douleur, Elodie risque de passer à côté d'un problème médical",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "❌",
+            "content": "Les douleurs intenses lors des règles peuvent signaler une pathologie nécessitant un traitement",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Minimiser la douleur peut être dangereux",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene3_1"
+      },
+      "metadata": {
+        "themes_abordes": ["minimisation", "danger", "souffrance_ignorée"]
+      }
+    },
+    "fin2_negative3": {
+      "id": "fin2_negative3",
+      "type": "messenger_scenario",
+      "context": "Elodie reste sans soins appropriés",
+      "contextual_image": "Jeune fille seule avec sa douleur",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Face au manque de professionnalisme des secours, Elodie reste sans aide",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "❌",
+            "content": "Elle ne reçoit pas les soins dont elle a besoin pour ses premières règles douloureuses",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Le manque de prise au sérieux peut avoir des conséquences graves",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene3_1"
+      },
+      "metadata": {
+        "themes_abordes": ["abandon", "manque_soins", "vulnérabilité"]
+      }
+    },
+    "fin2_negative4": {
+      "id": "fin2_negative4",
+      "type": "messenger_scenario",
+      "context": "Elodie accepte de souffrir en silence",
+      "contextual_image": "Jeune fille résignée",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "En acceptant que la douleur soit \"normale\", Elodie risque de ne pas être diagnostiquée",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "❌",
+            "content": "Les douleurs menstruelles intenses ne sont PAS normales et nécessitent une investigation médicale",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Il ne faut jamais normaliser la douleur excessive",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene3_1"
+      },
+      "metadata": {
+        "themes_abordes": ["résignation", "normalisation_douleur", "danger"]
+      }
+    },
+    "scene3_1": {
+      "id": "scene3_1",
+      "type": "messenger_scenario",
+      "context": "Emmy et Antoine sont ensemble depuis quelques mois. Ils sont chez Antoine et discutent de leur première fois.",
+      "contextual_image": "Couple de jeunes dans une chambre en discussion",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          },
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "🤔",
+            "content": "Est-ce que ça fait mal ? J'y connais rien...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "antoine",
+            "avatar": "💭",
+            "content": "Chérie ? Tu te sens prête ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "emmy",
+            "avatar": "😟",
+            "content": "Oui... et toi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "antoine",
+            "avatar": "🤷",
+            "content": "Oui... tu es sûre que c'est bon ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment devrait se dérouler cette conversation importante ?",
+      "choices": [
+        "Antoine propose d'aller chercher des préservatifs",
+        "Antoine met la pression à Emmy",
+        "Ils discutent de la charge contraceptive"
+      ],
+      "nextQuestions": {
+        "A": "scene3_2A",
+        "B": "scene3_2B",
+        "C": "scene3_2C"
+      },
+      "metadata": {
+        "themes_abordes": ["première_fois", "communication", "relation_amoureuse", "questionnement"]
+      }
+    },
+    "scene3_2A": {
+      "id": "scene3_2A",
+      "type": "messenger_scenario",
+      "context": "Antoine réagit de manière responsable et respectueuse",
+      "contextual_image": "Jeune homme responsable et bienveillant",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          },
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "💬",
+            "content": "Oui t'inquiète...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "antoine",
+            "avatar": "😊",
+            "content": "Ok, attends moi ici je vais chercher des capotes et je reviens ok ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "emmy",
+            "avatar": "❤️",
+            "content": "Ok chéri, à tout de suite, je t'aime !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "antoine",
+            "avatar": "💕",
+            "content": "Moi aussi je t'aime !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Pendant qu'Antoine est parti, Emmy réfléchit. Que fait-elle ?",
+      "choices": [
+        "Elle appelle sa cousine Camélia pour avoir des conseils",
+        "Elle attend le retour d'Antoine"
+      ],
+      "nextQuestions": {
+        "A": "scene3_3",
+        "B": "scene3_4A"
+      },
+      "metadata": {
+        "themes_abordes": ["protection", "responsabilité", "respect", "consentement"]
+      }
+    },
+    "scene3_2B": {
+      "id": "scene3_2B",
+      "type": "messenger_scenario",
+      "context": "Antoine met la pression à Emmy",
+      "contextual_image": "Tension dans le couple, manipulation",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          },
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "😕",
+            "content": "Je sais pas...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "antoine",
+            "avatar": "😠",
+            "content": "Quoi ? Je croyais que c'était bon moi...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "antoine",
+            "avatar": "⚠️",
+            "content": "Tu sais moi je suis pas avec toi juste pour qu'on se voit sans rien faire...",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "antoine",
+            "avatar": "🚫",
+            "content": "À un moment s'il se passe rien je vais aller voir ailleurs !",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "emmy",
+            "avatar": "😰",
+            "content": "Bon ben... Il faut que je le fasse alors... Je ne veux pas te perdre",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Cette situation est très problématique. Que se passe-t-il ?",
+      "choices": [
+        "Emmy réalise que ce n'est pas normal et refuse",
+        "La situation empire"
+      ],
+      "nextQuestions": {
+        "A": "scene3_4C",
+        "B": "fin3_negative1"
+      },
+      "metadata": {
+        "themes_abordes": ["pression", "manipulation", "coercition", "consentement_non_respecté"]
+      }
+    },
+    "scene3_2C": {
+      "id": "scene3_2C",
+      "type": "messenger_scenario",
+      "context": "Discussion sur la charge contraceptive",
+      "contextual_image": "Couple en discussion sérieuse",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          },
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "💬",
+            "content": "Oui mais faut qu'on discute de deux, trois trucs avant...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "🤔",
+            "content": "Il faudrait qu'on fasse les tests pour les IST",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "emmy",
+            "avatar": "💊",
+            "content": "Et puis j'ai pas envie de prendre la pilule, on fait comment ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "antoine",
+            "avatar": "😤",
+            "content": "Wai c'est vrai j'avais pas pensé à tout ça...",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "antoine",
+            "avatar": "🙄",
+            "content": "Pour la pilule je sais pas mais c'est toi la meuf non ?",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "antoine",
+            "avatar": "😒",
+            "content": "Moi j'ai pas envie de mettre une capote c'est trop chiant !",
+            "type": "text"
+          },
+          {
+            "id": "msg7",
+            "sender": "emmy",
+            "avatar": "😡",
+            "content": "Tu vois c'est ça qui est relou, pourquoi c'est toujours à nous de penser à ça ?",
+            "type": "text"
+          },
+          {
+            "id": "msg8",
+            "sender": "emmy",
+            "avatar": "✊",
+            "content": "Si tu veux qu'on fasse un truc tu vas mettre la capote sinon c'est mort !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Antoine réagit-il face à cette confrontation nécessaire ?",
+      "choices": [
+        "Il comprend et accepte ses responsabilités",
+        "Il continue à résister"
+      ],
+      "nextQuestions": {
+        "A": "scene3_4A",
+        "B": "fin3_negative2"
+      },
+      "metadata": {
+        "themes_abordes": ["charge_contraceptive", "égalité", "responsabilité_partagée", "IST"]
+      }
+    },
+    "scene3_3": {
+      "id": "scene3_3",
+      "type": "messenger_scenario",
+      "context": "Emmy appelle sa cousine Camélia pour des conseils",
+      "contextual_image": "Conversation téléphonique entre cousines",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": true
+          },
+          {
+            "id": "camelia",
+            "name": "Camélia",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "📱",
+            "content": "Je vais appeler Camélia...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "💬",
+            "content": "Coucou Cam, j'ai besoin de toi",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "camelia",
+            "avatar": "❤️",
+            "content": "Coucouuu ma couz d'amour ! Tu m'as trop manqué ! Qu'est-ce qui t'arrive ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "emmy",
+            "avatar": "😳",
+            "content": "Bah en fait... Antoine et moi on va faire notre 1ère fois et j'y connais rien",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "emmy",
+            "avatar": "🙏",
+            "content": "Je te demande tes conseils",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Camélia va-t-elle conseiller Emmy ?",
+      "choices": [
+        "Camélia : Ok mais est-ce que tu te sens prête pour de vrai ?",
+        "Camélia : Ok ça fait combien de temps que vous êtes ensemble là ?",
+        "Emmy : J'ai peur d'appeler Camélia…"
+      ],
+      "nextQuestions": {
+        "A": "scene3_3A",
+        "B": "scene3_3B",
+        "C": "scene3_3C"
+      },
+      "metadata": {
+        "themes_abordes": ["soutien_familial", "conseils", "inquiétudes", "communication"]
+      }
+    },
+    "scene3_3A": {
+      "id": "scene3_3A",
+      "type": "messenger_scenario",
+      "context": "Camélia donne des conseils bienveillants",
+      "contextual_image": "Soutien bienveillant entre cousines",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": true
+          },
+          {
+            "id": "camelia",
+            "name": "Camélia",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "camelia",
+            "avatar": "💭",
+            "content": "Ok mais est-ce que tu te sens prête pour de vrai ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "😰",
+            "content": "Bah en fait... Pas vraiment... J'ai peur et je suis super stressée...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "emmy",
+            "avatar": "😟",
+            "content": "J'ai peur de tomber enceinte...",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "camelia",
+            "avatar": "💊",
+            "content": "Si tu te protèges correctement tu ne tomberas pas enceinte",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "camelia",
+            "avatar": "⚠️",
+            "content": "Si tu stresses trop il ne vaut mieux pas le faire, tu pourrais avoir des douleurs",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "camelia",
+            "avatar": "🏥",
+            "content": "Mais rappelle-toi, si après ou pendant tu as mal ou que tu saignes, va voir un docteur",
+            "type": "text"
+          },
+          {
+            "id": "msg7",
+            "sender": "emmy",
+            "avatar": "😊",
+            "content": "Ok bisous",
+            "type": "text"
+          },
+          {
+            "id": "msg8",
+            "sender": "camelia",
+            "avatar": "💕",
+            "content": "Je te laisse, biz. T'inquiète ça va aller",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Emmy retourne voir Antoine avec ces nouvelles réflexions",
+      "choices": ["Elle décide de parler à Antoine de ses inquiétudes"],
+      "nextQuestions": {
+        "A": "scene3_4A"
+      },
+      "metadata": {
+        "themes_abordes": ["conseils_sains", "protection", "douleur", "consentement"]
+      }
+    },
+    "scene3_3B": {
+      "id": "scene3_3B",
+      "type": "messenger_scenario",
+      "context": "Camélia met la pression à Emmy",
+      "contextual_image": "Mauvais conseils entre proches",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": true
+          },
+          {
+            "id": "camelia",
+            "name": "Camélia",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "camelia",
+            "avatar": "😮",
+            "content": "Ok ça fait combien de temps que vous êtes ensemble là ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "💬",
+            "content": "Ça fait 6 mois là...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "camelia",
+            "avatar": "😱",
+            "content": "Quoi !? Et vous l'avez toujours pas fait ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "camelia",
+            "avatar": "🙄",
+            "content": "Non mais là t'es obligée, si tu l'aimes vraiment tu as forcément envie !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à cette pression inappropriée, comment Emmy réagit-elle ?",
+      "choices": [
+        "Elle réalise que ce n'est pas un bon conseil",
+        "Elle se sent obligée de le faire"
+      ],
+      "nextQuestions": {
+        "A": "scene3_4A",
+        "B": "fin3_negative3"
+      },
+      "metadata": {
+        "themes_abordes": ["pression_sociale", "fausses_croyances", "mauvais_conseils"]
+      }
+    },
+    "scene3_3C": {
+      "id": "scene3_3C",
+      "type": "messenger_scenario",
+      "context": "Emmy garde ses inquiétudes pour elle",
+      "contextual_image": "Jeune fille isolée avec ses questions",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "💭",
+            "content": "Est-ce que ça fait mal ? J'ai peur de tomber enceinte...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "🤐",
+            "content": "Mais je vais pas appeler Camélia quand même, elle va me trouver trop bizarre...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "emmy",
+            "avatar": "😔",
+            "content": "Les trucs de sexe faut garder pour soi c'est perso",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "emmy",
+            "avatar": "😟",
+            "content": "Faut que je me débrouille toute seule...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Sans conseils, Emmy retourne voir Antoine",
+      "choices": ["Elle essaie quand même d'en parler à Antoine"],
+      "nextQuestions": {
+        "A": "scene3_4A"
+      },
+      "metadata": {
+        "themes_abordes": ["isolement", "tabou", "manque_information"]
+      }
+    },
+    "scene3_4A": {
+      "id": "scene3_4A",
+      "type": "messenger_scenario",
+      "context": "Antoine revient et ils ont une discussion importante",
+      "contextual_image": "Couple en discussion ouverte et honnête",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          },
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "antoine",
+            "avatar": "😊",
+            "content": "C'est bon je suis là chérie",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "💬",
+            "content": "Ok, on peut se parler ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "antoine",
+            "avatar": "👂",
+            "content": "Oui bien sûr chérie",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "emmy",
+            "avatar": "😰",
+            "content": "Bah en fait je ne me sens pas prête à le faire...",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "emmy",
+            "avatar": "😟",
+            "content": "J'ai peur, je suis trop stressée, désolée",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Antoine va-t-il réagir à l'honnêteté d'Emmy ?",
+      "choices": [
+        "Il respecte sa décision",
+        "Il change d'avis lui aussi",
+        "Il se fâche"
+      ],
+      "nextQuestions": {
+        "A": "fin3_positive1",
+        "B": "fin3_positive2",
+        "C": "fin3_negative4"
+      },
+      "metadata": {
+        "themes_abordes": ["communication", "respect", "consentement_mutuel"]
+      }
+    },
+    "scene3_4C": {
+      "id": "scene3_4C",
+      "type": "messenger_scenario",
+      "context": "Emmy refuse malgré la pression",
+      "contextual_image": "Jeune femme affirmant ses limites",
+      "conversation": {
+        "participants": [
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "emmy",
+            "avatar": "💪",
+            "content": "Non ! Ce n'est pas normal que tu me mettes la pression comme ça",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "😤",
+            "content": "Si tu m'aimes vraiment, tu respecteras mon choix",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "emmy",
+            "avatar": "🚫",
+            "content": "Je ne suis pas prête et c'est mon droit",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Emmy s'affirme face à la pression. Que se passe-t-il ?",
+      "choices": [
+        "Antoine comprend son erreur",
+        "La relation se termine"
+      ],
+      "nextQuestions": {
+        "A": "fin3_positive3",
+        "B": "fin3_positive4"
+      },
+      "metadata": {
+        "themes_abordes": ["affirmation_de_soi", "limites", "respect_de_soi"]
+      }
+    },
+    "fin3_positive1": {
+      "id": "fin3_positive1",
+      "type": "messenger_scenario",
+      "context": "Le consentement est respecté",
+      "contextual_image": "Couple qui se respecte mutuellement",
+      "conversation": {
+        "participants": [
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          },
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "antoine",
+            "avatar": "💕",
+            "content": "Mais tu n'as pas à t'excuser",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "antoine",
+            "avatar": "😊",
+            "content": "C'est pas grave, ne t'inquiète pas",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "antoine",
+            "avatar": "❤️",
+            "content": "On le fera quand on sera prêts",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "emmy",
+            "avatar": "🥰",
+            "content": "Merci de me comprendre chéri",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "antoine",
+            "avatar": "💑",
+            "content": "De rien, c'est normal ma chérie",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Le respect mutuel renforce leur relation !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["respect", "consentement", "confiance", "amour_sain"]
+      }
+    },
+    "fin3_positive2": {
+      "id": "fin3_positive2",
+      "type": "messenger_scenario",
+      "context": "Antoine aussi exprime ses doutes",
+      "contextual_image": "Communication ouverte dans le couple",
+      "conversation": {
+        "participants": [
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          },
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "antoine",
+            "avatar": "😅",
+            "content": "En fait je crois que j'ai plus envie...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "emmy",
+            "avatar": "😯",
+            "content": "Quoi ? Mais pourquoi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "antoine",
+            "avatar": "💭",
+            "content": "Je crois que je suis juste pas prêt, désolé",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "emmy",
+            "avatar": "💕",
+            "content": "C'est normal, on n'est pas obligés de se presser",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Les garçons aussi ont le droit de ne pas être prêts !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["communication_bidirectionnelle", "honnêteté", "préjugés_masculins"]
+      }
+    },
+    "fin3_positive3": {
+      "id": "fin3_positive3",
+      "type": "messenger_scenario",
+      "context": "Antoine comprend son erreur",
+      "contextual_image": "Prise de conscience et excuses",
+      "conversation": {
+        "participants": [
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          },
+          {
+            "id": "emmy",
+            "name": "Emmy",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "antoine",
+            "avatar": "😔",
+            "content": "Tu as raison, je suis désolé",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "antoine",
+            "avatar": "💭",
+            "content": "Je n'aurais pas dû te mettre la pression",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "antoine",
+            "avatar": "❤️",
+            "content": "Je t'aime et je veux que tu te sentes bien",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "emmy",
+            "avatar": "💕",
+            "content": "Merci de comprendre",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Reconnaître ses erreurs permet de grandir !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["prise_de_conscience", "excuses", "apprentissage"]
+      }
+    },
+    "fin3_positive4": {
+      "id": "fin3_positive4",
+      "type": "messenger_scenario",
+      "context": "Emmy choisit de se respecter",
+      "contextual_image": "Jeune femme forte et indépendante",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "✨",
+            "content": "Emmy choisit de mettre fin à une relation où elle n'est pas respectée",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "💪",
+            "content": "Elle comprend qu'elle mérite mieux qu'un partenaire qui la presse",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🌟",
+            "content": "C'est difficile mais c'est le bon choix pour son bien-être",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Se respecter soi-même est le plus important !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["estime_de_soi", "indépendance", "respect_de_soi"]
+      }
+    },
+    "fin3_negative1": {
+      "id": "fin3_negative1",
+      "type": "messenger_scenario",
+      "context": "Situation de coercition sexuelle",
+      "contextual_image": "Danger, violation du consentement",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "C'est une situation de viol",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "Définition légale (Article 222-23) : \"Tout acte de pénétration sexuelle commis par violence, contrainte, menace ou surprise est un viol\"",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "☎️",
+            "content": "Si vous vivez cette situation, appelez le 3919 ou le 17",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La pression pour avoir des relations sexuelles est inacceptable",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["viol", "coercition", "danger", "violence"]
+      }
+    },
+    "fin3_negative2": {
+      "id": "fin3_negative2",
+      "type": "messenger_scenario",
+      "context": "Inégalité dans la charge contraceptive",
+      "contextual_image": "Déséquilibre dans le couple",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Antoine refuse de prendre ses responsabilités",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "Cette inégalité crée un déséquilibre malsain dans la relation",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🚫",
+            "content": "Emmy mérite un partenaire qui partage les responsabilités",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La contraception est l'affaire des deux partenaires",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["inégalité", "charge_mentale", "irresponsabilité"]
+      }
+    },
+    "fin3_negative3": {
+      "id": "fin3_negative3",
+      "type": "messenger_scenario",
+      "context": "Pression sociale inappropriée",
+      "contextual_image": "Influence négative de l'entourage",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Emmy cède à la pression sociale plutôt qu'à ses propres désirs",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "😔",
+            "content": "Elle risque de vivre une expérience négative car elle n'est pas prête",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "La première fois devrait être un choix personnel, pas une obligation sociale",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Il ne faut jamais céder à la pression sociale",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["pression_sociale", "mauvaise_influence", "conformisme"]
+      }
+    },
+    "fin3_negative4": {
+      "id": "fin3_negative4",
+      "type": "messenger_scenario",
+      "context": "Non-respect du refus",
+      "contextual_image": "Violation du consentement",
+      "conversation": {
+        "participants": [
+          {
+            "id": "antoine",
+            "name": "Antoine",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "antoine",
+            "avatar": "😡",
+            "content": "Quoi !? Mais tu viens de me dire que c'était bon !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "antoine",
+            "avatar": "💢",
+            "content": "Moi je suis excité maintenant, t'as pas le droit de me laisser comme ça !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "Antoine attrape Emmy par le bras et la force",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "C'est un viol - passible de 15 ans de prison",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Le consentement peut être retiré à tout moment",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene4_1"
+      },
+      "metadata": {
+        "themes_abordes": ["non_respect", "violation", "agression"]
+      }
+    },
+    "scene4_1": {
+      "id": "scene4_1",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela arrive à son club de foot pour l'entraînement. Elle a ses règles aujourd'hui.",
+      "contextual_image": "Terrain de football avec des jeunes qui s'entraînent",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "💭",
+            "content": "Est-ce que je peux faire du sport en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚽",
+            "content": "Elle décide de demander conseil à son ami Michel puis à son coach",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Jean-Michela cherche des conseils. Comment va-t-elle être accueillie ?",
+      "choices": [
+        "Elle reçoit des encouragements bienveillants",
+        "On lui suggère d'éviter le sport",
+        "Elle fait face à des préjugés"
+      ],
+      "nextQuestions": {
+        "A": "scene4_2A",
+        "B": "scene4_2B",
+        "C": "scene4_2C"
+      },
+      "metadata": {
+        "themes_abordes": ["sport", "règles", "inclusion", "activité_physique"]
+      }
+    },
+    "scene4_2A": {
+      "id": "scene4_2A",
+      "type": "messenger_scenario",
+      "context": "Réponse positive et encourageante de l'entourage",
+      "contextual_image": "Soutien bienveillant de l'équipe",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "michel",
+            "name": "Michel",
+            "isCurrentUser": false
+          },
+          {
+            "id": "coach",
+            "name": "Coach",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "❓",
+            "content": "Est-ce que je peux faire du sport en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "michel",
+            "avatar": "😊",
+            "content": "Mais oui bien sûr !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "michel",
+            "avatar": "💪",
+            "content": "Il y a plein de femmes qui font du sport au niveau pro",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "michel",
+            "avatar": "🏆",
+            "content": "Elles doivent parfois participer à des compétitions en ayant leurs règles",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "jeanmichela",
+            "avatar": "👩‍⚕️",
+            "content": "Coach, est-ce que je peux faire du foot même en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "coach",
+            "avatar": "✅",
+            "content": "Oui tu peux mais que si tu te sens capable de le faire !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Jean-Michela se sent soutenue. Comment va se passer l'entraînement ?",
+      "choices": [
+        "Elle participe normalement au match",
+        "Elle commence mais ressent des douleurs"
+      ],
+      "nextQuestions": {
+        "A": "scene4_3A",
+        "B": "scene4_3B"
+      },
+      "metadata": {
+        "themes_abordes": ["soutien", "normalisation", "sport_féminin", "égalité"]
+      }
+    },
+    "scene4_2B": {
+      "id": "scene4_2B",
+      "type": "messenger_scenario",
+      "context": "Discrimination silencieuse et paternalisme",
+      "contextual_image": "Attitudes condescendantes de l'entourage",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "michel",
+            "name": "Michel",
+            "isCurrentUser": false
+          },
+          {
+            "id": "coach",
+            "name": "Coach",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "❓",
+            "content": "Est-ce que je peux faire du sport en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "michel",
+            "avatar": "😟",
+            "content": "Oh ma pauvre, ça doit être horrible",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "michel",
+            "avatar": "🏠",
+            "content": "Tu devrais rentrer chez toi",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "jeanmichela",
+            "avatar": "👨‍🏫",
+            "content": "Coach, est-ce que je peux faire du sport même en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "coach",
+            "avatar": "🤷",
+            "content": "Je n'en sais rien, les affaires de femmes c'est pas mon truc",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "coach",
+            "avatar": "🏥",
+            "content": "Vaut mieux que tu ailles à l'infirmerie pour attendre que ça passe",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à ces réactions décourageantes, que fait Jean-Michela ?",
+      "choices": [
+        "Elle insiste pour jouer quand même",
+        "Elle renonce et rentre chez elle"
+      ],
+      "nextQuestions": {
+        "A": "scene4_3A",
+        "B": "fin4_negative1"
+      },
+      "metadata": {
+        "themes_abordes": ["discrimination_douce", "paternalisme", "exclusion_subtile"]
+      }
+    },
+    "scene4_2C": {
+      "id": "scene4_2C",
+      "type": "messenger_scenario",
+      "context": "Préjugés et tabous sur les règles",
+      "contextual_image": "Réactions de dégoût et rejet",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "michel",
+            "name": "Michel",
+            "isCurrentUser": false
+          },
+          {
+            "id": "coach",
+            "name": "Coach",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "❓",
+            "content": "Est-ce que je peux faire du sport en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "michel",
+            "avatar": "🤢",
+            "content": "Quoi ? Mais ça va pas ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "michel",
+            "avatar": "😤",
+            "content": "Pourquoi tu me parles de ça, c'est dégoûtant !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "jeanmichela",
+            "avatar": "👨‍🏫",
+            "content": "Coach, est-ce que je peux faire du sport même en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "coach",
+            "avatar": "🚫",
+            "content": "Une femme ne doit pas faire du sport pendant ses règles",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "coach",
+            "avatar": "👉",
+            "content": "Sors immédiatement du terrain !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face à cette discrimination flagrante, comment réagit Jean-Michela ?",
+      "choices": [
+        "Elle conteste cette décision injuste",
+        "Elle part humiliée"
+      ],
+      "nextQuestions": {
+        "A": "fin4_positive2",
+        "B": "fin4_negative2"
+      },
+      "metadata": {
+        "themes_abordes": ["tabou", "honte", "discrimination", "préjugés"]
+      }
+    },
+    "scene4_3A": {
+      "id": "scene4_3A",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela joue le match",
+      "contextual_image": "Match de football en cours",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚽",
+            "content": "Le match de foot commence",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jeanmichela",
+            "avatar": "💪",
+            "content": "Pour l'instant tout va bien, je me sens capable de jouer",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment se déroule le match ?",
+      "choices": [
+        "Elle termine le match sans problème",
+        "Des douleurs apparaissent pendant le match"
+      ],
+      "nextQuestions": {
+        "A": "fin4_positive1",
+        "B": "scene4_4"
+      },
+      "metadata": {
+        "themes_abordes": ["participation", "normalité", "sport"]
+      }
+    },
+    "scene4_3B": {
+      "id": "scene4_3B",
+      "type": "messenger_scenario",
+      "context": "Des douleurs apparaissent dès le début",
+      "contextual_image": "Jeune fille ressentant des douleurs",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "😣",
+            "content": "Je commence à avoir mal, je vais arrêter",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Jean-Michela ressent des douleurs importantes",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment va-t-elle gérer cette situation ?",
+      "choices": [
+        "Elle demande à être remplacée",
+        "Elle essaie de continuer malgré la douleur"
+      ],
+      "nextQuestions": {
+        "A": "scene4_4",
+        "B": "fin4_negative3"
+      },
+      "metadata": {
+        "themes_abordes": ["douleurs_menstruelles", "écoute_du_corps", "santé"]
+      }
+    },
+    "scene4_4": {
+      "id": "scene4_4",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela demande à être remplacée",
+      "contextual_image": "Discussion avec le coach sur le bord du terrain",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "😰",
+            "content": "Coach, j'ai super mal et je suis fatiguée",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jeanmichela",
+            "avatar": "🙏",
+            "content": "Est-ce que je peux arrêter le match et me faire remplacer ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment le coach va-t-il réagir ?",
+      "choices": [
+        "Il la soutient et lui conseille de consulter",
+        "Il minimise sa douleur",
+        "Elle n'ose pas vraiment le dire"
+      ],
+      "nextQuestions": {
+        "A": "fin4_positive3",
+        "B": "fin4_negative4",
+        "C": "fin4_negative5"
+      },
+      "metadata": {
+        "themes_abordes": ["écoute_du_corps", "bienveillance", "santé"]
+      }
+    },
+    "fin4_positive1": {
+      "id": "fin4_positive1",
+      "type": "messenger_scenario",
+      "context": "Match réussi sans problème",
+      "contextual_image": "Équipe célébrant ensemble",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "✨",
+            "content": "Jean-Michela termine le match sans problème",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "💪",
+            "content": "Avoir ses règles n'est pas un obstacle au sport",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🏆",
+            "content": "Elle prouve que les femmes peuvent faire du sport à tout moment de leur cycle",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Le sport est accessible à toutes !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["normalité", "inclusion", "réussite"]
+      }
+    },
+    "fin4_positive2": {
+      "id": "fin4_positive2",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela défend ses droits",
+      "contextual_image": "Jeune fille s'affirmant face aux préjugés",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "💪",
+            "content": "C'est de la discrimination !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jeanmichela",
+            "avatar": "📚",
+            "content": "Il n'y a aucune contre-indication médicale",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "jeanmichela",
+            "avatar": "✊",
+            "content": "J'ai le droit de jouer comme tout le monde !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Jean-Michela fait valoir ses droits et sensibilise son entourage",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Lutter contre les préjugés est important !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["affirmation", "droits", "égalité"]
+      }
+    },
+    "fin4_positive3": {
+      "id": "fin4_positive3",
+      "type": "messenger_scenario",
+      "context": "Prise en charge bienveillante",
+      "contextual_image": "Coach bienveillant et compréhensif",
+      "conversation": {
+        "participants": [
+          {
+            "id": "coach",
+            "name": "Coach",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "coach",
+            "avatar": "😊",
+            "content": "Oui bien sûr, va t'asseoir",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "coach",
+            "avatar": "🏥",
+            "content": "Je pense que tu devrais aller chez un médecin pour parler de tes douleurs",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "coach",
+            "avatar": "💬",
+            "content": "Avoir tes règles ne devrait pas t'empêcher de faire du sport",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Jean-Michela est bien accompagnée et va consulter pour ses douleurs",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Un bon encadrement fait la différence !",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["bienveillance", "conseil_médical", "soutien"]
+      }
+    },
+    "fin4_negative1": {
+      "id": "fin4_negative1",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela renonce au sport",
+      "contextual_image": "Jeune fille isolée rentrant chez elle",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "😔",
+            "content": "Découragée, Jean-Michela rentre chez elle",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Les attitudes paternalistes l'éloignent du sport",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "Elle risque d'abandonner une activité qu'elle aime",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La discrimination douce aussi est nocive",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["exclusion", "découragement", "discrimination"]
+      }
+    },
+    "fin4_negative2": {
+      "id": "fin4_negative2",
+      "type": "messenger_scenario",
+      "context": "Humiliation et exclusion",
+      "contextual_image": "Jeune fille humiliée quittant le terrain",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "😢",
+            "content": "Jean-Michela part humiliée et blessée",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Cette expérience traumatisante risque de la dégoûter du sport",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "Les tabous sur les règles causent des dommages psychologiques",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Les tabous excluent les femmes du sport",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["humiliation", "tabou", "trauma"]
+      }
+    },
+    "fin4_negative3": {
+      "id": "fin4_negative3",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela ignore ses douleurs",
+      "contextual_image": "Jeune fille souffrant en silence",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "💭",
+            "content": "Je dois être forte et surmonter la douleur",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jeanmichela",
+            "avatar": "😰",
+            "content": "Tout le monde va penser que je suis fragile sinon !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Ignorer la douleur peut être dangereux",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "🏥",
+            "content": "Les douleurs intenses nécessitent une consultation médicale",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Il ne faut jamais ignorer les signaux du corps",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["déni", "souffrance", "danger"]
+      }
+    },
+    "fin4_negative4": {
+      "id": "fin4_negative4",
+      "type": "messenger_scenario",
+      "context": "Le coach minimise la douleur",
+      "contextual_image": "Coach dismissif",
+      "conversation": {
+        "participants": [
+          {
+            "id": "coach",
+            "name": "Coach",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "coach",
+            "avatar": "🙄",
+            "content": "Arrête de faire ta chochotte",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "coach",
+            "avatar": "😤",
+            "content": "C'est normal d'avoir mal, faut être forte",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Cette minimisation empêche une prise en charge appropriée",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "Jean-Michela n'ose plus demander d'aide",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La minimisation de la douleur est dangereuse",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["minimisation", "manque_soutien", "danger"]
+      }
+    },
+    "fin4_negative5": {
+      "id": "fin4_negative5",
+      "type": "messenger_scenario",
+      "context": "Jean-Michela n'ose pas s'exprimer",
+      "contextual_image": "Jeune fille souffrant en silence sur le terrain",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "💭",
+            "content": "Je ne peux pas m'arrêter, je dois être forte",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "jeanmichela",
+            "avatar": "😔",
+            "content": "Tout le monde va penser que je suis une fragile",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Le tabou l'empêche de demander de l'aide",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "Elle continue à souffrir en silence",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Le tabou empêche l'accès aux soins",
+      "choices": ["Continuer vers une nouvelle situation"],
+      "nextQuestions": {
+        "A": "scene5_1"
+      },
+      "metadata": {
+        "themes_abordes": ["silence", "tabou", "souffrance_cachée"]
+      }
+    },
+    "scene5_1": {
+      "id": "scene5_1",
+      "type": "messenger_scenario",
+      "context": "Steven rentre chez lui alcoolisé après avoir bu chez un ami. Olivia l'attend, inquiète.",
+      "contextual_image": "Appartement la nuit, tension palpable",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false
+          },
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "🍺",
+            "content": "Kossa la fé ou lé meyer ou kossa ou la di ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "steven",
+            "avatar": "😠",
+            "content": "Koifé ou ve pran ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "olivia",
+            "avatar": "😰",
+            "content": "Steven, tu es encore ivre... tu fais peur...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Olivia devrait-elle réagir face à Steven alcoolisé et agressif ?",
+      "choices": [
+        "Chercher à désamorcer calmement",
+        "Hésiter et se justifier",
+        "Confronter Steven"
+      ],
+      "nextQuestions": {
+        "A": "scene5_2A",
+        "B": "scene5_2B",
+        "C": "scene5_2C"
+      },
+      "metadata": {
+        "themes_abordes": ["alcool", "violence_conjugale", "escalade", "danger"]
+      }
+    },
+    "scene5_2A": {
+      "id": "scene5_2A",
+      "type": "messenger_scenario",
+      "context": "Olivia tente de désamorcer la situation",
+      "contextual_image": "Femme calme face à homme agressif",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "🤚",
+            "content": "Steven, tu es alcoolisé",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "💭",
+            "content": "Je pense qu'il vaut mieux que tu te reposes",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "olivia",
+            "avatar": "🕊️",
+            "content": "On parlera demain",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Olivia évite d'alimenter la colère. Que se passe-t-il ensuite ?",
+      "choices": [
+        "Steven s'énerve quand même",
+        "Steven va se coucher"
+      ],
+      "nextQuestions": {
+        "A": "scene5_3",
+        "B": "fin5_positive1"
+      },
+      "metadata": {
+        "themes_abordes": ["désescalade", "protection", "stratégie"]
+      }
+    },
+    "scene5_2B": {
+      "id": "scene5_2B",
+      "type": "messenger_scenario",
+      "context": "Olivia hésite et montre sa peur",
+      "contextual_image": "Femme tremblante face à la menace",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "😨",
+            "content": "Je... je suis désolée",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "🥺",
+            "content": "J'étais occupée, mais...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "olivia",
+            "avatar": "😰",
+            "content": "Tu vas te calmer, hein ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "L'hésitation d'Olivia alimente le rapport de force. Que fait Steven ?",
+      "choices": ["Il devient plus agressif"],
+      "nextQuestions": {
+        "A": "scene5_3"
+      },
+      "metadata": {
+        "themes_abordes": ["peur", "vulnérabilité", "rapport_de_force"]
+      }
+    },
+    "scene5_2C": {
+      "id": "scene5_2C",
+      "type": "messenger_scenario",
+      "context": "Olivia confronte Steven",
+      "contextual_image": "Confrontation dangereuse",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "😤",
+            "content": "Arrête de crier !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "🗣️",
+            "content": "Tu n'as pas à me parler comme ça !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La confrontation empire la situation. Que se passe-t-il ?",
+      "choices": ["Steven devient violent"],
+      "nextQuestions": {
+        "A": "scene5_3"
+      },
+      "metadata": {
+        "themes_abordes": ["escalade", "danger_immédiat", "violence"]
+      }
+    },
+    "scene5_3": {
+      "id": "scene5_3",
+      "type": "messenger_scenario",
+      "context": "L'escalade de violence",
+      "contextual_image": "Situation de danger immédiat",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false
+          },
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "💢",
+            "content": "Tu te fous de moi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "steven",
+            "avatar": "🤬",
+            "content": "Je sais que tu vois un autre mec !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Steven jette un objet au sol",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La situation devient dangereuse. Comment Olivia réagit-elle ?",
+      "choices": [
+        "S'éloigner et prendre son téléphone",
+        "Supplier Steven",
+        "Riposter verbalement"
+      ],
+      "nextQuestions": {
+        "A": "scene5_4A",
+        "B": "scene5_4B",
+        "C": "scene5_4C"
+      },
+      "metadata": {
+        "themes_abordes": ["violence_physique", "danger", "protection"]
+      }
+    },
+    "scene5_4A": {
+      "id": "scene5_4A",
+      "type": "messenger_scenario",
+      "context": "Olivia se met en sécurité",
+      "contextual_image": "Femme s'éloignant avec téléphone",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "📱",
+            "content": "Tu es dangereux",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "🚪",
+            "content": "Je ne veux pas rester là",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Elle prend de la distance et prévient la possibilité de violence",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Olivia se protège. Que se passe-t-il ?",
+      "choices": ["Les voisins appellent la police"],
+      "nextQuestions": {
+        "A": "scene5_5"
+      },
+      "metadata": {
+        "themes_abordes": ["protection", "sécurité", "aide"]
+      }
+    },
+    "scene5_4B": {
+      "id": "scene5_4B",
+      "type": "messenger_scenario",
+      "context": "Olivia supplie Steven",
+      "contextual_image": "Victime en position de vulnérabilité",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "😭",
+            "content": "Steven, je t'aime...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "🙏",
+            "content": "Ne me fais pas de mal...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Elle espère qu'il se calme mais il garde le contrôle",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La supplique n'arrête pas l'escalade. Que se passe-t-il ?",
+      "choices": ["Steven frappe Olivia"],
+      "nextQuestions": {
+        "A": "scene5_5"
+      },
+      "metadata": {
+        "themes_abordes": ["supplique", "contrôle", "pression_psychologique"]
+      }
+    },
+    "scene5_4C": {
+      "id": "scene5_4C",
+      "type": "messenger_scenario",
+      "context": "Olivia riposte verbalement",
+      "contextual_image": "Confrontation explosive",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "🤬",
+            "content": "Tu es fou !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "😡",
+            "content": "Tu n'es qu'un alcoolique minable !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "Steven explose de rage et la frappe",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La violence éclate. Que se passe-t-il ?",
+      "choices": ["Intervention de la police"],
+      "nextQuestions": {
+        "A": "scene5_5"
+      },
+      "metadata": {
+        "themes_abordes": ["escalade_maximale", "violence_imminente"]
+      }
+    },
+    "scene5_5": {
+      "id": "scene5_5",
+      "type": "messenger_scenario",
+      "context": "Intervention policière",
+      "contextual_image": "Police intervenant dans l'appartement",
+      "conversation": {
+        "participants": [
+          {
+            "id": "policier",
+            "name": "Policier",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "policier",
+            "avatar": "👮",
+            "content": "Arrêtez ! À terre et les mains sur la tête !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🚔",
+            "content": "Steven et Olivier se retrouvent en cellule de dégrisement",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🏥",
+            "content": "Steven décide de se rendre dans un CSAPA pour ses addictions",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Steven réagit-il face à la police ?",
+      "choices": [
+        "Il se rend",
+        "Il nie les faits",
+        "Il résiste"
+      ],
+      "nextQuestions": {
+        "A": "fin5_positive2",
+        "B": "fin5_negative1",
+        "C": "fin5_negative2"
+      },
+      "metadata": {
+        "themes_abordes": ["intervention", "arrestation", "protection"]
+      }
+    },
+    "fin5_positive1": {
+      "id": "fin5_positive1",
+      "type": "messenger_scenario",
+      "context": "Steven accepte de se reposer",
+      "contextual_image": "Désescalade réussie",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Olivia a réussi à désamorcer temporairement",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Mais le danger reste présent dans la relation",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "📞",
+            "content": "Il faut chercher de l'aide : 3919 (violences conjugales)",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin - La désescalade temporaire n'est pas une solution durable",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene6_1"
+      },
+      "metadata": {
+        "themes_abordes": ["désescalade", "protection_efficace"]
+      }
+    },
+    "fin5_positive2": {
+      "id": "fin5_positive2",
+      "type": "messenger_scenario",
+      "context": "Steven accepte l'aide",
+      "contextual_image": "Prise de conscience et aide",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "😔",
+            "content": "Ok... j'ai merdé...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🏥",
+            "content": "Steven sera pris en charge pour son alcoolisme",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Olivia est protégée et peut porter plainte",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "💡",
+            "content": "L'alcool n'excuse jamais la violence",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Reconnaître le problème est le premier pas",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene6_1"
+      },
+      "metadata": {
+        "themes_abordes": ["reconnaissance", "aide", "CSAPA"]
+      }
+    },
+    "fin5_negative1": {
+      "id": "fin5_negative1",
+      "type": "messenger_scenario",
+      "context": "Steven nie les faits",
+      "contextual_image": "Déni et arrestation forcée",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "😤",
+            "content": "C'est elle qui a commencé ! Je n'ai rien fait !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "La police doit intervenir fermement",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Le déni empêche la prise en charge",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Le déni perpétue le cycle de violence",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene6_1"
+      },
+      "metadata": {
+        "themes_abordes": ["déni", "arrestation", "danger_persistant"]
+      }
+    },
+    "fin5_negative2": {
+      "id": "fin5_negative2",
+      "type": "messenger_scenario",
+      "context": "Steven résiste à l'arrestation",
+      "contextual_image": "Arrestation avec usage de la force",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "💢",
+            "content": "Personne ne me touche !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "Arrestation avec usage de la force",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "Poursuites aggravées pour Steven",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La résistance aggrave les conséquences",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene6_1"
+      },
+      "metadata": {
+        "themes_abordes": ["résistance", "violence_aggravée", "poursuites"]
+      }
+    },
+    "scene6_1": {
+      "id": "scene6_1",
+      "type": "messenger_scenario",
+      "context": "Lina va au centre commercial avec ses amies Camille et Cassandra",
+      "contextual_image": "Trois jeunes filles au centre commercial",
+      "conversation": {
+        "participants": [
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          },
+          {
+            "id": "cassandra",
+            "name": "Cassandra",
+            "isCurrentUser": false
+          },
+          {
+            "id": "camille",
+            "name": "Camille",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "cassandra",
+            "avatar": "📱",
+            "content": "Venez on va au magasin d'à côté",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🛍️",
+            "content": "Les filles entrent dans le magasin",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "cassandra",
+            "avatar": "😈",
+            "content": "Vas-y Lina, vole une montre !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "camille",
+            "avatar": "👿",
+            "content": "FAIS-LE !!",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Les amies de Lina la poussent à voler. Comment réagit-elle ?",
+      "choices": [
+        "Refuser fermement",
+        "Hésiter et douter",
+        "Se laisser influencer"
+      ],
+      "nextQuestions": {
+        "A": "scene6_2A",
+        "B": "scene6_2B",
+        "C": "scene6_2C"
+      },
+      "metadata": {
+        "themes_abordes": ["amitié", "pression_sociale", "influence", "vol"]
+      }
+    },
+    "scene6_2A": {
+      "id": "scene6_2A",
+      "type": "messenger_scenario",
+      "context": "Lina refuse de voler",
+      "contextual_image": "Jeune fille déterminée face à la pression",
+      "conversation": {
+        "participants": [
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "lina",
+            "avatar": "✋",
+            "content": "NON ! Je ne vais pas voler",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "lina",
+            "avatar": "💪",
+            "content": "Vous êtes folles !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "lina",
+            "avatar": "🚫",
+            "content": "Je ne veux pas de problèmes",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Lina résiste à la pression. Comment réagissent ses amies ?",
+      "choices": [
+        "Elles s'excusent",
+        "Elles la rabaissent",
+        "Elles deviennent violentes"
+      ],
+      "nextQuestions": {
+        "A": "scene6_3A",
+        "B": "scene6_3B",
+        "C": "scene6_3C"
+      },
+      "metadata": {
+        "themes_abordes": ["affirmation_de_soi", "résistance", "bonnes_décisions"]
+      }
+    },
+    "scene6_2B": {
+      "id": "scene6_2B",
+      "type": "messenger_scenario",
+      "context": "Lina hésite face à la pression",
+      "contextual_image": "Jeune fille indécise et vulnérable",
+      "conversation": {
+        "participants": [
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "lina",
+            "avatar": "😟",
+            "content": "Vous êtes sûres que c'est une bonne idée ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "lina",
+            "avatar": "😰",
+            "content": "Et si on m'attrape ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "lina",
+            "avatar": "🤷",
+            "content": "On aura des problèmes...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "L'hésitation de Lina la rend vulnérable. Que font ses amies ?",
+      "choices": ["Elles insistent encore plus"],
+      "nextQuestions": {
+        "A": "scene6_3B"
+      },
+      "metadata": {
+        "themes_abordes": ["doute", "vulnérabilité", "manipulation"]
+      }
+    },
+    "scene6_2C": {
+      "id": "scene6_2C",
+      "type": "messenger_scenario",
+      "context": "Lina cède à la pression",
+      "contextual_image": "Vol dans le magasin",
+      "conversation": {
+        "participants": [
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "vigile",
+            "name": "Vigile",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "lina",
+            "avatar": "😨",
+            "content": "Ok... d'accord...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "L'alarme sonne \"BIP BIP BIP\"",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "vigile",
+            "avatar": "👮",
+            "content": "STOP ! ARRÊTEZ-VOUS !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Lina s'est fait prendre. Que se passe-t-il ?",
+      "choices": ["Confrontation avec les autorités"],
+      "nextQuestions": {
+        "A": "fin6_negative1"
+      },
+      "metadata": {
+        "themes_abordes": ["influence_négative", "danger", "conséquences"]
+      }
+    },
+    "scene6_3A": {
+      "id": "scene6_3A",
+      "type": "messenger_scenario",
+      "context": "Les amies reconnaissent leur tort",
+      "contextual_image": "Réconciliation entre amies",
+      "conversation": {
+        "participants": [
+          {
+            "id": "cassandra",
+            "name": "Cassandra",
+            "isCurrentUser": false
+          },
+          {
+            "id": "camille",
+            "name": "Camille",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "cassandra",
+            "avatar": "😔",
+            "content": "Lina, ce n'était pas correct",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "cassandra",
+            "avatar": "🙏",
+            "content": "Je n'aurais pas dû agir comme ça",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "camille",
+            "avatar": "😢",
+            "content": "On est désolées",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Les amies s'excusent. Comment évolue leur relation ?",
+      "choices": ["Lina en parle à son père"],
+      "nextQuestions": {
+        "A": "scene6_4A"
+      },
+      "metadata": {
+        "themes_abordes": ["excuses", "reconnaissance", "amitié_saine"]
+      }
+    },
+    "scene6_3B": {
+      "id": "scene6_3B",
+      "type": "messenger_scenario",
+      "context": "Les amies exercent plus de pression",
+      "contextual_image": "Harcèlement moral entre jeunes",
+      "conversation": {
+        "participants": [
+          {
+            "id": "cassandra",
+            "name": "Cassandra",
+            "isCurrentUser": false
+          },
+          {
+            "id": "camille",
+            "name": "Camille",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "cassandra",
+            "avatar": "😤",
+            "content": "T'es une trouillarde !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "camille",
+            "avatar": "🙄",
+            "content": "La prochaine fois on ne t'invitera plus",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Elles entretiennent un climat de harcèlement moral",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Face au harcèlement, que fait Lina ?",
+      "choices": ["Elle en parle à son père"],
+      "nextQuestions": {
+        "A": "scene6_4B"
+      },
+      "metadata": {
+        "themes_abordes": ["harcèlement", "pression", "isolement"]
+      }
+    },
+    "scene6_3C": {
+      "id": "scene6_3C",
+      "type": "messenger_scenario",
+      "context": "Violence physique et verbale",
+      "contextual_image": "Agression entre jeunes",
+      "conversation": {
+        "participants": [
+          {
+            "id": "cassandra",
+            "name": "Cassandra",
+            "isCurrentUser": false
+          },
+          {
+            "id": "camille",
+            "name": "Camille",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "cassandra",
+            "avatar": "🤬",
+            "content": "Tu ne sais rien faire, sale p*te !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "👊",
+            "content": "Cassandra gifle violemment Lina",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "camille",
+            "avatar": "😡",
+            "content": "Tu n'es même pas capable de faire ça franchement...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Lina est victime de violence. Que fait-elle ?",
+      "choices": ["Elle en parle immédiatement à son père"],
+      "nextQuestions": {
+        "A": "scene6_4C"
+      },
+      "metadata": {
+        "themes_abordes": ["violence", "harcèlement_grave", "danger"]
+      }
+    },
+    "scene6_4A": {
+      "id": "scene6_4A",
+      "type": "messenger_scenario",
+      "context": "Discussion apaisée avec le père",
+      "contextual_image": "Père et fille en discussion",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "🤗",
+            "content": "Salut ma puce, ça va ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "lina",
+            "avatar": "😊",
+            "content": "Papa... mes amies m'ont présenté leurs excuses",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pere",
+            "avatar": "💕",
+            "content": "Je suis fier de toi, tu as su dire non",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - Le dialogue et le soutien familial sont essentiels",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene7_1"
+      },
+      "metadata": {
+        "themes_abordes": ["communication_familiale", "soutien", "confiance"]
+      }
+    },
+    "scene6_4B": {
+      "id": "scene6_4B",
+      "type": "messenger_scenario",
+      "context": "Lina confie le harcèlement à son père",
+      "contextual_image": "Confidence père-fille sur situation difficile",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "😟",
+            "content": "Salut ma puce, ça va pas ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "lina",
+            "avatar": "😢",
+            "content": "Camille et Cassandra m'insultent et me menacent",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pere",
+            "avatar": "📞",
+            "content": "C'est grave ! Je vais appeler le proviseur",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "lina",
+            "avatar": "🏫",
+            "content": "Je veux changer de lycée !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Le père prend des mesures. Que se passe-t-il ?",
+      "choices": ["Changement d'établissement et sanctions"],
+      "nextQuestions": {
+        "A": "fin6_positive"
+      },
+      "metadata": {
+        "themes_abordes": ["confidence", "aide_parentale", "solutions"]
+      }
+    },
+    "scene6_4C": {
+      "id": "scene6_4C",
+      "type": "messenger_scenario",
+      "context": "Révélation de la violence au père",
+      "contextual_image": "Urgence face à la violence",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "😱",
+            "content": "Salut ma puce, ça va pas ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "lina",
+            "avatar": "😭",
+            "content": "Papa... Cassandra m'a giflée, elles m'insultent",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pere",
+            "avatar": "💢",
+            "content": "C'est inacceptable ! On va porter plainte",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "pere",
+            "avatar": "🤗",
+            "content": "Tu n'es pas seule, on va t'aider",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Action immédiate face à la violence",
+      "choices": ["Porter plainte et changement d'école"],
+      "nextQuestions": {
+        "A": "fin6_positive"
+      },
+      "metadata": {
+        "themes_abordes": ["violence_révélée", "protection", "action_immédiate"]
+      }
+    },
+    "fin6_positive": {
+      "id": "fin6_positive",
+      "type": "messenger_scenario",
+      "context": "Résolution positive avec sanctions",
+      "contextual_image": "Nouveau départ pour Lina",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Père",
+            "isCurrentUser": false
+          },
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "📞",
+            "content": "Les filles ont été sanctionnées",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "pere",
+            "avatar": "❓",
+            "content": "Ça se passe mieux dans ton nouveau lycée ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "lina",
+            "avatar": "😊",
+            "content": "Oui, merci papa !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Briser le silence permet de se protéger",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - L'aide des adultes est cruciale",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene7_1"
+      },
+      "metadata": {
+        "themes_abordes": ["justice", "protection", "nouveau_départ"]
+      }
+    },
+    "fin6_negative1": {
+      "id": "fin6_negative1",
+      "type": "messenger_scenario",
+      "context": "Conséquences du vol",
+      "contextual_image": "Jeune fille face aux autorités",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "Lina doit faire face aux conséquences légales",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "😔",
+            "content": "Elle comprend qu'elle s'est mise en danger",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💡",
+            "content": "Les vraies amies ne poussent pas au danger",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - Les mauvaises influences ont des conséquences",
+      "choices": ["Continuer vers le prochain scénario"],
+      "nextQuestions": {
+        "A": "scene7_1"
+      },
+      "metadata": {
+        "themes_abordes": ["conséquences_légales", "regret", "apprentissage"]
+      }
+    },
+    "scene7_1": {
+      "id": "scene7_1",
+      "type": "messenger_scenario",
+      "context": "Marc rentre chez lui et voit Cristelle sur son téléphone",
+      "contextual_image": "Tension dans le couple",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "😠",
+            "content": "Salut je suis rentré... c'était qui ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "cristelle",
+            "avatar": "😰",
+            "content": "Rien d'important, t'inquiète...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Marc est suspicieux. Comment réagit-il ?",
+      "choices": [
+        "Faire confiance",
+        "Douter et fouiller",
+        "Confronter agressivement"
+      ],
+      "nextQuestions": {
+        "A": "scene7_2A",
+        "B": "scene7_2B",
+        "C": "scene7_2C"
+      },
+      "metadata": {
+        "themes_abordes": ["jalousie", "vie_privée", "confiance", "possessivité"]
+      }
+    },
+    "scene7_2A": {
+      "id": "scene7_2A",
+      "type": "messenger_scenario",
+      "context": "Marc choisit la confiance",
+      "contextual_image": "Couple basé sur la confiance",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "😌",
+            "content": "Je comprends, je te fais confiance",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "✅",
+            "content": "Respect de la vie privée",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💕",
+            "content": "Relation basée sur la confiance",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La confiance préserve la relation. Fin positive !",
+      "choices": ["Passer à la conclusion finale"],
+      "nextQuestions": {
+        "A": "conclusion_finale"
+      },
+      "metadata": {
+        "themes_abordes": ["confiance", "respect", "relation_saine"]
+      }
+    },
+    "scene7_2B": {
+      "id": "scene7_2B",
+      "type": "messenger_scenario",
+      "context": "Marc fouille dans le téléphone",
+      "contextual_image": "Violation de la vie privée",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "💭",
+            "content": "J'ai quand même des doutes...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "marc",
+            "avatar": "📱",
+            "content": "Je vais vérifier",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "Marc fouille sans permission",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "Relation toxique, danger",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Marc découvre des messages de Ti Jean. Que fait-il ?",
+      "choices": [
+        "Confronter Cristelle calmement",
+        "Exploser de colère"
+      ],
+      "nextQuestions": {
+        "A": "scene7_3A",
+        "B": "scene7_3B"
+      },
+      "metadata": {
+        "themes_abordes": ["violation_intimité", "jalousie_maladive", "toxicité"]
+      }
+    },
+    "scene7_2C": {
+      "id": "scene7_2C",
+      "type": "messenger_scenario",
+      "context": "Confrontation agressive immédiate",
+      "contextual_image": "Dispute explosive",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "🤬",
+            "content": "Tu me mens ! Dis-moi tout de suite qui c'était !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "cristelle",
+            "avatar": "😭",
+            "content": "Mais pourquoi tu réagis comme ça ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La situation s'envenime. Que se passe-t-il ?",
+      "choices": ["Escalade vers la violence"],
+      "nextQuestions": {
+        "A": "scene7_4"
+      },
+      "metadata": {
+        "themes_abordes": ["agressivité", "violence_verbale", "escalade"]
+      }
+    },
+    "scene7_3A": {
+      "id": "scene7_3A",
+      "type": "messenger_scenario",
+      "context": "Discussion sur les messages découverts",
+      "contextual_image": "Tentative de dialogue",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "📱",
+            "content": "J'ai vu que tu parlais avec Ti Jean",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "cristelle",
+            "avatar": "😔",
+            "content": "C'est juste un ami",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "marc",
+            "avatar": "🤔",
+            "content": "J'aimerais comprendre",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Ils tentent de communiquer. Que proposent-ils ?",
+      "choices": ["Appeler Ti Jean pour clarifier"],
+      "nextQuestions": {
+        "A": "scene7_4"
+      },
+      "metadata": {
+        "themes_abordes": ["communication", "clarification", "médiation"]
+      }
+    },
+    "scene7_3B": {
+      "id": "scene7_3B",
+      "type": "messenger_scenario",
+      "context": "Marc explose de rage",
+      "contextual_image": "Violence verbale et menaces",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "💢",
+            "content": "Appelle-le maintenant !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "marc",
+            "avatar": "🤬",
+            "content": "On va régler ça tout de suite !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "cristelle",
+            "avatar": "😱",
+            "content": "Tu me fais peur !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La violence menace. Que se passe-t-il ?",
+      "choices": ["Ti Jean arrive et bagarre"],
+      "nextQuestions": {
+        "A": "scene7_5"
+      },
+      "metadata": {
+        "themes_abordes": ["rage", "menaces", "danger_imminent"]
+      }
+    },
+    "scene7_4": {
+      "id": "scene7_4",
+      "type": "messenger_scenario",
+      "context": "Confrontation avec Ti Jean",
+      "contextual_image": "Triangle relationnel tendu",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "tijean",
+            "name": "Ti Jean",
+            "isCurrentUser": false
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "😤",
+            "content": "C'est toi qui envoies des messages à ma copine ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "tijean",
+            "avatar": "😕",
+            "content": "On est juste amis !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "cristelle",
+            "avatar": "😢",
+            "content": "Marc, il n'y a rien entre nous...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment gérer cette confrontation ?",
+      "choices": [
+        "Discussion calme et clarification",
+        "Escalade vers la violence"
+      ],
+      "nextQuestions": {
+        "A": "fin7_positive",
+        "B": "scene7_5"
+      },
+      "metadata": {
+        "themes_abordes": ["confrontation", "jalousie", "clarification"]
+      }
+    },
+    "scene7_5": {
+      "id": "scene7_5",
+      "type": "messenger_scenario",
+      "context": "Bagarre entre Marc et Ti Jean",
+      "contextual_image": "Violence physique",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "👊",
+            "content": "Viens dehors !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🥊",
+            "content": "PIF PAF - Ils se battent",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "cristelle",
+            "avatar": "📞",
+            "content": "Allo la police ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La police intervient. Conséquences graves pour tous.",
+      "choices": ["Fin avec intervention policière"],
+      "nextQuestions": {
+        "A": "fin7_negative"
+      },
+      "metadata": {
+        "themes_abordes": ["violence_physique", "police", "conséquences"]
+      }
+    },
+    "fin7_positive": {
+      "id": "fin7_positive",
+      "type": "messenger_scenario",
+      "context": "Résolution par le dialogue",
+      "contextual_image": "Apaisement et compréhension",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true
+          },
+          {
+            "id": "tijean",
+            "name": "Ti Jean",
+            "isCurrentUser": false
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "😔",
+            "content": "Je vois... désolé de m'être emporté",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "marc",
+            "avatar": "💭",
+            "content": "J'ai besoin qu'on se fasse confiance",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "tijean",
+            "avatar": "🤝",
+            "content": "On est vraiment juste amis",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "cristelle",
+            "avatar": "❤️",
+            "content": "Marc, je t'aime, il n'y a que toi",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - La communication résout les conflits",
+      "choices": ["Passer à la conclusion finale"],
+      "nextQuestions": {
+        "A": "conclusion_finale"
+      },
+      "metadata": {
+        "themes_abordes": ["communication", "confiance_retrouvée", "maturité"]
+      }
+    },
+    "fin7_negative": {
+      "id": "fin7_negative",
+      "type": "messenger_scenario",
+      "context": "Intervention policière après violence",
+      "contextual_image": "Conséquences judiciaires",
+      "conversation": {
+        "participants": [
+          {
+            "id": "policier",
+            "name": "Policier",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "policier",
+            "avatar": "👮",
+            "content": "Calmez-vous ! Vous êtes en état d'arrestation",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "Marc et Ti Jean sont arrêtés",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "💔",
+            "content": "La jalousie a détruit la relation",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "⚠️",
+            "content": "La violence n'est jamais une solution",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin négative - La jalousie mène à la destruction",
+      "choices": ["Passer à la conclusion finale"],
+      "nextQuestions": {
+        "A": "conclusion_finale"
+      },
+      "metadata": {
+        "themes_abordes": ["violence", "arrestation", "rupture"]
+      }
+    },
+    "conclusion_finale": {
+      "id": "conclusion_finale",
+      "type": "messenger_scenario",
+      "context": "Fin de l'anthologie éducative complète",
+      "contextual_image": "Montage de tous les scénarios explorés",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "📚",
+            "content": "Vous avez exploré 7 scénarios essentiels",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "💡",
+            "content": "Santé sexuelle, violence, harcèlement, addictions...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🎯",
+            "content": "Chaque histoire enseigne des leçons vitales",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "❤️",
+            "content": "Le respect, le consentement et la communication sont la base",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "narrateur",
+            "avatar": "🆘",
+            "content": "N'oubliez jamais : l'aide existe toujours",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Ressources d'aide disponibles",
+      "choices": [
+        "Voir les ressources d'aide",
+        "Recommencer l'anthologie",
+        "Terminer définitivement"
+      ],
+      "nextQuestions": {
+        "A": "ressources",
+        "B": "introduction",
+        "C": "fin_definitive"
+      },
+      "metadata": {
+        "themes_abordes": ["bilan", "apprentissages", "ressources", "prévention"]
+      }
+    },
+    "ressources": {
+      "id": "ressources",
+      "type": "messenger_scenario",
+      "context": "Liste des ressources d'aide",
+      "contextual_image": "Numéros et contacts utiles",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "📞",
+            "content": "NUMÉROS IMPORTANTS :",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🆘",
+            "content": "3919 - Violences conjugales",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "👶",
+            "content": "119 - Enfance en danger",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "🏥",
+            "content": "Planning Familial - Santé sexuelle",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "narrateur",
+            "avatar": "🚨",
+            "content": "17 - Police secours",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "narrateur",
+            "avatar": "⚕️",
+            "content": "15 - SAMU médical",
+            "type": "text"
+          },
+          {
+            "id": "msg7",
+            "sender": "narrateur",
+            "avatar": "🏫",
+            "content": "CPE/Infirmière scolaire - Au lycée",
+            "type": "text"
+          },
+          {
+            "id": "msg8",
+            "sender": "narrateur",
+            "avatar": "💊",
+            "content": "CSAPA - Addictions",
+            "type": "text"
+          },
+          {
+            "id": "msg9",
+            "sender": "narrateur",
+            "avatar": "⚖️",
+            "content": "CIDFF - Droits des femmes",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "L'aide est toujours disponible. Parlez, vous n'êtes pas seul(e) !",
+      "choices": [
+        "Retour au menu principal",
+        "Terminer"
+      ],
+      "nextQuestions": {
+        "A": "conclusion_finale",
+        "B": "fin_definitive"
+      },
+      "metadata": {
+        "themes_abordes": ["aide", "soutien", "ressources", "urgences"]
+      }
+    },
+    "fin_definitive": {
+      "id": "fin_definitive",
+      "type": "messenger_scenario",
+      "context": "Message final de l'anthologie",
+      "contextual_image": "Message d'espoir et d'empowerment",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "✨",
+            "content": "Cette anthologie vous appartient maintenant",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "💪",
+            "content": "Utilisez ces connaissances pour vous protéger",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "🤝",
+            "content": "Aidez les autres en partageant ces informations",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "🌟",
+            "content": "Ensemble, créons un monde plus sûr et respectueux",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "narrateur",
+            "avatar": "❤️",
+            "content": "Merci d'avoir participé à ce voyage éducatif",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La connaissance est le premier pas vers la prévention",
+      "choices": ["FIN"],
+      "nextQuestions": {
+        "A": "fin_definitive"
+      },
+      "metadata": {
+        "themes_abordes": ["empowerment", "espoir", "action", "changement"]
+      }
+    }
+  }
+}

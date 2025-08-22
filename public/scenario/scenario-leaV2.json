@@ -1,0 +1,1506 @@
+{
+  "scenario_info": {
+    "title": "Stéréotypes, discriminations et consentement",
+    "description": "Scénario éducatif sur les stéréotypes de genre, le sexisme, la masculinité toxique et le consentement à travers une conversation entre deux lycéens.",
+    "characters": ["Mya", "Yanis", "Le conducteur", "Le petit garçon", "Sa mère"],
+    "start_question": "scene1"
+  },
+  "questions": {
+    "scene1": {
+      "id": "scene1",
+      "type": "messenger_scenario",
+      "context": "Mya et Yanis sortent du lycée. Ils sont dans la rue dans le centre-ville de Saint-Louis en direction de la gare de bus.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_A.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "C'était cool ta journée ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Ouaip, tranquille. Je crois que je m'en suis bien sorti sur mon contrôle d'anglais.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Cool ! Moi j'ai eu cours de français avec Madame Faure.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Vous avez parlé de quoi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente2.png",
+            "content": "Des stéréotypes. C'était vraiment cool, je trouve ça bien qu'on en parle.",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Rappelle-moi ce que ça veut dire déjà ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Qu'est-ce qu'un stéréotype ?",
+      "choices": [
+        "C'est un fait qui est le plus souvent vrai",
+        "C'est quand on parle mal des gens",
+        "C'est une opinion qui peut conduire à des discriminations"
+      ],
+      "nextQuestions": {
+        "A": "scene1a",
+        "B": "scene1b",
+        "C": "scene1c"
+      },
+      "metadata": {
+        "themes_abordes": ["stéréotypes", "définition", "discrimination"]
+      }
+    },
+    "scene1a": {
+      "id": "scene1a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_A.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Elle a dit que c'est un fait qui est le plus souvent vrai.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Ah bon ? T'es sûre ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Non. En fait, la prof a dit que c'était plutôt une opinion qui peut conduire à des discriminations, je m'en souviens maintenant !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["correction", "apprentissage"]
+      }
+    },
+    "scene1b": {
+      "id": "scene1b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_A.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "C'est quand on parle mal des gens",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Ah bon ? T'es sûre ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Non. En fait, la prof a dit que c'était une opinion qui peut conduire à des discriminations, je m'en souviens maintenant !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["correction", "apprentissage"]
+      }
+    },
+    "scene1c": {
+      "id": "scene1c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_A.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "C'est une opinion qui peut conduire à des discriminations.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Ah oui c'est vrai !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene2"
+      },
+      "metadata": {
+        "themes_abordes": ["validation", "bonne réponse"]
+      }
+    },
+    "scene2": {
+      "id": "scene2",
+      "type": "messenger_scenario",
+      "context": "Mya et Yanis marchent toujours vers l'arrêt de bus. On voit un paysage de ville défiler derrière eux. Au loin, les deux personnages remarquent une publicité.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "T'as un exemple ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Ben, par exemple dire que les personnes grosses sont paresseuses ou dire que les blondes sont bêtes !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Ah oui je vois mais ça ne concerne pas que les filles ! Genre quand on dit que les garçons qui portent du rose ou sont « efféminés » sont gays c'est grave un stéréotype aussi. Une couleur ou un comportement ne définissent pas notre orientation sexuelle !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "En voilà un bel exemple de stéréotype ! Regarde cette affiche, elle est éclatée !",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Ah bon pourquoi tu dis ça ?",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_dédain.png",
+            "content": "Ben, t'as pas l'impression de voir toujours des femmes représentées sur les affiches de cuisine toi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg7",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_surpris.png",
+            "content": "Ben si !",
+            "type": "text"
+          },
+          {
+            "id": "msg8",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Et pourquoi d'après toi ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Pourquoi voit-on toujours des femmes sur les publicités de cuisine ?",
+      "choices": [
+        "Ce sont de vieux stéréotypes misogynes qui veulent nous faire croire que la cuisine est \"une tâche réservée\" aux femmes",
+        "Elles sont bien meilleures que les hommes dans ce domaine",
+        "Des études sociologiques ont montré que les femmes s'intéressent plus à la cuisine"
+      ],
+      "nextQuestions": {
+        "A": "scene2a",
+        "B": "scene2b",
+        "C": "scene2c"
+      },
+      "metadata": {
+        "themes_abordes": ["stéréotypes de genre", "sexisme", "publicité", "misogynie", "masculinité"]
+      }
+    },
+    "scene2a": {
+      "id": "scene2a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Ce sont de vieux stéréotypes misogynes qui veulent nous faire croire que la cuisine est \"une tâche réservée\" aux femmes.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Exactement ! Tu vois t'as compris en fait.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3"
+      },
+      "metadata": {
+        "themes_abordes": ["validation", "compréhension"]
+      }
+    },
+    "scene2b": {
+      "id": "scene2b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Parce que les femmes sont bien meilleures dans ce domaine.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "N'importe quoi ! Pourquoi c'est toujours des chefs hommes qu'on voit à la TV dans les concours de cuisine alors ? Ce sont de vieux stéréotypes misogynes qui veulent nous faire croire que la cuisine est \"une tâche réservée\" aux femmes.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3"
+      },
+      "metadata": {
+        "themes_abordes": ["correction", "contre-exemple", "stéréotypes"]
+      }
+    },
+    "scene2c": {
+      "id": "scene2c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Des études sociologiques ont montré que les femmes s'intéressent plus à la cuisine.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_dédain.png",
+            "content": "J'aimerais bien voir ton étude ! Si elles s'intéressent plus à la cuisine c'est peut-être parce que la société leur a donné ce rôle et que c'est un stéréotype misogyne.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene3"
+      },
+      "metadata": {
+        "themes_abordes": ["construction sociale", "rôles de genre"]
+      }
+    },
+    "scene3": {
+      "id": "scene3",
+      "type": "messenger_scenario",
+      "context": "Yanis et Mya arrivent à la gare routière. Ils s'apprêtent à monter dans le bus. Mya monte la première et valide son titre de transport auprès du conducteur. Il la regarde de haut en bas avec mépris.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          },
+          {
+            "id": "conducteur",
+            "name": "Le conducteur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_heureux.png",
+            "content": "Hum ! Donc pour la fête des Pères il vaudrait mieux que j'offre un lave-vaisselle à mon père plutôt qu'à ma mère si je comprends bien ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_trèsheureuse.png",
+            "content": "Haha ! Voilà, exactement !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_triste.png",
+            "content": "Pourquoi ou regard a mwa coma ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "conducteur",
+            "avatar": "img/Lea/perso_emo/conducteur_(H1).png",
+            "content": "Toute bonne kafrine pareil, après y vien fait commérage pour d'viole.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_surpris.png",
+            "content": "Mais j'ai le même short qu'elle !",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "Pourquoi vous me faites la réflexion à moi et pas à lui ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Pourquoi le conducteur fait-il cette remarque uniquement à Mya ?",
+      "choices": [
+        "Les règles vestimentaires sont les mêmes pour les filles et les garçons, Mya a mal compris ce qu'a voulu dire le conducteur",
+        "Les garçons s'habillent plus large et donc il n'est pas nécessaire de leur rappeler les règles vestimentaires",
+        "Les filles sont plus surveillées que les garçons sous prétexte qu'elles pourraient être victime d'une agression"
+      ],
+      "nextQuestions": {
+        "A": "scene3a",
+        "B": "scene3b",
+        "C": "scene3c"
+      },
+      "metadata": {
+        "themes_abordes": ["double standard", "sexisme vestimentaire", "victim blaming"]
+      }
+    },
+    "scene3a": {
+      "id": "scene3a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Non mais Mya, je pense que t'as dû mal comprendre. Il veut seulement faire attention à toi en fait.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "C'est n'importe quoi. Depuis quand se prendre une réflexion sur ce qu'on porte c'est pour faire attention aux autres ? Quoiqu'il en soit, le vêtement qu'on porte ou notre genre n'est pas une raison pour se faire agresser.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_triste.png",
+            "content": "C'est vrai tu as raison.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene4"
+      },
+      "metadata": {
+        "themes_abordes": ["correction", "apprentissage", "respect"]
+      }
+    },
+    "scene3b": {
+      "id": "scene3b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "En même temps, mon short est un peu plus large comme les garçons en général. Toi il met en valeur tes formes c'est pour ça aussi.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_rage.png",
+            "content": "Mais qu'est-ce que tu racontes ? T'es en train de me dire que parce que j'ai un short c'est normal que je me fasse agresser ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_honteux.png",
+            "content": "Mais non ... C'est pas ce que je voulais dire.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "Alors ne dit rien. Fille comme garçon on peut tous être victime d'agression et quoiqu'il en soit les vêtements qu'on porte ne sont pas un prétexte pour nous faire du mal.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene4"
+      },
+      "metadata": {
+        "themes_abordes": ["victim blaming", "correction", "égalité"]
+      }
+    },
+    "scene3c": {
+      "id": "scene3c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "C'est n'importe quoi. Qu'on soit fille ou garçon, on peut tous se faire agresser. Quoi qu'il arrive le vêtement qu'on porte ne doit pas être un prétexte pour être agressé.e.s.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Exactement !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene4"
+      },
+      "metadata": {
+        "themes_abordes": ["solidarité", "compréhension", "égalité"]
+      }
+    },
+    "scene4": {
+      "id": "scene4",
+      "type": "messenger_scenario",
+      "context": "Le conducteur fait une moue de désapprobation. Mya et Yanis vont s'asseoir au fond du bus. Ils discutent.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_D.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "conducteur",
+            "name": "Le conducteur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "C'est hyper sexiste et déplacé comme remarque monsieur. Vous aimeriez qu'on vous dise la même chose ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene5"
+      },
+      "metadata": {
+        "themes_abordes": ["confrontation", "sexisme"]
+      }
+    },
+    "scene5": {
+      "id": "scene5",
+      "type": "messenger_scenario",
+      "context": "Mya regarde la route et Yanis sort son téléphone. Il lit un message sur snap de Julie ❤️​🫰​💫​: \"C'est fini. Je suis plus amoureuse. On s'arrête là\". Yanis se met à pleurer. Un petit garçon se retourne.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          },
+          {
+            "id": "petitgarcon",
+            "name": "Le petit garçon",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mere",
+            "name": "Sa mère",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "petitgarcon",
+            "avatar": "img/Lea/perso_emo/enfant_(H1).png",
+            "content": "Pourquoi il pleure ? Les garçons ça pleure pas !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mere",
+            "avatar": "img/Lea/perso_emo/mère_(H1).png",
+            "content": "Chut. Occupe-toi de tes affaires.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment réagir face à Yanis qui pleure ?",
+      "choices": [
+        "Est-ce que ça va ? Tu veux en parler ?",
+        "Soit fort ! T'es un homme montre-le !",
+        "Arrête de pleurer, ne fais pas ta tapette"
+      ],
+      "nextQuestions": {
+        "A": "scene5a",
+        "B": "scene5b",
+        "C": "scene5c"
+      },
+      "metadata": {
+        "themes_abordes": ["masculinité toxique", "émotions", "empathie"]
+      }
+    },
+    "scene5a": {
+      "id": "scene5a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_dédain.png",
+            "content": "Tssss (en s'adressant au petit garçon). Est-ce que ça va ? Tu veux en parler ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_pleurs.png",
+            "content": "Ça me fait plaisir que tu me demandes et que tu ne réagisses pas comme ce petit garçon. Je viens de me faire larguer... Ça me rend triste.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Les garçons ont carrément le droit d'être tristes et de pleurer. Qu'est-ce qu'il se passe ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene6"
+      },
+      "metadata": {
+        "themes_abordes": ["empathie", "soutien", "émotions masculines"]
+      }
+    },
+    "scene5b": {
+      "id": "scene5b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Soit fort ! T'es un homme montre-le !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_colère_et_larmes.png",
+            "content": "Tu me saoules Mya ! Qu'est-ce que ça veut dire ? Les filles peuvent s'habiller comme elles veulent mais les garçons n'ont pas le droit de pleurer ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Ben ça fait faible quoi !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_pleurs.png",
+            "content": "Où tu vois de la faiblesse dans le fait de pleurer ? Les mecs ne peuvent pas être tristes ? C'est pas parce qu'on nous éduque pour être forts et virils qu'on est obligés de s'y plier.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_désolée.png",
+            "content": "C'est vrai. Excuse-moi. Comment tu te sens ? Qu'est-ce qu'il s'est passé ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene6"
+      },
+      "metadata": {
+        "themes_abordes": ["masculinité toxique", "correction", "apprentissage"]
+      }
+    },
+    "scene5c": {
+      "id": "scene5c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Arrête de pleurer, ne fais pas ta tapette !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_sévère.png",
+            "content": "Ça va pas ou quoi ? Tu sais que c'est une insulte homophobe ce que tu dis là ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Bah oui et alors ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_colère_et_larmes.png",
+            "content": "Donc pour toi y'a que les gays qui peuvent pleurer ? Tu dis vraiment n'importe quoi. La tristesse c'est un truc qu'on partage tous quel que soit notre genre ou notre orientation sexuelle. J'aurais préféré que tu réagisses autrement.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_désolée.png",
+            "content": "C'est vrai. Excuse-moi. Comment tu te sens ? Qu'est-ce qu'il s'est passé ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene6"
+      },
+      "metadata": {
+        "themes_abordes": ["homophobie", "correction", "apprentissage"]
+      }
+    },
+    "scene6": {
+      "id": "scene6",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_triste.png",
+            "content": "C'est fini avec Clara. On s'entendait bien mais apparemment c'était pas suffisant pour elle.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Bah elle sait pas ce qu'elle rate. T'es un super gars.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Je la comprends et je lui en veux pas. Je suis triste mais pas en colère contre elle. Je trouve ça bien qu'elle ait pu me dire qu'elle voulait que ça s'arrête, ça veut dire qu'elle se sent en sécurité et je trouve ça cool !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Bon ... Tu veux un câlin ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content2.png",
+            "content": "MDR",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Que faire face à cette réponse ambiguë ?",
+      "choices": [
+        "Lui redemander",
+        "Lui faire un câlin",
+        "Ne pas lui en faire"
+      ],
+      "nextQuestions": {
+        "A": "scene6a",
+        "B": "scene6b",
+        "C": "scene6c"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement", "communication", "respect", "rupture"]
+      }
+    },
+    "scene6a": {
+      "id": "scene6a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "J'ai pas compris. Tu peux être plus clair ? Parce que là...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "J'ai pas trop envie. Mais je ne voulais pas te vexer.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "T'as le droit de pas avoir envie. Tu ne me vexes pas.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene7"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement", "clarification", "respect"]
+      }
+    },
+    "scene6b": {
+      "id": "scene6b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_choqué.png",
+            "content": "Euh ça va pas ou quoi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_triste.png",
+            "content": "Bah quoi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_sévère.png",
+            "content": "J'ai pas dit oui !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_désolée.png",
+            "content": "Désolée...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene7"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement", "violation", "excuse"]
+      }
+    },
+    "scene6c": {
+      "id": "scene6c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_E.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Tu ne veux pas de câlin c'est bien ça ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Non je n'ai pas envie",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Je n'étais pas certaine d'avoir compris",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene7"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement", "respect", "clarification"]
+      }
+    },
+    "scene7": {
+      "id": "scene7",
+      "type": "messenger_scenario",
+      "context": "Mya et Yanis quittent le bus et se dirigent vers la plage. On voit le front de mer de St Pierre avec les snacks défiler derrière eux. Sur leur route ils croisent des toilettes publiques.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_F.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Ce n'est pas toujours évident de dire \"non\" franchement quand on est un garçon. On valorise tout le temps l'idée que les garçons ont toujours envie, que c'est bien si c'est des charos, même si c'est pour un câlin avec une amie. Alors qu'en vrai bah les garçons n'ont pas toujours envie et eux aussi doivent donner leur consentement.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "Je comprends ce que tu dis. C'est vrai !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente2.png",
+            "content": "On peut faire une pause 2 secondes aux toilettes ! J'en peux plus",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_content.png",
+            "content": "Ok vas-y je t'attends",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene8"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement masculin", "pression sociale", "transition"]
+      }
+    },
+    "scene8": {
+      "id": "scene8",
+      "type": "messenger_scenario",
+      "context": "Yanis se pose sur le mur des toilettes. Il regarde des vidéos sur TikTok de sport. On voit différents contenus défiler sur son téléphone.",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_H.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_heureux.png",
+            "content": "Dépêche-toi ! J'ai un truc à te montrer.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_dédain.png",
+            "content": "Wesh y a que des garçons dans tes vidéos de sport à chaque fois !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Ben t'as déjà vu des filles faire du rugby toi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_perplexe.png",
+            "content": "Ben d'après toi, pourquoi voit-on plus souvent des hommes faire du sport dans les médias ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Pourquoi voit-on plus souvent des hommes faire du sport dans les médias ?",
+      "choices": [
+        "Parce qu'ils sont plus forts",
+        "Parce que le sport intéresse moins les femmes",
+        "Parce que les femmes sont moins mises en valeur malgré des compétences égales à celles des hommes"
+      ],
+      "nextQuestions": {
+        "A": "scene8a",
+        "B": "scene8b",
+        "C": "scene8c"
+      },
+      "metadata": {
+        "themes_abordes": ["sport", "représentation médiatique", "sexisme"]
+      }
+    },
+    "scene8a": {
+      "id": "scene8a",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_H.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Bah parce qu'ils sont plus forts. Les filles ne sont clairement pas assez musclées et grandes pour faire ce sport !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "Mdr ! N'importe quoi. A la Réunion il y a au moins 7 clubs de rugby féminin. En 2024, la France a fini 5ème aux JO en 2024 derrière la Nouvelle-Zélande. T'es juste pas renseigné en fait !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene9"
+      },
+      "metadata": {
+        "themes_abordes": ["correction", "rugby féminin", "préjugés"]
+      }
+    },
+    "scene8b": {
+      "id": "scene8b",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_H.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "C'est juste que vous les filles vous vous intéressez moins au sport. Donc y a pas de contenu avec des femmes dessus c'est tout.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_colère.png",
+            "content": "Qu'est-ce que tu racontes ? A la Réunion il y a au moins 7 clubs de rugby féminin. En 2024, la France a fini 5ème aux JO en 2024 derrière la Nouvelle-Zélande. T'es juste pas renseigné en fait ! Ce n'est pas que les filles se fichent du sport. C'est seulement qu'on leur donne pas assez place.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene9"
+      },
+      "metadata": {
+        "themes_abordes": ["correction", "visibilité médiatique", "sport féminin"]
+      }
+    },
+    "scene8c": {
+      "id": "scene8c",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_H.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_perplexe.png",
+            "content": "Ben je ne sais pas trop... A vrai dire j'y ai jamais vraiment réfléchi.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_contente.png",
+            "content": "C'est que les femmes sont moins mises en valeur malgré des compétences égales à celles des hommes.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_surpris.png",
+            "content": "J'avais jamais vu les choses comme ça mais maintenant que tu le dis ça fait sens.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": ["Continuer"],
+      "nextQuestions": {
+        "A": "scene9"
+      },
+      "metadata": {
+        "themes_abordes": ["prise de conscience", "égalité sportive"]
+      }
+    },
+    "scene9": {
+      "id": "scene9",
+      "type": "messenger_scenario",
+      "context": "",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_H.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": true
+          },
+          {
+            "id": "yanis",
+            "name": "Yanis",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "img/Lea/perso_emo/émotions_mya_heureuse.png",
+            "content": "Allons rejoindre les autres pour le volley que je te montre que les filles valent autant si ce n'est plus que les garçons sur le terrain !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yanis",
+            "avatar": "img/Lea/perso_emo/émotions_yannis_trèscontent.png",
+            "content": "J'ai hâte de voir ça !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": {
+        "themes_abordes": ["conclusion", "égalité", "sport mixte"]
+      }
+    }
+  }
+}

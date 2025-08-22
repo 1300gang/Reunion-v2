@@ -1,0 +1,530 @@
+/* Import des polices */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("satoshi.css");
+
+/* Variables CSS */
+:root {
+  /* Couleurs de base (ne changent pas) */
+  --couleur-noirVolcan: #322a22;
+  --couleur-beigeVif: #f1e1b8;
+  --couleur-grisFonce: #415a51;
+  
+  /* COULEURS DYNAMIQUES DU THÈME (modifiées par JS) */
+  --couleur-jaunePeps: #e9bc40; /* Couleur principale [0] */
+  --couleur-grisBleuClair: #c9e2e5; /* Couleur secondaire [1] */
+  
+  --couleur-blancSite: #fafff6;
+  --couleur-beigeNorm: #ede0cf;
+
+  /* Couleur d'accentuation de l'UI (dynamique via JS) */
+  --ui-accent-color: var(--couleur-jaunePeps);
+  
+  /* Variations avec transparence (générées par JS) */
+  --couleur-primary-light: rgba(233, 188, 64, 0.2);
+  --couleur-primary-hover: rgba(233, 188, 64, 0.8);
+  --couleur-secondary-light: rgba(201, 226, 229, 0.3);
+  --couleur-secondary-hover: rgba(201, 226, 229, 0.8);
+
+  /* Variables pour la texture de papier */
+  --texture-papier-image: url("../img/css/painted-relief-texture.jpg");
+  --texture-papier-size: cover;
+  --texture-papier-repeat: no-repeat;
+  --texture-papier-opacity: 0.5;
+  --texture-papier-blend-mode: multiply;
+
+  /* Effets */
+  --effet-backgroundBlur: blur(4px);
+  --effet-innerShadow: inset -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+  --effet-grosDropShadow: -9px 4px 11px 0px rgba(0, 0, 0, 0.25);
+  --effet-miniDropShadow: -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------------------------------------------------- */
+/* Styles Généraux et Réinitialisation */
+/* ---------------------------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Satoshi-Medium", sans-serif;
+  background: var(--couleur-blancSite);
+  background-image: linear-gradient(
+      var(--couleur-secondary-light) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
+  background-size: 20px 20px;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--couleur-noirVolcan);
+}
+
+p {
+  color: var(--couleur-noirVolcan);
+  font-family: "Satoshi-Regular", sans-serif;
+}
+
+h2 {
+  color: var(--couleur-noirVolcan);
+  font-family: "Satoshi-Bold", sans-serif;
+}
+
+/* ---------------------------------------------------- */
+/* Conteneur Principal et Vues */
+/* ---------------------------------------------------- */
+
+.container {
+  max-width: 375px;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.86, 0, 0.07, 1), opacity 1s ease;
+  overflow-y: auto;
+  background: #ffffff00;
+}
+
+/* Transitions des vues */
+#home-view {
+  transform: translateX(0%);
+  z-index: 10;
+}
+
+#level-view {
+  transform: translateX(100%);
+  z-index: 20;
+}
+
+body.level-active #home-view {
+  transform: translateX(-100%);
+  opacity: 1;
+}
+
+body.level-active #level-view {
+  transform: translateX(0%);
+}
+
+/* ---------------------------------------------------- */
+/* Composants d'Interface Génériques */
+/* ---------------------------------------------------- */
+
+.header {
+  position: relative;
+  height: 40vh;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  color: var(--couleur-blancSite);
+}
+
+.header img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: "Satoshi-Bold", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--couleur-noirVolcan);
+}
+
+.main-content {
+  padding: 2rem 1.5rem;
+  padding-bottom: 10vh;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Bouton de lancement (utilise couleur principale) */
+.launch-button {
+  max-width: 90%;
+  display: block;
+  margin: 20px auto;
+  background-color: var(--couleur-jaunePeps); /* Couleur principale */
+  color: var(--couleur-grisFonce);
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--effet-grosDropShadow);
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.launch-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--texture-papier-image);
+  background-size: var(--texture-papier-size);
+  background-repeat: var(--texture-papier-repeat);
+  opacity: var(--texture-papier-opacity);
+  mix-blend-mode: var(--texture-papier-blend-mode);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.launch-button span,
+.launch-button strong {
+  position: relative;
+  z-index: 2;
+}
+
+.launch-button:hover {
+  background-color: var(--couleur-primary-hover);
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: var(--effet-grosDropShadow);
+}
+
+.launch-button:disabled {
+  background-color: var(--couleur-grisFonce);
+  color: var(--couleur-grisBleuClair);
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Boutons de retour fixes */
+.back-button {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--couleur-blancSite);
+  border-radius: 50%;
+  color: var(--couleur-grisFonce);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.back-button:hover {
+  transform: scale(1.1);
+}
+
+/* ---------------------------------------------------- */
+/* Styles Spécifiques à la Sélection de Mode */
+/* ---------------------------------------------------- */
+
+.mode-selection {
+  margin-bottom: 3rem;
+}
+
+.mode-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.mode-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mode-option {
+  position: relative;
+  background-color: var(--couleur-blancSite);
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--effet-miniDropShadow);
+  overflow: hidden;
+  color: var(--couleur-noirVolcan);
+}
+
+.mode-option::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--texture-papier-image);
+  background-size: var(--texture-papier-size);
+  background-repeat: var(--texture-papier-repeat);
+  opacity: var(--texture-papier-opacity);
+  mix-blend-mode: var(--texture-papier-blend-mode);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mode-option > * {
+  position: relative;
+  z-index: 2;
+}
+
+.mode-option:hover {
+  background-color: var(--couleur-jaunePeps); /* Couleur principale */
+  border-color: var(--couleur-jaunePeps);
+  transform: translateY(-4px);
+  box-shadow: var(--effet-grosDropShadow);
+}
+
+.mode-option.selected {
+  background-color: var(--couleur-jaunePeps); /* Couleur principale */
+  box-shadow: var(--effet-grosDropShadow);
+  backdrop-filter: var(--effet-backgroundBlur);
+}
+
+.mode-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.mode-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.mode-description {
+  font-size: 0.85rem;
+  color: var(--couleur-grisFonce);
+}
+
+/* ---------------------------------------------------- */
+/* Styles Spécifiques aux Cartes de Niveaux */
+/* ---------------------------------------------------- */
+
+.levels-section {
+  margin-bottom: 3rem;
+}
+
+.level-card {
+  background: var(--couleur-grisBleuClair); /* Couleur secondaire */
+  position: relative;
+  height: 120px;
+  margin-bottom: 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--effet-miniDropShadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.level-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--effet-grosDropShadow);
+}
+
+.level-card .level-title {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--couleur-noirVolcan);
+  z-index: 2;
+}
+
+.level-card .level-stickers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 1;
+}
+
+.sticker {
+  position: absolute;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(-1px 1px 1px rgba(0, 0, 0, 0.23));
+}
+
+#level-detail-stickers-header .sticker {
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(-1px 1px 1px rgba(0, 0, 0, 0.23));
+}
+
+.level-card:hover .sticker {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* ---------------------------------------------------- */
+/* Styles Spécifiques à la Vue de Détail du Niveau */
+/* ---------------------------------------------------- */
+
+.level-header {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(
+    45deg,
+    var(--couleur-primary-light),
+    var(--couleur-secondary-light)
+  );
+  border-radius: 16px;
+  margin: 1rem;
+  overflow: hidden;
+}
+
+.level-header .level-title {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--couleur-noirVolcan);
+  z-index: 2;
+}
+
+.level-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--couleur-grisFonce);
+  margin-bottom: 2.5rem;
+  text-align: justify;
+}
+
+.creators-section {
+  margin-bottom: 3rem;
+}
+
+.creators-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--couleur-noirVolcan);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.creators-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.creator-pill {
+  background: var(--couleur-jaunePeps); /* Couleur principale */
+  color: var(--couleur-blancSite);
+  box-shadow: var(--effet-innerShadow);
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
+}
+
+/* === Styles pour les icônes en images === */
+.mode-icon-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.mode-option:hover .mode-icon-img {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(var(--effet-innerShadow));
+}
+
+.mode-option.selected .mode-icon-img {
+  transform: scale(1.15);
+  filter: brightness(1.1) drop-shadow(0 4px 12px var(--couleur-primary-light));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+.mode-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mode-icon-img {
+  background: var(--couleur-jaunePeps); /* Couleur principale */
+  border-radius: 50%;
+  box-shadow: var(--effet-innerShadow);
+}
+
+/* === Badge du niveau (ajouté par JS) === */
+.level-theme-badge {
+  animation: slideIn 0.5s ease-out;
+}
+
+.badge-colors {
+  display: flex;
+  gap: 4px;
+}
+
+.color-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mode-icon-img {
+    width: 50px;
+    height: 50px;
+  }
+}

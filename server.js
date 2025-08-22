@@ -17,25 +17,79 @@ const io = socketIo(server, {
   }
 });
 
-// État global
+// === ÉTAT GLOBAL ===
 const lobbies = {};
 const responses = {};
 const playerData = {};
 const fileAccess = {};
+const scenarios = {}; // Cache pour les scénarios chargés
 
-// Charger le scénario au démarrage
-let scenario = null;
-const SCENARIO_FILE = 'scenario_lgbtqia_V2.json';
+// === CONFIGURATION DES SCÉNARIOS ===
+const SCENARIOS_DIR = 'scenario'; // Changé de 'scenarios' à 'scenario'
+const DEFAULT_SCENARIO = 'scenario_lgbtqia_V2.json';
 
-async function loadScenario() {
-  try {
-    const data = await fs.readFile(path.join(__dirname, 'public', SCENARIO_FILE), 'utf-8');
-    scenario = JSON.parse(data);
-    console.log(`Scénario chargé: ${scenario.scenario_info.title}`);
-  } catch (error) {
-    console.error('Erreur chargement scénario:', error);
-    process.exit(1);
+// Mapping des noms de niveaux vers les fichiers de scénarios
+const scenarioMapping = {
+  'lgbtqia': 'scenario_lgbtqia_V2.json',
+  'anthology': 'anthology_completeh7.json',
+  'parcours-vie': 'parcours-vie-json-imagais.json',
+  // Gardez ces entrées pour compatibilité future
+  'lea': 'lea_scenario.json',
+  'aglae': 'aglae_scenario.json',
+  'pornographie': 'pornographie_scenario.json',
+  'consentement': 'consentement_scenario.json',
+  'stade_foot': 'stade_foot_scenario.json'
+};
+
+// === CHARGEMENT DES SCÉNARIOS ===
+async function loadScenario(scenarioFile) {
+  // Vérifier le cache
+  if (scenarios[scenarioFile]) {
+    console.log(`Scénario depuis le cache: ${scenarioFile}`);
+    return scenarios[scenarioFile];
   }
+
+  try {
+    // Chercher dans le dossier scenario (sans 's')
+    let filePath = path.join(__dirname, 'public', SCENARIOS_DIR, scenarioFile);
+    
+    // Vérifier que le fichier existe
+    try {
+      await fs.access(filePath);
+    } catch {
+      // Si pas trouvé dans public/scenario/, essayer directement dans public/
+      console.log(`Fichier non trouvé dans ${SCENARIOS_DIR}, essai dans public/`);
+      filePath = path.join(__dirname, 'public', scenarioFile);
+    }
+    
+    const data = await fs.readFile(filePath, 'utf-8');
+    const scenario = JSON.parse(data);
+    
+    // Mettre en cache
+    scenarios[scenarioFile] = scenario;
+    console.log(`Scénario chargé: ${scenario.scenario_info.title} (${scenarioFile})`);
+    
+    return scenario;
+  } catch (error) {
+    console.error(`Erreur chargement scénario ${scenarioFile}:`, error);
+    throw new Error(`Impossible de charger le scénario: ${scenarioFile}`);
+  }
+}
+
+// Précharger tous les scénarios au démarrage (optionnel)
+async function preloadScenarios() {
+  console.log('Préchargement des scénarios...');
+  
+  for (const [key, file] of Object.entries(scenarioMapping)) {
+    try {
+      await loadScenario(file);
+      console.log(`✓ ${key}: ${file}`);
+    } catch (error) {
+      console.warn(`✗ ${key}: ${error.message}`);
+    }
+  }
+  
+  console.log(`${Object.keys(scenarios).length} scénarios en cache`);
 }
 
 // === CONFIGURATION SÉCURISÉE ===
@@ -55,12 +109,54 @@ app.use(helmet({
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: process.env.NODE_ENV === 'production' ? 100 : 10000,
   message: 'Trop de requêtes, réessayez plus tard'
 });
 
 app.use(limiter);
-app.use(express.static(path.join(__dirname, 'public')));
+
+// === ROUTES - DÉFINIR AVANT express.static ===
+// Route principale - affiche le menu (DOIT être AVANT express.static)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'menu.html'));
+});
+
+// Route pour le menu (alias)
+app.get('/menu', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'menu.html'));
+});
+
+// Route pour le menu.html direct
+app.get('/menu.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'menu.html'));
+});
+
+// Route pour le jeu
+app.get('/game', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Route pour l'index (redirige vers le jeu pour compatibilité)
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// APRÈS toutes les routes, mettre express.static avec une option pour ignorer index.html
+app.use(express.static(path.join(__dirname, 'public'), {
+  index: false // Empêche de servir index.html automatiquement
+}));
+
+// Route API pour obtenir la liste des scénarios disponibles
+app.get('/api/scenarios', (req, res) => {
+  const availableScenarios = Object.entries(scenarioMapping).map(([key, file]) => ({
+    key,
+    file,
+    loaded: !!scenarios[file],
+    title: scenarios[file]?.scenario_info?.title || 'Non chargé'
+  }));
+  
+  res.json(availableScenarios);
+});
 
 // === FONCTIONS UTILITAIRES ===
 function sanitizeInput(input) {
@@ -76,29 +172,31 @@ function isValidPlayerName(name) {
   return /^[a-zA-Z0-9\s\-_éèêëàâäôöûüçÉÈÊËÀÂÄÔÖÛÜÇ]{1,20}$/.test(name);
 }
 
-function generateSecureFilename(lobbyName) {
+function generateSecureFilename(lobbyName, scenarioName) {
   const hash = crypto.randomBytes(8).toString('hex');
   const sanitizedLobby = lobbyName.replace(/[^a-zA-Z0-9]/g, '_');
+  const sanitizedScenario = scenarioName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
   const timestamp = new Date().toISOString().split('T')[0];
-  return `results_${sanitizedLobby}_${timestamp}_${hash}.csv`;
+  return `results_${sanitizedScenario}_${sanitizedLobby}_${timestamp}_${hash}.csv`;
 }
 
-function getQuestion(questionId) {
-  if (!scenario) {
-    console.error('Scénario non chargé !');
+// Fonction modifiée pour utiliser le scénario du lobby
+function getQuestion(lobbyName, questionId) {
+  const lobby = lobbies[lobbyName];
+  if (!lobby || !lobby.scenario) {
+    console.error(`Scénario non trouvé pour le lobby: ${lobbyName}`);
     return null;
   }
   
+  const scenario = lobby.scenario;
   if (!scenario.questions || !scenario.questions[questionId]) {
-    console.warn(`Question non trouvée: ${questionId}`);
-    console.log('Questions disponibles:', scenario.questions ? Object.keys(scenario.questions) : 'aucune');
+    console.warn(`Question non trouvée: ${questionId} dans ${lobby.scenarioFile}`);
     return null;
   }
   
   return scenario.questions[questionId];
 }
 
-// Fonction améliorée pour vérifier si c'est une question "Continuer"
 function isContinueQuestion(questionData) {
   return questionData && 
          questionData.choices && 
@@ -108,10 +206,10 @@ function isContinueQuestion(questionData) {
           questionData.question === null);
 }
 
-function getThemesForPath(questionPath) {
+function getThemesForPath(lobbyName, questionPath) {
   const themes = new Set();
   questionPath.forEach(questionId => {
-    const question = getQuestion(questionId);
+    const question = getQuestion(lobbyName, questionId);
     if (question && question.metadata && question.metadata.themes_abordes) {
       question.metadata.themes_abordes.forEach(theme => themes.add(theme));
     }
@@ -140,6 +238,7 @@ app.get('/exports/:filename', async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.sendFile(filePath);
     
+    // Supprimer le fichier après téléchargement
     setTimeout(async () => {
       try {
         await fs.unlink(filePath);
@@ -157,7 +256,23 @@ app.get('/exports/:filename', async (req, res) => {
 io.on('connection', (socket) => {
   console.log(`Nouvelle connexion: ${socket.id}`);
 
-  socket.on('create-lobby', (lobbyName) => {
+  // MODIFICATION: Accepter un objet avec scenarioFile et mode
+  socket.on('create-lobby', async (data) => {
+    // Gérer les deux formats : string (ancien) ou objet (nouveau)
+    let lobbyName, scenarioFile, mode;
+    
+    if (typeof data === 'string') {
+      // Ancien format pour compatibilité
+      lobbyName = data;
+      scenarioFile = 'scenario_lgbtqia_V2.json';
+      mode = 'group';
+    } else {
+      // Nouveau format avec scénario et mode
+      lobbyName = data.lobbyName;
+      scenarioFile = data.scenarioFile || DEFAULT_SCENARIO;
+      mode = data.mode || 'group';
+    }
+    
     const sanitizedLobbyName = sanitizeInput(lobbyName);
     
     if (!isValidLobbyName(sanitizedLobbyName)) {
@@ -167,6 +282,16 @@ io.on('connection', (socket) => {
     
     if (lobbies[sanitizedLobbyName]) {
       socket.emit('error', 'Ce nom existe déjà');
+      return;
+    }
+    
+    // Charger le scénario spécifique
+    let scenario;
+    try {
+      scenario = await loadScenario(scenarioFile);
+    } catch (error) {
+      console.error('Erreur chargement scénario:', error);
+      socket.emit('error', 'Impossible de charger le scénario');
       return;
     }
     
@@ -180,18 +305,39 @@ io.on('connection', (socket) => {
       questionPath: [],
       gameStarted: false,
       createdAt: Date.now(),
-      scenarioTitle: scenario.scenario_info.title
+      scenarioTitle: scenario.scenario_info.title,
+      scenarioFile: scenarioFile,
+      scenario: scenario,
+      mode: mode // 'solo' ou 'group'
     };
+    
     responses[sanitizedLobbyName] = {};
     playerData[sanitizedLobbyName] = {};
+    
+    // Pour le mode solo, ajouter automatiquement un joueur
+    if (mode === 'solo') {
+      const soloPlayerName = 'Joueur';
+      lobbies[sanitizedLobbyName].players.push(soloPlayerName);
+      playerData[sanitizedLobbyName][soloPlayerName] = {
+        prenom: soloPlayerName,
+        age: 0,
+        genre: 'N/A',
+        ecole: 'Mode Solo'
+      };
+      responses[sanitizedLobbyName][soloPlayerName] = {};
+      
+      // Démarrage automatique en mode solo
+      socket.playerName = soloPlayerName;
+    }
     
     socket.emit('lobby-created', {
       lobbyName: sanitizedLobbyName,
       scenarioTitle: scenario.scenario_info.title,
-      scenarioData: scenario // Envoyer le scénario complet au MJ
+      scenarioData: scenario,
+      mode: mode
     });
     
-    console.log(`Lobby créé: ${sanitizedLobbyName} par ${socket.id}`);
+    console.log(`Lobby créé: ${sanitizedLobbyName} | Scénario: ${scenarioFile} | Mode: ${mode}`);
   });
 
   socket.on('join-lobby', ({ lobbyName }) => {
@@ -204,12 +350,27 @@ io.on('connection', (socket) => {
     
     socket.lobby = sanitizedLobbyName;
     socket.join(sanitizedLobbyName);
+    
+    // Si c'est un lobby en mode solo, refuser les joueurs supplémentaires
+    if (lobbies[sanitizedLobbyName].mode === 'solo') {
+      socket.emit('error', 'Cette partie est en mode solo');
+      return;
+    }
+    
     socket.emit('request-player-info');
   });
 
   socket.on('player-info', (info) => {
     if (!socket.lobby || !lobbies[socket.lobby]) {
       socket.emit('error', 'Lobby invalide');
+      return;
+    }
+    
+    const lobby = lobbies[socket.lobby];
+    
+    // Empêcher l'ajout de joueurs en mode solo
+    if (lobby.mode === 'solo' && lobby.players.length > 0) {
+      socket.emit('error', 'Partie solo déjà en cours');
       return;
     }
     
@@ -225,27 +386,28 @@ io.on('connection', (socket) => {
       return;
     }
     
-    if (lobbies[socket.lobby].players.includes(sanitizedInfo.prenom)) {
+    if (lobby.players.includes(sanitizedInfo.prenom)) {
       socket.emit('error', 'Ce prénom est déjà pris');
       return;
     }
     
     socket.playerName = sanitizedInfo.prenom;
-    lobbies[socket.lobby].players.push(sanitizedInfo.prenom);
+    lobby.players.push(sanitizedInfo.prenom);
     playerData[socket.lobby][sanitizedInfo.prenom] = sanitizedInfo;
     responses[socket.lobby][sanitizedInfo.prenom] = {};
     
-    io.to(lobbies[socket.lobby].gmId).emit('player-joined', {
+    io.to(lobby.gmId).emit('player-joined', {
       playerName: sanitizedInfo.prenom,
-      playerCount: lobbies[socket.lobby].players.length
+      playerCount: lobby.players.length
     });
     
     socket.emit('joined-lobby', {
-      scenarioTitle: scenario.scenario_info.title
+      scenarioTitle: lobby.scenario.scenario_info.title
     });
     
-    if (lobbies[socket.lobby].gameStarted && lobbies[socket.lobby].currentQuestion) {
-      const question = getQuestion(lobbies[socket.lobby].currentQuestion);
+    // Si la partie a déjà commencé, envoyer la question actuelle
+    if (lobby.gameStarted && lobby.currentQuestion) {
+      const question = getQuestion(socket.lobby, lobby.currentQuestion);
       if (question) {
         socket.emit('question', {
           ...question,
@@ -271,29 +433,26 @@ io.on('connection', (socket) => {
       return;
     }
     
-    if (lobby.players.length < 1) {
+    // En mode solo, pas de minimum de joueurs
+    if (lobby.mode !== 'solo' && lobby.players.length < 1) {
       console.log('Erreur: pas assez de joueurs:', lobby.players.length);
       socket.emit('error', 'Au moins 1 joueur requis');
       return;
     }
     
     lobby.gameStarted = true;
-    lobby.currentQuestion = scenario.scenario_info.start_question || 'scene1';
+    lobby.currentQuestion = lobby.scenario.scenario_info.start_question || 'scene1';
     lobby.questionPath.push(lobby.currentQuestion);
     
-    const question = getQuestion(lobby.currentQuestion);
-    console.log('Question de départ:', lobby.currentQuestion, question ? 'trouvée' : 'non trouvée');
+    const question = getQuestion(socket.lobby, lobby.currentQuestion);
+    console.log(`Démarrage: ${lobby.scenarioTitle} - Question: ${lobby.currentQuestion}`);
     
     if (question) {
       io.in(socket.lobby).emit('game-start');
-      
-      // Envoyer la question avec un flag pour indiquer si c'est une question "Continuer"
       io.in(socket.lobby).emit('question', {
         ...question,
         isContinue: isContinueQuestion(question)
       });
-      
-      console.log('Événements game-start et question envoyés');
     } else {
       socket.emit('error', 'Question de départ non trouvée');
     }
@@ -301,44 +460,40 @@ io.on('connection', (socket) => {
 
   socket.on('choose-next-question', ({ nextQuestionId }) => {
     const lobby = lobbies[socket.lobby];
-    if (!lobby || lobby.gmId !== socket.id) {
+    if (!lobby || (lobby.gmId !== socket.id && lobby.mode !== 'solo')) {
       socket.emit('error', 'Non autorisé');
       return;
     }
     
-    const question = getQuestion(nextQuestionId);
+    const question = getQuestion(socket.lobby, nextQuestionId);
     if (!question) {
       socket.emit('error', 'Question invalide');
       return;
     }
     
-    // Mettre à jour l'état du lobby
     const previousQuestion = lobby.currentQuestion;
     lobby.currentQuestion = nextQuestionId;
     lobby.questionPath.push(nextQuestionId);
     
-    // Nettoyer les réponses précédentes pour cette nouvelle question
+    // Nettoyer les réponses précédentes
     Object.keys(responses[socket.lobby]).forEach(player => {
       delete responses[socket.lobby][player][nextQuestionId];
     });
     
-    // Envoyer la question avec les métadonnées
     io.in(socket.lobby).emit('question', {
       ...question,
       isContinue: isContinueQuestion(question),
       previousQuestionId: previousQuestion
     });
     
-    // Envoyer le chemin mis à jour au MJ
     socket.emit('question-path-update', {
       questionPath: lobby.questionPath,
       currentQuestion: nextQuestionId
     });
     
-    console.log(`Transition: ${previousQuestion} → ${nextQuestionId} (Continue: ${isContinueQuestion(question)})`);
+    console.log(`${socket.lobby}: ${previousQuestion} → ${nextQuestionId}`);
   });
 
-  // NOUVEAU gestionnaire pour l'auto-continuation du MJ
   socket.on('gm-auto-continue', ({ currentQuestionId, nextQuestionId }) => {
     const lobby = lobbies[socket.lobby];
     if (!lobby || lobby.gmId !== socket.id) {
@@ -346,20 +501,17 @@ io.on('connection', (socket) => {
       return;
     }
     
-    const question = getQuestion(nextQuestionId);
+    const question = getQuestion(socket.lobby, nextQuestionId);
     if (!question) {
       socket.emit('error', 'Question invalide');
       return;
     }
     
-    // Enregistrer que c'est une transition automatique
-    console.log(`Auto-continuation MJ: ${currentQuestionId} → ${nextQuestionId}`);
+    console.log(`Auto-continuation: ${currentQuestionId} → ${nextQuestionId}`);
     
-    // Mettre à jour le lobby
     lobby.currentQuestion = nextQuestionId;
     lobby.questionPath.push(nextQuestionId);
     
-    // Envoyer la nouvelle question à tous
     io.in(socket.lobby).emit('question', {
       ...question,
       isContinue: isContinueQuestion(question),
@@ -367,7 +519,6 @@ io.on('connection', (socket) => {
       autoTransition: true
     });
     
-    // Mettre à jour le menu des chapitres
     socket.emit('question-path-update', {
       questionPath: lobby.questionPath,
       currentQuestion: nextQuestionId
@@ -375,20 +526,30 @@ io.on('connection', (socket) => {
   });
 
   socket.on('player-answer', ({ questionId, answer }) => {
-    if (!socket.lobby || !socket.playerName) {
+    if (!socket.lobby) {
       socket.emit('error', 'Non autorisé');
       return;
     }
     
-    // Pour les questions "Continuer", on enregistre simplement "continue"
+    const lobby = lobbies[socket.lobby];
+    
+    // En mode solo, le socket est à la fois MJ et joueur
+    const playerName = lobby.mode === 'solo' ? 'Joueur' : socket.playerName;
+    
+    if (!playerName) {
+      socket.emit('error', 'Joueur non identifié');
+      return;
+    }
+    
     if (answer === 'continue') {
-      responses[socket.lobby][socket.playerName][questionId] = 'continue';
+      responses[socket.lobby][playerName][questionId] = 'continue';
       
-      // Notifier le MJ que le joueur a continué
-      io.to(lobbies[socket.lobby].gmId).emit('player-continued', {
-        playerName: socket.playerName,
-        questionId: questionId
-      });
+      if (lobby.mode !== 'solo') {
+        io.to(lobby.gmId).emit('player-continued', {
+          playerName: playerName,
+          questionId: questionId
+        });
+      }
       
       socket.emit('answer-recorded');
       return;
@@ -401,7 +562,7 @@ io.on('connection', (socket) => {
       return;
     }
     
-    responses[socket.lobby][socket.playerName][questionId] = sanitizedAnswer;
+    responses[socket.lobby][playerName][questionId] = sanitizedAnswer;
     
     const voteCounts = { A: 0, B: 0, C: 0, D: 0 };
     const voteDetails = { A: [], B: [], C: [], D: [] };
@@ -418,13 +579,12 @@ io.on('connection', (socket) => {
       questionId,
       voteCounts,
       voteDetails,
-      playerName: socket.playerName
+      playerName: playerName
     });
     
     socket.emit('answer-recorded');
   });
 
-  // NOUVEAU gestionnaire pour synchroniser tous les joueurs sur une question continue
   socket.on('sync-continue-for-all', ({ nextQuestionId }) => {
     const lobby = lobbies[socket.lobby];
     if (!lobby || lobby.gmId !== socket.id) {
@@ -432,15 +592,13 @@ io.on('connection', (socket) => {
       return;
     }
     
-    const question = getQuestion(nextQuestionId);
+    const question = getQuestion(socket.lobby, nextQuestionId);
     if (!question) return;
     
-    // Enregistrer que tous les joueurs ont "continué"
     lobby.players.forEach(playerName => {
       responses[socket.lobby][playerName][lobby.currentQuestion] = 'continue';
     });
     
-    // Mettre à jour et envoyer la nouvelle question
     lobby.currentQuestion = nextQuestionId;
     lobby.questionPath.push(nextQuestionId);
     
@@ -453,7 +611,7 @@ io.on('connection', (socket) => {
 
   socket.on('end-game', () => {
     const lobby = lobbies[socket.lobby];
-    if (!lobby || lobby.gmId !== socket.id) {
+    if (!lobby || (lobby.gmId !== socket.id && lobby.mode !== 'solo')) {
       socket.emit('error', 'Non autorisé');
       return;
     }
@@ -465,7 +623,7 @@ io.on('connection', (socket) => {
     const lobbyName = socket.lobby;
     const lobby = lobbies[lobbyName];
     
-    if (!lobby || lobby.gmId !== socket.id) {
+    if (!lobby || (lobby.gmId !== socket.id && lobby.mode !== 'solo')) {
       socket.emit('error', 'Non autorisé');
       return;
     }
@@ -474,13 +632,14 @@ io.on('connection', (socket) => {
       const exportsDir = path.join(__dirname, 'exports');
       await fs.mkdir(exportsDir, { recursive: true });
       
-      const filename = generateSecureFilename(lobbyName);
+      const filename = generateSecureFilename(lobbyName, lobby.scenarioTitle);
       const filepath = path.join(exportsDir, filename);
       
-      const themes = getThemesForPath(lobby.questionPath);
+      const themes = getThemesForPath(lobbyName, lobby.questionPath);
       const headers = [
         'Nom de la partie',
         'Nom du scénario',
+        'Mode',
         'Prénom',
         'Âge',
         'Genre',
@@ -495,7 +654,8 @@ io.on('connection', (socket) => {
         const player = playerData[lobbyName][playerName];
         const row = [
           lobbyName,
-          scenario.scenario_info.title,
+          lobby.scenarioTitle,
+          lobby.mode,
           player.prenom,
           player.age,
           player.genre,
@@ -531,33 +691,36 @@ io.on('connection', (socket) => {
     
     console.log(`Feedback de ${socket.playerName} dans ${socket.lobby}: ${feedback}`);
     
-    if (!lobbies[socket.lobby].feedbacks) {
-      lobbies[socket.lobby].feedbacks = {};
-    }
-    lobbies[socket.lobby].feedbacks[socket.playerName] = feedback;
-  });
-
-  socket.on('send-results-email', ({ observations }) => {
     const lobby = lobbies[socket.lobby];
-    if (!lobby || lobby.gmId !== socket.id) {
-      socket.emit('error', 'Non autorisé');
-      return;
-    }
+    if (!lobby) return;
     
-    console.log('Envoi email demandé avec observations:', observations);
-    socket.emit('email-sent');
+    if (!lobby.feedbacks) {
+      lobby.feedbacks = {};
+    }
+    lobby.feedbacks[socket.playerName] = feedback;
   });
 
   socket.on('disconnect', () => {
     if (socket.lobby && lobbies[socket.lobby]) {
       const lobby = lobbies[socket.lobby];
       
+      // Si c'est le MJ qui se déconnecte
       if (lobby.gmId === socket.id) {
-        delete lobbies[socket.lobby];
-        delete responses[socket.lobby];
-        delete playerData[socket.lobby];
-        io.in(socket.lobby).emit('lobby-closed');
-      } else if (socket.playerName) {
+        // En mode solo, nettoyer immédiatement
+        if (lobby.mode === 'solo') {
+          delete lobbies[socket.lobby];
+          delete responses[socket.lobby];
+          delete playerData[socket.lobby];
+        } else {
+          // En mode groupe, notifier les joueurs
+          io.in(socket.lobby).emit('lobby-closed');
+          delete lobbies[socket.lobby];
+          delete responses[socket.lobby];
+          delete playerData[socket.lobby];
+        }
+      } 
+      // Si c'est un joueur qui se déconnecte
+      else if (socket.playerName) {
         const index = lobby.players.indexOf(socket.playerName);
         if (index > -1) {
           lobby.players.splice(index, 1);
@@ -570,15 +733,40 @@ io.on('connection', (socket) => {
         }
       }
     }
+    
+    console.log(`Déconnexion: ${socket.id}`);
   });
 });
 
-// Démarrage du serveur
+// === NETTOYAGE PÉRIODIQUE ===
+// Nettoyer les lobbies inactifs toutes les heures
+setInterval(() => {
+  const now = Date.now();
+  const maxAge = 3 * 60 * 60 * 1000; // 3 heures
+  
+  Object.entries(lobbies).forEach(([lobbyName, lobby]) => {
+    if (now - lobby.createdAt > maxAge) {
+      console.log(`Nettoyage du lobby inactif: ${lobbyName}`);
+      delete lobbies[lobbyName];
+      delete responses[lobbyName];
+      delete playerData[lobbyName];
+    }
+  });
+}, 60 * 60 * 1000);
+
+// === DÉMARRAGE DU SERVEUR ===
 const PORT = process.env.PORT || 3000;
 
-loadScenario().then(() => {
+// Précharger les scénarios puis démarrer le serveur
+preloadScenarios().then(() => {
   server.listen(PORT, () => {
-    console.log(`Serveur lancé sur le port ${PORT}`);
+    console.log(`\n${'='.repeat(50)}`);
+    console.log(`🚀 Serveur lancé sur le port ${PORT}`);
+    console.log(`${'='.repeat(50)}`);
+    console.log(`📱 Menu principal: http://localhost:${PORT}`);
+    console.log(`🎮 Jeu direct: http://localhost:${PORT}/game`);
+    console.log(`📊 API Scénarios: http://localhost:${PORT}/api/scenarios`);
+    console.log(`${'='.repeat(50)}\n`);
   });
 }).catch(error => {
   console.error('Erreur démarrage:', error);
