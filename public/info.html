@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Vidéo Ludique - Guide Pédagogique EVARS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        nav {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: #f0f0f0;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #ff6b6b;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff6b6b;
+        }
+        
+        h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+        
+        h4 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        .module-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .module-card h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .resources-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 10px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .theme-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .theme-card h4 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            margin: 10px 5px;
+        }
+        
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        footer {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .partners {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .partner {
+            padding: 15px 25px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            .container { padding: 10px; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Projet Vidéo Ludique</h1>
+            <p class="subtitle">Outil permettant aux équipes d'intervention du corps enseignant de promouvoir la santé relationnelle, affective et sexuelle</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#themes">Thématiques</a></li>
+                <li><a href="#cadre">Cadre et Posture</a></li>
+                <li><a href="#utilisation">Utilisation</a></li>
+                <li><a href="#modules">Modules pédagogiques</a></li>
+                <li><a href="#ressources">Ressources</a></li>
+            </ul>
+        </nav>
+        
+        <section id="introduction" class="section">
+            <h2>Introduction</h2>
+            <p>Le « serious game » qui vous est ici proposé s'inscrit dans le cadre d'un projet soutenu par l'Agence Régionale de Santé. Celui-ci a pour but de renforcer l'accès à l'information en santé sexuelle et la prévention des violences par le biais de supports numériques innovants.</p>
+            
+            <div class="info-box">
+                <p><strong>Porteurs du projet :</strong> Planning Familial 974, Rive, ASETIS et l'ARPSH - associations reconnues du secteur de la santé sexuelle à la Réunion.</p>
+            </div>
+            
+            <p>Ce livret pédagogique, à destination des équipes éducatives, sert à vous soutenir dans l'utilisation du « serious game ». Il s'agit d'un support interactif ayant pour vocation de rendre les jeunes acteurs et actrices de leur propre santé. Les modules ont été conçus par des élèves de 4ème de plusieurs collèges réunionnais lors de séances menées par les quatre associations porteuses du projet.</p>
+            
+            <div class="warning-box">
+                <p><strong>Important :</strong> Ce « serious game » se veut être un outil complémentaire aux trois séances d'Education à la Vie Affective Relationnelle et Sexuelle obligatoires et progressives de la primaire jusqu'en terminale.</p>
+            </div>
+        </section>
+        
+        <section id="themes" class="section">
+            <h2>Thématiques abordées</h2>
+            <div class="grid">
+                <div class="theme-card">
+                    <h4>L'estime de soi dans les relations</h4>
+                    <ul>
+                        <li>Poser des limites</li>
+                        <li>Communiquer</li>
+                        <li>Repérer les violences</li>
+                        <li>Relations saine/toxique</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Le consentement</h4>
+                    <ul>
+                        <li>Libre</li>
+                        <li>Éclairé</li>
+                        <li>Réversible</li>
+                        <li>Respect des limites</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>LGBTQIA+</h4>
+                    <ul>
+                        <li>Orientations sexuelles</li>
+                        <li>Identités de genres</li>
+                        <li>Discriminations</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Anatomie - Connaissance du corps</h4>
+                    <ul>
+                        <li>Puberté</li>
+                        <li>Changements physiques et émotionnels</li>
+                        <li>Appareils génitaux</li>
+                        <li>Masturbation</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Égalité fille-garçon</h4>
+                    <ul>
+                        <li>Stéréotypes</li>
+                        <li>Sexisme</li>
+                        <li>Discriminations</li>
+                        <li>Inclusion</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Harcèlement</h4>
+                    <ul>
+                        <li>Violences</li>
+                        <li>Répétition</li>
+                        <li>Isolement</li>
+                        <li>Domination/exclusion</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Prostitution</h4>
+                    <ul>
+                        <li>Emprise</li>
+                        <li>Exploitation</li>
+                        <li>Manipulation</li>
+                        <li>Illégalité</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Pornographie</h4>
+                    <ul>
+                        <li>Fiction</li>
+                        <li>Accès précoce</li>
+                        <li>Stéréotypes</li>
+                        <li>Addiction</li>
+                    </ul>
+                </div>
+                
+                <div class="theme-card">
+                    <h4>Violences</h4>
+                    <ul>
+                        <li>Sexistes et sexuelles</li>
+                        <li>Visibles et invisibles</li>
+                        <li>Maltraitance</li>
+                        <li>Loi et protection</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="cadre" class="section">
+            <h2>Cadre et Posture</h2>
+            
+            <h3>Posture de l'équipe éducative</h3>
+            <div class="info-box">
+                <h4>Principes essentiels :</h4>
+                <ul>
+                    <li><strong>Bienveillance inconditionnelle :</strong> Valoriser chaque prise de parole, accueillir les émotions sans jugement</li>
+                    <li><strong>Écoute et empathie :</strong> Reformuler les propos pour s'assurer de leur bonne compréhension</li>
+                    <li><strong>Neutralité bienveillante :</strong> Ne pas imposer ses valeurs personnelles</li>
+                    <li><strong>Clarté pédagogique :</strong> Utiliser un vocabulaire simple, concret, compréhensible</li>
+                </ul>
+            </div>
+            
+            <h3>Cadre de la séance</h3>
+            <div class="warning-box">
+                <p>La co-construction d'un cadre avec les élèves en début de séance permet son bon déroulement. Règles essentielles :</p>
+                <ul>
+                    <li>Confidentialité (sauf danger)</li>
+                    <li>Respect</li>
+                    <li>Droit au silence</li>
+                    <li>Écoute</li>
+                    <li>Une parole à la fois</li>
+                    <li>Bienveillance</li>
+                    <li>Parler en "je"</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="revelation" class="section">
+            <h2>Que faire en cas de révélation de violences ?</h2>
+            
+            <div class="warning-box">
+                <h4>Définition du danger (Article 375 du code civil) :</h4>
+                <ul>
+                    <li>Sa santé, sa sécurité ou sa moralité sont en danger</li>
+                    <li>Les conditions de son éducation ou développement sont gravement compromises</li>
+                </ul>
+            </div>
+            
+            <h3>Comment réagir ?</h3>
+            
+            <h4>1. Prendre en compte la parole de l'élève</h4>
+            <p>Inviter l'élève à s'exprimer sans jamais lui assurer de conserver secrètes ses confidences mais en l'assurant de votre aide et soutien. L'écouter, le laisser parler librement sans émettre de doute. Noter mot pour mot les propos tenus.</p>
+            
+            <h4>2. Évaluer la situation de danger</h4>
+            <p>Évaluer le risque de danger auquel est exposé l'élève et la nécessité de le protéger immédiatement.</p>
+            
+            <h4>3. Informer l'élève des suites</h4>
+            <p>Expliquer les démarches : information à l'autorité hiérarchique, transmission aux autorités compétentes (CRIP ou procureur), information aux détenteurs de l'autorité parentale (sauf si contraire à l'intérêt de l'élève).</p>
+        </section>
+        
+        <section id="utilisation" class="section">
+            <h2>Utilisation du Serious Game</h2>
+            
+            <div class="info-box">
+                <p><strong>Durée :</strong> 45 minutes à 1 heure</p>
+                <p><strong>Groupe :</strong> Classe d'enfants de 14 à 16 ans</p>
+                <p><strong>Matériel :</strong> Vidéo projecteur, feutre effaçable, tableau blanc</p>
+            </div>
+            
+            <h3>Déroulé de la séance</h3>
+            
+            <h4>1. Introduction du module (5-10 min)</h4>
+            <p>L'intervenant·e présente le cadre, les objectifs et la thématique abordée.</p>
+            
+            <h4>2. Lancement du support vidéo-ludique (15-25 min)</h4>
+            <p>Le serious game est lancé en collectif. Les participant·es font des choix interactifs qui influencent le scénario.</p>
+            
+            <h4>3. Clôture du scénario & orientation (5 min)</h4>
+            <p>Rappel des ressources disponibles : lieux d'écoute, structures d'accompagnement, professionnels de santé.</p>
+            
+            <h4>4. Expression du ressenti & ouverture thématique (10-15 min)</h4>
+            <p>Temps de parole pour recueillir les impressions et introduire une réflexion sur la thématique.</p>
+        </section>
+        
+        <section id="ressources" class="section">
+            <h2>Ressources d'aide et d'orientation</h2>
+            
+            <div class="resources-box">
+                <h3>Numéros d'urgence et d'écoute</h3>
+                <ul>
+                    <li><strong>39 19 :</strong> Écoute et orientation pour les victimes de violences (gratuit, 24h/24)</li>
+                    <li><strong>119 :</strong> Allô Enfance en danger (gratuit, 24h/24)</li>
+                    <li><strong>114 :</strong> Chat si impossibilité de parler</li>
+                    <li><strong>0 800 08 11 11 :</strong> N° Vert "Sexualité, contraception, IVG"</li>
+                    <li><strong>17 :</strong> Gendarmerie</li>
+                    <li><strong>15 :</strong> SAMU</li>
+                    <li><strong>115 :</strong> Hébergement d'urgence</li>
+                    <li><strong>0 800 235 236 :</strong> Fil santé jeunes</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <p><strong>Rappel important :</strong> Les mineur·e·s peuvent faire appel à tous ces lieux et numéros ressources sans être accompagné·e·s de leurs parents.</p>
+            </div>
+        </section>
+        
+        <section id="modules" class="section">
+            <h2>Exemples de modules pédagogiques</h2>
+            
+            <div class="module-card">
+                <h3>Module : L'estime de soi dans les relations</h3>
+                <h4>Objectifs :</h4>
+                <ul>
+                    <li>Identifier comment travailler l'estime de soi</li>
+                    <li>Savoir que l'estime de soi se construit</li>
+                    <li>Connaître les ressources en cas de violence</li>
+                </ul>
+                
+                <h4>Messages clés :</h4>
+                <ul>
+                    <li>Une estime de soi équilibrée permet de faire des choix en accord avec ses valeurs</li>
+                    <li>Communiquer, c'est échanger mais aussi savoir écouter</li>
+                    <li>Poser ses limites, c'est savoir dire "stop" quand une situation ne nous respecte pas</li>
+                </ul>
+            </div>
+            
+            <div class="module-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h3>Module : Le consentement</h3>
+                <h4>Définition :</h4>
+                <p>Le consentement est un accord volontaire pour faire quelque chose. Il doit être :</p>
+                <ul>
+                    <li><strong>Libre :</strong> Sans contrainte, menace ou pression</li>
+                    <li><strong>Éclairé :</strong> En connaissance de cause</li>
+                    <li><strong>Spécifique :</strong> Pour chaque acte</li>
+                    <li><strong>Réversible :</strong> On peut changer d'avis à tout moment</li>
+                    <li><strong>Enthousiaste :</strong> Un grand "oui" explicite</li>
+                </ul>
+                
+                <p style="margin-top: 20px;"><strong>Rappel légal :</strong> En France, l'âge légal du consentement sexuel est 15 ans, et 18 ans en cas d'inceste.</p>
+            </div>
+        </section>
+        
+        <footer>
+            <h3>Partenaires du projet</h3>
+            <div class="partners">
+                <div class="partner">Planning Familial 974</div>
+                <div class="partner">RIVE</div>
+                <div class="partner">ASETIS</div>
+                <div class="partner">ARPSH</div>
+                <div class="partner">ARS La Réunion</div>
+            </div>
+            
+            <p style="margin-top: 30px; color: #666;">
+                Projet soutenu par l'Agence Régionale de Santé de La Réunion<br>
+                © 2025 - Tous droits réservés
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

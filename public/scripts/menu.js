@@ -84,8 +84,23 @@ const levelView = document.getElementById("level-view");
 
 // === INITIALISATION ===
 document.addEventListener("DOMContentLoaded", () => {
+
+
   console.log("Menu initialisé");
-  
+    // FIX 1: Toujours cacher l'overlay au chargement
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+    
+    // FIX 2: Gérer le bouton retour
+    window.addEventListener('popstate', function(event) {
+        console.log('🔙 Bouton retour détecté');
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+    });
   // Vérifier si on revient du jeu
   checkReturnFromGame();
   
@@ -659,7 +674,7 @@ function launchSoloMode() {
   });
   
   console.log("Redirection vers:", `/game?${params.toString()}`);
-  window.location.href = `/game?${params.toString()}`;
+  window.location.replace(`/game?${params.toString()}`);
 }
 
 function launchGroupMode() {
@@ -671,7 +686,7 @@ function launchGroupMode() {
   });
   
   console.log("Redirection vers:", `/game?${params.toString()}`);
-  window.location.href = `/game?${params.toString()}`;
+  window.location.replace(`/game?${params.toString()}`);
 }
 
 // === FONCTIONS UTILITAIRES ===

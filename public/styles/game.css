@@ -31,11 +31,11 @@
   --couleur-secondary-hover: rgba(201, 226, 229, 0.8);
   
   /* Texture papier */
-  --texture-papier-image: url("../img/css/painted-relief-texture.jpg");
+  --texture-papier-image: url("/img/css/painted-relief-texture.jpg");
   --texture-papier-size: cover;
   --texture-papier-repeat: no-repeat;
-  --texture-papier-opacity: 0.15;
-  --texture-papier-blend-mode: multiply;
+  --texture-papier-opacity: 0.5;
+  --texture-papier-blend-mode: darken;
   
   /* Effets et ombres */
   --effet-backgroundBlur: blur(12px);
@@ -398,6 +398,7 @@ h1, h2, h3 {
   overflow: hidden;
   margin-bottom: 1.5rem;
   position: relative;
+  background:none !important;
 }
 
 .image-placeholder img {
@@ -481,9 +482,11 @@ h1, h2, h3 {
   bottom: 0;
   background-image: var(--texture-papier-image);
   background-size: cover;
-  opacity: 0.05;
+  background-repeat: no-repeat;
+  opacity: 0.05; /* Très léger pour ne pas gêner la lecture */
   mix-blend-mode: multiply;
   pointer-events: none;
+  z-index: 0;
 }
 
 .messenger-messages {

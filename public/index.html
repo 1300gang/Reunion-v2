@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="styles/game.css">
   <link rel="stylesheet" href="styles/vote-component.css">
   <link rel="stylesheet" href="styles/chapter-menu.css">
+  <link rel="stylesheet" href="styles/solo-mode.css">
   
   <!-- Ajout de la police Mefta
   <style>
@@ -49,6 +50,9 @@
         <div class="brief">
           <p><strong>Votre rôle :</strong> Vous allez animer une session interactive où les participants répondront à des questions sur des scénarios mettant en scène Gaëtan et Nicolas.</p>
           <p><strong>Comment ça marche :</strong> Créez une partie, partagez le code avec les participants, et guidez-les à travers les différentes situations éducatives.</p>
+          <p><strong>Navigation rapide :</strong> Pendant la partie, cliquez directement sur les barres de progression des votes pour avancer vers la branche narrative correspondante. Une confirmation vous sera demandée avant de passer à la question suivante.</p>
+          <p><strong>Export des données :</strong> Vous pourrez télécharger un fichier CSV des réponses à tout moment pendant ou après la session.</p>
+    
           <p class="brief-note">Ce jeu sérieux aborde les thèmes de l'orientation sexuelle, de l'identité de genre et de la lutte contre les discriminations.</p>
         </div>
         
@@ -170,7 +174,7 @@
               </button>
               <button id="newSessionBtn" class="button">
                 <span>🔄</span>
-                <span>Nouvelle session</span>
+                <span>Retour au menu</span>
               </button>
             </div>
           </div>
@@ -465,6 +469,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="scripts/vote-component.js"></script>
   <script src="scripts/chapter-menu.js"></script>
+  <script src="scripts/solo-mode.js"></script>
+  <script src="/scripts/audio-player.js"></script>
+  <script src="/scripts/info-button.js"></script>
+  <script src="/scripts/connection-monitor.js"></script>
   <script src="scripts/game.js"></script>
 </body>
 </html>

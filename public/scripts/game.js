@@ -1,16 +1,16 @@
 // ============================================================================
-// GAME.JS - Script principal du jeu avec support multi-scénarios ET THÈME URL
+// GAME.JS - Script principal du jeu (Intervenant & Joueur)
+// Version épurée sans mode Solo
 // ============================================================================
 
 // ============================================================================
-// 1. VARIABLES GLOBALES ET CONFIGURATION
+// 1. CONFIGURATION ET ÉTAT GLOBAL
 // ============================================================================
 
 const socket = io();
 
-// Configuration du jeu
 const gameConfig = {
-  mode: null,           // 'solo', 'intervenant', 'player'
+  mode: null,           // 'intervenant' ou 'player'
   lobby: '',            // Nom du lobby actuel
   playerName: '',       // Nom du joueur
   scenario: null,       // Données du scénario
@@ -20,7 +20,6 @@ const gameConfig = {
   levelName: null       // Nom du niveau
 };
 
-// État du jeu
 const gameState = {
   currentQuestion: null,
   allPlayers: [],
@@ -33,64 +32,64 @@ const gameState = {
 };
 
 // ============================================================================
-// 2. INITIALISATION ET POINT D'ENTRÉE
+// 2. INITIALISATION
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🎮 Initialisation du jeu...');
   
-  // PREMIÈRE CHOSE: Charger et appliquer le thème (modifié pour gérer les URLs)
-  initializeGameThemeWithURL();
+  // Charger et appliquer le thème
+  initializeTheme();
   
-  // Récupérer la configuration depuis le menu
-  loadGameConfiguration();
+  // Charger la configuration depuis le menu
+  loadConfiguration();
   
-  // Initialiser les événements
+  // Initialiser les événements DOM
   initializeEventListeners();
   
-  // Initialiser les animations et effets visuels
+  // Initialiser les effets visuels
   initializeVisualEffects();
+  
+  // Initialiser les événements Socket.IO
+  initializeSocketEvents();
   
   // Déterminer le mode et démarrer
   determineGameMode();
 });
 
-// === SYSTÈME DE THÈME AMÉLIORÉ AVEC URL PARAMETERS ===
-function initializeGameThemeWithURL() {
-  // 1. D'abord essayer de récupérer depuis l'URL (pour les joueurs)
+// ============================================================================
+// 3. SYSTÈME DE THÈME
+// ============================================================================
+
+function initializeTheme() {
+  // 1. Essayer de récupérer depuis l'URL (pour les joueurs)
   const urlParams = new URLSearchParams(window.location.search);
   const colorsParam = urlParams.get('colors');
   const levelNameParam = urlParams.get('level');
   
   if (colorsParam) {
-    // Décoder les couleurs depuis l'URL
     const colors = colorsParam.split(',').map(c => c.startsWith('#') ? c : '#' + c);
-    
     console.log(`✅ Couleurs trouvées dans l'URL: ${colors}`);
     
-    // Sauvegarder dans gameConfig
     gameConfig.levelColors = colors;
     gameConfig.levelName = levelNameParam ? decodeURIComponent(levelNameParam) : 'Niveau';
     
-    // Appliquer le thème
-    applyLevelTheme(colors);
+    applyTheme(colors);
     
-    // Créer le badge
     if (levelNameParam) {
       createLevelBadge(decodeURIComponent(levelNameParam), colors);
     }
     
-    // Sauvegarder pour cette session
     sessionStorage.setItem('gameConfig', JSON.stringify({
       levelColors: colors,
       level: gameConfig.levelName,
       fromURL: true
     }));
     
-    return true;
+    return;
   }
   
-  // 2. Sinon, essayer depuis sessionStorage (pour l'intervenant)
+  // 2. Essayer depuis sessionStorage (pour l'intervenant)
   const storedConfig = sessionStorage.getItem('gameConfig');
   
   if (storedConfig) {
@@ -98,39 +97,26 @@ function initializeGameThemeWithURL() {
       const config = JSON.parse(storedConfig);
       
       if (config.levelColors && config.level) {
-        // Sauvegarder dans gameConfig
         gameConfig.levelColors = config.levelColors;
         gameConfig.levelName = config.level;
         
-        // Appliquer le thème
-        applyLevelTheme(config.levelColors);
-        
-        // Créer le badge
+        applyTheme(config.levelColors);
         createLevelBadge(config.level, config.levelColors);
         
         console.log(`✅ Thème "${config.level}" chargé depuis sessionStorage`);
-        return true;
+        return;
       }
     } catch (error) {
       console.error('Erreur lors du chargement du thème:', error);
     }
   }
   
-  // 3. Fallback: thème par défaut
+  // 3. Thème par défaut
   console.warn('⚠️ Aucun thème trouvé, utilisation des couleurs par défaut');
   applyDefaultTheme();
-  return false;
 }
 
-function applyDefaultTheme() {
-  const defaultColors = ['#e9bc40', '#c9e2e5']; // Jaune/Bleu par défaut
-  gameConfig.levelColors = defaultColors;
-  gameConfig.levelName = 'Niveau par défaut';
-  applyLevelTheme(defaultColors);
-  console.log('🎨 Thème par défaut appliqué');
-}
-
-function applyLevelTheme(colors) {
+function applyTheme(colors) {
   if (!colors || colors.length < 2) {
     console.warn('❌ Couleurs manquantes pour le thème');
     return;
@@ -138,17 +124,13 @@ function applyLevelTheme(colors) {
   
   const root = document.documentElement;
   
-  // Couleur principale [0] - Remplace jaunePeps
+  // Couleurs principales
   root.style.setProperty('--couleur-jaunePeps', colors[0]);
-  
-  // Couleur secondaire [1] - Remplace grisBleuClair  
   root.style.setProperty('--couleur-grisBleuClair', colors[1]);
-  
-  // Créer des variations utiles
   root.style.setProperty('--couleur-primary', colors[0]);
   root.style.setProperty('--couleur-secondary', colors[1]);
   
-  // Variations avec transparence pour les hovers
+  // Créer des variations avec transparence
   const hex2rgba = (hex, alpha) => {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -161,15 +143,20 @@ function applyLevelTheme(colors) {
   root.style.setProperty('--couleur-secondary-light', hex2rgba(colors[1], 0.3));
   root.style.setProperty('--couleur-secondary-hover', hex2rgba(colors[1], 0.8));
   
-  console.log(`🎨 Thème appliqué dans le jeu: Principal=${colors[0]}, Secondaire=${colors[1]}`);
+  console.log(`🎨 Thème appliqué: Principal=${colors[0]}, Secondaire=${colors[1]}`);
+}
+
+function applyDefaultTheme() {
+  const defaultColors = ['#e9bc40', '#c9e2e5'];
+  gameConfig.levelColors = defaultColors;
+  gameConfig.levelName = 'Niveau par défaut';
+  applyTheme(defaultColors);
 }
 
 function createLevelBadge(levelName, colors) {
-  // Retirer l'ancien badge s'il existe
   const oldBadge = document.getElementById('level-theme-badge');
   if (oldBadge) oldBadge.remove();
   
-  // Créer le nouveau badge
   const badge = document.createElement('div');
   badge.id = 'level-theme-badge';
   badge.className = 'level-theme-badge';
@@ -181,7 +168,6 @@ function createLevelBadge(levelName, colors) {
     <span class="badge-text">${levelName}</span>
   `;
   
-  // Positionner le badge
   badge.style.cssText = `
     position: fixed;
     top: 20px;
@@ -202,67 +188,19 @@ function createLevelBadge(levelName, colors) {
   `;
   
   document.body.appendChild(badge);
-  
-  // Ajouter les styles pour les dots si pas déjà présents
-  if (!document.getElementById('badge-styles')) {
-    const style = document.createElement('style');
-    style.id = 'badge-styles';
-    style.textContent = `
-      .level-theme-badge {
-        animation: slideIn 0.5s ease-out;
-      }
-      
-      .badge-colors {
-        display: flex;
-        gap: 4px;
-      }
-      
-      .color-dot {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        border: 2px solid white;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-      }
-      
-      @keyframes slideIn {
-        from {
-          transform: translateX(100px);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-  
   console.log(`📖 Badge créé pour le niveau: ${levelName}`);
 }
 
 // ============================================================================
-// 3. CONFIGURATION ET DÉTECTION DU MODE
+// 4. DÉTECTION ET INITIALISATION DU MODE
 // ============================================================================
 
-function loadGameConfiguration() {
-  // Récupérer la configuration depuis sessionStorage (venant du menu)
+function loadConfiguration() {
   const storedConfig = sessionStorage.getItem('gameConfig');
   if (storedConfig) {
     const config = JSON.parse(storedConfig);
     gameConfig.levelInfo = config;
     console.log('📦 Configuration chargée:', config);
-  }
-  
-  // Récupérer le mode solo si présent
-  const soloMode = sessionStorage.getItem('soloMode');
-  if (soloMode) {
-    const soloConfig = JSON.parse(soloMode);
-    gameConfig.mode = 'solo';
-    gameConfig.lobby = soloConfig.lobbyName;
-    gameConfig.playerName = soloConfig.playerName;
-    console.log('🎮 Mode solo détecté:', soloConfig);
   }
 }
 
@@ -275,62 +213,30 @@ function determineGameMode() {
   
   console.log('🔍 Paramètres URL:', { mode, scenarioFile, lobbyFromUrl, level });
   
-  // Mode Solo (depuis le menu)
+  // Mode Solo - Rediriger vers le module Solo si disponible
   if (mode === 'solo' && scenarioFile) {
-    initializeSoloMode(scenarioFile, level);
+    if (typeof initializeSoloMode === 'function') {
+      initializeSoloMode(socket, scenarioFile, level);
+      return;
+    } else {
+      console.error('Module Solo non chargé');
+      showNotification('Module Solo non disponible', 'error');
+      return;
+    }
   }
-  // Mode Intervenant (depuis le menu)
-  else if (mode === 'intervenant' && scenarioFile) {
+  
+  // Mode Intervenant
+  if (mode === 'intervenant' && scenarioFile) {
     initializeIntervenantMode(scenarioFile, level);
   }
   // Mode Joueur (rejoint via URL)
   else if (lobbyFromUrl) {
     initializePlayerMode(lobbyFromUrl);
   }
-  // Par défaut : mode intervenant classique
+  // Par défaut : mode intervenant
   else {
     gameConfig.mode = 'intervenant';
     showScreen('intervenant-screen');
-  }
-}
-
-// ============================================================================
-// 4. INITIALISATION DES DIFFÉRENTS MODES
-// ============================================================================
-
-function initializeSoloMode(scenarioFile, level) {
-  console.log('🎮 Initialisation mode SOLO');
-  gameConfig.mode = 'solo';
-  gameConfig.scenarioFile = scenarioFile;
-  
-  // Récupérer la config solo
-  const soloConfig = JSON.parse(sessionStorage.getItem('soloMode') || '{}');
-  gameConfig.lobby = soloConfig.lobbyName || `solo_${Date.now()}`;
-  gameConfig.playerName = soloConfig.playerName || 'Joueur Solo';
-  
-  // Créer le lobby en mode solo
-  socket.emit('create-lobby', {
-    lobbyName: gameConfig.lobby,
-    scenarioFile: scenarioFile,
-    mode: 'solo'
-  });
-  
-  // Afficher l'interface solo
-  showScreen('solo-screen');
-  
-  // Mettre à jour le pill avec la couleur du niveau
-  const pillEl = document.querySelector('#solo-screen .pill');
-  if (pillEl && gameConfig.levelColors) {
-    // Appliquer la couleur principale au pill
-    pillEl.style.background = gameConfig.levelColors[0];
-    pillEl.style.color = gameConfig.levelColors[0].startsWith('#e') ? 
-                          'var(--couleur-noirVolcan)' : 'var(--couleur-blancSite)';
-  }
-  
-  // Mettre à jour le texte du pill
-  const lobbyNameEl = document.getElementById('soloLobbyName');
-  if (lobbyNameEl) {
-    lobbyNameEl.textContent = `Mode Solo - ${level || gameConfig.levelName || 'Niveau'}`;
   }
 }
 
@@ -339,15 +245,14 @@ function initializeIntervenantMode(scenarioFile, level) {
   gameConfig.mode = 'intervenant';
   gameConfig.scenarioFile = scenarioFile;
   
-  // Stocker le scénario pour la création du lobby
   sessionStorage.setItem('currentScenarioFile', scenarioFile);
   
-  // Afficher l'écran de création
   showScreen('intervenant-screen');
   showElement('intervenant-creation');
   
-  // Afficher les infos du niveau sélectionné
-  displaySelectedLevel(level);
+  if (level) {
+    displaySelectedLevel(level);
+  }
 }
 
 function initializePlayerMode(lobbyName) {
@@ -364,74 +269,50 @@ function initializePlayerMode(lobbyName) {
 }
 
 // ============================================================================
-// 5. GESTION DES ÉVÉNEMENTS DOM
+// 5. ÉVÉNEMENTS DOM
 // ============================================================================
 
 function initializeEventListeners() {
-  // === Boutons Intervenant ===
-  const intervenantButtons = {
-    'createLobbyBtn': createLobby,
-    'copyLinkBtn': copyPlayerLink,
-    'startGameBtn': startGame,
-    'endGameBtn': endGame,
-    'generateCsvBtn': generateCsv,
-    'sendResultsBtn': sendResults,
-    'newSessionBtn': newSession,
-    'backToMenuBtn': backToMenu
-  };
+  // Boutons Intervenant
+  attachButton('createLobbyBtn', createLobby);
+  attachButton('copyLinkBtn', copyPlayerLink);
+  attachButton('startGameBtn', startGame);
+  attachButton('endGameBtn', endGame);
+  attachButton('generateCsvBtn', generateCsv);
+  attachButton('sendResultsBtn', sendResults);
+  attachButton('newSessionBtn', newSession);
+  attachButton('backToMenuBtn', backToMenu);
   
-  // === Boutons Joueur ===
-  const playerButtons = {
-    'joinLobbyBtn': joinLobby,
-    'randomFillBtn': fillRandomInfo,
-    'backToHomeBtn': backToHome,
-    'showAnswersBtn': showAnswerPanel,
-    'closeAnswersBtn': hideAnswerPanel,
-    'sendFeedbackBtn': sendPlayerFeedback
-  };
+  // Boutons Joueur
+  attachButton('joinLobbyBtn', joinLobby);
+  attachButton('randomFillBtn', fillRandomInfo);
+  attachButton('backToHomeBtn', backToHome);
+  attachButton('showAnswersBtn', showAnswerPanel);
+  attachButton('closeAnswersBtn', hideAnswerPanel);
+  attachButton('sendFeedbackBtn', sendPlayerFeedback);
   
-  // === Boutons Solo ===
-  const soloButtons = {
-    'soloShowAnswersBtn': showSoloAnswerPanel,
-    'soloCloseAnswersBtn': hideSoloAnswerPanel,
-    'soloReplayBtn': () => location.reload(),
-    'soloNewLevelBtn': backToMenu,
-    'soloDownloadBtn': () => showNotification('Fonction PDF à implémenter', 'info'),
-    'soloShareBtn': () => showNotification('Fonction partage à implémenter', 'info')
-  };
-  
-  // Attacher tous les événements
-  attachButtonEvents(intervenantButtons);
-  attachButtonEvents(playerButtons);
-  attachButtonEvents(soloButtons);
-  
-  // Formulaires
+  // Formulaire joueur
   const playerForm = document.getElementById('playerInfoForm');
   if (playerForm) {
     playerForm.onsubmit = submitPlayerInfo;
   }
   
   // Bouton CSV final
-  const finalCsvBtn = document.getElementById('finalDownloadCsvBtn');
-  if (finalCsvBtn) {
-    finalCsvBtn.onclick = () => {
-      const existingLink = document.getElementById('csvDownloadLink');
-      if (existingLink && existingLink.href) {
-        existingLink.click();
-      } else {
-        generateCsv();
-      }
-    };
-  }
-}
-
-function attachButtonEvents(buttons) {
-  Object.entries(buttons).forEach(([id, handler]) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.onclick = handler;
+  attachButton('finalDownloadCsvBtn', () => {
+    const existingLink = document.getElementById('csvDownloadLink');
+    if (existingLink && existingLink.href) {
+      existingLink.click();
+    } else {
+      generateCsv();
     }
   });
+}
+
+function attachButton(id, handler) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.onclick = handler;
+  }
 }
 
 // ============================================================================
@@ -448,12 +329,11 @@ function createLobby() {
   
   gameConfig.lobby = lobbyName;
   
-  // Récupérer le scénario depuis la config ou l'URL
   const scenarioFile = gameConfig.scenarioFile || 
                        sessionStorage.getItem('currentScenarioFile') || 
                        'scenario_lgbtqia_V2.json';
   
-  // S'assurer que les couleurs et le nom du niveau sont bien récupérés
+  // Récupérer les couleurs du thème
   const storedConfig = sessionStorage.getItem('gameConfig');
   if (storedConfig) {
     try {
@@ -477,26 +357,18 @@ function createLobby() {
 }
 
 function generateShareableLink(lobbyName) {
-  // Utiliser /game au lieu de /game.html (selon server.js)
   const baseUrl = window.location.origin + '/game';
+  const params = new URLSearchParams({ lobby: lobbyName });
   
-  // Créer les paramètres URL incluant les couleurs
-  const params = new URLSearchParams({
-    lobby: lobbyName
-  });
-  
-  // Ajouter les couleurs si disponibles
+  // Ajouter les couleurs et le niveau si disponibles
   if (gameConfig.levelColors) {
     params.append('colors', gameConfig.levelColors.join(','));
   }
-  
-  // Ajouter le nom du niveau si disponible
   if (gameConfig.levelName) {
     params.append('level', gameConfig.levelName);
   }
   
   const fullUrl = `${baseUrl}?${params.toString()}`;
-  
   console.log(`🔗 Lien généré avec thème: ${fullUrl}`);
   
   return fullUrl;
@@ -507,8 +379,6 @@ function generateQRCode(text) {
   if (!qrCodeElement) return;
   
   qrCodeElement.innerHTML = '';
-  
-  // Utiliser le lien avec les couleurs
   const urlWithTheme = generateShareableLink(gameConfig.lobby);
   
   try {
@@ -516,14 +386,14 @@ function generateQRCode(text) {
       const canvas = document.createElement('canvas');
       const qr = new QRious({
         element: canvas,
-        value: urlWithTheme, // Utiliser l'URL avec thème
+        value: urlWithTheme,
         size: 200,
         foreground: gameConfig.levelColors ? gameConfig.levelColors[0] : '#322a22',
         background: '#fafff6'
       });
       
       qrCodeElement.appendChild(canvas);
-      console.log(`📱 QR Code généré avec thème pour: ${urlWithTheme}`);
+      console.log(`📱 QR Code généré avec thème`);
     }
   } catch (e) {
     console.error('Erreur QR Code:', e);
@@ -536,7 +406,7 @@ function startGame() {
   
   // Initialiser le menu des chapitres si disponible
   const imageContainer = document.querySelector('.image-container');
-  if (imageContainer && gameConfig.scenario) {
+  if (imageContainer && gameConfig.scenario && typeof ChaptersMenu !== 'undefined') {
     gameState.chaptersMenu = new ChaptersMenu(imageContainer, {
       scenario: gameConfig.scenario,
       currentQuestion: null,
@@ -560,7 +430,6 @@ function generateCsv() {
 }
 
 function copyPlayerLink() {
-  // Générer le lien avec les couleurs
   const linkWithTheme = generateShareableLink(gameConfig.lobby);
   
   navigator.clipboard.writeText(linkWithTheme).then(() => {
@@ -582,466 +451,6 @@ function copyPlayerLink() {
   });
 }
 
-// ============================================================================
-// 7. FONCTIONS MODE JOUEUR
-// ============================================================================
-
-function joinLobby() {
-  const lobby = document.getElementById('lobbyCodeInput').value.trim();
-  
-  if (!lobby) {
-    showNotification('Veuillez entrer le code de la partie', 'warning');
-    return;
-  }
-  
-  gameConfig.lobby = lobby;
-  socket.emit('join-lobby', { lobbyName: lobby });
-}
-
-function submitPlayerInfo(e) {
-  e.preventDefault();
-  
-  const info = {
-    prenom: document.getElementById('playerPrenom').value.trim(),
-    age: document.getElementById('playerAge').value,
-    genre: document.getElementById('playerGenre').value,
-    ecole: document.getElementById('playerEcole').value.trim()
-  };
-  
-  gameConfig.playerName = info.prenom;
-  socket.emit('player-info', info);
-}
-
-function fillRandomInfo() {
-  const prenoms = ['Alex', 'Jordan', 'Charlie', 'Sam', 'Robin', 'Casey', 'Taylor', 'Morgan'];
-  const ecoles = ['Lycée Victor Hugo', 'Collège Jean Moulin', 'Lycée Saint-Exupéry', 'Collège Simone Veil'];
-  
-  document.getElementById('playerPrenom').value = prenoms[Math.floor(Math.random() * prenoms.length)];
-  document.getElementById('playerAge').value = Math.floor(Math.random() * 8) + 12;
-  document.getElementById('playerGenre').value = ['Fille', 'Garçon', 'Autre'][Math.floor(Math.random() * 3)];
-  document.getElementById('playerEcole').value = ecoles[Math.floor(Math.random() * ecoles.length)];
-}
-
-function sendPlayerFeedback() {
-  const feedback = document.getElementById('playerFeedback').value;
-  if (feedback.trim()) {
-    socket.emit('player-feedback', { feedback });
-    showNotification('Merci pour votre feedback !', 'success');
-    document.getElementById('playerFeedback').value = '';
-  }
-}
-
-// ============================================================================
-// 8. FONCTIONS MODE SOLO (HARMONISÉES AVEC MODE JOUEUR + DÉTECTION FIN)
-// ============================================================================
-
-// Fonction pour détecter la fin du scénario
-function isEndOfScenario(questionData) {
-  // Vérifier si c'est la fin du scénario :
-  // - Pas de choix OU choix vide
-  // - Pas de questions suivantes OU questions suivantes vides
-  return (
-    (!questionData.choices || questionData.choices.length === 0) &&
-    (!questionData.nextQuestions || Object.keys(questionData.nextQuestions).length === 0)
-  );
-}
-
-async function displaySoloQuestion(questionData) {
-  gameState.currentQuestion = questionData;
-  gameState.hasVoted = false;
-  
-  // NOUVEAU : Vérifier si c'est la fin du scénario
-  if (isEndOfScenario(questionData)) {
-    console.log('🎯 Fin du scénario détectée');
-    await handleSoloScenarioEnd(questionData);
-    return;
-  }
-  
-  // Cacher le panneau de réponses au début
-  hideSoloAnswerPanel();
-  hideElement('soloWaitingMessage');
-  
-  // Afficher l'image contextuelle
-  if (questionData.contextual_image) {
-    const imageEl = document.getElementById('soloContextImage');
-    if (imageEl) imageEl.src = questionData.contextual_image;
-  }
-  
-  // Afficher le contexte
-  const contextDiv = document.getElementById('soloQuestionContext');
-  if (contextDiv) {
-    if (questionData.context) {
-      contextDiv.textContent = questionData.context;
-      showElement('soloQuestionContext');
-    } else {
-      hideElement('soloQuestionContext');
-    }
-  }
-  
-  // Afficher conversation messenger si présente
-  if (questionData.type === 'messenger_scenario' && questionData.conversation) {
-    await displaySoloMessengerConversation(questionData.conversation);
-    showElement('soloMessengerView');
-  } else {
-    hideElement('soloMessengerView');
-  }
-  
-  // Gérer les questions "Continuer"
-  if (questionData.isContinue || isContinueQuestion(questionData)) {
-    handleSoloContinue(questionData);
-    return;
-  }
-  
-  // Question normale
-  setupSoloChoices(questionData);
-}
-
-// Nouvelle fonction pour gérer la fin du scénario
-async function handleSoloScenarioEnd(finalQuestion) {
-  console.log('🏁 Gestion de la fin du scénario');
-  
-  // Si c'est une conversation messenger finale, l'afficher d'abord
-  if (finalQuestion.type === 'messenger_scenario' && finalQuestion.conversation) {
-    // Afficher l'image finale
-    if (finalQuestion.contextual_image) {
-      const imageEl = document.getElementById('soloContextImage');
-      if (imageEl) imageEl.src = finalQuestion.contextual_image;
-    }
-    
-    // Afficher la conversation finale
-    await displaySoloMessengerConversation(finalQuestion.conversation);
-    showElement('soloMessengerView');
-    
-    // Attendre un peu pour que le joueur puisse lire
-    await sleep(3000);
-    
-    // Ajouter un message de fin
-    showNotification('🎉 Félicitations ! Vous avez terminé le scénario', 'success', 4000);
-    
-    // Attendre encore un peu avant de passer à l'écran de fin
-    await sleep(2000);
-  }
-  
-  // Préparer les données pour l'écran de fin
-  prepareSoloEndScreen();
-  
-  // Passer à l'écran de fin
-  showScreen('solo-end-screen');
-}
-
-// Fonction pour préparer l'écran de fin
-function prepareSoloEndScreen() {
-  console.log('📊 Préparation de l\'écran de fin');
-  
-  // Récupérer les infos du scénario
-  const scenarioTitle = gameConfig.scenario?.scenario_info?.title || 'Scénario';
-  const scenarioCreators = gameConfig.scenario?.scenario_info?.creators || ['les créateurs'];
-  
-  // Calculer les statistiques
-  const stats = calculateSoloStats();
-  
-  // Mettre à jour l'écran de fin
-  updateSoloEndScreen(scenarioTitle, scenarioCreators, stats);
-}
-
-// Fonction pour calculer les statistiques
-function calculateSoloStats() {
-  // Récupérer les réponses stockées
-  const responses = gameState.responses[gameConfig.lobby] || {};
-  const questionCount = Object.keys(responses).length;
-  
-  // Extraire les thèmes abordés
-  const themes = new Set();
-  if (gameConfig.scenario && gameConfig.scenario.questions) {
-    Object.values(gameConfig.scenario.questions).forEach(q => {
-      if (q.metadata && q.metadata.themes_abordes) {
-        q.metadata.themes_abordes.forEach(theme => themes.add(theme));
-      }
-    });
-  }
-  
-  return {
-    questionCount,
-    themes: Array.from(themes),
-    responses
-  };
-}
-
-// Fonction pour mettre à jour l'écran de fin
-function updateSoloEndScreen(scenarioTitle, creators, stats) {
-  // Titre du scénario
-  const scenarioEl = document.getElementById('solo-completed-scenario');
-  if (scenarioEl) scenarioEl.textContent = scenarioTitle;
-  
-  // Créateurs
-  const creatorsEl = document.getElementById('solo-creators');
-  if (creatorsEl) {
-    creatorsEl.textContent = Array.isArray(creators) ? creators.join(', ') : creators;
-  }
-  
-  // Nombre de questions
-  const answersEl = document.getElementById('solo-total-answers');
-  if (answersEl) answersEl.textContent = stats.questionCount;
-  
-  // Retirer ou masquer l'élément durée totale
-  const timeSection = document.querySelector('.summary-stat:has(#solo-total-time)');
-  if (timeSection) {
-    timeSection.style.display = 'none';
-  }
-  
-  // Parcours emprunté
-  const pathEl = document.getElementById('solo-path-taken');
-  if (pathEl) {
-    pathEl.textContent = `${stats.questionCount} décisions prises`;
-  }
-  
-  // Thèmes abordés (limité à 7 thèmes)
-  const themesContainer = document.getElementById('solo-themes-list');
-  if (themesContainer && stats.themes.length > 0) {
-    themesContainer.innerHTML = '';
-    
-    // Prendre seulement les 7 premiers thèmes
-    const themesToDisplay = stats.themes.slice(0, 7);
-    
-    themesToDisplay.forEach(theme => {
-      const pill = document.createElement('span');
-      pill.className = 'theme-pill';
-      pill.textContent = theme;
-      themesContainer.appendChild(pill);
-    });
-    
-    // Ajouter un indicateur s'il y a plus de 7 thèmes
-    if (stats.themes.length > 7) {
-      const morePill = document.createElement('span');
-      morePill.className = 'theme-pill';
-      morePill.style.fontStyle = 'italic';
-      morePill.textContent = `+${stats.themes.length - 7} autres...`;
-      themesContainer.appendChild(morePill);
-    }
-  }
-  
-  // Choix clés (les 3 derniers choix)
-  const keyChoicesContainer = document.getElementById('solo-key-choices');
-  if (keyChoicesContainer && Object.keys(stats.responses).length > 0) {
-    keyChoicesContainer.innerHTML = '';
-    
-    // Prendre les 3 derniers choix comme "choix clés"
-    const responseEntries = Object.entries(stats.responses);
-    const keyChoices = responseEntries.slice(-3);
-    
-    keyChoices.forEach(([questionId, answer]) => {
-      const question = gameConfig.scenario?.questions?.[questionId];
-      if (question) {
-        const choiceDiv = document.createElement('div');
-        choiceDiv.className = 'key-choice-item';
-        
-        const choiceIndex = answer.charCodeAt(0) - 65;
-        const choiceText = question.choices?.[choiceIndex] || answer;
-        
-        choiceDiv.innerHTML = `
-          <div>
-            <strong>${question.question || 'Question'}</strong><br>
-            <span>→ ${choiceText}</span>
-          </div>
-        `;
-        keyChoicesContainer.appendChild(choiceDiv);
-      }
-    });
-  }
-}
-
-function handleSoloContinue(questionData) {
-  console.log('Question Continue en mode solo:', questionData.id);
-  
-  document.getElementById('soloQuestionTitle').textContent = 'Cliquez pour continuer';
-  
-  const choicesDiv = document.getElementById('soloAnswerChoices');
-  if (!choicesDiv) return;
-  
-  choicesDiv.innerHTML = '';
-  
-  const continueBtn = document.createElement('button');
-  continueBtn.className = 'button button-primary continue-button';
-  continueBtn.innerHTML = `
-    <span>${questionData.choices[0] || 'Continuer'}</span>
-    <span class="arrow">→</span>
-  `;
-  
-  continueBtn.onclick = () => {
-    if (questionData.nextQuestions && questionData.nextQuestions.A) {
-      socket.emit('choose-next-question', { 
-        nextQuestionId: questionData.nextQuestions.A 
-      });
-    }
-    
-    continueBtn.classList.add('clicked');
-    continueBtn.disabled = true;
-    
-    document.getElementById('soloAnswerStatus').textContent = '✅ Suite de l\'histoire...';
-    hideSoloAnswerPanel();
-    showElement('soloWaitingMessage');
-  };
-  
-  choicesDiv.appendChild(continueBtn);
-  showElement('soloShowAnswersBtn');
-}
-
-function setupSoloChoices(questionData) {
-  const titleEl = document.getElementById('soloQuestionTitle');
-  if (titleEl) titleEl.textContent = questionData.question || 'Que faire ?';
-  
-  const choicesDiv = document.getElementById('soloAnswerChoices');
-  if (!choicesDiv) return;
-  
-  choicesDiv.innerHTML = '';
-  gameState.voteComponents = {};
-  
-  questionData.choices.forEach((choice, index) => {
-    const letter = String.fromCharCode(65 + index);
-    const choiceContainer = document.createElement('div');
-    choiceContainer.className = 'answer-choice-container';
-    choiceContainer.id = `solo-answer-choice-${letter}`;
-    
-    choicesDiv.appendChild(choiceContainer);
-    
-    gameState.voteComponents[letter] = new VoteComponent(choiceContainer, {
-      letter: letter,
-      text: choice,
-      count: 0,
-      totalVotes: 0,
-      isClickable: true,
-      showVoters: false,
-      onVote: (selectedLetter) => submitSoloAnswer(questionData.id, selectedLetter, questionData.nextQuestions[selectedLetter])
-    });
-  });
-  
-  document.getElementById('soloAnswerStatus').textContent = '';
-  showElement('soloShowAnswersBtn');
-}
-
-function submitSoloAnswer(questionId, answer, nextQuestionId) {
-  if (gameState.hasVoted) return;
-  
-  gameState.hasVoted = true;
-  
-  // Stocker la réponse
-  if (!gameState.responses[gameConfig.lobby]) {
-    gameState.responses[gameConfig.lobby] = {};
-  }
-  gameState.responses[gameConfig.lobby][questionId] = answer;
-  
-  socket.emit('player-answer', { questionId, answer });
-  
-  // Désactiver tous les choix
-  Object.values(gameState.voteComponents).forEach(component => {
-    component.disable();
-  });
-  
-  // Animer le choix sélectionné
-  if (gameState.voteComponents[answer]) {
-    gameState.voteComponents[answer].showVoteAnimation();
-    gameState.voteComponents[answer].update({
-      count: 1,
-      totalVotes: 1
-    });
-  }
-  
-  document.getElementById('soloAnswerStatus').textContent = '✅ Choix enregistré !';
-  showElement('soloWaitingMessage');
-  
-  // Passer à la question suivante après un délai
-  if (nextQuestionId) {
-    setTimeout(() => {
-      socket.emit('choose-next-question', { nextQuestionId });
-      hideSoloAnswerPanel();
-    }, 1000);
-  } else {
-    // Si pas de question suivante, c'est peut-être la fin
-    setTimeout(() => {
-      console.log('Pas de question suivante - vérification de fin');
-      // Le serveur devrait envoyer soit une nouvelle question, soit déclencher la fin
-    }, 1000);
-  }
-}
-
-async function displaySoloMessengerConversation(conversation) {
-  const messengerDiv = document.getElementById('soloMessengerView');
-  if (!messengerDiv) return;
-  
-  messengerDiv.innerHTML = '<div class="messenger-messages"></div>';
-  
-  const messages = conversation.messages.map(message => {
-    const participant = conversation.participants.find(p => p.id === message.sender);
-    return {
-      sender: participant.name,
-      avatar: message.avatar || participant.avatar,
-      content: message.content,
-      isCurrentUser: participant.isCurrentUser
-    };
-  });
-  
-  await animateSoloMessages(messages);
-}
-
-async function animateSoloMessages(messages) {
-  const container = document.querySelector('#soloMessengerView .messenger-messages');
-  if (!container) return;
-  
-  for (const message of messages) {
-    const typingIndicator = document.querySelector('#soloMessengerView .typing-indicator');
-    if (typingIndicator) {
-      typingIndicator.classList.remove('hidden');
-      await sleep(300 + Math.random() * 200);
-      typingIndicator.classList.add('hidden');
-    }
-    
-    const messageDiv = createMessageElement(message);
-    messageDiv.style.opacity = '0';
-    messageDiv.style.transform = 'translateY(20px) scale(0.9)';
-    container.appendChild(messageDiv);
-    
-    await sleep(50);
-    messageDiv.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-    messageDiv.style.opacity = '1';
-    messageDiv.style.transform = 'translateY(0) scale(1)';
-    
-    container.scrollTo({
-      top: container.scrollHeight,
-      behavior: 'smooth'
-    });
-    
-    await sleep(400);
-  }
-}
-
-function showSoloAnswerPanel() {
-  const panel = document.getElementById('soloAnswerPanel');
-  if (panel) panel.classList.add('show');
-  hideElement('soloShowAnswersBtn');
-}
-
-function hideSoloAnswerPanel() {
-  const panel = document.getElementById('soloAnswerPanel');
-  if (panel) panel.classList.remove('show');
-  showElement('soloShowAnswersBtn');
-}
-
-// ============================================================================
-// 9. GESTION DE L'AFFICHAGE DES QUESTIONS
-// ============================================================================
-
-function displayQuestion(questionData) {
-  gameState.currentQuestion = questionData;
-  
-  if (gameConfig.mode === 'solo') {
-    displaySoloQuestion(questionData);
-  } else if (gameConfig.mode === 'intervenant') {
-    displayIntervenantQuestion(questionData);
-  } else if (gameConfig.mode === 'player') {
-    displayPlayerQuestion(questionData);
-  }
-}
-
 function displayIntervenantQuestion(questionData) {
   // Mettre à jour le menu des chapitres
   if (gameState.chaptersMenu) {
@@ -1053,7 +462,7 @@ function displayIntervenantQuestion(questionData) {
   }
   
   // Gérer les questions "Continuer"
-  if (questionData.isContinue || isContinueQuestion(questionData)) {
+  if (isContinueQuestion(questionData)) {
     handleIntervenantContinue(questionData);
     return;
   }
@@ -1121,18 +530,69 @@ function createVotingOptions(questionData) {
     
     votingDiv.appendChild(optionDiv);
     
-    gameState.voteComponents[letter] = new VoteComponent(optionDiv, {
-      letter: letter,
-      text: choice,
-      count: 0,
-      totalVotes: 0,
-      voters: [],
-      isClickable: true,
-      showVoters: true,
-      nextQuestionId: questionData.nextQuestions ? questionData.nextQuestions[letter] : null,
-      onVote: (nextQuestionId) => confirmNextQuestion(nextQuestionId)
-    });
+    if (typeof VoteComponent !== 'undefined') {
+      gameState.voteComponents[letter] = new VoteComponent(optionDiv, {
+        letter: letter,
+        text: choice,
+        count: 0,
+        totalVotes: 0,
+        voters: [],
+        isClickable: true,
+        showVoters: true,
+        nextQuestionId: questionData.nextQuestions ? questionData.nextQuestions[letter] : null,
+        onVote: (nextQuestionId) => confirmNextQuestion(nextQuestionId)
+      });
+    }
   });
+}
+
+// ============================================================================
+// 7. FONCTIONS MODE JOUEUR
+// ============================================================================
+
+function joinLobby() {
+  const lobby = document.getElementById('lobbyCodeInput').value.trim();
+  
+  if (!lobby) {
+    showNotification('Veuillez entrer le code de la partie', 'warning');
+    return;
+  }
+  
+  gameConfig.lobby = lobby;
+  socket.emit('join-lobby', { lobbyName: lobby });
+}
+
+function submitPlayerInfo(e) {
+  e.preventDefault();
+  
+  const info = {
+    prenom: document.getElementById('playerPrenom').value.trim(),
+    age: document.getElementById('playerAge').value,
+    genre: document.getElementById('playerGenre').value,
+    ecole: document.getElementById('playerEcole').value.trim()
+  };
+  
+  gameConfig.playerName = info.prenom;
+  socket.emit('player-info', info);
+}
+
+function fillRandomInfo() {
+  const prenoms = ['Alex', 'Jordan', 'Charlie', 'Sam', 'Robin', 'Casey', 'Taylor', 'Morgan'];
+  const ecoles = ['Lycée Victor Hugo', 'Collège Jean Moulin', 'Lycée Saint-Exupéry', 'Collège Simone Veil'];
+  
+  document.getElementById('playerPrenom').value = prenoms[Math.floor(Math.random() * prenoms.length)];
+  document.getElementById('playerAge').value = Math.floor(Math.random() * 8) + 12;
+  document.getElementById('playerGenre').value = ['Fille', 'Garçon', 'Autre'][Math.floor(Math.random() * 3)];
+  document.getElementById('playerEcole').value = ecoles[Math.floor(Math.random() * ecoles.length)];
+}
+
+function sendPlayerFeedback() {
+  const feedback = document.getElementById('playerFeedback').value;
+  if (feedback.trim()) {
+    socket.emit('player-feedback', { feedback });
+    showNotification('Merci pour votre feedback !', 'success');
+    document.getElementById('playerFeedback').value = '';
+  }
 }
 
 async function displayPlayerQuestion(questionData) {
@@ -1168,7 +628,7 @@ async function displayPlayerQuestion(questionData) {
   }
   
   // Gérer les questions "Continuer"
-  if (questionData.isContinue || isContinueQuestion(questionData)) {
+  if (isContinueQuestion(questionData)) {
     handlePlayerContinue(questionData);
     return;
   }
@@ -1230,15 +690,17 @@ function setupPlayerChoices(questionData) {
     
     choicesDiv.appendChild(choiceContainer);
     
-    gameState.voteComponents[letter] = new VoteComponent(choiceContainer, {
-      letter: letter,
-      text: choice,
-      count: 0,
-      totalVotes: 0,
-      isClickable: true,
-      showVoters: false,
-      onVote: (selectedLetter) => submitAnswer(questionData.id, selectedLetter)
-    });
+    if (typeof VoteComponent !== 'undefined') {
+      gameState.voteComponents[letter] = new VoteComponent(choiceContainer, {
+        letter: letter,
+        text: choice,
+        count: 0,
+        totalVotes: 0,
+        isClickable: true,
+        showVoters: false,
+        onVote: (selectedLetter) => submitAnswer(questionData.id, selectedLetter)
+      });
+    }
   });
   
   document.getElementById('answerStatus').textContent = '';
@@ -1253,375 +715,24 @@ function submitAnswer(questionId, answer) {
   
   // Désactiver tous les choix
   Object.values(gameState.voteComponents).forEach(component => {
-    component.disable();
+    if (component.disable) component.disable();
   });
   
   // Animer le choix sélectionné
   if (gameState.voteComponents[answer]) {
-    gameState.voteComponents[answer].showVoteAnimation();
-    gameState.voteComponents[answer].update({
-      count: 1,
-      totalVotes: 1
-    });
+    if (gameState.voteComponents[answer].showVoteAnimation) {
+      gameState.voteComponents[answer].showVoteAnimation();
+    }
+    if (gameState.voteComponents[answer].update) {
+      gameState.voteComponents[answer].update({
+        count: 1,
+        totalVotes: 1
+      });
+    }
   }
   
   document.getElementById('answerStatus').textContent = '✅ Réponse enregistrée !';
   showElement('waitingMessage');
-}
-
-// ============================================================================
-// 10. ÉVÉNEMENTS SOCKET.IO
-// ============================================================================
-
-// === Événements Généraux ===
-
-socket.on('connect', () => {
-  console.log('✅ Connecté au serveur');
-  showNotification('Connexion établie', 'success');
-});
-
-socket.on('disconnect', () => {
-  console.log('❌ Déconnecté du serveur');
-  showNotification('Connexion perdue', 'error');
-});
-
-socket.on('error', (message) => {
-  console.error('Erreur socket:', message);
-  showNotification(message, 'error');
-});
-
-// === Événements Lobby ===
-
-socket.on('lobby-created', ({ lobbyName, scenarioTitle, scenarioData, mode }) => {
-  console.log('Lobby créé:', { lobbyName, scenarioTitle, mode });
-  
-  gameConfig.scenario = scenarioData;
-  
-  if (mode === 'solo') {
-    handleSoloLobbyCreated(scenarioTitle);
-  } else {
-    handleGroupLobbyCreated(lobbyName, scenarioTitle);
-  }
-});
-
-function handleSoloLobbyCreated(scenarioTitle) {
-  // Démarrer automatiquement en mode solo
-  setTimeout(() => {
-    socket.emit('start-game');
-  }, 500);
-  
-  console.log('🎮 Mode solo prêt à démarrer');
-}
-
-function handleGroupLobbyCreated(lobbyName, scenarioTitle) {
-  hideElement('intervenant-creation');
-  showElement('intervenant-lobby');
-  
-  document.getElementById('lobbyNameDisplay').textContent = lobbyName;
-  document.getElementById('lobbyNameGame').textContent = lobbyName;
-  document.getElementById('lobbyNameEnd').textContent = lobbyName;
-  
-  // Générer le lien avec les couleurs du thème
-  gameState.playerLink = generateShareableLink(lobbyName);
-  
-  // Générer le QR code avec le lien complet
-  generateQRCode(gameState.playerLink);
-  
-  updateStartButton();
-  
-  console.log(`🎯 Lobby créé avec lien thématisé: ${gameState.playerLink}`);
-}
-
-// === Événements Joueurs ===
-
-socket.on('player-joined', ({ playerName, playerCount }) => {
-  const playersDiv = document.getElementById('playersList');
-  if (playersDiv) {
-    const pill = document.createElement('span');
-    pill.className = 'player-pill';
-    pill.id = `pill-${playerName}`;
-    pill.textContent = playerName;
-    playersDiv.appendChild(pill);
-  }
-  
-  gameState.allPlayers.push(playerName);
-  
-  const countEl = document.getElementById('playerCount');
-  if (countEl) countEl.textContent = playerCount;
-  
-  updateStartButton();
-  showNotification(`${playerName} a rejoint la partie`, 'info');
-});
-
-socket.on('player-left', ({ playerName, playerCount }) => {
-  const pill = document.getElementById(`pill-${playerName}`);
-  if (pill) pill.remove();
-  
-  gameState.allPlayers = gameState.allPlayers.filter(p => p !== playerName);
-  gameState.votedPlayers.delete(playerName);
-  
-  const countEl = document.getElementById('playerCount');
-  if (countEl) countEl.textContent = playerCount;
-  
-  updateStartButton();
-  updatePendingPlayers();
-  showNotification(`${playerName} a quitté la partie`, 'info');
-});
-
-socket.on('request-player-info', () => {
-  hideElement('player-join');
-  showElement('player-info');
-  const lobbyNameEl = document.getElementById('playerLobbyName');
-  if (lobbyNameEl) lobbyNameEl.textContent = gameConfig.lobby;
-});
-
-socket.on('joined-lobby', ({ scenarioTitle }) => {
-  hideElement('player-info');
-  showElement('player-waiting');
-  
-  const waitingLobbyEl = document.getElementById('waitingLobbyName');
-  if (waitingLobbyEl) waitingLobbyEl.textContent = gameConfig.lobby;
-  
-  const gameLobbyEl = document.getElementById('gameLobbyName');
-  if (gameLobbyEl) gameLobbyEl.textContent = gameConfig.lobby;
-});
-
-// === Événements Jeu (MODIFIÉ pour stocker les réponses) ===
-
-socket.on('game-start', () => {
-  console.log('🎮 Partie démarrée');
-  
-  if (gameConfig.mode === 'player') {
-    hideElement('player-waiting');
-    showElement('player-game');
-  } else if (gameConfig.mode === 'solo') {
-    // Plus besoin de montrer des éléments spécifiques, tout est déjà visible
-    console.log('🎮 Mode solo démarré');
-  }
-});
-
-socket.on('question', (questionData) => {
-  console.log('Question reçue:', questionData);
-  
-  // Initialiser le stockage des réponses si nécessaire
-  if (!gameState.responses[gameConfig.lobby]) {
-    gameState.responses[gameConfig.lobby] = {};
-  }
-  
-  // Ajouter le flag isContinue si absent
-  if (!questionData.hasOwnProperty('isContinue')) {
-    questionData.isContinue = isContinueQuestion(questionData);
-  }
-  
-  // Utiliser la bonne fonction selon le mode
-  if (gameConfig.mode === 'solo') {
-    displaySoloQuestion(questionData);
-  } else {
-    displayQuestion(questionData);
-  }
-});
-
-socket.on('vote-update', (voteData) => {
-  if (gameConfig.mode === 'intervenant') {
-    updateVotes(voteData);
-  } else if (gameConfig.mode === 'player' && gameState.hasVoted) {
-    updatePlayerVoteDisplay(voteData);
-  }
-});
-
-socket.on('question-path-update', ({ questionPath, currentQuestion }) => {
-  if (gameState.chaptersMenu && gameConfig.mode === 'intervenant') {
-    gameState.chaptersMenu.update({
-      questionPath: questionPath,
-      currentQuestion: currentQuestion
-    });
-  }
-});
-
-socket.on('game-over', () => {
-  if (gameConfig.mode === 'player') {
-    hideElement('player-game');
-    showElement('player-game-over');
-  } else if (gameConfig.mode === 'intervenant') {
-    hideElement('game-control');
-    showElement('game-over-gm');
-  } else if (gameConfig.mode === 'solo') {
-    // Ne pas afficher immédiatement l'écran de fin, cela sera géré par handleSoloScenarioEnd
-    console.log('🏁 Fin de partie solo détectée');
-  }
-});
-
-socket.on('csv-ready', (filename) => {
-  const link = document.getElementById('csvDownloadLink');
-  if (link) {
-    link.href = '/exports/' + filename;
-    link.download = filename;
-    showElement('csvDownloadLink');
-    
-    if (gameConfig.mode === 'intervenant') {
-      link.click();
-    }
-  }
-  
-  showNotification('CSV prêt au téléchargement', 'success');
-});
-
-socket.on('lobby-closed', () => {
-  showNotification('La partie a été fermée', 'warning');
-  setTimeout(() => {
-    backToHome();
-  }, 2000);
-});
-
-// ============================================================================
-// 11. FONCTIONS UTILITAIRES
-// ============================================================================
-
-function showScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const screen = document.getElementById(screenId);
-  if (screen) screen.classList.add('active');
-}
-
-function showElement(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.remove('hidden');
-}
-
-function hideElement(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.add('hidden');
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function isContinueQuestion(questionData) {
-  return questionData && 
-         questionData.choices && 
-         questionData.choices.length === 1 && 
-         (questionData.choices[0].toLowerCase() === 'continuer' || 
-          questionData.question === '' ||
-          questionData.question === null);
-}
-
-function confirmNextQuestion(nextQuestionId) {
-  if (confirm('Passer à la question suivante ?')) {
-    socket.emit('choose-next-question', { nextQuestionId });
-  }
-}
-
-function updatePendingPlayers() {
-  const pending = gameState.allPlayers.filter(p => !gameState.votedPlayers.has(p));
-  const pendingText = pending.length > 0 ? pending.join(', ') : 'Tous ont voté !';
-  
-  const pendingEl = document.getElementById('pendingPlayersGame');
-  if (pendingEl) pendingEl.textContent = pendingText;
-  
-  const waitingDiv = document.getElementById('waitingForVotesGame');
-  if (waitingDiv) {
-    if (pending.length > 0) {
-      showElement('waitingForVotesGame');
-    } else {
-      hideElement('waitingForVotesGame');
-    }
-  }
-}
-
-function updateVotes(voteData) {
-  const { voteCounts, voteDetails, playerName: votingPlayer } = voteData;
-  
-  if (votingPlayer) {
-    gameState.votedPlayers.add(votingPlayer);
-    updatePendingPlayers();
-  }
-  
-  const totalVotes = Object.values(voteCounts).reduce((sum, count) => sum + count, 0);
-  
-  Object.keys(gameState.voteComponents).forEach(letter => {
-    if (gameState.voteComponents[letter]) {
-      gameState.voteComponents[letter].update({
-        count: voteCounts[letter] || 0,
-        totalVotes: totalVotes,
-        voters: voteDetails[letter] || []
-      });
-    }
-  });
-}
-
-function updatePlayerVoteDisplay(voteData) {
-  const { voteCounts } = voteData;
-  const totalVotes = Object.values(voteCounts).reduce((sum, count) => sum + count, 0);
-  
-  Object.keys(gameState.voteComponents).forEach(letter => {
-    if (gameState.voteComponents[letter]) {
-      gameState.voteComponents[letter].update({
-        count: voteCounts[letter] || 0,
-        totalVotes: totalVotes
-      });
-    }
-  });
-}
-
-function updateStartButton() {
-  const btn = document.getElementById('startGameBtn');
-  const count = parseInt(document.getElementById('playerCount')?.textContent || '0');
-  
-  if (btn) {
-    if (count >= 1) {
-      btn.disabled = false;
-      hideElement('minPlayersText');
-    } else {
-      btn.disabled = true;
-      showElement('minPlayersText');
-    }
-  }
-}
-
-function displaySelectedLevel(level) {
-  const displayEl = document.getElementById('selected-level-display');
-  if (!displayEl || !gameConfig.levelInfo) return;
-  
-  displayEl.innerHTML = `
-    <div class="selected-level-info">
-      <span class="level-badge" style="background: linear-gradient(45deg, ${gameConfig.levelInfo.levelColors[0]}, ${gameConfig.levelInfo.levelColors[1]})">
-        ${gameConfig.levelInfo.level}
-      </span>
-      <p class="level-description">${gameConfig.levelInfo.levelDescription}</p>
-    </div>
-  `;
-}
-
-// ============================================================================
-// 12. NAVIGATION ET RETOURS
-// ============================================================================
-
-function backToHome() {
-  window.location.href = window.location.origin + window.location.pathname;
-}
-
-function backToMenu() {
-  // Nettoyer le sessionStorage
-  sessionStorage.removeItem('gameConfig');
-  sessionStorage.removeItem('soloMode');
-  sessionStorage.removeItem('currentScenarioFile');
-  
-  // Déconnecter le socket
-  socket.disconnect();
-  
-  // Retourner au menu
-  window.location.href = '/menu.html?return=game';
-}
-
-function newSession() {
-  if (confirm('Créer une nouvelle session ?')) {
-    location.reload();
-  }
-}
-
-function sendResults() {
-  showNotification('Fonction d\'envoi par email à implémenter', 'info');
 }
 
 function showAnswerPanel() {
@@ -1637,7 +748,7 @@ function hideAnswerPanel() {
 }
 
 // ============================================================================
-// 13. MESSENGER ET ANIMATIONS
+// 8. MESSENGER ET ANIMATIONS
 // ============================================================================
 
 async function displayMessengerConversation(conversation) {
@@ -1664,9 +775,12 @@ async function animateMessages(messages) {
   if (!container) return;
   
   for (const message of messages) {
-    showElement('typing-indicator');
-    await sleep(300 + Math.random() * 200);
-    hideElement('typing-indicator');
+    const typingIndicator = document.querySelector('.typing-indicator');
+    if (typingIndicator) {
+      showElement('typing-indicator');
+      await sleep(300 + Math.random() * 200);
+      hideElement('typing-indicator');
+    }
     
     const messageDiv = createMessageElement(message);
     messageDiv.style.opacity = '0';
@@ -1714,6 +828,357 @@ function createMessageElement(message) {
 }
 
 // ============================================================================
+// 9. ÉVÉNEMENTS SOCKET.IO
+// ============================================================================
+
+function initializeSocketEvents() {
+  // Connexion
+  socket.on('connect', () => {
+    console.log('✅ Connecté au serveur');
+    showNotification('Connexion établie', 'success');
+  });
+  
+  socket.on('disconnect', () => {
+    console.log('❌ Déconnecté du serveur');
+    showNotification('Connexion perdue', 'error');
+  });
+  
+  socket.on('error', (message) => {
+    console.error('Erreur socket:', message);
+    showNotification(message, 'error');
+  });
+  
+  // Lobby
+  socket.on('lobby-created', ({ lobbyName, scenarioTitle, scenarioData, mode }) => {
+    console.log('Lobby créé:', { lobbyName, scenarioTitle, mode });
+    
+    gameConfig.scenario = scenarioData;
+    
+    if (mode !== 'solo') {
+      handleGroupLobbyCreated(lobbyName, scenarioTitle);
+    }
+  });
+  
+  // Joueurs
+  socket.on('player-joined', ({ playerName, playerCount }) => {
+    handlePlayerJoined(playerName, playerCount);
+  });
+  
+  socket.on('player-left', ({ playerName, playerCount }) => {
+    handlePlayerLeft(playerName, playerCount);
+  });
+  
+  socket.on('request-player-info', () => {
+    hideElement('player-join');
+    showElement('player-info');
+    const lobbyNameEl = document.getElementById('playerLobbyName');
+    if (lobbyNameEl) lobbyNameEl.textContent = gameConfig.lobby;
+  });
+  
+  socket.on('joined-lobby', ({ scenarioTitle }) => {
+    hideElement('player-info');
+    showElement('player-waiting');
+    
+    const waitingLobbyEl = document.getElementById('waitingLobbyName');
+    if (waitingLobbyEl) waitingLobbyEl.textContent = gameConfig.lobby;
+    
+    const gameLobbyEl = document.getElementById('gameLobbyName');
+    if (gameLobbyEl) gameLobbyEl.textContent = gameConfig.lobby;
+  });
+  
+  // Jeu
+  socket.on('game-start', () => {
+    console.log('🎮 Partie démarrée');
+    
+    if (gameConfig.mode === 'player') {
+      hideElement('player-waiting');
+      showElement('player-game');
+    }
+  });
+  
+  socket.on('question', (questionData) => {
+    console.log('Question reçue:', questionData);
+    
+    if (!gameState.responses[gameConfig.lobby]) {
+      gameState.responses[gameConfig.lobby] = {};
+    }
+    
+    if (!questionData.hasOwnProperty('isContinue')) {
+      questionData.isContinue = isContinueQuestion(questionData);
+    }
+    
+    displayQuestion(questionData);
+  });
+  
+  socket.on('vote-update', (voteData) => {
+    if (gameConfig.mode === 'intervenant') {
+      updateVotes(voteData);
+    } else if (gameConfig.mode === 'player' && gameState.hasVoted) {
+      updatePlayerVoteDisplay(voteData);
+    }
+  });
+  
+  socket.on('question-path-update', ({ questionPath, currentQuestion }) => {
+    if (gameState.chaptersMenu && gameConfig.mode === 'intervenant') {
+      gameState.chaptersMenu.update({
+        questionPath: questionPath,
+        currentQuestion: currentQuestion
+      });
+    }
+  });
+  
+  socket.on('game-over', () => {
+    if (gameConfig.mode === 'player') {
+      hideElement('player-game');
+      showElement('player-game-over');
+    } else if (gameConfig.mode === 'intervenant') {
+      hideElement('game-control');
+      showElement('game-over-gm');
+    }
+  });
+  
+  socket.on('csv-ready', (filename) => {
+    const link = document.getElementById('csvDownloadLink');
+    if (link) {
+      link.href = '/exports/' + filename;
+      link.download = filename;
+      showElement('csvDownloadLink');
+      
+      if (gameConfig.mode === 'intervenant') {
+        link.click();
+      }
+    }
+    
+    showNotification('CSV prêt au téléchargement', 'success');
+  });
+  
+  socket.on('lobby-closed', () => {
+    showNotification('La partie a été fermée', 'warning');
+    setTimeout(() => {
+      backToHome();
+    }, 2000);
+  });
+}
+
+function handleGroupLobbyCreated(lobbyName, scenarioTitle) {
+  hideElement('intervenant-creation');
+  showElement('intervenant-lobby');
+  
+  document.getElementById('lobbyNameDisplay').textContent = lobbyName;
+  document.getElementById('lobbyNameGame').textContent = lobbyName;
+  document.getElementById('lobbyNameEnd').textContent = lobbyName;
+  
+  gameState.playerLink = generateShareableLink(lobbyName);
+  generateQRCode(gameState.playerLink);
+  
+  updateStartButton();
+  
+  console.log(`🎯 Lobby créé avec lien thématisé: ${gameState.playerLink}`);
+}
+
+function handlePlayerJoined(playerName, playerCount) {
+  const playersDiv = document.getElementById('playersList');
+  if (playersDiv) {
+    const pill = document.createElement('span');
+    pill.className = 'player-pill';
+    pill.id = `pill-${playerName}`;
+    pill.textContent = playerName;
+    playersDiv.appendChild(pill);
+  }
+  
+  gameState.allPlayers.push(playerName);
+  
+  const countEl = document.getElementById('playerCount');
+  if (countEl) countEl.textContent = playerCount;
+  
+  updateStartButton();
+  showNotification(`${playerName} a rejoint la partie`, 'info');
+}
+
+function handlePlayerLeft(playerName, playerCount) {
+  const pill = document.getElementById(`pill-${playerName}`);
+  if (pill) pill.remove();
+  
+  gameState.allPlayers = gameState.allPlayers.filter(p => p !== playerName);
+  gameState.votedPlayers.delete(playerName);
+  
+  const countEl = document.getElementById('playerCount');
+  if (countEl) countEl.textContent = playerCount;
+  
+  updateStartButton();
+  updatePendingPlayers();
+  showNotification(`${playerName} a quitté la partie`, 'info');
+}
+
+// ============================================================================
+// 10. GESTION DES QUESTIONS
+// ============================================================================
+
+function displayQuestion(questionData) {
+  gameState.currentQuestion = questionData;
+  
+  if (gameConfig.mode === 'intervenant') {
+    displayIntervenantQuestion(questionData);
+  } else if (gameConfig.mode === 'player') {
+    displayPlayerQuestion(questionData);
+  }
+}
+
+function isContinueQuestion(questionData) {
+  return questionData && 
+         questionData.choices && 
+         questionData.choices.length === 1 && 
+         (questionData.choices[0].toLowerCase() === 'continuer' || 
+          questionData.question === '' ||
+          questionData.question === null);
+}
+
+function confirmNextQuestion(nextQuestionId) {
+  if (confirm('Passer à la question suivante ?')) {
+    socket.emit('choose-next-question', { nextQuestionId });
+  }
+}
+
+// ============================================================================
+// 11. GESTION DES VOTES
+// ============================================================================
+
+function updateVotes(voteData) {
+  const { voteCounts, voteDetails, playerName: votingPlayer } = voteData;
+  
+  if (votingPlayer) {
+    gameState.votedPlayers.add(votingPlayer);
+    updatePendingPlayers();
+  }
+  
+  const totalVotes = Object.values(voteCounts).reduce((sum, count) => sum + count, 0);
+  
+  Object.keys(gameState.voteComponents).forEach(letter => {
+    if (gameState.voteComponents[letter] && gameState.voteComponents[letter].update) {
+      gameState.voteComponents[letter].update({
+        count: voteCounts[letter] || 0,
+        totalVotes: totalVotes,
+        voters: voteDetails[letter] || []
+      });
+    }
+  });
+}
+
+function updatePlayerVoteDisplay(voteData) {
+  const { voteCounts } = voteData;
+  const totalVotes = Object.values(voteCounts).reduce((sum, count) => sum + count, 0);
+  
+  Object.keys(gameState.voteComponents).forEach(letter => {
+    if (gameState.voteComponents[letter] && gameState.voteComponents[letter].update) {
+      gameState.voteComponents[letter].update({
+        count: voteCounts[letter] || 0,
+        totalVotes: totalVotes
+      });
+    }
+  });
+}
+
+function updatePendingPlayers() {
+  const pending = gameState.allPlayers.filter(p => !gameState.votedPlayers.has(p));
+  const pendingText = pending.length > 0 ? pending.join(', ') : 'Tous ont voté !';
+  
+  const pendingEl = document.getElementById('pendingPlayersGame');
+  if (pendingEl) pendingEl.textContent = pendingText;
+  
+  const waitingDiv = document.getElementById('waitingForVotesGame');
+  if (waitingDiv) {
+    if (pending.length > 0) {
+      showElement('waitingForVotesGame');
+    } else {
+      hideElement('waitingForVotesGame');
+    }
+  }
+}
+
+function updateStartButton() {
+  const btn = document.getElementById('startGameBtn');
+  const count = parseInt(document.getElementById('playerCount')?.textContent || '0');
+  
+  if (btn) {
+    if (count >= 1) {
+      btn.disabled = false;
+      hideElement('minPlayersText');
+    } else {
+      btn.disabled = true;
+      showElement('minPlayersText');
+    }
+  }
+}
+
+// ============================================================================
+// 12. NAVIGATION ET ACTIONS
+// ============================================================================
+
+function backToHome() {
+  window.location.href = window.location.origin + window.location.pathname;
+}
+
+function backToMenu() {
+  sessionStorage.removeItem('gameConfig');
+  sessionStorage.removeItem('currentScenarioFile');
+  
+  socket.disconnect();
+  window.location.href = '/menu.html?return=game';
+}
+
+function newSession() {
+  if (confirm('Êtes-vous sûr de vouloir revenir à la page du menu ?')) {
+    sessionStorage.removeItem('gameConfig');
+    sessionStorage.removeItem('currentScenarioFile');
+  
+    socket.disconnect();
+    window.location.href = '/menu.html?return=game';
+  }
+}
+
+function sendResults() {
+  showNotification('Fonction d\'envoi par email à implémenter', 'info');
+}
+
+function displaySelectedLevel(level) {
+  const displayEl = document.getElementById('selected-level-display');
+  if (!displayEl || !gameConfig.levelInfo) return;
+  
+  displayEl.innerHTML = `
+    <div class="selected-level-info">
+      <span class="level-badge" style="background: linear-gradient(45deg, ${gameConfig.levelInfo.levelColors[0]}, ${gameConfig.levelInfo.levelColors[1]})">
+        ${gameConfig.levelInfo.level}
+      </span>
+      <p class="level-description">${gameConfig.levelInfo.levelDescription}</p>
+    </div>
+  `;
+}
+
+// ============================================================================
+// 13. UTILITAIRES
+// ============================================================================
+
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const screen = document.getElementById(screenId);
+  if (screen) screen.classList.add('active');
+}
+
+function showElement(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('hidden');
+}
+
+function hideElement(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('hidden');
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// ============================================================================
 // 14. NOTIFICATIONS ET EFFETS VISUELS
 // ============================================================================
 
@@ -1723,20 +1188,6 @@ function showNotification(message, type = 'info', duration = 3000) {
     notif = document.createElement('div');
     notif.id = 'notification-toast';
     notif.className = 'notification-toast';
-    notif.style.cssText = `
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 24px;
-      border-radius: 8px;
-      z-index: 10000;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      animation: slideInDown 0.3s ease-out;
-    `;
     document.body.appendChild(notif);
   }
   
@@ -1754,27 +1205,39 @@ function showNotification(message, type = 'info', duration = 3000) {
     'error': '#e74c3c'
   };
   
-  notif.style.background = colors[type] || colors.info;
-  notif.style.color = 'white';
+  notif.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: 8px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideInDown 0.3s ease-out;
+    background: ${colors[type] || colors.info};
+    color: white;
+  `;
+  
   notif.innerHTML = `
     <span class="notification-icon">${icons[type] || icons.info}</span>
     <span class="notification-text">${message}</span>
   `;
   
-  notif.style.display = 'flex';
   notif.classList.add('show');
   
   setTimeout(() => {
-    notif.style.animation = 'slideOutUp 0.3s ease-out';
+    notif.classList.remove('show');
     setTimeout(() => {
       notif.style.display = 'none';
-      notif.classList.remove('show');
     }, 300);
   }, duration);
 }
 
 function initializeVisualEffects() {
-  // Ajouter les styles d'animation
   const styleSheet = document.createElement('style');
   styleSheet.textContent = `
     @keyframes slideInDown {
@@ -1788,15 +1251,24 @@ function initializeVisualEffects() {
       }
     }
     
-    @keyframes slideOutUp {
+    @keyframes slideIn {
       from {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(-50%) translateY(-100px);
+        transform: translateX(100px);
         opacity: 0;
       }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .notification-toast {
+      transition: all 0.3s ease-out;
+    }
+    
+    .notification-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
     
     .continue-button.clicked {
@@ -1836,4 +1308,4 @@ window.gameManager = {
   restartGame: () => location.reload()
 };
 
-console.log('🎮 Game.js chargé avec succès (version avec mode Solo harmonisé et détection de fin)');
+console.log('🎮 Game.js chargé avec succès (Version épurée sans Solo)');
