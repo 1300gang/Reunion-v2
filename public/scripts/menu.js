@@ -51,7 +51,7 @@ const levelsData = [
       "Une collection complète d'histoires interconnectées explorant différents aspects de la santé sexuelle et relationnelle. Un parcours complet et enrichissant.",
     colors: ["#797979ff", "#00d9ffff"],
     creators: ["Équipe pédagogique RSG974"],
-    scenarioFile: "parcours-vie-json-imagais.json"
+    scenarioFile: "anthology_completeh7.json"
   },
   
     {

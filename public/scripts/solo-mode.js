@@ -435,7 +435,7 @@ class SoloGameManager {
         <div class="message-text">${message.content}</div>
       </div>
     `;
-    
+    playMessageSound();
     return messageDiv;
   }
   

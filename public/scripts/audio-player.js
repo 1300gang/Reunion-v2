@@ -365,14 +365,24 @@ class AmbientAudioPlayer {
     console.log('⏸️ Musique en pause');
   }
   
-  toggle() {
-    if (this.state.isPlaying) {
-      this.fadeOut(() => this.pause());
-    } else {
-      this.play();
-      this.fadeIn();
+toggle() {
+  if (this.state.isPlaying) {
+    this.fadeOut(() => {
+      this.pause();
+      // Couper aussi les notifications
+      if (window.messageSoundManager) {
+        window.messageSoundManager.disable();
+      }
+    });
+  } else {
+    this.play();
+    this.fadeIn();
+    // Activer aussi les notifications
+    if (window.messageSoundManager) {
+      window.messageSoundManager.enable();
     }
   }
+}
   
   // ============================================================================
   // EFFETS DE FONDU

@@ -823,7 +823,7 @@ function createMessageElement(message) {
       <div class="message-text">${message.content}</div>
     </div>
   `;
-  
+  playMessageSound();
   return messageDiv;
 }
 
@@ -855,6 +855,7 @@ function initializeSocketEvents() {
     gameConfig.scenario = scenarioData;
     
     if (mode !== 'solo') {
+      fullscreenManager.onGameStart();
       handleGroupLobbyCreated(lobbyName, scenarioTitle);
     }
   });
@@ -862,6 +863,7 @@ function initializeSocketEvents() {
   // Joueurs
   socket.on('player-joined', ({ playerName, playerCount }) => {
     handlePlayerJoined(playerName, playerCount);
+    fullscreenManager.onGameStart();
   });
   
   socket.on('player-left', ({ playerName, playerCount }) => {
@@ -891,6 +893,7 @@ function initializeSocketEvents() {
     console.log('🎮 Partie démarrée');
     
     if (gameConfig.mode === 'player') {
+      fullscreenManager.onGameStart();
       hideElement('player-waiting');
       showElement('player-game');
     }
@@ -993,6 +996,9 @@ function handlePlayerJoined(playerName, playerCount) {
   
   updateStartButton();
   showNotification(`${playerName} a rejoint la partie`, 'info');
+  
+    // AJOUT : Son de connexion
+  playPlayerJoinSound();
 }
 
 function handlePlayerLeft(playerName, playerCount) {
