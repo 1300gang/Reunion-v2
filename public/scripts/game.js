@@ -1,6 +1,6 @@
 // ============================================================================
 // GAME.JS - Script principal du jeu (Intervenant & Joueur)
-// Version épurée sans mode Solo
+// Version avec gestion des zones images vides
 // ============================================================================
 
 // ============================================================================
@@ -58,7 +58,34 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================================
-// 3. SYSTÈME DE THÈME
+// 3. GESTION DES ZONES IMAGES VIDES
+// ============================================================================
+
+function hideEmptyImageZone(containerId) {
+  // Cibler spécifiquement les containers avec des zones images vides
+  const container = document.querySelector(`#${containerId} .desktop-image-zone empty`);
+  const imageZone = container ? container.querySelector('.desktop-image-zone empty') : null;
+  
+  if (container && imageZone) {
+    container.classList.add('full-width');
+    console.log(`🖼️ Zone image vide masquée pour ${containerId}`);
+  } else {
+    console.log(`ℹ️ Pas de zone image vide à masquer pour ${containerId}`);
+  }
+}
+
+function showEmptyImageZone(containerId) {
+  const container = document.querySelector(`#${containerId} .desktop-image-zone empty`);
+  const imageZone = container ? container.querySelector('.desktop-image-zone empty') : null;
+  
+  if (container && imageZone) {
+    container.classList.remove('full-width');
+    console.log(`🖼️ Zone image vide affichée pour ${containerId}`);
+  }
+}
+
+// ============================================================================
+// 4. SYSTÈME DE THÈME
 // ============================================================================
 
 function initializeTheme() {
@@ -192,7 +219,7 @@ function createLevelBadge(levelName, colors) {
 }
 
 // ============================================================================
-// 4. DÉTECTION ET INITIALISATION DU MODE
+// 5. DÉTECTION ET INITIALISATION DU MODE
 // ============================================================================
 
 function loadConfiguration() {
@@ -269,7 +296,7 @@ function initializePlayerMode(lobbyName) {
 }
 
 // ============================================================================
-// 5. ÉVÉNEMENTS DOM
+// 6. ÉVÉNEMENTS DOM
 // ============================================================================
 
 function initializeEventListeners() {
@@ -316,7 +343,7 @@ function attachButton(id, handler) {
 }
 
 // ============================================================================
-// 6. FONCTIONS MODE INTERVENANT
+// 7. FONCTIONS MODE INTERVENANT
 // ============================================================================
 
 function createLobby() {
@@ -415,7 +442,8 @@ function startGame() {
     });
   }
   
-  hideElement('qr-overlay');
+  hideElement('intervenant-lobby');
+  hideElement('prout');
 }
 
 function endGame() {
@@ -434,7 +462,7 @@ function copyPlayerLink() {
   
   navigator.clipboard.writeText(linkWithTheme).then(() => {
     const btn = document.getElementById('copyLinkBtn');
-    btn.textContent = '✔ Copié !';
+    btn.textContent = '✓ Copié !';
     showNotification('Lien copié avec le thème !', 'success');
     setTimeout(() => {
       btn.textContent = '📋 Copier le lien';
@@ -547,7 +575,7 @@ function createVotingOptions(questionData) {
 }
 
 // ============================================================================
-// 7. FONCTIONS MODE JOUEUR
+// 8. FONCTIONS MODE JOUEUR
 // ============================================================================
 
 function joinLobby() {
@@ -748,7 +776,7 @@ function hideAnswerPanel() {
 }
 
 // ============================================================================
-// 8. MESSENGER ET ANIMATIONS
+// 9. MESSENGER ET ANIMATIONS
 // ============================================================================
 
 async function displayMessengerConversation(conversation) {
@@ -823,12 +851,12 @@ function createMessageElement(message) {
       <div class="message-text">${message.content}</div>
     </div>
   `;
-  playMessageSound();
+  
   return messageDiv;
 }
 
 // ============================================================================
-// 9. ÉVÉNEMENTS SOCKET.IO
+// 10. ÉVÉNEMENTS SOCKET.IO
 // ============================================================================
 
 function initializeSocketEvents() {
@@ -880,7 +908,7 @@ function initializeSocketEvents() {
   socket.on('joined-lobby', ({ scenarioTitle }) => {
     hideElement('player-info');
     showElement('player-waiting');
-    
+    // hideElement('prout');
     const waitingLobbyEl = document.getElementById('waitingLobbyName');
     if (waitingLobbyEl) waitingLobbyEl.textContent = gameConfig.lobby;
     
@@ -891,9 +919,13 @@ function initializeSocketEvents() {
   // Jeu
   socket.on('game-start', () => {
     console.log('🎮 Partie démarrée');
-    
+    hideElement('proute');
     if (gameConfig.mode === 'player') {
       fullscreenManager.onGameStart();
+      
+      // Masquer zone vide pour player-info au démarrage de partie
+      hideEmptyImageZone('player-screen');
+      
       hideElement('player-waiting');
       showElement('player-game');
     }
@@ -901,7 +933,7 @@ function initializeSocketEvents() {
   
   socket.on('question', (questionData) => {
     console.log('Question reçue:', questionData);
-    
+    hideElement('prout');
     if (!gameState.responses[gameConfig.lobby]) {
       gameState.responses[gameConfig.lobby] = {};
     }
@@ -964,6 +996,9 @@ function initializeSocketEvents() {
 }
 
 function handleGroupLobbyCreated(lobbyName, scenarioTitle) {
+  // Masquer zone vide pour intervenant-creation lors du passage au lobby
+  hideEmptyImageZone('intervenant-screen');
+  
   hideElement('intervenant-creation');
   showElement('intervenant-lobby');
   
@@ -996,9 +1031,6 @@ function handlePlayerJoined(playerName, playerCount) {
   
   updateStartButton();
   showNotification(`${playerName} a rejoint la partie`, 'info');
-  
-    // AJOUT : Son de connexion
-  playPlayerJoinSound();
 }
 
 function handlePlayerLeft(playerName, playerCount) {
@@ -1017,7 +1049,7 @@ function handlePlayerLeft(playerName, playerCount) {
 }
 
 // ============================================================================
-// 10. GESTION DES QUESTIONS
+// 11. GESTION DES QUESTIONS
 // ============================================================================
 
 function displayQuestion(questionData) {
@@ -1046,7 +1078,7 @@ function confirmNextQuestion(nextQuestionId) {
 }
 
 // ============================================================================
-// 11. GESTION DES VOTES
+// 12. GESTION DES VOTES
 // ============================================================================
 
 function updateVotes(voteData) {
@@ -1117,7 +1149,7 @@ function updateStartButton() {
 }
 
 // ============================================================================
-// 12. NAVIGATION ET ACTIONS
+// 13. NAVIGATION ET ACTIONS
 // ============================================================================
 
 function backToHome() {
@@ -1129,7 +1161,7 @@ function backToMenu() {
   sessionStorage.removeItem('currentScenarioFile');
   
   socket.disconnect();
-  window.location.href = '/menu.html?return=game';
+  window.location.href = '/menu.html';
 }
 
 function newSession() {
@@ -1161,7 +1193,7 @@ function displaySelectedLevel(level) {
 }
 
 // ============================================================================
-// 13. UTILITAIRES
+// 14. UTILITAIRES
 // ============================================================================
 
 function showScreen(screenId) {
@@ -1185,7 +1217,7 @@ function sleep(ms) {
 }
 
 // ============================================================================
-// 14. NOTIFICATIONS ET EFFETS VISUELS
+// 15. NOTIFICATIONS ET EFFETS VISUELS
 // ============================================================================
 
 function showNotification(message, type = 'info', duration = 3000) {
@@ -1303,7 +1335,7 @@ function initializeVisualEffects() {
 }
 
 // ============================================================================
-// 15. EXPORT DES FONCTIONS GLOBALES
+// 16. EXPORT DES FONCTIONS GLOBALES
 // ============================================================================
 
 window.gameManager = {
@@ -1311,7 +1343,9 @@ window.gameManager = {
   state: gameState,
   showNotification,
   backToMenu,
-  restartGame: () => location.reload()
+  restartGame: () => location.reload(),
+  // hideEmptyImageZone,
+  // showEmptyImageZone
 };
 
-console.log('🎮 Game.js chargé avec succès (Version épurée sans Solo)');
+console.log('🎮 Game.js chargé avec succès (Version avec gestion zones vides)');

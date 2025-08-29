@@ -9,7 +9,7 @@ class MessageSoundManager {
     this.config = {
       soundFile: '/audio/son.wav', // Fichier son de notification
       playerJoinSoundFile: '/audio/notif.wav', // Fichier son de connexion joueur
-      defaultVolume: 0.3, // Volume fixe à 30%
+      defaultVolume: 1, // Volume fixe à 30%
       enabledByDefault: true, // Son activé par défaut
       cooldown: 100, // Délai minimum entre deux sons (ms)
       playerJoinCooldown: 500, // Délai pour éviter le spam de connexions

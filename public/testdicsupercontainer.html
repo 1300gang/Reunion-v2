@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Structure Flex Desktop</title>
+  <style>
+    /* === VARIABLES === */
+    :root {
+      --couleur-jaunePeps: #e9bc40;
+      --couleur-grisBleuClair: #c9e2e5;
+      --couleur-noirVolcan: #322a22;
+      --couleur-blancSite: #fafff6;
+      --couleur-secondary-light: rgba(201, 226, 229, 0.3);
+    }
+
+    /* === BASE === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--couleur-blancSite);
+      background-image: 
+        linear-gradient(var(--couleur-secondary-light) 1px, transparent 1px),
+        linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--couleur-noirVolcan);
+    }
+
+    /* === STRUCTURE FLEX === */
+    .desktop-layout-container {
+      display: flex;
+      flex-direction: column; /* Mobile par défaut */
+      min-height: 100vh;
+    }
+
+    .desktop-image-zone {
+      width: 100%;
+      height: 30vh; /* Mobile */
+      background: var(--couleur-secondary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .desktop-content-zone {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: var(--couleur-blancSite);
+    }
+
+    /* === ÉLÉMENTS VISUELS === */
+    .desktop-image-placeholder {
+      padding: 20px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 8px;
+      text-align: center;
+      color: var(--couleur-noirVolcan);
+      font-weight: 500;
+    }
+
+    .desktop-context-image {
+      max-width: 90%;
+      max-height: 80%;
+      object-fit: contain;
+      /* Mobile: avec styles */
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      background: var(--couleur-jaunePeps);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--couleur-grisBleuClair);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    /* === DESKTOP - 1024px+ === */
+    @media (min-width: 1024px) {
+      .desktop-layout-container {
+        flex-direction: row; /* Ligne sur desktop */
+      }
+      
+      .desktop-image-zone {
+        width: 50%; /* 50% sur desktop */
+        height: 100vh; /* Pleine hauteur */
+        border-bottom: none;
+        border-right: 1px solid rgba(0,0,0,0.1);
+      }
+      
+      .desktop-content-zone {
+        width: 50%; /* 50% sur desktop */
+        height: 100vh; /* Pleine hauteur */
+        display: flex;
+        align-items: center; /* Centrer verticalement */
+        justify-content: center;
+      }
+
+      /* Images sans styles décoratifs sur desktop */
+      .desktop-context-image {
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .card {
+        max-width: 500px;
+        width: 100%;
+      }
+    }
+
+    /* === RESPONSIVE INTERMÉDIAIRE === */
+    @media (min-width: 1024px) and (max-width: 1200px) {
+      .desktop-content-zone {
+        padding: 15px;
+      }
+    }
+
+    /* === DEBUG (à retirer en prod) === */
+    .desktop-image-zone {
+      border: 2px dashed #ff6b6b;
+      position: relative;
+    }
+    .desktop-image-zone::before {
+      content: "Zone Image (50% desktop)";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff6b6b;
+      color: white;
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+
+    .desktop-content-zone {
+      border: 2px dashed #4ecdc4;
+      position: relative;
+    }
+    .desktop-content-zone::before {
+      content: "Zone Contenu (50% desktop)";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #4ecdc4;
+      color: white;
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- EXEMPLE : Mode Intervenant Création -->
+  <div class="desktop-layout-container">
+    
+    <!-- Zone image (gauche desktop, haut mobile) -->
+    <div class="desktop-image-zone">
+      <div class="desktop-image-placeholder">
+        Image Création Intervenant<br>
+        (À remplacer par votre image)
+      </div>
+    </div>
+    
+    <!-- Zone contenu (droite desktop, bas mobile) -->
+    <div class="desktop-content-zone">
+      <div class="card">
+        <h2>Bienvenue dans le mode Intervenant</h2>
+        
+        <div class="form-group">
+          <label for="lobbyName">Nom de la partie</label>
+          <input type="text" id="lobbyName" placeholder="Ex: Classe 3B" />
+        </div>
+        
+        <button class="button">Créer la partie</button>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px;">
+          <h4>Test responsive :</h4>
+          <p><strong>Mobile :</strong> Image en haut (30vh), contenu en bas</p>
+          <p><strong>Desktop :</strong> Image à gauche (50%), contenu à droite (50%)</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>

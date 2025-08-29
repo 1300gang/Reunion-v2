@@ -1,5 +1,5 @@
 // ============================================================================
-// SOLO-MODE.JS - Logique complète du mode Solo
+// SOLO-MODE.JS - Logique complète du mode Solo (Version corrigée)
 // ============================================================================
 
 class SoloGameManager {
@@ -146,6 +146,8 @@ class SoloGameManager {
   // ============================================================================
   
   async displayQuestion(questionData) {
+    console.log('📋 Affichage question solo:', questionData.id);
+    
     this.state.currentQuestion = questionData;
     this.state.hasVoted = false;
     
@@ -166,7 +168,10 @@ class SoloGameManager {
     // Afficher l'image contextuelle
     if (questionData.contextual_image) {
       const imageEl = document.getElementById('soloContextImage');
-      if (imageEl) imageEl.src = questionData.contextual_image;
+      if (imageEl) {
+        imageEl.src = questionData.contextual_image;
+        console.log('🖼️ Image mise à jour:', questionData.contextual_image);
+      }
     }
     
     // Afficher le contexte
@@ -174,6 +179,7 @@ class SoloGameManager {
     
     // Gérer selon le type de question
     if (questionData.type === 'messenger_scenario' && questionData.conversation) {
+      console.log('💬 Conversation détectée');
       await this.displayMessengerConversation(questionData.conversation);
       this.showElement('soloMessengerView');
     } else {
@@ -182,8 +188,10 @@ class SoloGameManager {
     
     // Gérer les questions "Continuer"
     if (this.isContinueQuestion(questionData)) {
+      console.log('⏭️ Question Continue détectée');
       this.handleContinueQuestion(questionData);
     } else {
+      console.log('🎯 Question standard avec choix');
       this.setupChoices(questionData);
     }
   }
@@ -210,6 +218,7 @@ class SoloGameManager {
       if (context) {
         contextDiv.textContent = context;
         this.showElement('soloQuestionContext');
+        console.log('📝 Contexte affiché');
       } else {
         this.hideElement('soloQuestionContext');
       }
@@ -221,11 +230,16 @@ class SoloGameManager {
   // ============================================================================
   
   setupChoices(questionData) {
+    console.log('🎯 Configuration des choix:', questionData.choices);
+    
     const titleEl = document.getElementById('soloQuestionTitle');
     if (titleEl) titleEl.textContent = questionData.question || 'Que faire ?';
     
     const choicesDiv = document.getElementById('soloAnswerChoices');
-    if (!choicesDiv) return;
+    if (!choicesDiv) {
+      console.error('❌ Élément soloAnswerChoices non trouvé');
+      return;
+    }
     
     choicesDiv.innerHTML = '';
     this.state.voteComponents = {};
@@ -240,6 +254,7 @@ class SoloGameManager {
       
       // Utiliser VoteComponent si disponible
       if (typeof VoteComponent !== 'undefined') {
+        console.log(`📊 Création VoteComponent pour ${letter}: ${choice}`);
         this.state.voteComponents[letter] = new VoteComponent(choiceContainer, {
           letter: letter,
           text: choice,
@@ -250,22 +265,26 @@ class SoloGameManager {
           onVote: (selectedLetter) => this.submitAnswer(
             questionData.id, 
             selectedLetter, 
-            questionData.nextQuestions[selectedLetter]
+            questionData.nextQuestions ? questionData.nextQuestions[selectedLetter] : null
           )
         });
       } else {
         // Fallback sans VoteComponent
+        console.log(`🔘 Création bouton simple pour ${letter}: ${choice}`);
         this.createSimpleChoice(choiceContainer, letter, choice, questionData);
       }
     });
     
-    document.getElementById('soloAnswerStatus').textContent = '';
+    const statusEl = document.getElementById('soloAnswerStatus');
+    if (statusEl) statusEl.textContent = '';
+    
     this.showElement('soloShowAnswersBtn');
+    console.log('✅ Choix configurés avec succès');
   }
   
   createSimpleChoice(container, letter, text, questionData) {
     const button = document.createElement('button');
-    button.className = 'solo-answer-button';
+    button.className = 'answer-button';
     button.innerHTML = `
       <span class="answer-letter">${letter}</span>
       <span class="answer-text">${text}</span>
@@ -273,15 +292,16 @@ class SoloGameManager {
     button.onclick = () => this.submitAnswer(
       questionData.id, 
       letter, 
-      questionData.nextQuestions[letter]
+      questionData.nextQuestions ? questionData.nextQuestions[letter] : null
     );
     container.appendChild(button);
   }
   
   handleContinueQuestion(questionData) {
-    console.log('Question Continue:', questionData.id);
+    console.log('⏭️ Question Continue:', questionData.id);
     
-    document.getElementById('soloQuestionTitle').textContent = 'Cliquez pour continuer';
+    const titleEl = document.getElementById('soloQuestionTitle');
+    if (titleEl) titleEl.textContent = 'Cliquez pour continuer';
     
     const choicesDiv = document.getElementById('soloAnswerChoices');
     if (!choicesDiv) return;
@@ -296,6 +316,8 @@ class SoloGameManager {
     `;
     
     continueBtn.onclick = () => {
+      console.log('⏭️ Bouton continuer cliqué');
+      
       if (questionData.nextQuestions && questionData.nextQuestions.A) {
         this.socket.emit('choose-next-question', { 
           nextQuestionId: questionData.nextQuestions.A 
@@ -305,7 +327,9 @@ class SoloGameManager {
       continueBtn.classList.add('clicked');
       continueBtn.disabled = true;
       
-      document.getElementById('soloAnswerStatus').textContent = '✅ Suite de l\'histoire...';
+      const statusEl = document.getElementById('soloAnswerStatus');
+      if (statusEl) statusEl.textContent = '✅ Suite de l\'histoire...';
+      
       this.hideAnswerPanel();
       this.showElement('soloWaitingMessage');
     };
@@ -316,6 +340,8 @@ class SoloGameManager {
   
   submitAnswer(questionId, answer, nextQuestionId) {
     if (this.state.hasVoted) return;
+    
+    console.log('📝 Soumission réponse:', { questionId, answer, nextQuestionId });
     
     this.state.hasVoted = true;
     
@@ -346,7 +372,9 @@ class SoloGameManager {
       }
     }
     
-    document.getElementById('soloAnswerStatus').textContent = '✅ Choix enregistré !';
+    const statusEl = document.getElementById('soloAnswerStatus');
+    if (statusEl) statusEl.textContent = '✅ Choix enregistré !';
+    
     this.showElement('soloWaitingMessage');
     
     // Passer à la question suivante
@@ -363,32 +391,53 @@ class SoloGameManager {
   // ============================================================================
   
   async displayMessengerConversation(conversation) {
-    const messengerDiv = document.getElementById('soloMessengerView');
-    if (!messengerDiv) return;
+    console.log('💬 Affichage conversation messenger');
     
-    messengerDiv.innerHTML = '<div class="messenger-messages"></div>';
+    const messengerDiv = document.getElementById('soloMessengerView');
+    if (!messengerDiv) {
+      console.error('❌ Élément soloMessengerView non trouvé');
+      return;
+    }
+    
+    // Créer le conteneur des messages avec indicateur de frappe
+    messengerDiv.innerHTML = `
+      <div class="messenger-messages"></div>
+      <div class="typing-indicator hidden">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
     
     const messages = conversation.messages.map(message => {
       const participant = conversation.participants.find(p => p.id === message.sender);
       return {
-        sender: participant.name,
-        avatar: message.avatar || participant.avatar,
+        sender: participant ? participant.name : 'Utilisateur',
+        avatar: message.avatar || (participant ? participant.avatar : null),
         content: message.content,
-        isCurrentUser: participant.isCurrentUser
+        isCurrentUser: participant ? participant.isCurrentUser : false
       };
     });
     
+    console.log('💬 Messages préparés:', messages.length);
     await this.animateMessages(messages);
   }
   
   async animateMessages(messages) {
     const container = document.querySelector('#soloMessengerView .messenger-messages');
-    if (!container) return;
+    if (!container) {
+      console.error('❌ Conteneur messages non trouvé');
+      return;
+    }
     
-    for (const message of messages) {
-      // Indicateur de frappe (si présent)
+    console.log('🎬 Animation de', messages.length, 'messages');
+    
+    for (let i = 0; i < messages.length; i++) {
+      const message = messages[i];
+      
+      // Indicateur de frappe
       const typingIndicator = document.querySelector('#soloMessengerView .typing-indicator');
-      if (typingIndicator) {
+      if (typingIndicator && !message.isCurrentUser) {
         typingIndicator.classList.remove('hidden');
         await this.sleep(300 + Math.random() * 200);
         typingIndicator.classList.add('hidden');
@@ -409,11 +458,14 @@ class SoloGameManager {
         behavior: 'smooth'
       });
       
-      await this.sleep(400);
+      await this.sleep(800);
     }
+    
+    console.log('✅ Animation des messages terminée');
   }
   
   createMessageElement(message) {
+    playMessageSound()
     const messageDiv = document.createElement('div');
     const isCurrentUser = message.isCurrentUser || false;
     messageDiv.className = `message ${isCurrentUser ? 'message-right' : 'message-left'}`;
@@ -435,7 +487,16 @@ class SoloGameManager {
         <div class="message-text">${message.content}</div>
       </div>
     `;
-    playMessageSound();
+    
+    // Jouer un son si la fonction existe
+    if (typeof window.ambientPlayer !== 'undefined' && window.ambientPlayer.playMessageSound) {
+      try {
+        window.ambientPlayer.playMessageSound();
+      } catch (e) {
+        console.log('Son de message non disponible');
+      }
+    }
+    
     return messageDiv;
   }
   
@@ -494,12 +555,20 @@ class SoloGameManager {
     const duration = this.state.endTime ? 
       Math.floor((this.state.endTime - this.state.startTime) / 1000) : 0;
     
+    const formattedDuration = this.formatDuration(duration);
+    
     return {
       questionCount,
       themes: Array.from(themes),
       responses,
-      duration
+      duration: formattedDuration
     };
+  }
+  
+  formatDuration(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   }
   
   updateEndScreen(scenarioTitle, creators, stats) {
@@ -516,6 +585,9 @@ class SoloGameManager {
     // Statistiques
     const answersEl = document.getElementById('solo-total-answers');
     if (answersEl) answersEl.textContent = stats.questionCount;
+    
+    const timeEl = document.getElementById('solo-total-time');
+    if (timeEl) timeEl.textContent = stats.duration;
     
     const pathEl = document.getElementById('solo-path-taken');
     if (pathEl) {
@@ -634,12 +706,22 @@ class SoloGameManager {
   
   showElement(id) {
     const el = document.getElementById(id);
-    if (el) el.classList.remove('hidden');
+    if (el) {
+      el.classList.remove('hidden');
+      console.log('👁️ Élément affiché:', id);
+    } else {
+      console.warn('⚠️ Élément non trouvé:', id);
+    }
   }
   
   hideElement(id) {
     const el = document.getElementById(id);
-    if (el) el.classList.add('hidden');
+    if (el) {
+      el.classList.add('hidden');
+      console.log('🙈 Élément masqué:', id);
+    } else {
+      console.warn('⚠️ Élément non trouvé:', id);
+    }
   }
   
   sleep(ms) {
@@ -650,6 +732,8 @@ class SoloGameManager {
     // Utiliser la fonction globale si elle existe
     if (typeof showNotification === 'function') {
       showNotification(message, type, duration);
+    } else if (window.gameManager && window.gameManager.showNotification) {
+      window.gameManager.showNotification(message, type, duration);
     } else {
       console.log(`[${type}] ${message}`);
     }
@@ -662,11 +746,12 @@ class SoloGameManager {
   handleSocketEvents() {
     // Lobby créé
     this.socket.on('lobby-created', ({ scenarioTitle, scenarioData }) => {
-      console.log('Lobby solo créé:', scenarioTitle);
+      console.log('🎯 Lobby solo créé:', scenarioTitle);
       this.config.scenario = scenarioData;
       
       // Démarrer automatiquement
       setTimeout(() => {
+        console.log('▶️ Démarrage automatique de la partie solo');
         this.socket.emit('start-game');
       }, 500);
     });
@@ -678,7 +763,7 @@ class SoloGameManager {
     
     // Question reçue
     this.socket.on('question', (questionData) => {
-      console.log('Question reçue:', questionData);
+      console.log('📋 Question reçue en mode solo:', questionData);
       this.displayQuestion(questionData);
     });
     
@@ -686,6 +771,12 @@ class SoloGameManager {
     this.socket.on('game-over', () => {
       console.log('🏁 Fin de partie solo');
       // La fin est gérée par handleScenarioEnd
+    });
+    
+    // Gestion des erreurs
+    this.socket.on('error', (error) => {
+      console.error('❌ Erreur socket solo:', error);
+      this.showNotification('Erreur de connexion: ' + error, 'error');
     });
   }
 }
@@ -699,8 +790,9 @@ window.soloGameManager = new SoloGameManager();
 
 // Fonction d'initialisation à appeler depuis game.js
 window.initializeSoloMode = function(socket, scenarioFile, level) {
+  console.log('🚀 Lancement du mode solo:', { scenarioFile, level });
   window.soloGameManager.initialize(socket, scenarioFile, level);
   window.soloGameManager.handleSocketEvents();
 };
 
-console.log('📱 Solo Mode Manager chargé avec succès');
+console.log('📱 Solo Mode Manager chargé avec succès (Version corrigée)');

@@ -34,8 +34,9 @@
            url('fonts/Mefta-Bold.woff') format('woff');
       font-weight: 700;
       font-display: swap;
-    } -->
-  </style>
+    } 
+  </style>-->
+
 </head>
 <body>
   <!-- Texture de fond papier -->
@@ -43,139 +44,164 @@
   
   <!-- Écran Intervenant - Création -->
   <div id="intervenant-screen" class="screen">
-    <div class="container">
-      
-      <div id="intervenant-creation" class="card institutional-card">
-        <h2 class="card-title">Bienvenue dans le mode Intervenant</h2>
-        <div class="brief">
-          <p><strong>Votre rôle :</strong> Vous allez animer une session interactive où les participants répondront à des questions sur des scénarios mettant en scène Gaëtan et Nicolas.</p>
-          <p><strong>Comment ça marche :</strong> Créez une partie, partagez le code avec les participants, et guidez-les à travers les différentes situations éducatives.</p>
-          <p><strong>Navigation rapide :</strong> Pendant la partie, cliquez directement sur les barres de progression des votes pour avancer vers la branche narrative correspondante. Une confirmation vous sera demandée avant de passer à la question suivante.</p>
-          <p><strong>Export des données :</strong> Vous pourrez télécharger un fichier CSV des réponses à tout moment pendant ou après la session.</p>
-    
-          <p class="brief-note">Ce jeu sérieux aborde les thèmes de l'orientation sexuelle, de l'identité de genre et de la lutte contre les discriminations.</p>
+    <div class="desktop-layout-container">
+      <!-- Zone Image (vide pour image future) -->
+      <div id="prout" class="desktop-image-zone empty">
+        <div class="image-placeholder-text">
+          <p>Zone réservée pour<br>image contextuelle</p>
         </div>
-        
-        <div class="form-group">
-          <label for="lobbyNameInput">Nom de la partie</label>
-          <input type="text" id="lobbyNameInput" placeholder="Ex: Classe 3B" maxlength="30" class="input-institutional">
-        </div>
-        
-        <button id="createLobbyBtn" class="button button-primary">
-          <span>Créer la partie</span>
-        </button>
       </div>
-
-      <div id="intervenant-lobby" class="hidden">
-        <div class="card institutional-card">
-          <div class="pill">
-            <span class="pill-icon">🎓</span>
-            <span id="lobbyNameDisplay"></span>
+      
+      <!-- Zone Contenu -->
+      <div class="desktop-content-zone">
+        <div class="container">
+          <div id="intervenant-creation" class="card institutional-card">
+            <h2 class="card-title">Bienvenue dans le mode Intervenant</h2>
+            <div class="brief">
+              <p><strong>Votre rôle :</strong> Vous allez animer une session interactive où les participants répondront à des questions sur des scénarios mettant en scène Gaëtan et Nicolas.</p>
+              <p><strong>Comment ça marche :</strong> Créez une partie, partagez le code avec les participants, et guidez-les à travers les différentes situations éducatives.</p>
+              <p><strong>Navigation rapide :</strong> Pendant la partie, cliquez directement sur les barres de progression des votes pour avancer vers la branche narrative correspondante. Une confirmation vous sera demandée avant de passer à la question suivante.</p>
+              <p><strong>Export des données :</strong> Vous pourrez télécharger un fichier CSV des réponses à tout moment pendant ou après la session.</p>
+        
+              <p class="brief-note">Ce jeu sérieux aborde les thèmes de l'orientation sexuelle, de l'identité de genre et de la lutte contre les discriminations.</p>
+            </div>
+            
+            <div class="form-group">
+              <label for="lobbyNameInput">Nom de la partie</label>
+              <input type="text" id="lobbyNameInput" placeholder="Ex: Classe 3B" maxlength="30" class="input-institutional">
+            </div>
+            
+            <button id="createLobbyBtn" class="button button-primary">
+              <span>Créer la partie</span>
+            </button>
           </div>
-                      <div id="qr-overlay" class="qr-overlay">
-              <div class="qr-section">
-                <h3 class="qr-title">Invitez les participants</h3>
-                <div id="qrcode" class="qr-container"></div>
-                <button id="copyLinkBtn" class="button button-secondary button-small">
-                  <span>📋</span>
-                  <span>Copier le lien</span>
-                </button>
+
+          <div id="intervenant-lobby" class="hidden">
+            <div class="card institutional-card">
+              <div class="pill">
+                <span class="pill-icon">🎓</span>
+                <span id="lobbyNameDisplay"></span>
+              </div>
+              
+              <!-- Container pour l'image ou le menu des chapitres -->
+              <div class="image-container">
+                <img id="contextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+              </div>
+                <div class="card institutional-card">
+                  <div class="pill">
+                    <span class="pill-icon">🎓</span>
+                    <span id="lobbyNameDisplay"></span>
+                  </div>
+                  
+                  <div id="qr-overlay" class="qr-overlay">
+                    <div class="qr-section">
+                      <h3 class="qr-title">Invitez les participants</h3>
+                      <div id="qrcode" class="qr-container"></div>
+                      <button id="copyLinkBtn" class="button button-secondary button-small">
+                        <span>📋</span>
+                        <span>Copier le lien</span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div id="participants-section" class="participants-section">
+                    <h4>Participants (<span id="playerCount">0</span>)</h4>
+                    <div id="playersList" class="players-pills"></div>
+                    <div id="waitingForVotes" class="waiting-votes hidden">
+                      <div class="waiting-indicator"></div>
+                      <span>En attente de réponse : <span id="pendingPlayers"></span></span>
+                    </div>
+                  </div>
+                  
+                  <button id="startGameBtn" class="button button-primary" disabled>
+                    <span id="startBtnText">Commencer la partie</span>
+                    <span id="minPlayersText" class="min-players-info">(min. 1 joueur requis)</span>
+                  </button>
+                </div>
               </div>
             </div>
-          <!-- Container pour l'image ou le menu des chapitres -->
-          <div class="image-container">
-            <img id="contextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+          </div>
 
+          <div id="game-control" class="hidden">
+            <div class="desktop-layout-container">
+              <!-- Zone Image -->
+              <div class="desktop-image-zone">
+                <img id="questionImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="question-image">
+              </div>
+              
+              <!-- Zone Contenu -->
+              <div class="desktop-content-zone">
+                <div class="card institutional-card">
+                  <div class="pill">
+                    <span class="pill-icon">🎓</span>
+                    <span id="lobbyNameGame"></span>
+                  </div>
+                  
+                  <div class="question-section">
+                    <h3 id="questionTitle" class="question-title">Question en cours</h3>
+                    <p id="questionContext" class="question-context"></p>
+                  </div>
+                  
+                  <div id="waitingForVotesGame" class="waiting-votes">
+                    <div class="waiting-indicator"></div>
+                    <span>En attente de : <span id="pendingPlayersGame"></span></span>
+                  </div>
+                  
+                  <div id="votingOptions" class="voting-options"></div>
+                  
+                  <div class="control-buttons">
+                    <button id="endGameBtn" class="button button-danger">
+                      <span>🏁</span>
+                      <span>Terminer</span>
+                    </button>
+                    <button id="generateCsvBtn" class="button button-secondary">
+                      <span>📊</span>
+                      <span>Exporter CSV</span>
+                    </button>
+                  </div>
+                  
+                  <a id="csvDownloadLink" class="hidden button button-primary">
+                    <span>📄</span>
+                    <span>Télécharger les résultats</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           
-          <div id="participants-section" class="participants-section">
-            <h4>Participants (<span id="playerCount">0</span>)</h4>
-            <div id="playersList" class="players-pills"></div>
-            <div id="waitingForVotes" class="waiting-votes hidden">
-              <div class="waiting-indicator"></div>
-              <span>En attente de réponse : <span id="pendingPlayers"></span></span>
-            </div>
-          </div>
-          
-          <button id="startGameBtn" class="button button-primary" disabled>
-            <span id="startBtnText">Commencer la partie</span>
-            <span id="minPlayersText" class="min-players-info">(min. 1 joueur requis)</span>
-          </button>
-        </div>
-
-        <div id="game-control" class="hidden">
-          <div class="card institutional-card">
-            <div class="pill">
-              <span class="pill-icon">🎓</span>
-              <span id="lobbyNameGame"></span>
-            </div>
-            
-            <div class="image-placeholder">
-              <img id="questionImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="question-image">
-            </div>
-            
-            <div class="question-section">
-              <h3 id="questionTitle" class="question-title">Question en cours</h3>
-              <p id="questionContext" class="question-context"></p>
-            </div>
-            
-            <div id="waitingForVotesGame" class="waiting-votes">
-              <div class="waiting-indicator"></div>
-              <span>En attente de : <span id="pendingPlayersGame"></span></span>
-            </div>
-            
-            <div id="votingOptions" class="voting-options"></div>
-            
-            <div class="control-buttons">
-              <button id="endGameBtn" class="button button-danger">
-                <span>🏁</span>
-                <span>Terminer</span>
-              </button>
-              <button id="generateCsvBtn" class="button button-secondary">
-                <span>📊</span>
-                <span>Exporter CSV</span>
-              </button>
-            </div>
-            
-            <a id="csvDownloadLink" class="hidden button button-primary">
-              <span>📄</span>
-              <span>Télécharger les résultats</span>
-            </a>
-          </div>
-        </div>
-        
-        <div id="game-over-gm" class="hidden">
-          <div class="card institutional-card">
-            <div class="pill">
-              <span class="pill-icon">✅</span>
-              <span id="lobbyNameEnd"></span> - Terminée
-            </div>
-            
-            <h2 class="end-title">Session terminée avec succès</h2>
-            
-            <div class="stats-section">
-              <h3>📊 Points de difficulté identifiés</h3>
-              <div id="difficultyPoints" class="difficulty-cards"></div>
-            </div>
-            
-            <div class="observations-section">
-              <h3>💭 Vos observations</h3>
-              <textarea id="gmObservations" rows="5" placeholder="Notez vos impressions sur la session..." class="textarea-institutional"></textarea>
-            </div>
-            
-            <div class="final-actions">
-              <button id="finalDownloadCsvBtn" class="button button-primary">
-                <span>📊</span>
-                <span>Télécharger CSV</span>
-              </button>
-              <button id="sendResultsBtn" class="button button-secondary" disabled>
-                <span>📧</span>
-                <span>Envoyer résultats</span>
-              </button>
-              <button id="newSessionBtn" class="button">
-                <span>🔄</span>
-                <span>Retour au menu</span>
-              </button>
+          <div id="game-over-gm" class="hidden">
+            <div class="card institutional-card">
+              <div class="pill">
+                <span class="pill-icon">✅</span>
+                <span id="lobbyNameEnd"></span> - Terminée
+              </div>
+              
+              <h2 class="end-title">Session terminée avec succès</h2>
+              
+              <div class="stats-section">
+                <h3>📊 Points de difficulté identifiés</h3>
+                <div id="difficultyPoints" class="difficulty-cards"></div>
+              </div>
+              
+              <div class="observations-section">
+                <h3>💭 Vos observations</h3>
+                <textarea id="gmObservations" rows="5" placeholder="Notez vos impressions sur la session..." class="textarea-institutional"></textarea>
+              </div>
+              
+              <div class="final-actions">
+                <button id="finalDownloadCsvBtn" class="button button-primary">
+                  <span>📊</span>
+                  <span>Télécharger CSV</span>
+                </button>
+                <button id="sendResultsBtn" class="button button-secondary" disabled>
+                  <span>📧</span>
+                  <span>Envoyer résultats</span>
+                </button>
+                <button id="newSessionBtn" class="button">
+                  <span>🔄</span>
+                  <span>Retour au menu</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -185,296 +211,312 @@
 
   <!-- Écran Joueur -->
   <div id="player-screen" class="screen">
-    <div class="container">
-      <div id="player-join" class="card institutional-card hidden">
-        <div class="pill">
-          <span class="pill-icon">🎮</span>
-          <span>Mode Joueur</span>
+    <div class="desktop-layout-container">
+      <!-- Zone Image (vide pour image future) -->
+      <div id="proute" class="desktop-image-zone empty">
+        <div class="image-placeholder-text">
+          <p>Zone réservée pour<br>image contextuelle</p>
         </div>
-        <h2 class="card-title">Rejoindre une partie</h2>
-        
-        <div class="form-group">
-          <label for="lobbyCodeInput">Code de la partie</label>
-          <input type="text" id="lobbyCodeInput" placeholder="Entrez le code" class="input-institutional">
-        </div>
-        
-        <button id="joinLobbyBtn" class="button button-primary">
-          <span>Rejoindre</span>
-        </button>
       </div>
-
-      <div id="player-info" class="card institutional-card">
-        <div class="pill">
-          <span class="pill-icon">🎮</span>
-          <span id="playerLobbyName">Partie</span>
-        </div>
-        <h2 class="card-title">Vos informations</h2>
-        
-        <form id="playerInfoForm">
-          <div class="form-group">
-            <label for="playerPrenom">Prénom</label>
-            <input type="text" id="playerPrenom" required maxlength="20" class="input-institutional">
-          </div>
-          
-          <div class="form-group">
-            <label for="playerAge">Âge</label>
-            <input type="number" id="playerAge" min="10" max="99" required class="input-institutional">
-          </div>
-          
-          <div class="form-group">
-            <label for="playerGenre">Genre</label>
-            <select id="playerGenre" required class="select-institutional">
-              <option value="">Sélectionnez</option>
-              <option value="Fille">Fille</option>
-              <option value="Garçon">Garçon</option>
-              <option value="Autre">Autre</option>
-              <option value="Ne souhaite pas répondre">Ne souhaite pas répondre</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="playerEcole">École</label>
-            <input type="text" id="playerEcole" required maxlength="50" class="input-institutional">
-          </div>
-          
-          <div class="button-group">
-            <button type="button" id="randomFillBtn" class="button button-secondary">
-              <span>🎲</span>
-              <span>Remplir aléatoirement</span>
-            </button>
-            <button type="submit" class="button button-primary">
-              <span>Commencer</span>
+      
+      <!-- Zone Contenu -->
+      <div class="desktop-content-zone">
+        <div class="container">
+          <div id="player-join" class="card institutional-card hidden">
+            <div class="pill">
+              <span class="pill-icon">🎮</span>
+              <span>Mode Joueur</span>
+            </div>
+            <h2 class="card-title">Rejoindre une partie</h2>
+            
+            <div class="form-group">
+              <label for="lobbyCodeInput">Code de la partie</label>
+              <input type="text" id="lobbyCodeInput" placeholder="Entrez le code" class="input-institutional">
+            </div>
+            
+            <button id="joinLobbyBtn" class="button button-primary">
+              <span>Rejoindre</span>
             </button>
           </div>
-        </form>
-      </div>
 
-      <div id="player-waiting" class="hidden card institutional-card">
-        <div class="pill">
-          <span class="pill-icon">🎮</span>
-          <span id="waitingLobbyName">Partie</span>
-        </div>
-        <div class="waiting-content">
-          <div class="loader institutional-loader"></div>
-          <h2>En attente...</h2>
-          <p>L'intervenant va bientôt lancer la partie</p>
-        </div>
-      </div>
-
-      <div id="player-game" class="hidden">
-        <div class="pill floating-pill">
-          <span class="pill-icon">🎮</span>
-          <span id="gameLobbyName">Partie</span>
-        </div>
-        
-        <div class="game-content">
-          <div class="image-placeholder">
-            <img id="playerContextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+          <div id="player-info" class="card institutional-card">
+            <div class="pill">
+              <span class="pill-icon">🎮</span>
+              <span id="playerLobbyName">Partie</span>
+            </div>
+            <h2 class="card-title">Vos informations</h2>
+            
+            <form id="playerInfoForm">
+              <div class="form-group">
+                <label for="playerPrenom">Prénom</label>
+                <input type="text" id="playerPrenom" required maxlength="20" class="input-institutional">
+              </div>
+              
+              <div class="form-group">
+                <label for="playerAge">Âge</label>
+                <input type="number" id="playerAge" min="10" max="99" required class="input-institutional">
+              </div>
+              
+              <div class="form-group">
+                <label for="playerGenre">Genre</label>
+                <select id="playerGenre" required class="select-institutional">
+                  <option value="">Sélectionnez</option>
+                  <option value="Fille">Fille</option>
+                  <option value="Garçon">Garçon</option>
+                  <option value="Autre">Autre</option>
+                  <option value="Ne souhaite pas répondre">Ne souhaite pas répondre</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="playerEcole">École</label>
+                <input type="text" id="playerEcole" required maxlength="50" class="input-institutional">
+              </div>
+              
+              <div class="button-group">
+                <button type="button" id="randomFillBtn" class="button button-secondary">
+                  <span>🎲</span>
+                  <span>Remplir aléatoirement</span>
+                </button>
+                <button type="submit" class="button button-primary">
+                  <span>Commencer</span>
+                </button>
+              </div>
+            </form>
           </div>
-          
-          <div id="playerQuestionContext" class="context-box"></div>
-          
-          <div id="messengerView" class="messenger-container">
-            <div class="typing-indicator hidden">
-              <span></span>
-              <span></span>
-              <span></span>
+
+          <div id="player-waiting" class="hidden card institutional-card">
+            <div class="pill">
+              <span class="pill-icon">🎮</span>
+              <span id="waitingLobbyName">Partie</span>
+            </div>
+            <div class="waiting-content">
+              <div class="loader institutional-loader"></div>
+              <h2>En attente...</h2>
+              <p>L'intervenant va bientôt lancer la partie</p>
             </div>
           </div>
-          
-          <button id="showAnswersBtn" class="answer-toggle">
-            <span>Répondre</span>
-            <span class="arrow">↑</span>
-          </button>
-        </div>
-        
-        <div id="answerPanel" class="answer-panel">
-          <div id="waitingMessage" class="waiting-message-panel hidden">
-            <div class="waiting-indicator"></div>
-            <span>En attente des autres joueurs et du maître du jeu...</span>
-          </div>
-          <div class="answer-panel-header">
-            <h3 id="playerQuestionTitle">Que faire ?</h3>
-            <button id="closeAnswersBtn" class="close-btn">×</button>
-          </div>
-          <div id="answerChoices" class="answer-choices"></div>
-          <p id="answerStatus" class="answer-status"></p>
-        </div>
-      </div>
 
-      <div id="player-game-over" class="hidden card institutional-card">
-        <div class="pill">
-          <span class="pill-icon">✅</span>
-          <span>Partie terminée</span>
-        </div>
-        
-        <h2 class="end-title">Merci d'avoir participé !</h2>
-        
-        <div class="feedback-section">
-          <h3>💭 Avez-vous des observations à partager ?</h3>
-          <textarea id="playerFeedback" rows="4" placeholder="Vos impressions, difficultés rencontrées..." class="textarea-institutional"></textarea>
-        </div>
-        
-        <div class="final-actions">
-          <button id="sendFeedbackBtn" class="button button-primary">
-            <span>Envoyer mon feedback</span>
-          </button>
-          <button id="backToHomeBtn" class="button button-secondary">
-            <span>Retour à l'accueil</span>
-          </button>
+          <div id="player-game" class="hidden">
+            <div class="desktop-layout-container">
+              <!-- Zone Image -->
+              <div class="desktop-image-zone">
+                <img id="playerContextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+              </div>
+              
+              <!-- Zone Contenu -->
+              <div class="desktop-content-zone">
+                <div class="pill floating-pill">
+                  <span class="pill-icon">🎮</span>
+                  <span id="gameLobbyName">Partie</span>
+                </div>
+                
+                <div class="game-content">
+                  <div id="playerQuestionContext" class="context-box"></div>
+                  
+                  <div id="messengerView" class="messenger-container">
+                    <div class="typing-indicator hidden">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+                  
+                  <button id="showAnswersBtn" class="answer-toggle">
+                    <span>Répondre</span>
+                    <span class="arrow">→</span>
+                  </button>
+                </div>
+                
+                <div id="answerPanel" class="answer-panel">
+                  <div id="waitingMessage" class="waiting-message-panel hidden">
+                    <div class="waiting-indicator"></div>
+                    <span>En attente des autres joueurs et du maître du jeu...</span>
+                  </div>
+                  <div class="answer-panel-header">
+                    <h3 id="playerQuestionTitle">Que faire ?</h3>
+                    <button id="closeAnswersBtn" class="close-btn">×</button>
+                  </div>
+                  <div id="answerChoices" class="answer-choices"></div>
+                  <p id="answerStatus" class="answer-status"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="player-game-over" class="hidden card institutional-card">
+            <div class="pill">
+              <span class="pill-icon">✅</span>
+              <span>Partie terminée</span>
+            </div>
+            
+            <h2 class="end-title">Merci d'avoir participé !</h2>
+            
+            <div class="feedback-section">
+              <h3>💭 Avez-vous des observations à partager ?</h3>
+              <textarea id="playerFeedback" rows="4" placeholder="Vos impressions, difficultés rencontrées..." class="textarea-institutional"></textarea>
+            </div>
+            
+            <div class="final-actions">
+              <button id="sendFeedbackBtn" class="button button-primary">
+                <span>Envoyer mon feedback</span>
+              </button>
+              <button id="backToHomeBtn" class="button button-secondary">
+                <span>Retour à l'accueil</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-<!-- Écran Mode Solo -->
-<!-- NOUVELLE STRUCTURE HTML POUR LE MODE SOLO -->
-<!-- À remplacer dans index.html -->
 
-<!-- Écran Mode Solo (simplifié comme le mode joueur) -->
-<div id="solo-screen" class="screen">
-  <div class="container">
-    <!-- Pill flottant avec couleur du niveau -->
-    <div class="pill floating-pill">
-      <span class="pill-icon">🎮</span>
-      <span id="soloLobbyName">Mode Solo</span>
-    </div>
-    
-    <!-- Interface de jeu identique au mode joueur -->
-    <div class="game-content">
-      <!-- Image contextuelle -->
-      <div class="image-placeholder">
+  <!-- Écran Mode Solo -->
+  <div id="solo-screen" class="screen">
+    <div class="desktop-layout-container">
+      <!-- Zone Image -->
+      <div class="desktop-image-zone">
         <img id="soloContextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
       </div>
       
-      <!-- Contexte de la question -->
-      <div id="soloQuestionContext" class="context-box"></div>
-      
-      <!-- Vue Messenger pour les dialogues -->
-      <div id="soloMessengerView" class="messenger-container">
-        <div class="typing-indicator hidden">
-          <span></span>
-          <span></span>
-          <span></span>
+      <!-- Zone Contenu -->
+      <div class="desktop-content-zone">
+        <div class="container">
+          <!-- Pill flottant avec couleur du niveau -->
+          <div class="pill floating-pill">
+            <span class="pill-icon">🎮</span>
+            <span id="soloLobbyName">Mode Solo</span>
+          </div>
+          
+          <!-- Interface de jeu identique au mode joueur -->
+          <div class="game-content">
+            <!-- Contexte de la question -->
+            <div id="soloQuestionContext" class="context-box"></div>
+            
+            <!-- Vue Messenger pour les dialogues -->
+            <div id="soloMessengerView" class="messenger-container">
+              <div class="typing-indicator hidden">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            
+            <!-- Bouton pour afficher les réponses -->
+            <button id="soloShowAnswersBtn" class="answer-toggle">
+              <span>Répondre</span>
+              <span class="arrow">→</span>
+            </button>
+          </div>
+          
+          <!-- Panneau de réponses (identique au mode joueur) -->
+          <div id="soloAnswerPanel" class="answer-panel">
+            <div id="soloWaitingMessage" class="waiting-message-panel hidden">
+              <div class="waiting-indicator"></div>
+              <span>Chargement de la suite...</span>
+            </div>
+            <div class="answer-panel-header">
+              <h3 id="soloQuestionTitle">Que faire ?</h3>
+              <button id="soloCloseAnswersBtn" class="close-btn">×</button>
+            </div>
+            <div id="soloAnswerChoices" class="answer-choices"></div>
+            <p id="soloAnswerStatus" class="answer-status"></p>
+          </div>
         </div>
       </div>
-      
-      <!-- Bouton pour afficher les réponses -->
-      <button id="soloShowAnswersBtn" class="answer-toggle">
-        <span>Répondre</span>
-        <span class="arrow">→</span>
-      </button>
-    </div>
-    
-    <!-- Panneau de réponses (identique au mode joueur) -->
-    <div id="soloAnswerPanel" class="answer-panel">
-      <div id="soloWaitingMessage" class="waiting-message-panel hidden">
-        <div class="waiting-indicator"></div>
-        <span>Chargement de la suite...</span>
-      </div>
-      <div class="answer-panel-header">
-        <h3 id="soloQuestionTitle">Que faire ?</h3>
-        <button id="soloCloseAnswersBtn" class="close-btn">×</button>
-      </div>
-      <div id="soloAnswerChoices" class="answer-choices"></div>
-      <p id="soloAnswerStatus" class="answer-status"></p>
     </div>
   </div>
-</div>
 
-<!-- Écran de fin Mode Solo (conservé tel quel) -->
-<div id="solo-end-screen" class="screen">
-  <div class="container">
-    <div class="card end-card">
-      <div class="pill pill-success">🎉 Partie Terminée</div>
-      
-      <h1 class="end-title">Bravo ! Vous avez terminé le scénario</h1>
-      
-      <!-- Résumé de la partie -->
-      <div class="solo-summary">
-        <h3>📊 Résumé de votre parcours</h3>
+  <!-- Écran de fin Mode Solo (conservé tel quel) -->
+  <div id="solo-end-screen" class="screen">
+    <div class="container">
+      <div class="card end-card">
+        <div class="pill pill-success">🎉 Partie Terminée</div>
         
-        <div class="summary-stats">
-          <div class="summary-stat">
-            <span class="summary-icon">📖</span>
-            <div class="summary-content">
-              <span class="summary-label">Scénario complété</span>
-              <span class="summary-value" id="solo-completed-scenario">-</span>
+        <h1 class="end-title">Bravo ! Vous avez terminé le scénario</h1>
+        
+        <!-- Résumé de la partie -->
+        <div class="solo-summary">
+          <h3>📊 Résumé de votre parcours</h3>
+          
+          <div class="summary-stats">
+            <div class="summary-stat">
+              <span class="summary-icon">📖</span>
+              <div class="summary-content">
+                <span class="summary-label">Scénario complété</span>
+                <span class="summary-value" id="solo-completed-scenario">-</span>
+              </div>
+            </div>
+            
+            <div class="summary-stat">
+              <span class="summary-icon">❓</span>
+              <div class="summary-content">
+                <span class="summary-label">Questions répondues</span>
+                <span class="summary-value" id="solo-total-answers">0</span>
+              </div>
+            </div>
+            
+            <div class="summary-stat">
+              <span class="summary-icon">⏱️</span>
+              <div class="summary-content">
+                <span class="summary-label">Durée totale</span>
+                <span class="summary-value" id="solo-total-time">00:00</span>
+              </div>
+            </div>
+            
+            <div class="summary-stat">
+              <span class="summary-icon">🎯</span>
+              <div class="summary-content">
+                <span class="summary-label">Parcours emprunté</span>
+                <span class="summary-value" id="solo-path-taken">-</span>
+              </div>
             </div>
           </div>
           
-          <div class="summary-stat">
-            <span class="summary-icon">❓</span>
-            <div class="summary-content">
-              <span class="summary-label">Questions répondues</span>
-              <span class="summary-value" id="solo-total-answers">0</span>
-            </div>
+          <!-- Thèmes abordés -->
+          <div class="themes-section">
+            <h4>🏷️ Thèmes abordés durant votre parcours</h4>
+            <div id="solo-themes-list" class="themes-pills"></div>
           </div>
           
-          <div class="summary-stat">
-            <span class="summary-icon">⏱️</span>
-            <div class="summary-content">
-              <span class="summary-label">Durée totale</span>
-              <span class="summary-value" id="solo-total-time">00:00</span>
-            </div>
-          </div>
-          
-          <div class="summary-stat">
-            <span class="summary-icon">🎯</span>
-            <div class="summary-content">
-              <span class="summary-label">Parcours emprunté</span>
-              <span class="summary-value" id="solo-path-taken">-</span>
-            </div>
+          <!-- Choix marquants -->
+          <div class="key-choices-section">
+            <h4>🔑 Vos choix clés</h4>
+            <div id="solo-key-choices" class="key-choices-list"></div>
           </div>
         </div>
         
-        <!-- Thèmes abordés -->
-        <div class="themes-section">
-          <h4>🏷️ Thèmes abordés durant votre parcours</h4>
-          <div id="solo-themes-list" class="themes-pills"></div>
+        <!-- Actions finales -->
+        <div class="solo-end-actions">
+          <button id="soloReplayBtn" class="button button-secondary">
+            🔄 Rejouer ce scénario
+          </button>
+          <button id="soloNewLevelBtn" class="button button-success">
+            🎮 Choisir un autre niveau
+          </button>
         </div>
         
-        <!-- Choix marquants -->
-        <div class="key-choices-section">
-          <h4>🔑 Vos choix clés</h4>
-          <div id="solo-key-choices" class="key-choices-list"></div>
+        <!-- Message de remerciement -->
+        <div class="thank-you-message">
+          <p>Merci d'avoir joué ! Votre parcours a été unique et nous espérons que vous avez apprécié l'expérience.</p>
+          <p class="creator-credit">Ce scénario a été créé par <span id="solo-creators">les créateurs</span></p>
         </div>
-      </div>
-      
-      <!-- Actions finales -->
-      <div class="solo-end-actions">
-        <!-- <button id="soloDownloadBtn" class="button button-primary">
-          📥 Télécharger mon parcours (PDF)
-        </button> -->
-        <!-- <button id="soloShareBtn" class="button button-secondary">
-          📤 Partager mon expérience
-        </button> -->
-        <button id="soloReplayBtn" class="button button-secondary">
-          🔄 Rejouer ce scénario
-        </button>
-        <button id="soloNewLevelBtn" class="button button-success">
-          🎮 Choisir un autre niveau
-        </button>
-      </div>
-      
-      <!-- Message de remerciement -->
-      <div class="thank-you-message">
-        <p>Merci d'avoir joué ! Votre parcours a été unique et nous espérons que vous avez apprécié l'expérience.</p>
-        <p class="creator-credit">Ce scénario a été créé par <span id="solo-creators">les créateurs</span></p>
       </div>
     </div>
   </div>
-</div>
+
   <!-- Scripts -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="scripts/vote-component.js"></script>
   <script src="scripts/chapter-menu.js"></script>
   <script src="scripts/solo-mode.js"></script>
+  <script src="/scripts/menu-button.js"></script>
   <script src="/scripts/audio-player.js"></script>
   <script src="/scripts/info-button.js"></script>
+  <script src="/scripts/message-sound.js"></script>
   <script src="/scripts/connection-monitor.js"></script>
   <script src="/scripts/fullscreen-manager.js"></script>
-  <script src="/scripts/message-sound.js"></script>
   <script src="scripts/game.js"></script>
 </body>
 </html>

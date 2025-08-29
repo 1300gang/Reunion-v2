@@ -1081,7 +1081,10 @@ h1, h2, h3 {
     grid-template-columns: 1fr;
   }
 }
-
+#player-screen .container {
+  max-width: none !important;
+  width: 100% !important;
+}
 /* ============================================ */
 /* NOUVEAU : Style pour le pill solo           */
 /* ============================================ */
@@ -1122,3 +1125,173 @@ h1, h2, h3 {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--couleur-noirVolcan);
 }
+    /* === LAYOUT RESPONSIVE DESKTOP/MOBILE === */
+    .desktop-layout-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .desktop-image-zone {
+      width: 100%;
+      height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* background: var(--couleur-grisBleuClair); */
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .desktop-image-zone img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .desktop-image-zone .image-placeholder-text {
+      color: var(--couleur-grisFonce);
+      font-family: 'Satoshi-Medium', sans-serif;
+      text-align: center;
+    }
+
+    .desktop-content-zone {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* Desktop uniquement */
+    @media (min-width: 1024px) {
+      .desktop-layout-container {
+        flex-direction: row;
+      }
+      
+      .desktop-image-zone {
+        width: 50%;
+        height: 80vh;
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+      
+      .desktop-image-zone img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: cover;
+        object-position: center;
+      }
+      
+      .desktop-content-zone {
+        width: 50%;
+        height: 100vh;
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      /* Layout pleine largeur quand zone image masquée */
+      .desktop-layout-container.full-width .desktop-content-zone {
+        width: 100% !important;
+      }
+
+      .desktop-layout-container.full-width .desktop-image-zone {
+        display: none !important;
+      }
+
+      /* Pills centrés sur desktop pour les écrans spécifiés */
+      #intervenant-lobby .pill,
+      #game-control .pill {
+        position: fixed !important;
+        top: 20px !important;
+        left: 75% !important; /* Centré dans la partie droite (50% + 25%) */
+        transform: translateX(-50%) !important;
+        z-index: 1000 !important;
+      }
+
+      /* Pills centrés sur toute la largeur quand layout pleine largeur */
+      .desktop-layout-container.full-width .pill {
+        left: 50% !important;
+      }
+
+      /* Panneau réponses limité à la partie droite sur desktop */
+      .answer-panel {
+        left: 50% !important;
+        right: 0 !important;
+      }
+
+      /* Panneau réponses sur toute la largeur quand layout pleine largeur */
+      .desktop-layout-container.full-width ~ * .answer-panel,
+      .full-width .answer-panel {
+        left: 0 !important;
+      }
+
+      /* Bouton réponses centré sur la partie droite pour le mode solo */
+      #soloShowAnswersBtn {
+        position: fixed !important;
+        bottom: 30px !important;
+        left: 75% !important; /* Centré dans la partie droite (50% + 25%) */
+        transform: translateX(-50%) !important;
+        z-index: 500 !important;
+      }
+
+      /* Bouton réponses centré sur toute la largeur quand layout pleine largeur */
+      .desktop-layout-container.full-width #soloShowAnswersBtn {
+        left: 50% !important;
+      }
+
+      /* Messenger View prend 80% de la hauteur sur desktop */
+      #soloMessengerView {
+        max-height: 70vh !important;
+        min-height: auto !important;
+        height: auto !important;
+        overflow-y: auto;
+      }
+
+      #soloMessengerView .messenger-messages {
+        max-height: 70vh !important;
+        overflow-y: auto;
+      }
+
+      /* Suppression des styles d'image sur desktop */
+      .desktop-image-zone {
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+
+    /* Mobile : cacher les zones images vides */
+    @media (max-width: 1023px) {
+      .desktop-image-zone.empty {
+        display: none;
+      }
+
+      /* Correction complète de l'affichage messenger sur mobile */
+      .desktop-content-zone {
+        overflow: visible !important;
+        padding: 20px !important;
+      }
+
+      .container {
+        overflow: visible !important;
+        position: static !important;
+      }
+
+      .game-content {
+        overflow: visible !important;
+        position: static !important;
+      }
+
+      #soloMessengerView,
+      #messengerView {
+        position: relative !important;
+        z-index: 10 !important;
+        margin: 0 -20px 1.5rem -20px; /* Déborde du padding du conteneur */
+        box-shadow: var(--effet-miniDropShadow) !important;
+      }
+
+      /* Forcer l'affichage des ombres sur tous les éléments messenger */
+      .messenger-container {
+        overflow: visible !important;
+        isolation: isolate;
+      }
+    }

@@ -15,79 +15,99 @@
     <button id="back-to-home-button" class="back-button">←</button>
 
     <div class="container">
+      <!-- Vue de sélection de mode -->
       <div id="mode-selection-view" class="view">
-        <header class="header">
-          <h1 class="title">Sans-Titre</h1>
-          <img src="/img/img_contextuel/nico_et_ces_parents.png" alt="Ma belle image">
-        </header>
-        <main class="main-content">
+        <div class="desktop-layout-container">
+          <!-- Zone Image (gauche desktop, haut mobile) -->
+          <div class="desktop-image-zone">
+            
+            <img src="/img/img_contextuel/nico_et_ces_parents.png" alt="Nico et ses parents">
+            <h1 class="title">Sans-Titre</h1>
+          </div>
           
-            <h2>Bienvenue sur notre plateforme de serious game !</h2> </br>
-            <p class="description"> Découvrez une aventure interactive où vous êtes le héros. Ce jeu, créé avec la participation d'élèves de collège de La Réunion et soutenu par les associations ARPSH, Planning Familial, Rive, et Asetis, vous emmène à travers des chapitres captivants pour explorer des thèmes essentiels tels que la santé sexuelle et relationnelle.
-          </p>
-          <div class="mode-selection">
-            <h3 class="mode-title">Choisissez votre mode</h3>
-            <div class="mode-options">
-              <!-- Mode Solo - avec image au lieu d'emoji -->
-              <div class="mode-option" data-mode="solo" id="mode-option-solo">
-                <img src="/img/css/solo_1_White.png" alt="Mode Solo" class="mode-icon-img">
-                <div class="mode-name">Solo</div>
-                <div class="mode-description">
-                  Avancez à votre rythme à travers des chapitres interactifs, où
-                  vos choix influencent l'histoire.
+          <!-- Zone Contenu (droite desktop, bas mobile) -->
+          <div class="desktop-content-zone">
+            <h2 style="margin-bottom: 20px;">Bienvenue sur notre plateforme de serious game !</h2>
+            <p class="description">
+              Découvrez une aventure interactive où vous êtes le héros. Ce jeu, créé avec la participation d'élèves de collège de La Réunion et soutenu par les associations ARPSH, Planning Familial, Rive, et Asetis, vous emmène à travers des chapitres captivants pour explorer des thèmes essentiels tels que la santé sexuelle et relationnelle.
+            </p>
+            
+            <div class="mode-selection">
+              <h3 class="mode-title">Choisissez votre mode</h3>
+              <div class="mode-options">
+                <!-- Mode Solo - avec image au lieu d'emoji -->
+                <div class="mode-option" data-mode="solo" id="mode-option-solo">
+                  <img src="/img/css/solo_1_White.png" alt="Mode Solo" class="mode-icon-img">
+                  <div class="mode-name">Solo</div>
+                  <div class="mode-description">
+                    Avancez à votre rythme à travers des chapitres interactifs, où
+                    vos choix influencent l'histoire.
+                  </div>
                 </div>
-              </div>
-              <!-- Mode Groupe - avec image au lieu d'emoji -->
-              <div class="mode-option" data-mode="group" id="mode-option-group">
-                <img src="/img/css/groupe_Blanc.png" alt="Mode Groupe" class="mode-icon-img">
-                <div class="mode-name">Groupe</div>
-                <div class="mode-description">
-                  Rejoignez une partie animée par un intervenant, où chaque
-                  joueur peut participer aux choix et voir les résultats en
-                  temps réel.
+                <!-- Mode Groupe - avec image au lieu d'emoji -->
+                <div class="mode-option" data-mode="group" id="mode-option-group">
+                  <img src="/img/css/groupe_Blanc.png" alt="Mode Groupe" class="mode-icon-img">
+                  <div class="mode-name">Groupe</div>
+                  <div class="mode-description">
+                    Rejoignez une partie animée par un intervenant, où chaque
+                    joueur peut participer aux choix et voir les résultats en
+                    temps réel.
+                  </div>
                 </div>
               </div>
             </div>
+            
+            <button id="proceed-to-levels-button" class="launch-button">
+              Continuer
+            </button>
           </div>
-          <button
-            id="proceed-to-levels-button"
-            class="launch-button"
-          >
-            Continuer
-          </button>
-        </main>
+        </div>
       </div>
 
+      <!-- Vue des niveaux -->
       <div id="home-view" class="view">
-        <header class="header">
-          <img src="../img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Ma belle image">
-        </header>
-        <main class="main-content">
-          <p class="description">
-            Maintenant, sélectionnez l'histoire qui vous tente le plus !
-          </p>
-          <section id="levels-list" class="levels-section"></section>
-        </main>
+        <div class="desktop-layout-container">
+          <!-- Zone Image (gauche desktop, haut mobile) -->
+          <div class="desktop-image-zone">
+            <img src="../img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Nico et Gaetan marche des fiertés">
+          </div>
+          
+          <!-- Zone Contenu (droite desktop, bas mobile) -->
+          <div class="desktop-content-zone">
+            <p class="description">
+              Maintenant, sélectionnez l'histoire qui vous tente le plus !
+            </p>
+            <section id="levels-list" class="levels-section"></section>
+          </div>
+        </div>
       </div>
 
+      <!-- Vue détail niveau -->
       <div id="level-view" class="view">
-        <header id="level-detail-header" class="level-header">
-          <h2 id="level-detail-title" class="level-title"></h2>
-          <div id="level-detail-stickers-header" class="level-stickers"></div>
-        </header>
-        <main class="main-content">
-          <div id="level-detail-description" class="level-description"></div>
-          <div class="creators-section">
-            <h3 class="creators-title">Créé par</h3>
-            <div id="level-detail-creators" class="creators-list"></div>
+        <div class="desktop-layout-container">
+          <!-- Zone Image/Carte (gauche desktop, haut mobile) -->
+          <div class="desktop-image-zone">
+            <!-- Header avec titre et stickers dans la zone image -->
+            <header id="level-detail-header" class="level-header">
+              <h2 id="level-detail-title" class="level-title"></h2>
+              <div id="level-detail-stickers-header" class="level-stickers"></div>
+            </header>
+            
+
           </div>
-          <button
-            id="launch-button"
-            class="launch-button"
-          >
-            Commencer l'aventure
-          </button>
-        </main>
+          
+          <!-- Zone Contenu (droite desktop, bas mobile) -->
+          <div class="desktop-content-zone">            
+            <div id="level-detail-description" class="level-description"></div>
+            <div class="creators-section">
+              <h3 class="creators-title">Créé par</h3>
+              <div id="level-detail-creators" class="creators-list"></div>
+            </div>
+            <button id="launch-button" class="launch-button">
+              Commencer l'aventure
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
