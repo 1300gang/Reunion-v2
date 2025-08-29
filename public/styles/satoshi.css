@@ -21,6 +21,31 @@
 
 *
 */
+
+@font-face {
+	font-family: 'MocraRegular';
+	src: url('../fonts/mocra-regular.eot');
+	src: url('../fonts/mocra-regular.eot?#iefix') format('embedded-opentype'),
+             url('../fonts/mocra-regular.woff2') format('woff2'),
+	     url('../fonts/mocra-regular.woff') format('woff'),
+	     url('../fonts/mocra-regular.ttf') format('truetype'),
+	     url('../fonts/mocra-regular.svg#youworkforthem') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+  font-family: "Satoshi-Light";
+  src: url("../fonts/Satoshi-Light.woff2") format("woff2"),
+    url("../fonts/Satoshi-Light.woff") format("woff"),
+    url("../fonts/Satoshi-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+
 @font-face {
   font-family: "Satoshi-Light";
   src: url("../fonts/Satoshi-Light.woff2") format("woff2"),
