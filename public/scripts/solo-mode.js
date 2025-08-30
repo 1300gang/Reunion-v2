@@ -233,6 +233,7 @@ class SoloGameManager {
     console.log('🎯 Configuration des choix:', questionData.choices);
     
     const titleEl = document.getElementById('soloQuestionTitle');
+     titleEl.style.fontFamily =  'mocraRegular';
     if (titleEl) titleEl.textContent = questionData.question || 'Que faire ?';
     
     const choicesDiv = document.getElementById('soloAnswerChoices');
@@ -240,6 +241,7 @@ class SoloGameManager {
       console.error('❌ Élément soloAnswerChoices non trouvé');
       return;
     }
+
     
     choicesDiv.innerHTML = '';
     this.state.voteComponents = {};
@@ -310,8 +312,9 @@ class SoloGameManager {
     
     const continueBtn = document.createElement('button');
     continueBtn.className = 'button button-primary continue-button';
+    continueBtn.style.fontFamily = 'mocraRegular';
     continueBtn.innerHTML = `
-      <span>${questionData.choices[0] || 'Continuer'}</span>
+      <span>${questionData.choices[0] || 'ConTinuer'}</span>
       <span class="arrow">→</span>
     `;
     
@@ -687,7 +690,7 @@ class SoloGameManager {
     
     if (this.socket) this.socket.disconnect();
     
-    window.location.href = '/menu.html?return=game';
+    window.location.href = '/menu.html';
   }
   
   downloadPDF() {

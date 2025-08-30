@@ -75,6 +75,11 @@ h2 {
   font-family: "Satoshi-Bold", sans-serif;
 }
 
+h1 {
+  color: var(--couleur-noirVolcan);
+  font-family: "mocraRegular", sans-serif;
+}
+
 /* ---------------------------------------------------- */
 /* Structure Flex Responsive Desktop/Mobile */
 /* ---------------------------------------------------- */
@@ -234,7 +239,7 @@ body.level-active #level-view {
 }
 
 .title {
-  font-family: "Satoshi-Bold", sans-serif;
+  font-family: "mocraRegular", sans-serif;
   font-size: 2.5rem;
   font-weight: 900;
   color: var(--couleur-noirVolcan);
@@ -284,6 +289,7 @@ body.level-active #level-view {
   color: var(--couleur-grisFonce);
   border: none;
   padding: 15px 30px;
+  font-family: "mocraRegular", sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   border-radius: 100px;
@@ -465,6 +471,7 @@ body.level-active #level-view {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  font-family: "mocraRegular", sans-serif;
 }
 
 .mode-description {
@@ -522,7 +529,25 @@ body.level-active #level-view {
   transform: translateY(-5px);
   box-shadow: var(--effet-grosDropShadow);
 }
-
+@media (min-width: 1024px) and (max-height: 900px) {
+  .desktop-content-zone {
+    padding: 1.5rem; /* Encore plus de réduction sur les écrans plus bas */
+  }
+  
+  .desktop-content-zone h2 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  
+  .mode-option {
+    padding: 1.2rem;
+  }
+  
+  .mode-icon-img {
+    width: 45px;
+    height: 45px;
+  }
+}
 @media (min-width: 1024px) {
   .level-card:hover {
     transform: translateX(10px);
@@ -536,6 +561,7 @@ body.level-active #level-view {
   left: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
+  font-family: "mocraRegular", sans-serif;
   color: var(--couleur-noirVolcan);
   z-index: 2;
 }
@@ -800,6 +826,16 @@ body.level-active #level-view {
 
 /* Supprimer le margin-top du main-content quand il est dans desktop-content-zone */
 @media (min-width: 1024px) {
+    .desktop-content-zone {
+    width: 50%;
+    height: 100vh;
+    max-height: 100vh;
+    padding: 2rem; /* Réduction du padding de 4rem à 2rem */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+  }
   .desktop-content-zone .main-content {
     margin-top: 0;
     padding: 0;
@@ -816,6 +852,52 @@ body.level-active #level-view {
     text-align: center;
     margin-bottom: 2rem;
   }
+  .desktop-content-zone h2 {
+    margin-bottom: 15px; /* Réduction de 20px à 15px */
+    font-size: 1.4rem; /* Légère réduction de taille */
+  }
+ /* Réduction des marges de la description */
+  .desktop-content-zone .description {
+    font-size: 1rem; /* Réduction de 1.1rem à 1rem */
+    margin-bottom: 2rem; /* Réduction de 3rem à 2rem */
+    line-height: 1.5; /* Légère réduction pour gagner de l'espace */
+  }
+  
+  /* Ajustements pour la sélection de mode */
+  .mode-selection {
+    margin-bottom: 1.5rem; /* Réduction de l'espace */
+  }
+  
+  .mode-title {
+    font-size: 1.2rem; /* Réduction de 1.4rem à 1.2rem */
+    margin-bottom: 1rem; /* Réduction de 1.5rem à 1rem */
+  }
+  
+  .mode-options {
+    gap: 1rem; /* Réduction de 1.5rem à 1rem */
+    margin-bottom: 2rem; /* Réduction de 3rem à 2rem */
+  }
+  
+  .mode-option {
+    padding: 1.5rem; /* Réduction de 2rem à 1.5rem */
+  }
+  
+  /* Réduction des icônes de mode */
+  .mode-icon-img {
+    width: 50px; /* Réduction de 60px à 50px */
+    height: 50px;
+    margin-bottom: 8px; /* Réduction de 10px à 8px */
+  }
+  
+  /* Réduction du bouton de lancement */
+  .launch-button {
+    max-width: 80%; /* Réduction de 90% à 80% */
+    padding: 12px 30px; /* Réduction de 18px à 12px */
+    font-size: 1.1rem; /* Réduction de 1.3rem à 1.1rem */
+    margin: 15px auto; /* Réduction de 20px à 15px */
+  }
+
+
 }
 
 /* Responsive */

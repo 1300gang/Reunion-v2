@@ -488,6 +488,7 @@
 .chapter-details-title {
   font-size: 1.3rem;
   font-weight: 700;
+  font-family: 'mocraRegular', sans-serif;
   color: var(--couleur-blancSite);
 }
 
@@ -733,5 +734,33 @@
   
   .chapter-context {
     -webkit-line-clamp: 1;
+  }
+}
+
+/* Ajustements spécifiques pour écrans plus petits en hauteur (type MacBook Pro 13") */
+@media (min-width: 1024px) and (max-height: 900px) {
+  
+  /* Encore plus de réduction pour les petits écrans */
+  #intervenant-screen .desktop-content-zone,
+  #player-screen .desktop-content-zone,
+  #solo-screen .desktop-content-zone {
+    padding: 50px 1.5rem 0.5rem 1.5rem; /* Encore moins de padding */
+  }
+  
+  #intervenant-screen .image-container {
+    height: 15vh !important; /* Encore plus petit */
+  }
+  
+  .brief {
+    padding: 0.8rem !important;
+  }
+  
+  .form-group {
+    margin-bottom: 0.8rem !important;
+  }
+  
+  .participants-section {
+    padding-top: 0.8rem !important;
+    margin-bottom: 0.8rem !important;
   }
 }

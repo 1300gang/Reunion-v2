@@ -4,7 +4,7 @@
 // Adaptée pour vos fichiers de scénarios existants
 const levelsData = [
   {
-    name: "Stéréotypes, discriminations et consentement",
+    name: "StérÉotypes, discriminations et consentement",
     image: "img/Lea/img_contextuel/(H1)_fond_A.png",
     stickers: [
       "img/Stykers/Stickers consentement texte.png",
@@ -25,7 +25,7 @@ const levelsData = [
     ],
     description:
       "Explorez les questions d'identité, d'orientation et d'acceptation dans un parcours bienveillant et éducatif. Découvrez l'importance du respect et de la diversité.",
-    colors: ["#FF6B6B", "#FFD166"],
+    colors: ["#f46c31", "#f9bb87"],
     creators: [
       "Élèves du collège de La Réunion",
       "ARPSH",
@@ -44,7 +44,7 @@ const levelsData = [
     ],
     description:
       "Une collection complète d'histoires interconnectées explorant différents aspects de la santé sexuelle et relationnelle. Un parcours complet et enrichissant.",
-    colors: ["#797979ff", "#00d9ffff"],
+    colors: ["#ffb000", "#f9da82"],
     creators: ["Équipe pédagogique RSG974"],
     scenarioFile: "anthology_completeh7.json"
   },
@@ -414,6 +414,7 @@ function populateLevelDetails(level) {
   const titleElement = document.getElementById("level-detail-title");
   if (titleElement) {
     titleElement.textContent = level.name;
+    titleElement.style.fontFamily = "MocraRegular, sans-serif";
     titleElement.style.position = 'relative';
     titleElement.style.zIndex = '10';
     titleElement.style.color = 'white';

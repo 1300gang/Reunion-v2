@@ -42,8 +42,8 @@
     rgba(var(--couleur-grisBleuClair-rgb, 201, 226, 229), 0.4),
     rgba(250, 255, 246, 0.2)
   );
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(0.8px) saturate(180%);
+  -webkit-backdrop-filter: blur(0.8px) saturate(180%);
   border: 2px solid rgba(250, 255, 246, 0.6);
   box-shadow: 
     0 8px 32px 0 rgba(50, 42, 34, 0.1),
@@ -55,12 +55,13 @@
 
 /* Background avec texture papier */
 .vote-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
+    display: none; /* Masqué par défaut */  
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
 .vote-background::before {
@@ -72,7 +73,7 @@
   bottom: 0;
   background-image: url("/img/css/painted-relief-texture.jpg");
   background-size: cover;
-  opacity: 0.05;
+  opacity: 0.0;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
@@ -122,8 +123,8 @@
   width: 50px;
   height: 50px;
   background: #00000003;
-  backdrop-filter: blur(20px) saturate(200%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  backdrop-filter: blur(0.8px) saturate(200%);
+  -webkit-backdrop-filter: blur(0.8px) saturate(200%);
   border: 2px solid rgba(250, 255, 246, 0.8);
   border-radius: 50%;
   display: flex;
@@ -139,7 +140,7 @@
 
 /* Lettre de l'icône */
 .icon-letter {
-  font-family: 'Mefta', 'Satoshi-Bold', sans-serif;
+  font-family: "mocraRegular", sans-serif;
   font-weight: 700;
   font-size: 1.3rem;
   color: #fafff6;
@@ -299,7 +300,7 @@
 }
 
 .vote-component.selected .icon-letter {
-  color: #fafff6;
+  color: var(--couleur-blancSite);
   transform: scale(1.1);
 }
 
@@ -353,6 +354,7 @@
   }
   
   .icon-letter {
+    font-family: "mocraRegular", sans-serif;
     font-size: 1.1rem;
   }
   
@@ -385,6 +387,7 @@
   }
   
   .icon-letter {
+    font-family: "mocraRegular", sans-serif;
     font-size: 1rem;
   }
   

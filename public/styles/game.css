@@ -2,21 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url("satoshi.css"); 
 
-/* === VARIABLES CSS COHÉRENTES === */
+/* === VARIABLES CSS COHÃ‰RENTES === */
 :root {
   /* Palette de couleurs du projet */
   --couleur-noirVolcan: #322a22;
   --couleur-beigeVif: #f1e1b8;
   --couleur-grisFonce: #415a51;
   
-  /* COULEURS DYNAMIQUES DU THÈME (modifiées par JS) */
+  /* COULEURS DYNAMIQUES DU THÃˆME (modifiÃ©es par JS) */
   --couleur-jaunePeps: #e9bc40; /* Couleur principale [0] */
   --couleur-grisBleuClair: #c9e2e5; /* Couleur secondaire [1] */
   
   --couleur-blancSite: #fafff6;
   --couleur-beigeNorm: #ede0cf;
   
-  /* Couleurs sémantiques (liées au thème) */
+  /* Couleurs sÃ©mantiques (liÃ©es au thÃ¨me) */
   --primary-color: var(--couleur-jaunePeps);
   --secondary-color: var(--couleur-grisBleuClair);
   --dark-bg: var(--couleur-noirVolcan);
@@ -24,7 +24,7 @@
   --text-dark: var(--couleur-noirVolcan);
   --text-light: var(--couleur-grisFonce);
   
-  /* Variations avec transparence (générées par JS) */
+  /* Variations avec transparence (gÃ©nÃ©rÃ©es par JS) */
   --couleur-primary-light: rgba(233, 188, 64, 0.2);
   --couleur-primary-hover: rgba(233, 188, 64, 0.8);
   --couleur-secondary-light: rgba(201, 226, 229, 0.3);
@@ -65,9 +65,11 @@ body {
     linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
   background-size: 20px 20px;
   min-height: 100vh;
+  max-height: 100vh; /* Limite stricte de la hauteur */
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-y: auto; /* Contrôle strict du scroll vertical */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -100,9 +102,12 @@ h1, h2, h3 {
 /* === LAYOUT === */
 .screen {
   display: none;
-  min-height: 100vh;
+  height: 100vh; /* Hauteur exacte de la viewport */
+  max-height: 100vh; /* Limite stricte */
   padding: 70px 20px 20px 20px;
   animation: fadeIn 0.3s ease-out;
+  overflow-y: auto; /* Scroll interne si nécessaire */
+  overflow-x: hidden;
 }
 
 .screen.active {
@@ -193,7 +198,7 @@ h1, h2, h3 {
   color: var(--couleur-noirVolcan);
   padding: 8px 16px;
   border-radius: 20px;
-  font-family: 'Satoshi-Medium', sans-serif;
+  font-family: "mocraRegular", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   box-shadow: var(--effet-miniDropShadow);
@@ -468,9 +473,11 @@ h1, h2, h3 {
   border-radius: 12px;
   box-shadow: var(--effet-miniDropShadow);
   margin-bottom: 1.5rem;
-  max-height: 400px;
+  min-height: 100px; /* Hauteur minimum */
+  max-height: 400px; /* Hauteur maximum uniquement */
   overflow: hidden;
   position: relative;
+  transition: height 0.3s ease, max-height 0.3s ease; /* Animation d'agrandissement */
 }
 
 .messenger-container::before {
@@ -483,7 +490,7 @@ h1, h2, h3 {
   background-image: var(--texture-papier-image);
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 0.05; /* Très léger pour ne pas gêner la lecture */
+  opacity: 0.05; /* TrÃ¨s lÃ©ger pour ne pas gÃªner la lecture */
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 0;
@@ -491,7 +498,8 @@ h1, h2, h3 {
 
 .messenger-messages {
   padding: 1rem;
-  max-height: 400px;
+  min-height: 80px; /* Hauteur minimum pour le contenu */
+  /* Suppression de max-height fixe pour permettre l'agrandissement naturel */
   overflow-y: auto;
   position: relative;
   z-index: 1;
@@ -674,6 +682,7 @@ h1, h2, h3 {
   flex-shrink: 0;
   box-shadow: var(--effet-miniDropShadow);
 }
+
 #soloCloseAnswersBtn,
 #soloShowAnswersBtn,
 #closeAnswersBtn,
@@ -686,7 +695,7 @@ h1, h2, h3 {
   margin: 0 auto;
   padding: 12px 24px;
   border-radius: 50px;
-  font-family: 'Satoshi-Medium', sans-serif;
+  font-family: 'mocraRegular', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
@@ -699,6 +708,7 @@ h1, h2, h3 {
 #showAnswersBtn:hover {
   filter: brightness(1.2);
 }
+
 #soloCloseAnswersBtn,
 #closeAnswersBtn {
   position: absolute;
@@ -724,6 +734,7 @@ h1, h2, h3 {
   transform: scale(1.1);
   filter: brightness(1.2);
 }
+
 #soloShowAnswersBtn,
 #showAnswersBtn {
   position: fixed;
@@ -744,6 +755,7 @@ h1, h2, h3 {
 #showAnswersBtn .arrow {
   transition: transform 0.3s ease;
 }
+
 #soloShowAnswersBtn:hover .arrow,
 #showAnswersBtn:hover .arrow {
   transform: translateX(4px);
@@ -876,8 +888,9 @@ h1, h2, h3 {
   opacity: 0.8;
 }
 
-/* === BADGE DU NIVEAU (ajouté par JS) === */
+/* === BADGE DU NIVEAU (ajoutÃ© par JS) === */
 .level-theme-badge {
+  display:none;
   animation: slideIn 0.5s ease-out;
 }
 
@@ -940,12 +953,11 @@ h1, h2, h3 {
   }
 }
 
-
 /* ============================================ */
-/* STYLES À CONSERVER (écran de fin uniquement) */
+/* STYLES Ã€ CONSERVER (Ã©cran de fin uniquement) */
 /* ============================================ */
 
-/* === Écran de fin Mode Solo === */
+/* === Ã‰cran de fin Mode Solo === */
 .end-card {
   max-width: 800px;
   margin: 0 auto;
@@ -962,6 +974,7 @@ h1, h2, h3 {
 }
 
 .end-title {
+  font-family: "mocraRegular", sans-serif;
   font-size: 32px;
   color: var(--couleur-noirVolcan);
   margin: 20px 0 30px;
@@ -1007,6 +1020,7 @@ h1, h2, h3 {
 }
 
 .summary-value {
+  font-family: "mocraRegular", sans-serif;
   display: block;
   font-size: 20px;
   font-weight: bold;
@@ -1050,6 +1064,10 @@ h1, h2, h3 {
   align-items: center;
 }
 
+.key-choice-item strong {
+  font-family: "mocraRegular", sans-serif;
+}
+
 .solo-end-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1071,7 +1089,7 @@ h1, h2, h3 {
   color: var(--couleur-jaunePeps);
 }
 
-/* === RESPONSIVE pour l'écran de fin === */
+/* === RESPONSIVE pour l'Ã©cran de fin === */
 @media (max-width: 768px) {
   .solo-end-actions {
     grid-template-columns: 1fr;
@@ -1081,10 +1099,12 @@ h1, h2, h3 {
     grid-template-columns: 1fr;
   }
 }
+
 #player-screen .container {
   max-width: none !important;
   width: 100% !important;
 }
+
 /* ============================================ */
 /* NOUVEAU : Style pour le pill solo           */
 /* ============================================ */
@@ -1093,7 +1113,6 @@ h1, h2, h3 {
   /* Le pill utilisera la couleur du niveau dynamiquement via JS */
   transition: background 0.3s ease;
 }
-
 
 /* === UTILITIES === */
 .text-center { text-align: center; }
@@ -1125,173 +1144,408 @@ h1, h2, h3 {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--couleur-noirVolcan);
 }
-    /* === LAYOUT RESPONSIVE DESKTOP/MOBILE === */
-    .desktop-layout-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
 
-    .desktop-image-zone {
-      width: 100%;
-      height: 30vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* background: var(--couleur-grisBleuClair); */
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-    }
+/* === LAYOUT RESPONSIVE DESKTOP/MOBILE === */
+.desktop-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 87vh; /* Hauteur exacte au lieu de min-height */
+  max-height: 100vh; /* Limite stricte */
+  overflow: hidden; /* Empêche tout débordement */
+}
 
-    .desktop-image-zone img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
+.desktop-image-zone {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: var(--couleur-grisBleuClair); */
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
 
-    .desktop-image-zone .image-placeholder-text {
-      color: var(--couleur-grisFonce);
-      font-family: 'Satoshi-Medium', sans-serif;
-      text-align: center;
-    }
+.desktop-image-zone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 
-    .desktop-content-zone {
-      flex: 1;
-      overflow-y: auto;
-    }
+.desktop-image-zone .image-placeholder-text {
+  color: var(--couleur-grisFonce);
+  font-family: 'Satoshi-Medium', sans-serif;
+  text-align: center;
+}
 
-    /* Desktop uniquement */
-    @media (min-width: 1024px) {
-      .desktop-layout-container {
-        flex-direction: row;
-      }
-      
-      .desktop-image-zone {
-        width: 50%;
-        height: 80vh;
-        margin-bottom: 0;
-        border-radius: 0;
-      }
-      
-      .desktop-image-zone img {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: cover;
-        object-position: center;
-      }
-      
-      .desktop-content-zone {
-        width: 50%;
-        height: 100vh;
-        padding: 20px;
-        overflow-y: auto;
-      }
+.desktop-content-zone {
+  flex: 1;
+  overflow-y: auto;
+}
 
-      /* Layout pleine largeur quand zone image masquée */
-      .desktop-layout-container.full-width .desktop-content-zone {
-        width: 100% !important;
-      }
+/* Desktop uniquement */
+@media (min-width: 1024px) {
+  .desktop-layout-container {
+    flex-direction: row;
+    height: 87vh; /* Hauteur exacte */
+    max-height: 100vh; /* Limite stricte */
+    overflow: hidden; /* Pas de scroll sur le conteneur principal */
+  }
+  
+  .desktop-image-zone {
+    width: 50%;
+    height: 100vh; /* Hauteur exacte */
+    max-height: 100vh; /* Limite stricte */
+    margin-bottom: 0;
+    border-radius: 0;
+    overflow: hidden; /* Empêche débordement des images */
+  }
+  
+  .desktop-image-zone img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .desktop-content-zone {
+    width: 50%;
+    height: 100vh; /* Hauteur exacte */
+    max-height: 100vh; /* Limite stricte */
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
-      .desktop-layout-container.full-width .desktop-image-zone {
-        display: none !important;
-      }
+  /* Layout pleine largeur quand zone image masquÃ©e */
+  .desktop-layout-container.full-width .desktop-content-zone {
+    width: 100% !important;
+  }
 
-      /* Pills centrés sur desktop pour les écrans spécifiés */
-      #intervenant-lobby .pill,
-      #game-control .pill {
-        position: fixed !important;
-        top: 20px !important;
-        left: 75% !important; /* Centré dans la partie droite (50% + 25%) */
-        transform: translateX(-50%) !important;
-        z-index: 1000 !important;
-      }
+  .desktop-layout-container.full-width .desktop-image-zone {
+    display: none !important;
+  }
 
-      /* Pills centrés sur toute la largeur quand layout pleine largeur */
-      .desktop-layout-container.full-width .pill {
-        left: 50% !important;
-      }
+  /* Pills centrÃ©s sur desktop pour les Ã©crans spÃ©cifiÃ©s */
+  #intervenant-lobby .pill,
+  #game-control .pill {
+    position: fixed !important;
+    top: 20px !important;
+    left: 75% !important; /* CentrÃ© dans la partie droite (50% + 25%) */
+    transform: translateX(-50%) !important;
+    z-index: 1000 !important;
+  }
 
-      /* Panneau réponses limité à la partie droite sur desktop */
-      .answer-panel {
-        left: 50% !important;
-        right: 0 !important;
-      }
+  /* Pills centrÃ©s sur toute la largeur quand layout pleine largeur */
+  .desktop-layout-container.full-width .pill {
+    left: 50% !important;
+  }
 
-      /* Panneau réponses sur toute la largeur quand layout pleine largeur */
-      .desktop-layout-container.full-width ~ * .answer-panel,
-      .full-width .answer-panel {
-        left: 0 !important;
-      }
+  /* Panneau rÃ©ponses limitÃ© Ã  la partie droite sur desktop */
+  .answer-panel {
+    left: 50% !important;
+    right: 0 !important;
+  }
 
-      /* Bouton réponses centré sur la partie droite pour le mode solo */
-      #soloShowAnswersBtn {
-        position: fixed !important;
-        bottom: 30px !important;
-        left: 75% !important; /* Centré dans la partie droite (50% + 25%) */
-        transform: translateX(-50%) !important;
-        z-index: 500 !important;
-      }
+  /* Panneau rÃ©ponses sur toute la largeur quand layout pleine largeur */
+  .desktop-layout-container.full-width ~ * .answer-panel,
+  .full-width .answer-panel {
+    left: 0 !important;
+  }
 
-      /* Bouton réponses centré sur toute la largeur quand layout pleine largeur */
-      .desktop-layout-container.full-width #soloShowAnswersBtn {
-        left: 50% !important;
-      }
+  /* Bouton rÃ©ponses centrÃ© sur la partie droite pour le mode solo */
+  #soloShowAnswersBtn {
+    position: fixed !important;
+    bottom: 30px !important;
+    left: 75% !important; /* CentrÃ© dans la partie droite (50% + 25%) */
+    transform: translateX(-50%) !important;
+    z-index: 500 !important;
+  }
 
-      /* Messenger View prend 80% de la hauteur sur desktop */
-      #soloMessengerView {
-        max-height: 70vh !important;
-        min-height: auto !important;
-        height: auto !important;
-        overflow-y: auto;
-      }
+  /* Bouton rÃ©ponses centrÃ© sur toute la largeur quand layout pleine largeur */
+  .desktop-layout-container.full-width #soloShowAnswersBtn {
+    left: 50% !important;
+  }
 
-      #soloMessengerView .messenger-messages {
-        max-height: 70vh !important;
-        overflow-y: auto;
-      }
+  /* Messenger View prend 80% de la hauteur sur desktop */
+  #soloMessengerView {
+    max-height: 70vh !important;
+    min-height: auto !important;
+    height: auto !important;
+    overflow-y: auto;
+  }
 
-      /* Suppression des styles d'image sur desktop */
-      .desktop-image-zone {
-        box-shadow: none;
-        border-radius: 0;
-      }
-    }
+  #soloMessengerView .messenger-messages {
+    max-height: 70vh !important;
+    overflow-y: auto;
+  }
 
-    /* Mobile : cacher les zones images vides */
-    @media (max-width: 1023px) {
-      .desktop-image-zone.empty {
-        display: none;
-      }
+  /* Suppression des styles d'image sur desktop */
+  .desktop-image-zone {
+    box-shadow: none;
+    border-radius: 0;
+  }
 
-      /* Correction complète de l'affichage messenger sur mobile */
-      .desktop-content-zone {
-        overflow: visible !important;
-        padding: 20px !important;
-      }
+  /* === CORRECTION DES SCROLLS INDÉSIRABLES SUR DESKTOP === */
+  
+  /* Écrans concernés : intervenant-screen, player-screen, solo-screen */
+  #intervenant-screen .desktop-content-zone,
+  #player-screen .desktop-content-zone,
+  #solo-screen .desktop-content-zone {
+    height: calc(100vh - 60px) !important; /* 100vh - hauteur du pill + marges */
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto; /* Scroll seulement si vraiment nécessaire */
+    padding-top: 60px; /* Espace pour le pill fixe */
+  }
+  
+  /* Container à l'intérieur des zones de contenu */
+  #intervenant-screen .desktop-content-zone .container,
+  #player-screen .desktop-content-zone .container,
+  #solo-screen .desktop-content-zone .container {
+    max-width: none !important;
+    width: 100% !important;
+    height: 100%; /* Prend toute la hauteur disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le contenu verticalement */
+  }
+  
+  /* Cards dans ces écrans : prennent la hauteur nécessaire sans dépasser */
+  #intervenant-screen .card,
+  #player-screen .card {
+    margin-bottom: 1rem; /* Réduction des marges */
+    flex-shrink: 0; /* Ne se compresse pas */
+  }
+  
+  /* Réduction des paddings pour optimiser l'espace */
+  #intervenant-screen .desktop-content-zone,
+  #player-screen .desktop-content-zone {
+    padding: 60px 2rem 1rem 2rem; /* Padding-top pour le pill, réduction des autres */
+  }
+  
+  /* Écran solo : ajustements spécifiques */
+  #solo-screen .desktop-content-zone {
+    padding: 60px 1rem 1rem 1rem; /* Moins de padding sur les côtés */
+  }
+  
+  #solo-screen .game-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* EXCEPTION : Messenger garde son scroll */
+  .messenger-container,
+  .messenger-messages {
+    overflow-y: auto !important; /* Garde le scroll pour le messenger */
+    max-height: 400px !important; /* Hauteur fixe */
+  }
+  
+  /* Réduction de l'image dans l'écran intervenant pour gagner de l'espace */
+  #intervenant-screen .image-container {
+    height: 20vh !important; /* Réduction de 30vh à 20vh */
+    margin-bottom: 1rem !important; /* Réduction de la marge */
+  }
+  
+  /* Optimisation des formulaires */
+  #intervenant-screen .form-group,
+  #player-screen .form-group {
+    margin-bottom: 1rem; /* Réduction de 1.5rem à 1rem */
+  }
+  
+  /* Boutons plus compacts */
+  #intervenant-screen .button,
+  #player-screen .button {
+    padding: 10px 20px; /* Réduction du padding */
+  }
+  
+  /* Brief intervenant plus compact */
+  #intervenant-screen .brief {
+    padding: 1rem; /* Réduction de 1.5rem à 1rem */
+    margin-bottom: 1rem; /* Réduction de 2rem à 1rem */
+  }
+  
+  /* Sections participants plus compactes */
+  .participants-section {
+    padding-top: 1rem; /* Réduction de 1.5rem à 1rem */
+    margin-bottom: 1rem; /* Réduction de 1.5rem à 1rem */
+  }
+  
+  /* QR Code section plus compacte */
+  .qr-container {
+    margin: 1rem 0; /* Réduction de 1.5rem à 1rem */
+  }
+  
+  /* Game content dans solo : optimisation hauteur */
+  #solo-screen .context-box {
+    margin-bottom: 1rem; /* Réduction des marges */
+  }
+  
+  /* Pills : s'assurer qu'ils sont bien positionnés */
+  .pill.floating-pill {
+    position: fixed !important;
+    top: 20px !important;
+    left: 75% !important; /* Centré sur la partie droite (50% + 25%) */
+    transform: translateX(-50%) !important;
+    z-index: 1000 !important;
+  }
+}
 
-      .container {
-        overflow: visible !important;
-        position: static !important;
-      }
+/* Mobile : cacher les zones images vides */
+@media (max-width: 1023px) {
+  .desktop-image-zone.empty {
+    display: none;
+  }
 
-      .game-content {
-        overflow: visible !important;
-        position: static !important;
-      }
+  /* Correction complète de l'affichage messenger sur mobile */
+  .desktop-content-zone {
+    overflow: visible !important;
+    padding: 20px !important;
+  }
 
-      #soloMessengerView,
-      #messengerView {
-        position: relative !important;
-        z-index: 10 !important;
-        margin: 0 -20px 1.5rem -20px; /* Déborde du padding du conteneur */
-        box-shadow: var(--effet-miniDropShadow) !important;
-      }
+  .container {
+    overflow: visible !important;
+    position: static !important;
+  }
 
-      /* Forcer l'affichage des ombres sur tous les éléments messenger */
-      .messenger-container {
-        overflow: visible !important;
-        isolation: isolate;
-      }
-    }
+  .game-content {
+    overflow: visible !important;
+    position: static !important;
+  }
+
+  #soloMessengerView,
+  #messengerView {
+    position: relative !important;
+    z-index: 10 !important;
+    margin: 0 -20px 1.5rem -20px; /* Déborde du padding du conteneur */
+    box-shadow: var(--effet-miniDropShadow) !important;
+  }
+
+  /* Forcer l'affichage des ombres sur tous les éléments messenger */
+  .messenger-container {
+    overflow: visible !important;
+    isolation: isolate;
+  }
+}
+
+/* Ajustements spécifiques pour écrans plus petits en hauteur (type MacBook Pro 13") */
+@media (min-width: 1024px) and (max-height: 900px) {
+  
+  /* Encore plus de réduction pour les petits écrans */
+  #intervenant-screen .desktop-content-zone,
+  #player-screen .desktop-content-zone,
+  #solo-screen .desktop-content-zone {
+    padding: 50px 1.5rem 0.5rem 1.5rem; /* Encore moins de padding */
+  }
+  
+  #intervenant-screen .image-container {
+    height: 15vh !important; /* Encore plus petit */
+  }
+  
+  .brief {
+    padding: 0.8rem !important;
+  }
+  
+  .form-group {
+    margin-bottom: 0.8rem !important;
+  }
+  
+  .participants-section {
+    padding-top: 0.8rem !important;
+    margin-bottom: 0.8rem !important;
+  }
+}
+
+/* === CORRECTION AFFICHAGE MESSENGER - Ordre des messages === */
+
+/* Ciblage spécifique uniquement des écrans de jeu avec contexte + messenger */
+#solo-screen .game-content,
+#player-screen .game-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
+/* Contexte en premier - uniquement dans les écrans de jeu */
+#solo-screen .context-box,
+#solo-screen #soloQuestionContext,
+#player-screen .context-box,
+#player-screen #playerQuestionContext {
+  order: 1 !important;
+  flex-shrink: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Messenger en deuxième - uniquement dans les écrans de jeu */
+#solo-screen .messenger-container,
+#solo-screen #soloMessengerView,
+#player-screen .messenger-container,
+#player-screen #messengerView {
+  order: 2 !important;
+  flex-grow: 1 !important;
+  flex-shrink: 0 !important;
+  display: block !important; /* Pas de flex pour le container messenger */
+}
+
+/* Messages à l'intérieur du messenger - ordre naturel */
+.messenger-messages {
+  display: block !important; /* Retour au display normal */
+  overflow-y: auto !important;
+  padding: 1rem !important;
+}
+
+/* Messages individuels - ordre naturel du DOM */
+.message {
+  display: flex !important; /* Flex uniquement pour l'alignement interne */
+  margin-bottom: 1.5rem !important;
+}
+
+/* Bouton répondre en dernier - uniquement dans les écrans de jeu */
+#solo-screen .answer-toggle,
+#solo-screen #soloShowAnswersBtn,
+#player-screen .answer-toggle,
+#player-screen #showAnswersBtn {
+  order: 3 !important;
+  flex-shrink: 0 !important;
+  margin-top: auto !important;
+}
+
+/* Auto-scroll vers le bas pour nouveaux messages */
+.messenger-messages {
+  scroll-behavior: smooth !important;
+}
+
+/* Correction pour le mode desktop spécifiquement */
+@media (min-width: 1024px) {
+  
+  /* Hauteur des game-content uniquement dans les écrans de jeu */
+  #solo-screen .game-content,
+  #player-screen .game-content {
+    height: calc(100vh - 120px) !important;
+    max-height: calc(100vh - 120px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Messenger dans les écrans de jeu - croissance dynamique */
+  #solo-screen .messenger-container,
+  #solo-screen #soloMessengerView,
+  #player-screen .messenger-container,
+  #player-screen #messengerView {
+    flex: 0 1 auto !important; /* Ne grandit que selon le contenu */
+    min-height: 100px !important;
+    max-height: calc(100vh - 200px) !important; /* Maximum autorisé */
+    height: auto !important; /* Hauteur automatique selon le contenu */
+  }
+  
+  /* Messages s'adaptent au contenu */
+  #solo-screen .messenger-messages,
+  #player-screen .messenger-messages {
+    height: auto !important; /* Hauteur selon le contenu */
+    max-height: calc(100vh - 250px) !important;
+    overflow-y: auto !important;
+  }
+}

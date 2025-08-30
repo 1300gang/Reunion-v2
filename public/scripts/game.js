@@ -104,7 +104,7 @@ function initializeTheme() {
     applyTheme(colors);
     
     if (levelNameParam) {
-      createLevelBadge(decodeURIComponent(levelNameParam), colors);
+      // createLevelBadge(decodeURIComponent(levelNameParam), colors);
     }
     
     sessionStorage.setItem('gameConfig', JSON.stringify({
@@ -128,7 +128,7 @@ function initializeTheme() {
         gameConfig.levelName = config.level;
         
         applyTheme(config.levelColors);
-        createLevelBadge(config.level, config.levelColors);
+        // createLevelBadge(config.level, config.levelColors);
         
         console.log(`✅ Thème "${config.level}" chargé depuis sessionStorage`);
         return;
@@ -444,6 +444,7 @@ function startGame() {
   
   hideElement('intervenant-lobby');
   hideElement('prout');
+  hideElement('reprout');
 }
 
 function endGame() {
@@ -702,6 +703,7 @@ function handlePlayerContinue(questionData) {
 
 function setupPlayerChoices(questionData) {
   const titleEl = document.getElementById('playerQuestionTitle');
+  titleEl.style.fontFamily =  'mocraRegular';
   if (titleEl) titleEl.textContent = questionData.question || 'Que faire ?';
   
   const choicesDiv = document.getElementById('answerChoices');
@@ -1170,7 +1172,7 @@ function newSession() {
     sessionStorage.removeItem('currentScenarioFile');
   
     socket.disconnect();
-    window.location.href = '/menu.html?return=game';
+    window.location.href = '/menu.html';
   }
 }
 
