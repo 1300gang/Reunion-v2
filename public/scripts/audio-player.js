@@ -259,7 +259,7 @@ class AmbientAudioPlayer {
       .audio-notification {
         position: fixed;
         bottom: 100px;
-        left: 30px;
+        left: 100px;
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.3);

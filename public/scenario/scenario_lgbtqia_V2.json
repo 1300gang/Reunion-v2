@@ -10,7 +10,7 @@
       "id": "scene1",
       "type": "messenger_scenario",
       "context": "Gaëtan et Nicolas se rencontrent à la marche des fiertés. Nicolas semble gêné alors Gaëtan va lui parler.",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -89,7 +89,7 @@
       "id": "scene1a",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -134,7 +134,7 @@
       "id": "scene1b",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -186,7 +186,7 @@
       "id": "scene1c",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -238,7 +238,7 @@
       "id": "scene2",
       "type": "messenger_scenario",
       "context": "Gaëtan propose son aide à Nicolas concernant le coming-out à ses parents.",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -303,7 +303,7 @@
       "id": "scene2a",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -355,7 +355,7 @@
       "id": "scene2b",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -400,7 +400,7 @@
       "id": "scene2c",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -459,7 +459,7 @@
       "id": "scene3",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+      "contextual_image": "img/img_contextuel/nico_gaetan_marche_des_fierte.webp",
       "conversation": {
         "participants": [
           {
@@ -492,7 +492,7 @@
       "id": "scene4",
       "type": "messenger_scenario",
       "context": "Gaëtan marche dans le parc de la bibliothèque de La Rivière pour se rendre à son intervention au lycée Jean Joly, et passe à côté d'un groupe de lycéen·nes. Il entend une personne raconter une histoire en insultant les personnes homosexuelles.",
-      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.webp",
       "conversation": {
         "participants": [
           {
@@ -562,7 +562,7 @@
       "id": "scene4a",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.webp",
       "conversation": {
         "participants": [
           {
@@ -614,7 +614,7 @@
       "id": "scene4b",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.webp",
       "conversation": {
         "participants": [
           {
@@ -666,7 +666,7 @@
       "id": "scene4c",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.png",
+      "contextual_image": "img/img_contextuel/gaetan_et_les_jeunes.webp",
       "conversation": {
         "participants": [
           {

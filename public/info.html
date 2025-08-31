@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet Vidéo Ludique - Guide Pédagogique EVARS</title>
     <style>
+        /* Import des polices */
+        @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        @import url("styles/satoshi.css");
+        /* Variables CSS adaptées de menu.css */
+        :root {
+            --couleur-noirVolcan: #322a22;
+            --couleur-beigeVif: #f1e1b8;
+            --couleur-grisFonce: #415a51;
+            --couleur-jaunePeps: #e9bc40;
+            --couleur-grisBleuClair: #c9e2e5;
+            --couleur-blancSite: #fafff6;
+            --couleur-beigeNorm: #ede0cf;
+            
+            --couleur-primary-light: rgba(233, 188, 64, 0.2);
+            --couleur-primary-hover: rgba(233, 188, 64, 0.8);
+            --couleur-secondary-light: rgba(201, 226, 229, 0.3);
+            --couleur-secondary-hover: rgba(201, 226, 229, 0.8);
+
+            --texture-papier-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            --texture-papier-size: 60px 60px;
+            --texture-papier-repeat: repeat;
+            --texture-papier-opacity: 0.5;
+            --texture-papier-blend-mode: multiply;
+
+            --effet-backgroundBlur: blur(4px);
+            --effet-innerShadow: inset -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+            --effet-grosDropShadow: -9px 4px 11px 0px rgba(0, 0, 0, 0.25);
+            --effet-miniDropShadow: -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,10 +43,16 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Satoshi-Medium", sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--couleur-noirVolcan);
+            background: var(--couleur-blancSite);
+            background-image: linear-gradient(
+                var(--couleur-secondary-light) 1px,
+                transparent 1px
+            ),
+            linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
+            background-size: 20px 20px;
             min-height: 100vh;
         }
         
@@ -26,34 +63,80 @@
         }
         
         header {
-            background: white;
+            background: var(--couleur-blancSite);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--effet-grosDropShadow);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-papier-image);
+            background-size: var(--texture-papier-size);
+            background-repeat: var(--texture-papier-repeat);
+            opacity: var(--texture-papier-opacity);
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        header > * {
+            position: relative;
+            z-index: 2;
         }
         
         h1 {
-            color: #ff6b6b;
+            color: var(--couleur-noirVolcan);
+            font-family: "mocraRegular", sans-serif;
             font-size: 2.5em;
+            font-weight: 900;
             margin-bottom: 10px;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: 2px;
         }
         
         .subtitle {
-            color: #666;
+            color: var(--couleur-grisFonce);
             font-size: 1.2em;
             margin-top: 10px;
         }
         
         nav {
-            background: white;
+            background: var(--couleur-blancSite);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--effet-miniDropShadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-papier-image);
+            background-size: var(--texture-papier-size);
+            background-repeat: var(--texture-papier-repeat);
+            opacity: var(--texture-papier-opacity);
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        nav > * {
+            position: relative;
+            z-index: 2;
         }
         
         nav ul {
@@ -65,102 +148,124 @@
         }
         
         nav a {
-            color: #667eea;
+            color: var(--couleur-grisFonce);
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 25px;
-            background: #f0f0f0;
+            background: var(--couleur-grisBleuClair);
             transition: all 0.3s;
             display: inline-block;
+            font-weight: 500;
         }
         
         nav a:hover {
-            background: #667eea;
-            color: white;
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-blancSite);
             transform: translateY(-2px);
+            box-shadow: var(--effet-miniDropShadow);
         }
         
         .section {
-            background: white;
+            background: var(--couleur-blancSite);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--effet-miniDropShadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-papier-image);
+            background-size: var(--texture-papier-size);
+            background-repeat: var(--texture-papier-repeat);
+            opacity: var(--texture-papier-opacity);
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        .section > * {
+            position: relative;
+            z-index: 2;
         }
         
         h2 {
-            color: #ff6b6b;
+            color: var(--couleur-noirVolcan);
+            font-family: "mocraRegular", sans-serif;
             font-size: 2em;
+            font-weight: 700;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #ff6b6b;
+            border-bottom: 3px solid var(--couleur-jaunePeps);
         }
         
         h3 {
-            color: #667eea;
+            color: var(--couleur-grisFonce);
             font-size: 1.5em;
+            font-weight: 600;
             margin: 25px 0 15px 0;
         }
         
         h4 {
-            color: #764ba2;
+            color: var(--couleur-noirVolcan);
             font-size: 1.2em;
+            font-weight: 600;
             margin: 20px 0 10px 0;
         }
         
         .module-card {
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            background: var(--couleur-jaunePeps);
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
-            color: white;
+            color: var(--couleur-noirVolcan);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--effet-grosDropShadow);
+            transition: transform 0.3s ease;
         }
-        
-        .module-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .module-card:hover {
+            transform: translateY(-5px);
         }
         
         .module-card h3 {
-            color: white;
+            color: var(--couleur-noirVolcan);
             margin-bottom: 15px;
+            font-weight: 700;
         }
         
         .info-box {
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
+            background: var(--couleur-secondary-light);
+            border-left: 5px solid var(--couleur-grisBleuClair);
             padding: 20px;
             margin: 20px 0;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: var(--effet-miniDropShadow);
         }
         
         .warning-box {
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
+            background: var(--couleur-primary-light);
+            border-left: 5px solid var(--couleur-jaunePeps);
             padding: 20px;
             margin: 20px 0;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: var(--effet-miniDropShadow);
         }
         
         .resources-box {
-            background: #d4edda;
-            border-left: 5px solid #28a745;
+            background: linear-gradient(135deg, var(--couleur-grisBleuClair), var(--couleur-blancSite));
+            border-left: 5px solid var(--couleur-grisFonce);
             padding: 20px;
             margin: 20px 0;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: var(--effet-miniDropShadow);
         }
         
         ul {
@@ -180,78 +285,193 @@
         }
         
         .theme-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            background: var(--couleur-grisBleuClair);
+            border: 2px solid transparent;
+            border-radius: 16px;
             padding: 20px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .theme-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-papier-image);
+            background-size: var(--texture-papier-size);
+            background-repeat: var(--texture-papier-repeat);
+            opacity: var(--texture-papier-opacity);
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        .theme-card > * {
+            position: relative;
+            z-index: 2;
         }
         
         .theme-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-color: #667eea;
+            box-shadow: var(--effet-grosDropShadow);
+            background: var(--couleur-jaunePeps);
+            border-color: var(--couleur-jaunePeps);
         }
         
         .theme-card h4 {
-            color: #ff6b6b;
+            color: var(--couleur-noirVolcan);
             margin-bottom: 10px;
+            font-weight: 600;
         }
         
         .button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-noirVolcan);
             padding: 12px 30px;
             border: none;
             border-radius: 25px;
             font-size: 1.1em;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: inline-block;
             text-decoration: none;
             margin: 10px 5px;
+            box-shadow: var(--effet-miniDropShadow);
         }
         
         .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            background: var(--couleur-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--effet-grosDropShadow);
         }
         
         footer {
-            background: white;
+            background: var(--couleur-blancSite);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
             margin-top: 50px;
+            box-shadow: var(--effet-miniDropShadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-papier-image);
+            background-size: var(--texture-papier-size);
+            background-repeat: var(--texture-papier-repeat);
+            opacity: var(--texture-papier-opacity);
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        footer > * {
+            position: relative;
+            z-index: 2;
         }
         
         .partners {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 15px;
             margin-top: 20px;
         }
         
         .partner {
             padding: 15px 25px;
-            background: #f0f0f0;
-            border-radius: 10px;
+            background: var(--couleur-grisBleuClair);
+            border-radius: 25px;
+            font-weight: 600;
+            color: var(--couleur-noirVolcan);
+            transition: all 0.3s ease;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .partner:hover {
+            background: var(--couleur-jaunePeps);
+            transform: translateY(-2px);
+        }
+
+        /* Styles pour les listes numérotées dans les révélations */
+        .revelation-steps {
+            counter-reset: step-counter;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .revelation-steps > li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 60px;
+            margin: 25px 0;
+        }
+
+        .revelation-steps > li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-noirVolcan);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .revelation-steps h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--couleur-grisFonce);
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 1.8em; }
-            h2 { font-size: 1.5em; }
-            .container { padding: 10px; }
-            .section { padding: 20px; }
+            h1 { 
+                font-size: 1.8em; 
+            }
+            h2 { 
+                font-size: 1.5em; 
+            }
+            .container { 
+                padding: 10px; 
+            }
+            .section { 
+                padding: 20px; 
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .partners {
+                gap: 10px;
+            }
+            .partner {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Projet Vidéo Ludique</h1>
+            <h1>prOjet vidEo ludiQue</h1>
             <p class="subtitle">Outil permettant aux équipes d'intervention du corps enseignant de promouvoir la santé relationnelle, affective et sexuelle</p>
         </header>
         
@@ -417,14 +637,22 @@
             
             <h3>Comment réagir ?</h3>
             
-            <h4>1. Prendre en compte la parole de l'élève</h4>
-            <p>Inviter l'élève à s'exprimer sans jamais lui assurer de conserver secrètes ses confidences mais en l'assurant de votre aide et soutien. L'écouter, le laisser parler librement sans émettre de doute. Noter mot pour mot les propos tenus.</p>
-            
-            <h4>2. Évaluer la situation de danger</h4>
-            <p>Évaluer le risque de danger auquel est exposé l'élève et la nécessité de le protéger immédiatement.</p>
-            
-            <h4>3. Informer l'élève des suites</h4>
-            <p>Expliquer les démarches : information à l'autorité hiérarchique, transmission aux autorités compétentes (CRIP ou procureur), information aux détenteurs de l'autorité parentale (sauf si contraire à l'intérêt de l'élève).</p>
+            <ol class="revelation-steps">
+                <li>
+                    <h4>Prendre en compte la parole de l'élève</h4>
+                    <p>Inviter l'élève à s'exprimer sans jamais lui assurer de conserver secrètes ses confidences mais en l'assurant de votre aide et soutien. L'écouter, le laisser parler librement sans émettre de doute. Noter mot pour mot les propos tenus.</p>
+                </li>
+                
+                <li>
+                    <h4>Évaluer la situation de danger</h4>
+                    <p>Évaluer le risque de danger auquel est exposé l'élève et la nécessité de le protéger immédiatement.</p>
+                </li>
+                
+                <li>
+                    <h4>Informer l'élève des suites</h4>
+                    <p>Expliquer les démarches : information à l'autorité hiérarchique, transmission aux autorités compétentes (CRIP ou procureur), information aux détenteurs de l'autorité parentale (sauf si contraire à l'intérêt de l'élève).</p>
+                </li>
+            </ol>
         </section>
         
         <section id="utilisation" class="section">
@@ -438,17 +666,27 @@
             
             <h3>Déroulé de la séance</h3>
             
-            <h4>1. Introduction du module (5-10 min)</h4>
-            <p>L'intervenant·e présente le cadre, les objectifs et la thématique abordée.</p>
-            
-            <h4>2. Lancement du support vidéo-ludique (15-25 min)</h4>
-            <p>Le serious game est lancé en collectif. Les participant·es font des choix interactifs qui influencent le scénario.</p>
-            
-            <h4>3. Clôture du scénario & orientation (5 min)</h4>
-            <p>Rappel des ressources disponibles : lieux d'écoute, structures d'accompagnement, professionnels de santé.</p>
-            
-            <h4>4. Expression du ressenti & ouverture thématique (10-15 min)</h4>
-            <p>Temps de parole pour recueillir les impressions et introduire une réflexion sur la thématique.</p>
+            <ol class="revelation-steps">
+                <li>
+                    <h4>Introduction du module (5-10 min)</h4>
+                    <p>L'intervenant·e présente le cadre, les objectifs et la thématique abordée.</p>
+                </li>
+                
+                <li>
+                    <h4>Lancement du support vidéo-ludique (15-25 min)</h4>
+                    <p>Le serious game est lancé en collectif. Les participant·es font des choix interactifs qui influencent le scénario.</p>
+                </li>
+                
+                <li>
+                    <h4>Clôture du scénario & orientation (5 min)</h4>
+                    <p>Rappel des ressources disponibles : lieux d'écoute, structures d'accompagnement, professionnels de santé.</p>
+                </li>
+                
+                <li>
+                    <h4>Expression du ressenti & ouverture thématique (10-15 min)</h4>
+                    <p>Temps de parole pour recueillir les impressions et introduire une réflexion sur la thématique.</p>
+                </li>
+            </ol>
         </section>
         
         <section id="ressources" class="section">
@@ -493,7 +731,7 @@
                 </ul>
             </div>
             
-            <div class="module-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="module-card">
                 <h3>Module : Le consentement</h3>
                 <h4>Définition :</h4>
                 <p>Le consentement est un accord volontaire pour faire quelque chose. Il doit être :</p>
@@ -519,7 +757,7 @@
                 <div class="partner">ARS La Réunion</div>
             </div>
             
-            <p style="margin-top: 30px; color: #666;">
+            <p style="margin-top: 30px; color: var(--couleur-grisFonce);">
                 Projet soutenu par l'Agence Régionale de Santé de La Réunion<br>
                 © 2025 - Tous droits réservés
             </p>

@@ -234,7 +234,7 @@
       "id": "scene2",
       "type": "messenger_scenario",
       "context": "Mya et Yanis marchent toujours vers l'arrêt de bus. On voit un paysage de ville défiler derrière eux. Au loin, les deux personnages remarquent une publicité.",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.webp",
       "conversation": {
         "participants": [
           {
@@ -326,7 +326,7 @@
       "id": "scene2a",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.webp",
       "conversation": {
         "participants": [
           {
@@ -370,7 +370,7 @@
       "id": "scene2b",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.webp",
       "conversation": {
         "participants": [
           {
@@ -414,7 +414,7 @@
       "id": "scene2c",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_B.webp",
       "conversation": {
         "participants": [
           {
@@ -458,7 +458,7 @@
       "id": "scene3",
       "type": "messenger_scenario",
       "context": "Yanis et Mya arrivent à la gare routière. Ils s'apprêtent à monter dans le bus. Mya monte la première et valide son titre de transport auprès du conducteur. Il la regarde de haut en bas avec mépris.",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.webp",
       "conversation": {
         "participants": [
           {
@@ -541,7 +541,7 @@
       "id": "scene3a",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.webp",
       "conversation": {
         "participants": [
           {
@@ -592,7 +592,7 @@
       "id": "scene3b",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.webp",
       "conversation": {
         "participants": [
           {
@@ -650,7 +650,7 @@
       "id": "scene3c",
       "type": "messenger_scenario",
       "context": "",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_C.webp",
       "conversation": {
         "participants": [
           {
@@ -1203,7 +1203,7 @@
       "id": "scene7",
       "type": "messenger_scenario",
       "context": "Mya et Yanis quittent le bus et se dirigent vers la plage. On voit le front de mer de St Pierre avec les snacks défiler derrière eux. Sur leur route ils croisent des toilettes publiques.",
-      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_F.png",
+      "contextual_image": "img/Lea/img_contextuel/(H1)_fond_F.webp",
       "conversation": {
         "participants": [
           {
