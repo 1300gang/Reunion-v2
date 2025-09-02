@@ -41,9 +41,9 @@ function isContinueQuestion(questionData) {
 
 // --- Database-driven Lobby Functions ---
 
-async function createLobby(id, gmId, scenario, mode) {
+async function createLobby(id, gmId, scenario, mode, scenarioFile) {
     const sql = `INSERT INTO lobbies (id, gmId, currentQuestion, questionPath, gameStarted, createdAt, scenarioTitle, scenarioFile, mode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const params = [id, gmId, null, JSON.stringify([]), 0, Date.now(), scenario.scenario_info.title, scenario.scenario_info.file, mode];
+    const params = [id, gmId, null, JSON.stringify([]), 0, Date.now(), scenario.scenario_info.title, scenarioFile, mode];
     await db.run(sql, params);
 }
 
@@ -84,6 +84,12 @@ async function recordAnswer(lobbyId, playerName, questionId, answer) {
     return await db.run(sql, [lobbyId, playerName, questionId, answer]);
 }
 
+async function recordFeedback(lobbyId, playerName, feedback) {
+    const sql = `INSERT INTO feedbacks (lobbyId, playerName, feedback, createdAt) VALUES (?, ?, ?, ?)`;
+    const params = [lobbyId, playerName, feedback, Date.now()];
+    return await db.run(sql, params);
+}
+
 async function getVotesForQuestion(lobbyId, questionId) {
     const sql = `SELECT answer, COUNT(answer) as count, GROUP_CONCAT(playerName) as players FROM responses WHERE lobbyId = ? AND questionId = ? GROUP BY answer`;
     return await db.all(sql, [lobbyId, questionId]);
@@ -99,6 +105,7 @@ async function getPlayerResponses(lobbyId, playerName) {
 }
 
 async function deleteLobby(lobbyId) {
+    await db.run("DELETE FROM feedbacks WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM responses WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM players WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM lobbies WHERE id = ?", [lobbyId]);
@@ -119,13 +126,11 @@ async function cleanupInactiveLobbies() {
 const fileAccess = {};
 
 module.exports = {
-  // Utils
   sanitizeInput,
   isValidLobbyName,
   isValidPlayerName,
   generateSecureFilename,
   isContinueQuestion,
-  // DB Functions
   createLobby,
   getLobby,
   addPlayer,
@@ -134,11 +139,10 @@ module.exports = {
   removePlayer,
   updateLobby,
   recordAnswer,
+  recordFeedback,
   getVotesForQuestion,
   getPlayerResponses,
   deleteLobby,
-  // Maintenance
   cleanupInactiveLobbies,
-  // Temporary State
   fileAccess,
 };

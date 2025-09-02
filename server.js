@@ -66,24 +66,19 @@ app.get('/api/scenarios', (req, res) => {
 // Route pour le téléchargement des exports CSV
 app.get('/exports/:filename', async (req, res) => {
   const filename = req.params.filename;
-  
   if (!/^results_[a-zA-Z0-9_\-]+\.csv$/.test(filename)) {
     return res.status(400).send('Nom de fichier invalide');
   }
-  
   const filePath = path.join(__dirname, 'exports', filename);
-  
   if (!lobbyManager.fileAccess[filename]) {
     return res.status(403).send('Accès non autorisé');
   }
-  
   try {
     await fs.access(filePath);
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.sendFile(filePath);
-    
     setTimeout(async () => {
       try {
         await fs.unlink(filePath);
@@ -98,17 +93,11 @@ app.get('/exports/:filename', async (req, res) => {
 });
 
 // === INITIALISATION DES MODULES ===
-
-// Initialiser les gestionnaires d'événements Socket.IO
 initializeSocketIO(io);
-
-// Lancer le nettoyage périodique des lobbies inactifs
 setInterval(lobbyManager.cleanupInactiveLobbies, 60 * 60 * 1000);
 
 // === DÉMARRAGE DU SERVEUR ===
 const PORT = process.env.PORT || 3000;
-
-// Précharger les scénarios puis démarrer le serveur
 scenarioLoader.preloadScenarios().then(() => {
   server.listen(PORT, () => {
     console.log(`\n${'='.repeat(50)}`);
