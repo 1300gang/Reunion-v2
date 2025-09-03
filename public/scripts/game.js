@@ -38,24 +38,32 @@ const gameState = {
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🎮 Initialisation du jeu...');
   
-  // Charger et appliquer le thème
   initializeTheme();
-  
-  // Charger la configuration depuis le menu
   loadConfiguration();
-  
-  // Initialiser les événements DOM
   initializeEventListeners();
-  
-  // Initialiser les effets visuels
   initializeVisualEffects();
-  
-  // Initialiser les événements Socket.IO
   initializeSocketEvents();
   
-  // Déterminer le mode et démarrer
-  determineGameMode();
+  // Tenter une reconnexion avant de déterminer le mode de jeu
+  if (!attemptReconnection()) {
+    determineGameMode();
+  }
 });
+
+function attemptReconnection() {
+  const token = localStorage.getItem('playerToken');
+  if (token) {
+    console.log('Jeton de reconnexion trouvé, tentative de reconnexion...');
+    showScreen('player-screen');
+    hideElement('player-join');
+    hideElement('player-info');
+    showElement('player-waiting'); // Afficher un écran d'attente
+    document.querySelector('#player-waiting h2').textContent = 'Reconnexion en cours...';
+    socket.emit('reconnect-player', { token });
+    return true; // Reconnexion en cours
+  }
+  return false; // Pas de jeton, continuer le flux normal
+}
 
 // ============================================================================
 // 3. GESTION DES ZONES IMAGES VIDES
@@ -910,12 +918,37 @@ function initializeSocketEvents() {
   socket.on('joined-lobby', ({ scenarioTitle }) => {
     hideElement('player-info');
     showElement('player-waiting');
-    // hideElement('prout');
     const waitingLobbyEl = document.getElementById('waitingLobbyName');
     if (waitingLobbyEl) waitingLobbyEl.textContent = gameConfig.lobby;
-    
     const gameLobbyEl = document.getElementById('gameLobbyName');
     if (gameLobbyEl) gameLobbyEl.textContent = gameConfig.lobby;
+  });
+
+  socket.on('player-registered', ({ token, playerName }) => {
+    console.log(`Joueur enregistré avec le jeton : ${token}`);
+    localStorage.setItem('playerToken', token);
+    localStorage.setItem('lobbyName', gameConfig.lobby); // Stocker aussi le lobby
+    gameConfig.playerName = playerName;
+  });
+
+  socket.on('reconnect-success', (data) => {
+    console.log('Reconnexion réussie !', data);
+    showNotification(`Reconnexion réussie, ${data.playerName} !`, 'success');
+    gameConfig.mode = 'player';
+    gameConfig.lobby = data.lobbyName;
+    gameConfig.playerName = data.playerName;
+    showScreen('player-screen');
+    hideElement('player-join');
+    hideElement('player-info');
+    showElement('player-game');
+  });
+
+  socket.on('reconnect-failed', () => {
+    console.log('La reconnexion a échoué, suppression du jeton.');
+    localStorage.removeItem('playerToken');
+    localStorage.removeItem('lobbyName');
+    // On laisse le flux normal continuer
+    determineGameMode();
   });
   
   // Jeu

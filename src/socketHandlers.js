@@ -54,6 +54,52 @@ function initializeSocketIO(io) {
       } catch (err) { console.error("Erreur 'create-lobby':", err); socket.emit('error', 'Erreur serveur.'); }
     });
 
+    socket.on('reconnect-player', async ({ token }) => {
+        try {
+            if (!token) return socket.emit('reconnect-failed');
+
+            const player = await lobbyManager.getPlayerByToken(token);
+            if (!player) return socket.emit('reconnect-failed');
+
+            await lobbyManager.updatePlayer(token, { status: 'connected', socketId: socket.id });
+
+            const lobby = await lobbyManager.getLobby(player.lobbyId);
+            if (!lobby) return socket.emit('reconnect-failed');
+
+            // Restore player state on the socket
+            socket.lobby = player.lobbyId;
+            socket.playerName = player.playerName;
+            socket.join(player.lobbyId);
+
+            // Notify client of success and send current game state
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
+            socket.emit('reconnect-success', {
+                lobbyName: lobby.id,
+                playerName: player.playerName,
+                scenarioTitle: lobby.scenarioTitle
+            });
+
+            // Send current question if game has started
+            if (lobby.gameStarted && lobby.currentQuestion) {
+                const question = getQuestionFromScenario(scenario, lobby.currentQuestion);
+                if (question) {
+                    socket.emit('question', { ...question, isContinue: lobbyManager.isContinueQuestion(question) });
+                }
+            }
+
+            // Notify GM
+            const players = await lobbyManager.getPlayers(lobby.id);
+            const connectedPlayers = players.filter(p => p.status === 'connected');
+            io.to(lobby.gmId).emit('player-joined', { playerName: player.playerName, playerCount: connectedPlayers.length, reconnected: true });
+
+            console.log(`Joueur '${player.playerName}' reconnecté au lobby '${lobby.id}'`);
+
+        } catch(err) {
+            console.error("Erreur 'reconnect-player':", err);
+            socket.emit('reconnect-failed');
+        }
+    });
+
     socket.on('join-lobby', async ({ lobbyName }) => {
         try {
             const sanitizedLobbyName = lobbyManager.sanitizeInput(lobbyName);
@@ -78,10 +124,13 @@ function initializeSocketIO(io) {
             const existingPlayer = await lobbyManager.getPlayer(socket.lobby, sanitizedInfo.prenom);
             if (existingPlayer) return socket.emit('error', 'Ce prénom est déjà pris');
 
-            await lobbyManager.addPlayer(socket.lobby, sanitizedInfo);
+            const token = await lobbyManager.addPlayer(socket.lobby, sanitizedInfo, socket.id);
             socket.playerName = sanitizedInfo.prenom;
-            const players = await lobbyManager.getPlayers(socket.lobby);
 
+            // Send token to the client for reconnection purposes
+            socket.emit('player-registered', { token: token, playerName: sanitizedInfo.prenom });
+
+            const players = await lobbyManager.getPlayers(socket.lobby);
             io.to(lobby.gmId).emit('player-joined', { playerName: sanitizedInfo.prenom, playerCount: players.length });
 
             const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
@@ -274,22 +323,34 @@ function initializeSocketIO(io) {
     });
 
     socket.on('disconnect', async () => {
+        console.log(`Déconnexion: ${socket.id}`);
         try {
-            if (!socket.lobby) return;
-            const lobby = await lobbyManager.getLobby(socket.lobby);
-            if (!lobby) return;
-
-            if (lobby.gmId === socket.id) {
-                io.in(socket.lobby).emit('lobby-closed');
-                await lobbyManager.deleteLobby(socket.lobby);
-                console.log(`Lobby supprimé (GM déconnecté): ${socket.lobby}`);
-            } else if (socket.playerName) {
-                await lobbyManager.removePlayer(socket.lobby, socket.playerName);
-                const players = await lobbyManager.getPlayers(socket.lobby);
-                if (players) io.to(lobby.gmId).emit('player-left', { playerName: socket.playerName, playerCount: players.length });
+            // Check if the disconnected socket is a GM
+            const lobbyAsGm = await lobbyManager.getLobbyByGmId(socket.id);
+            if (lobbyAsGm) {
+                console.log(`GM déconnecté pour le lobby ${lobbyAsGm.id}. Le lobby sera supprimé.`);
+                io.in(lobbyAsGm.id).emit('lobby-closed');
+                await lobbyManager.deleteLobby(lobbyAsGm.id);
+                return;
             }
-        } catch (err) { console.error("Erreur 'disconnect':", err); }
-        finally { console.log(`Déconnexion: ${socket.id}`); }
+
+            // Check if the disconnected socket is a player
+            const player = await lobbyManager.getPlayerBySocketId(socket.id);
+            if (player) {
+                await lobbyManager.updatePlayerStatusBySocketId(socket.id, 'disconnected');
+                console.log(`Joueur '${player.playerName}' dans le lobby '${player.lobbyId}' marqué comme déconnecté.`);
+
+                // Notify GM
+                const lobby = await lobbyManager.getLobby(player.lobbyId);
+                if (lobby) {
+                    const players = await lobbyManager.getPlayers(player.lobbyId);
+                    const connectedPlayers = players.filter(p => p.status === 'connected');
+                    io.to(lobby.gmId).emit('player-left', { playerName: player.playerName, playerCount: connectedPlayers.length });
+                }
+            }
+        } catch (err) {
+            console.error("Erreur lors de la déconnexion:", err);
+        }
     });
   });
 }

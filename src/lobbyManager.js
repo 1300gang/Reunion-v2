@@ -51,14 +51,42 @@ async function getLobby(id) {
     return await db.get("SELECT * FROM lobbies WHERE id = ?", [id]);
 }
 
-async function addPlayer(lobbyId, playerInfo) {
+async function getLobbyByGmId(gmId) {
+    return await db.get("SELECT * FROM lobbies WHERE gmId = ?", [gmId]);
+}
+
+async function addPlayer(lobbyId, playerInfo, socketId) {
     const { prenom, age, genre, ecole } = playerInfo;
-    const sql = `INSERT INTO players (lobbyId, playerName, age, genre, ecole) VALUES (?, ?, ?, ?, ?)`;
-    return await db.run(sql, [lobbyId, prenom, age, genre, ecole]);
+    const token = crypto.randomBytes(16).toString('hex');
+    const sql = `INSERT INTO players (lobbyId, playerName, age, genre, ecole, playerToken, socketId, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    await db.run(sql, [lobbyId, prenom, age, genre, ecole, token, socketId, 'connected']);
+    return token; // Return the generated token
 }
 
 async function getPlayer(lobbyId, playerName) {
     return await db.get("SELECT * FROM players WHERE lobbyId = ? AND playerName = ?", [lobbyId, playerName]);
+}
+
+async function getPlayerBySocketId(socketId) {
+    return await db.get("SELECT * FROM players WHERE socketId = ?", [socketId]);
+}
+
+async function getPlayerByToken(token) {
+    return await db.get("SELECT * FROM players WHERE playerToken = ?", [token]);
+}
+
+async function updatePlayer(token, updates) {
+    const fields = Object.keys(updates);
+    const values = Object.values(updates);
+    const setClause = fields.map(field => `${field} = ?`).join(', ');
+    if (!setClause) return;
+    const sql = `UPDATE players SET ${setClause} WHERE playerToken = ?`;
+    return await db.run(sql, [...values, token]);
+}
+
+async function updatePlayerStatusBySocketId(socketId, status) {
+    const sql = `UPDATE players SET status = ? WHERE socketId = ?`;
+    return await db.run(sql, [status, socketId]);
 }
 
 async function getPlayers(lobbyId) {
@@ -133,8 +161,13 @@ module.exports = {
   isContinueQuestion,
   createLobby,
   getLobby,
+  getLobbyByGmId,
   addPlayer,
   getPlayer,
+  getPlayerBySocketId,
+  getPlayerByToken,
+  updatePlayer,
+  updatePlayerStatusBySocketId,
   getPlayers,
   removePlayer,
   updateLobby,

@@ -29,6 +29,9 @@ const db = new sqlite3.Database(DB_SOURCE, (err) => {
                 age INTEGER,
                 genre TEXT,
                 ecole TEXT,
+                playerToken TEXT UNIQUE,
+                socketId TEXT,
+                status TEXT,
                 UNIQUE(lobbyId, playerName)
             )`, (err) => { if (err) console.error("Erreur table players:", err.message); });
 
