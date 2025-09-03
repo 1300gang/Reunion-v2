@@ -254,3 +254,77 @@ hr {
     justify-content: center;
     gap: 1rem;
 }
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #questions-container .question {
+        padding: 1.5rem;
+    }
+
+    .choices-container .choice {
+        grid-template-columns: 1fr; /* Stack columns vertically */
+    }
+
+    .delete-question-btn {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .main-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .main-actions .menu-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    #notification-area {
+        width: 90%;
+        right: 5%;
+        top: 10px;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    #questions-container .question {
+        padding: 1rem;
+    }
+
+    .delete-question-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 1rem;
+        line-height: 25px;
+    }
+}

@@ -1490,6 +1490,75 @@ h1, h2, h3 {
   display: block !important; /* Pas de flex pour le container messenger */
 }
 
+/* --- Responsive Game --- */
+
+@media (max-width: 768px) {
+    body {
+        max-height: none;
+        overflow-y: auto;
+    }
+
+    .screen {
+        padding: 60px 15px 15px 15px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .image-container {
+        height: 25vh;
+    }
+
+    .messenger-container {
+        max-height: none;
+    }
+
+    .answer-panel {
+        max-height: 70vh;
+    }
+
+    .answer-button {
+        padding: 14px;
+        font-size: 0.9rem;
+    }
+
+    #soloShowAnswersBtn, #showAnswersBtn {
+        bottom: 20px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen {
+        padding: 50px 10px 10px 10px;
+    }
+
+    .pill {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .message-content {
+        max-width: 80%;
+    }
+
+    .answer-panel-header {
+        padding: 1rem;
+    }
+
+    .answer-choices {
+        padding: 1rem;
+    }
+
+    .answer-button {
+        padding: 12px;
+    }
+
+    #soloShowAnswersBtn, #showAnswersBtn {
+        bottom: 15px;
+        font-size: 0.9rem;
+    }
+}
+
 /* Messages à l'intérieur du messenger - ordre naturel */
 .messenger-messages {
   display: block !important; /* Retour au display normal */
