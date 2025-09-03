@@ -42,6 +42,7 @@ const limiter = rateLimit({
   message: 'Trop de requêtes, réessayez plus tard'
 });
 app.use(limiter);
+app.use(express.json()); // Middleware pour parser les corps de requête JSON
 
 // === ROUTES ===
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'menu.html')));
@@ -61,6 +62,57 @@ app.get('/api/scenarios', (req, res) => {
     title: scenarioLoader.scenarios[file]?.scenario_info?.title || 'Non chargé'
   }));
   res.json(availableScenarios);
+});
+
+// Route API pour lire un scénario spécifique pour l'éditeur
+app.get('/api/scenario/:filename', (req, res) => {
+    // Sécurité : `path.basename` empêche les attaques de type "directory traversal"
+    const filename = path.basename(req.params.filename);
+
+    if (!filename.endsWith('.json')) {
+        return res.status(400).send('Nom de fichier invalide.');
+    }
+
+    const filePath = path.join(__dirname, 'public', 'scenario', filename);
+
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            // Log l'erreur côté serveur mais n'expose pas de détails au client
+            console.error(`Tentative de lecture du scénario échouée: ${filePath}`, err);
+            res.status(404).send('Scénario non trouvé.');
+        }
+    });
+});
+
+// Route API pour sauvegarder (créer/mettre à jour) un scénario
+app.post('/api/scenario', async (req, res) => {
+    const scenarioData = req.body;
+
+    // Validation de base des données reçues
+    if (!scenarioData || !scenarioData.scenario_info || !scenarioData.scenario_info.file) {
+        return res.status(400).json({ message: 'Données de scénario invalides : scenario_info.file est requis.' });
+    }
+
+    // Sécurité : Nettoyage du nom de fichier
+    const filename = path.basename(scenarioData.scenario_info.file);
+    if (!filename.endsWith('.json')) {
+        return res.status(400).json({ message: 'Le nom de fichier du scénario doit se terminer par .json.' });
+    }
+
+    const filePath = path.join(__dirname, 'public', 'scenario', filename);
+
+    try {
+        // Écriture du fichier (joliment formaté avec une indentation de 2 espaces)
+        await fs.writeFile(filePath, JSON.stringify(scenarioData, null, 2), 'utf-8');
+
+        // Recharger le scénario dans le cache pour que les modifs soient prises en compte immédiatement
+        await scenarioLoader.loadScenario(filename);
+
+        res.status(200).json({ message: `Scénario '${filename}' sauvegardé avec succès.` });
+    } catch (err) {
+        console.error(`Erreur lors de la sauvegarde du scénario ${filename}:`, err);
+        res.status(500).json({ message: 'Erreur interne du serveur lors de la sauvegarde du fichier.' });
+    }
 });
 
 // Route pour le téléchargement des exports CSV
