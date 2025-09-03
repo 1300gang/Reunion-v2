@@ -1,0 +1,256 @@
+/* Styles for the Scenario Editor */
+body {
+    padding: 2rem;
+    background-color: #f4f4f9;
+    font-family: 'Satoshi', sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1, h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #eaecee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+    font-size: 1rem;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#questions-container .question {
+    border: 1px solid #e0e0e0;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    background: #fdfdfd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.choices-container .choice {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+
+.hidden {
+    display: none;
+}
+
+.delete-btn {
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0 0.5rem;
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    color: #c0392b;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 3rem 0;
+}
+
+.action-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+}
+
+#save-scenario-btn {
+    background-color: #27ae60;
+}
+#save-scenario-btn:hover {
+    background-color: #229954;
+}
+
+.delete-question-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.delete-question-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+}
+
+.main-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.secondary-action-button {
+    background-color: #bdc3c7;
+    color: #2c3e50;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.secondary-action-button:hover {
+    background-color: #a5aeb5;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
+}
+
+.scenario-details {
+    background: #fdfdfd;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid #e0e0e0;
+}
+
+/* --- Notifications --- */
+#notification-area {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 300px;
+    padding: 1rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateX(120%);
+    transition: transform 0.5s ease-in-out;
+}
+#notification-area.show {
+    transform: translateX(0);
+}
+#notification-area.success {
+    background-color: #27ae60;
+}
+#notification-area.error {
+    background-color: #e74c3c;
+}
+
+/* --- Confirmation Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.modal-overlay:not(.hidden) {
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.modal-overlay:not(.hidden) .modal-content {
+    transform: scale(1);
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

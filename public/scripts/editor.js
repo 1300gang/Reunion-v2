@@ -9,6 +9,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('scenario-file');
     const startQuestionInput = document.getElementById('start-question');
 
+    const notificationArea = document.getElementById('notification-area');
+    const modal = document.getElementById('confirmation-modal');
+    const modalText = document.getElementById('modal-text');
+    const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+    const modalCancelBtn = document.getElementById('modal-cancel-btn');
+    let confirmCallback = null;
+
+    // --- LOGIQUE DE NOTIFICATION ET MODALE ---
+
+    function showNotification(message, isError = false) {
+        notificationArea.textContent = message;
+        notificationArea.className = isError ? 'error' : 'success';
+        notificationArea.classList.add('show');
+        setTimeout(() => {
+            notificationArea.classList.remove('show');
+        }, 3000);
+    }
+
+    function showConfirmationModal(message, onConfirm) {
+        modalText.textContent = message;
+        confirmCallback = onConfirm;
+        modal.classList.remove('hidden');
+    }
+
+    function hideConfirmationModal() {
+        modal.classList.add('hidden');
+        confirmCallback = null;
+    }
+
+    modalConfirmBtn.addEventListener('click', () => {
+        if (confirmCallback) {
+            confirmCallback();
+        }
+        hideConfirmationModal();
+    });
+
+    modalCancelBtn.addEventListener('click', hideConfirmationModal);
+
+
     // --- LOGIQUE DE L'ÉDITEUR ---
 
     async function loadScenarioList() {
@@ -58,19 +97,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 questionsContainer.appendChild(createQuestionElement(id, question));
             }
         }
+        updateNextQuestionDropdowns();
+    }
+
+    function createChoiceHtml(choice = {}) {
+        const nextQuestion = choice.next_question || '';
+        return `
+            <div class="choice">
+                <input type="text" class="choice-text" value="${choice.text || ''}" placeholder="Texte du choix">
+                <select class="choice-next" data-selected="${nextQuestion}">
+                    <option value="">-- Choisir la suite --</option>
+                </select>
+                <button type="button" class="delete-btn choice-delete-btn">×</button>
+            </div>
+        `;
+    }
+
+    function updateNextQuestionDropdowns() {
+        const questionIds = Array.from(questionsContainer.querySelectorAll('.question-id-input')).map(input => input.value.trim()).filter(id => id);
+        const selects = questionsContainer.querySelectorAll('.choice-next');
+
+        selects.forEach(select => {
+            const previouslySelected = select.dataset.selected;
+            let currentVal = select.value;
+
+            // Preserve selection if it's still valid
+            const selectedValue = previouslySelected || currentVal;
+
+            select.innerHTML = '<option value="">-- Choisir la suite --</option>';
+            questionIds.forEach(id => {
+                const option = document.createElement('option');
+                option.value = id;
+                option.textContent = id;
+                select.appendChild(option);
+            });
+
+            // Restore the selection
+            if (questionIds.includes(selectedValue)) {
+                select.value = selectedValue;
+            }
+        });
     }
 
     function createQuestionElement(id, questionData) {
         const questionWrapper = document.createElement('div');
         questionWrapper.className = 'question';
+        questionWrapper.dataset.questionId = id;
 
-        const choicesHtml = (questionData.choices || []).map(choice => `
-            <div class="choice">
-                <input type="text" class="choice-text" value="${choice.text || ''}" placeholder="Texte du choix">
-                <input type="text" class="choice-next" value="${choice.next_question || ''}" placeholder="ID question suivante">
-                <button type="button" class="delete-btn choice-delete-btn">×</button>
-            </div>
-        `).join('');
+        const choicesHtml = (questionData.choices || []).map(choice => createChoiceHtml(choice)).join('');
 
         questionWrapper.innerHTML = `
             <div class="form-group">
@@ -128,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function saveScenario() {
         const scenarioData = rebuildScenarioFromDOM();
         if (!scenarioData.scenario_info.file) {
-            alert("Le nom du fichier est obligatoire pour la sauvegarde.");
+            showNotification("Le nom du fichier est obligatoire pour la sauvegarde.", true);
             return;
         }
         try {
@@ -139,11 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
-            alert(result.message);
+            showNotification(result.message);
             loadScenarioList();
         } catch (error) {
             console.error('Erreur de sauvegarde:', error);
-            alert(`Erreur: ${error.message}`);
+            showNotification(`Erreur: ${error.message}`, true);
         }
     }
 
@@ -154,27 +228,37 @@ document.addEventListener('DOMContentLoaded', () => {
     addQuestionBtn.addEventListener('click', () => {
         const newId = `question_${Date.now()}`;
         questionsContainer.appendChild(createQuestionElement(newId, {}));
+        updateNextQuestionDropdowns();
     });
 
     questionsContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('delete-question-btn')) {
-            if (confirm('Êtes-vous sûr de vouloir supprimer cette question ?')) {
-                e.target.closest('.question').remove();
-            }
+            const questionElement = e.target.closest('.question');
+            showConfirmationModal('Êtes-vous sûr de vouloir supprimer cette question ?', () => {
+                questionElement.remove();
+                updateNextQuestionDropdowns();
+            });
         }
         if (e.target.classList.contains('add-choice-btn')) {
             const choicesContainer = e.target.previousElementSibling;
             const choiceEl = document.createElement('div');
-            choiceEl.className = 'choice';
-            choiceEl.innerHTML = `
-                <input type="text" class="choice-text" placeholder="Texte du choix">
-                <input type="text" class="choice-next" placeholder="ID question suivante">
-                <button type="button" class="delete-btn choice-delete-btn">×</button>
-            `;
-            choicesContainer.appendChild(choiceEl);
+            choiceEl.className = 'choice-wrapper'; // Use a wrapper to easily append
+            choiceEl.innerHTML = createChoiceHtml();
+            choicesContainer.appendChild(choiceEl.firstElementChild); // Append the actual .choice div
+            updateNextQuestionDropdowns();
         }
         if (e.target.classList.contains('choice-delete-btn')) {
             e.target.closest('.choice').remove();
+        }
+    });
+
+    questionsContainer.addEventListener('input', (e) => {
+        if (e.target.classList.contains('question-id-input')) {
+            // Debounce input to avoid performance issues
+            clearTimeout(window.idUpdateTimeout);
+            window.idUpdateTimeout = setTimeout(() => {
+                updateNextQuestionDropdowns();
+            }, 300);
         }
     });
 

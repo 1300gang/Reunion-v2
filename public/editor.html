@@ -4,40 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éditeur de Scénarios</title>
-    <link rel="stylesheet" href="/styles/menu.css">
     <link rel="stylesheet" href="/styles/satoshi.css">
-    <style>
-        body { padding: 2rem; background-color: #f4f4f9; font-family: 'Satoshi', sans-serif; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333; }
-        input, select, textarea { width: 100%; padding: 0.8rem; font-size: 1rem; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        textarea { min-height: 80px; resize: vertical; }
-        #questions-container .question { border: 1px solid #e0e0e0; padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; background: #fafafa; }
-        .choices-container .choice { display: flex; gap: 1rem; margin-bottom: 0.8rem; align-items: center; }
-        .hidden { display: none; }
-        .delete-btn { color: #e74c3c; cursor: pointer; font-size: 1.2rem; background: none; border: none; }
-        h1, h2, h4 { color: #2c3e50; }
-        hr { border: none; border-top: 1px solid #eee; margin: 2rem 0; }
-    </style>
+    <link rel="stylesheet" href="/styles/menu.css">
+    <link rel="stylesheet" href="/styles/editor.css">
 </head>
 <body>
     <div class="container">
         <h1>Éditeur de Scénarios</h1>
-        <p>Chargez un scénario existant ou créez-en un nouveau.</p>
+        <p class="subtitle">Chargez un scénario existant ou créez-en un nouveau.</p>
 
         <div class="form-group">
             <label for="scenario-select">Choisir un scénario à modifier :</label>
             <select id="scenario-select">
                 <option value="">-- Nouveau Scénario --</option>
             </select>
-            <button id="load-scenario-btn" class="menu-button" style="margin-top: 1rem;">Charger</button>
+            <button id="load-scenario-btn" class="menu-button">Charger</button>
         </div>
 
         <hr>
 
         <form id="editor-form">
-            <h2>Détails du Scénario</h2>
+            <div class="scenario-details">
+                <h2>Détails du Scénario</h2>
             <div class="form-group">
                 <label for="scenario-title">Titre du Scénario</label>
                 <input type="text" id="scenario-title" required>
@@ -55,13 +43,30 @@
             <div id="questions-container">
                 <!-- Les questions seront injectées ici par le JavaScript -->
             </div>
+            </div>
             <button type="button" id="add-question-btn" class="menu-button">Ajouter une Question</button>
         </form>
 
         <hr>
 
-        <button id="save-scenario-btn" class="menu-button action-button" style="margin-top: 1rem; background-color: #27ae60;">Sauvegarder le Scénario</button>
-        <a href="/menu.html" class="menu-button" style="text-decoration: none; display: inline-block; margin-top: 1rem;">Retour au Menu</a>
+        <div class="main-actions">
+            <button id="save-scenario-btn" class="menu-button action-button">Sauvegarder le Scénario</button>
+            <a href="/menu.html" class="menu-button secondary-action-button">Retour au Menu</a>
+        </div>
+    </div>
+
+    <!-- Notification Area -->
+    <div id="notification-area" class="hidden"></div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <p id="modal-text">Êtes-vous sûr ?</p>
+            <div class="modal-actions">
+                <button id="modal-confirm-btn" class="menu-button action-button">Confirmer</button>
+                <button id="modal-cancel-btn" class="menu-button secondary-action-button">Annuler</button>
+            </div>
+        </div>
     </div>
 
     <script src="/scripts/editor.js"></script>
