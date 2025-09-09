@@ -186,6 +186,18 @@
                 </div>
               </div>
               
+              <div class="thematic-analysis-section">
+                <h3>🎨 Profils Thématiques</h3>
+                <div class="chart-container" id="group-chart-container">
+                  <h4>Profil du Groupe</h4>
+                  <canvas id="group-radar-chart"></canvas>
+                </div>
+                <div class="individual-charts-container" id="individual-charts-container">
+                  <h4>Profils Individuels</h4>
+                  <!-- Individual player charts will be generated here by JavaScript -->
+                </div>
+              </div>
+
               <div class="observations-section">
                 <h3>💭 Vos observations</h3>
                 <textarea id="gmObservations" rows="5" placeholder="Notez vos impressions sur la session..." class="textarea-institutional"></textarea>
@@ -554,6 +566,7 @@
   <!-- Scripts -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="scripts/vote-component.js"></script>
   <script src="scripts/chapter-menu.js"></script>
   <script src="scripts/solo-mode.js"></script>
