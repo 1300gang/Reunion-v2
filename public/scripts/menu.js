@@ -18,7 +18,7 @@ const levelsData = [
   },
   {
     name: "LGBTQIA+",
-    image: "/img/img_contextuel/nico_gaetan_marche_des_fierte.png",
+    image: "/img/Lgbt/img_contextuel/nico_gaetan_marche_des_fierte.png",
     stickers: [
       "img/Stykers/Stickers consentement.png",
       "img/Stykers/Stickers Stereotype texte.png",
@@ -50,16 +50,29 @@ const levelsData = [
   },
   {
     name: "La Spirale",
-    image: "/img/Rive/img-context/(H9)_fond_C_confrontation_tijean.png",
+    	image: "/img/Prostitu/img_contextuel/(H11)_fond_E_rencontre_nawel.png",
     stickers: [
       "img/Stykers/Stickers sexualité texte.png",
       "img/Stykers/Stickers prostitution texte.png",
     ],
     description:
       "Anthologie de situations autour du thème de la prostitution, de la précarité et de la réinsertion sociale",
-    colors: ["#92430eff", "#14d4ffff"],
+    	colors: ["#da15ea", "#f789f2"],
     creators: ["eleves 1","eleves 2","eleves 3","eleves 4","eleves 5"],
     scenarioFile: "spirale_salkira.json"
+  },
+  {
+    name: "Harcelement",
+    image: "/img/Harcene/img_contextuel/(H12)_fond_C_snap.png",
+    stickers: [
+      "img/Stykers/Stickers harcelement texte.png",
+      "img/Stykers/Stickers Stereotype.png",
+    ],
+    description:
+      "Les conséquences des choix face au harcèlement en ligne.",
+    colors: ["#da15ea", "#f789f2"],
+    creators: ["eleves 1","eleves 2","eleves 3","eleves 4","eleves 5"],
+    scenarioFile: "Harcene.json"
   },
 ];
 

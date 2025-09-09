@@ -38,24 +38,32 @@ const gameState = {
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🎮 Initialisation du jeu...');
   
-  // Charger et appliquer le thème
   initializeTheme();
-  
-  // Charger la configuration depuis le menu
   loadConfiguration();
-  
-  // Initialiser les événements DOM
   initializeEventListeners();
-  
-  // Initialiser les effets visuels
   initializeVisualEffects();
-  
-  // Initialiser les événements Socket.IO
   initializeSocketEvents();
   
-  // Déterminer le mode et démarrer
-  determineGameMode();
+  // Tenter une reconnexion avant de déterminer le mode de jeu
+  if (!attemptReconnection()) {
+    determineGameMode();
+  }
 });
+
+function attemptReconnection() {
+  const token = localStorage.getItem('playerToken');
+  if (token) {
+    console.log('Jeton de reconnexion trouvé, tentative de reconnexion...');
+    showScreen('player-screen');
+    hideElement('player-join');
+    hideElement('player-info');
+    showElement('player-waiting'); // Afficher un écran d'attente
+    document.querySelector('#player-waiting h2').textContent = 'Reconnexion en cours...';
+    socket.emit('reconnect-player', { token });
+    return true; // Reconnexion en cours
+  }
+  return false; // Pas de jeton, continuer le flux normal
+}
 
 // ============================================================================
 // 3. GESTION DES ZONES IMAGES VIDES
@@ -781,6 +789,53 @@ function hideAnswerPanel() {
 // 9. MESSENGER ET ANIMATIONS
 // ============================================================================
 
+// Ajoutons une petite fonction utilitaire pour calculer le temps de lecture
+function calculateReadingTime(messageContent) {
+  const MINIMUM_DELAY = 500; // Un délai minimum de 0.5s, même pour les messages très courts
+  const CHARS_PER_SECOND = 52; // Vitesse de lecture (ajustez selon vos préférences)
+  
+  const calculatedDelay = (messageContent.length / CHARS_PER_SECOND) * 1000;
+  
+  // On s'assure de ne jamais avoir un délai plus court que le minimum
+  return Math.max(calculatedDelay, MINIMUM_DELAY);
+}
+
+async function animateMessages(messages) {
+  const container = document.querySelector('.messenger-messages');
+  if (!container) return;
+  
+  for (const message of messages) {
+    const typingIndicator = document.querySelector('.typing-indicator');
+    if (typingIndicator) {
+      showElement('typing-indicator');
+      await sleep(300 + Math.random() * 200);
+      hideElement('typing-indicator');
+    }
+    
+    const messageDiv = createMessageElement(message);
+    messageDiv.style.opacity = '0';
+    messageDiv.style.transform = 'translateY(20px) scale(0.9)';
+    container.appendChild(messageDiv);
+    
+    await sleep(50);
+    messageDiv.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+    messageDiv.style.opacity = '1';
+    messageDiv.style.transform = 'translateY(0) scale(1)';
+    
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: 'smooth'
+    });
+    
+    // ===== MODIFICATION CI-DESSOUS =====
+    // On remplace le délai fixe par notre calcul dynamique
+    const readingTime = calculateReadingTime(message.content);
+    console.log(`📖 Message: "${message.content.substring(0, 20)}..." | Délai de lecture: ${Math.round(readingTime)}ms`);
+    await sleep(readingTime);
+    // ===== FIN DE LA MODIFICATION =====
+  }
+}
+
 async function displayMessengerConversation(conversation) {
   const messengerDiv = document.getElementById('messengerView');
   if (!messengerDiv) return;
@@ -857,6 +912,7 @@ function createMessageElement(message) {
   return messageDiv;
 }
 
+
 // ============================================================================
 // 10. ÉVÉNEMENTS SOCKET.IO
 // ============================================================================
@@ -910,12 +966,39 @@ function initializeSocketEvents() {
   socket.on('joined-lobby', ({ scenarioTitle }) => {
     hideElement('player-info');
     showElement('player-waiting');
-    // hideElement('prout');
     const waitingLobbyEl = document.getElementById('waitingLobbyName');
     if (waitingLobbyEl) waitingLobbyEl.textContent = gameConfig.lobby;
-    
     const gameLobbyEl = document.getElementById('gameLobbyName');
     if (gameLobbyEl) gameLobbyEl.textContent = gameConfig.lobby;
+  });
+
+  socket.on('player-registered', ({ token, playerName }) => {
+    console.log(`Joueur enregistré avec le jeton : ${token}`);
+    localStorage.setItem('playerToken', token);
+    localStorage.setItem('lobbyName', gameConfig.lobby); // Stocker aussi le lobby
+    gameConfig.playerName = playerName;
+  });
+
+  socket.on('reconnect-success', (data) => {
+    console.log('Reconnexion réussie !', data);
+    showNotification(`Reconnexion réussie, ${data.playerName} !`, 'success');
+    gameConfig.mode = 'player';
+    gameConfig.lobby = data.lobbyName;
+    gameConfig.playerName = data.playerName;
+    showScreen('player-screen');
+    hideElement('player-join');
+    hideElement('player-info');
+    hideElement('proute');
+    hideElement('player-waiting');
+    showElement('player-game');
+  });
+
+  socket.on('reconnect-failed', () => {
+    console.log('La reconnexion a échoué, suppression du jeton.');
+    localStorage.removeItem('playerToken');
+    localStorage.removeItem('lobbyName');
+    // On laisse le flux normal continuer
+    determineGameMode();
   });
   
   // Jeu

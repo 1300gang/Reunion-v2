@@ -65,11 +65,9 @@ body {
     linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
   background-size: 20px 20px;
   min-height: 100vh;
-  max-height: 100vh; /* Limite stricte de la hauteur */
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
-  overflow-y: auto; /* Contrôle strict du scroll vertical */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -102,11 +100,9 @@ h1, h2, h3 {
 /* === LAYOUT === */
 .screen {
   display: none;
-  height: 100vh; /* Hauteur exacte de la viewport */
-  max-height: 100vh; /* Limite stricte */
+  min-height: 100vh;
   padding: 70px 20px 20px 20px;
   animation: fadeIn 0.3s ease-out;
-  overflow-y: auto; /* Scroll interne si nécessaire */
   overflow-x: hidden;
 }
 
@@ -391,8 +387,8 @@ h1, h2, h3 {
 #questionImage,
 #playerContextImage {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 67vh;
+  object-fit: contain;
   object-position: center;
 }
 
@@ -433,7 +429,7 @@ h1, h2, h3 {
 
 /* === PARTICIPANTS === */
 .participants-section {
-  border-top: 2px solid var(--couleur-beigeNorm);
+  /* border-top: 2px solid var(--couleur-beigeNorm); */
   padding-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -474,8 +470,9 @@ h1, h2, h3 {
   box-shadow: var(--effet-miniDropShadow);
   margin-bottom: 1.5rem;
   min-height: 100px; /* Hauteur minimum */
-  max-height: 400px; /* Hauteur maximum uniquement */
+  max-height: 67vh; /* Hauteur maximum uniquement */
   overflow: hidden;
+  overflow-y: auto;
   position: relative;
   transition: height 0.3s ease, max-height 0.3s ease; /* Animation d'agrandissement */
 }
@@ -532,8 +529,11 @@ h1, h2, h3 {
 }
 
 .message-avatar {
-  width: 40px;
-  height: 40px;
+  width: 20%;
+  aspect-ratio: 1 / 1 !important;
+  height: fit-content; /* optionnel, mais ne doit pas être fixé à une valeur */
+  min-width: 40px; /* optionnel pour éviter que ce soit trop petit */
+  max-width: 80px; 
   background: var(--couleur-grisBleuClair); /* Couleur secondaire */
   border-radius: 50%;
   display: flex;
@@ -588,6 +588,10 @@ h1, h2, h3 {
   z-index: 1000;
   max-height: 80vh;
   overflow-y: auto;
+}
+
+#playerQuestionContext{
+  width: 90%;
 }
 
 .answer-panel::before {
@@ -1149,21 +1153,23 @@ h1, h2, h3 {
 .desktop-layout-container {
   display: flex;
   flex-direction: column;
-  height: 87vh; /* Hauteur exacte au lieu de min-height */
-  max-height: 100vh; /* Limite stricte */
-  overflow: hidden; /* Empêche tout débordement */
 }
 
 .desktop-image-zone {
   width: 100%;
-  height: 30vh;
+  /* height: 30vh; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   /* background: var(--couleur-grisBleuClair); */
   border-radius: 12px;
   margin-bottom: 1.5rem;
   overflow: hidden;
+  flex-direction: column;
+}
+
+.desktop-image-zone.empty {
+  display: none;
 }
 
 .desktop-image-zone img {
@@ -1181,371 +1187,202 @@ h1, h2, h3 {
 
 .desktop-content-zone {
   flex: 1;
-  overflow-y: auto;
 }
 
-/* Desktop uniquement */
-@media (min-width: 1024px) {
+/* === Responsive - Tablet (Portrait) === */
+@media (min-width: 768px) {
+  /* Increase base font size for better readability on larger screens */
+  body {
+    font-size: 17px; /* Slightly larger base font */
+  }
+
+  /* Adjust padding for more whitespace */
+  .screen {
+    padding: 80px 40px 40px 40px;
+  }
+
+  .card {
+    padding: 2.5rem;
+  }
+
+  h2.card-title {
+    font-size: 1.75rem;
+  }
+
+  .button {
+    font-size: 1.1rem;
+    padding: 14px 28px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 1.1rem;
+    padding: 18px 22px;
+  }
+
+  .desktop-image-zone {
+    /* height: 35vh; */
+  }
+}
+
+/* === Responsive - Tablet (Landscape) === */
+@media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
+  body {
+    overflow: hidden; /* Prevent scrolling on the body */
+  }
+
+  .screen {
+    padding: 0; /* Remove padding as the columns will handle it */
+    overflow: hidden; /* Ensure screen does not scroll */
+  }
+
   .desktop-layout-container {
     flex-direction: row;
-    height: 87vh; /* Hauteur exacte */
-    max-height: 100vh; /* Limite stricte */
-    overflow: hidden; /* Pas de scroll sur le conteneur principal */
+    height: 100vh;
+    overflow: hidden;
   }
-  
+
   .desktop-image-zone {
     width: 50%;
-    height: 100vh; /* Hauteur exacte */
-    max-height: 100vh; /* Limite stricte */
+    height: 80%;
     margin-bottom: 0;
     border-radius: 0;
-    overflow: hidden; /* Empêche débordement des images */
   }
   
-  .desktop-image-zone img {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover;
-    object-position: center;
+  .desktop-image-zone.empty {
+    display: flex; /* Show the placeholder text again */
   }
-  
+
   .desktop-content-zone {
     width: 50%;
-    height: 100vh; /* Hauteur exacte */
-    max-height: 100vh; /* Limite stricte */
-    padding: 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100vh;
+    padding: 60px 2rem 2rem 2rem;
+    overflow-y: auto; /* Allow this column to scroll if needed, but we'll try to avoid it */
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Layout pleine largeur quand zone image masquÃ©e */
-  .desktop-layout-container.full-width .desktop-content-zone {
-    width: 100% !important;
+  /* Adjust typography and spacing to fit */
+  body {
+    font-size: 16px; /* Back to default, as space is limited */
   }
 
-  .desktop-layout-container.full-width .desktop-image-zone {
-    display: none !important;
+  .card {
+    padding: 1.5rem;
   }
 
-  /* Pills centrÃ©s sur desktop pour les Ã©crans spÃ©cifiÃ©s */
-  #intervenant-lobby .pill,
-  #game-control .pill {
-    position: fixed !important;
-    top: 20px !important;
-    left: 75% !important; /* CentrÃ© dans la partie droite (50% + 25%) */
-    transform: translateX(-50%) !important;
-    z-index: 1000 !important;
+  h2.card-title {
+    font-size: 1.5rem;
   }
 
-  /* Pills centrÃ©s sur toute la largeur quand layout pleine largeur */
-  .desktop-layout-container.full-width .pill {
-    left: 50% !important;
-  }
-
-  /* Panneau rÃ©ponses limitÃ© Ã  la partie droite sur desktop */
-  .answer-panel {
-    left: 50% !important;
-    right: 0 !important;
-  }
-
-  /* Panneau rÃ©ponses sur toute la largeur quand layout pleine largeur */
-  .desktop-layout-container.full-width ~ * .answer-panel,
-  .full-width .answer-panel {
-    left: 0 !important;
-  }
-
-  /* Bouton rÃ©ponses centrÃ© sur la partie droite pour le mode solo */
-  #soloShowAnswersBtn {
-    position: fixed !important;
-    bottom: 30px !important;
-    left: 75% !important; /* CentrÃ© dans la partie droite (50% + 25%) */
-    transform: translateX(-50%) !important;
-    z-index: 500 !important;
-  }
-
-  /* Bouton rÃ©ponses centrÃ© sur toute la largeur quand layout pleine largeur */
-  .desktop-layout-container.full-width #soloShowAnswersBtn {
-    left: 50% !important;
-  }
-
-  /* Messenger View prend 80% de la hauteur sur desktop */
-  #soloMessengerView {
-    max-height: 70vh !important;
-    min-height: auto !important;
-    height: auto !important;
-    overflow-y: auto;
-  }
-
-  #soloMessengerView .messenger-messages {
-    max-height: 70vh !important;
-    overflow-y: auto;
-  }
-
-  /* Suppression des styles d'image sur desktop */
-  .desktop-image-zone {
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  /* === CORRECTION DES SCROLLS INDÉSIRABLES SUR DESKTOP === */
-  
-  /* Écrans concernés : intervenant-screen, player-screen, solo-screen */
-  #intervenant-screen .desktop-content-zone,
-  #player-screen .desktop-content-zone,
-  #solo-screen .desktop-content-zone {
-    height: calc(100vh - 60px) !important; /* 100vh - hauteur du pill + marges */
-    max-height: calc(100vh - 60px) !important;
-    overflow-y: auto; /* Scroll seulement si vraiment nécessaire */
-    padding-top: 60px; /* Espace pour le pill fixe */
-  }
-  
-  /* Container à l'intérieur des zones de contenu */
-  #intervenant-screen .desktop-content-zone .container,
-  #player-screen .desktop-content-zone .container,
-  #solo-screen .desktop-content-zone .container {
-    max-width: none !important;
-    width: 100% !important;
-    height: 100%; /* Prend toute la hauteur disponible */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centre le contenu verticalement */
-  }
-  
-  /* Cards dans ces écrans : prennent la hauteur nécessaire sans dépasser */
-  #intervenant-screen .card,
-  #player-screen .card {
-    margin-bottom: 1rem; /* Réduction des marges */
-    flex-shrink: 0; /* Ne se compresse pas */
-  }
-  
-  /* Réduction des paddings pour optimiser l'espace */
-  #intervenant-screen .desktop-content-zone,
-  #player-screen .desktop-content-zone {
-    padding: 60px 2rem 1rem 2rem; /* Padding-top pour le pill, réduction des autres */
-  }
-  
-  /* Écran solo : ajustements spécifiques */
-  #solo-screen .desktop-content-zone {
-    padding: 60px 1rem 1rem 1rem; /* Moins de padding sur les côtés */
-  }
-  
-  #solo-screen .game-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  /* EXCEPTION : Messenger garde son scroll */
-  .messenger-container,
-  .messenger-messages {
-    overflow-y: auto !important; /* Garde le scroll pour le messenger */
-    max-height: 400px !important; /* Hauteur fixe */
-  }
-  
-  /* Réduction de l'image dans l'écran intervenant pour gagner de l'espace */
-  #intervenant-screen .image-container {
-    height: 20vh !important; /* Réduction de 30vh à 20vh */
-    margin-bottom: 1rem !important; /* Réduction de la marge */
-  }
-  
-  /* Optimisation des formulaires */
-  #intervenant-screen .form-group,
-  #player-screen .form-group {
-    margin-bottom: 1rem; /* Réduction de 1.5rem à 1rem */
-  }
-  
-  /* Boutons plus compacts */
-  #intervenant-screen .button,
-  #player-screen .button {
-    padding: 10px 20px; /* Réduction du padding */
-  }
-  
-  /* Brief intervenant plus compact */
-  #intervenant-screen .brief {
-    padding: 1rem; /* Réduction de 1.5rem à 1rem */
-    margin-bottom: 1rem; /* Réduction de 2rem à 1rem */
-  }
-  
-  /* Sections participants plus compactes */
-  .participants-section {
-    padding-top: 1rem; /* Réduction de 1.5rem à 1rem */
-    margin-bottom: 1rem; /* Réduction de 1.5rem à 1rem */
-  }
-  
-  /* QR Code section plus compacte */
-  .qr-container {
-    margin: 1rem 0; /* Réduction de 1.5rem à 1rem */
-  }
-  
-  /* Game content dans solo : optimisation hauteur */
-  #solo-screen .context-box {
-    margin-bottom: 1rem; /* Réduction des marges */
-  }
-  
-  /* Pills : s'assurer qu'ils sont bien positionnés */
-  .pill.floating-pill {
-    position: fixed !important;
-    top: 20px !important;
-    left: 75% !important; /* Centré sur la partie droite (50% + 25%) */
-    transform: translateX(-50%) !important;
-    z-index: 1000 !important;
-  }
-}
-
-/* Mobile : cacher les zones images vides */
-@media (max-width: 1023px) {
-  .desktop-image-zone.empty {
-    display: none;
-  }
-
-  /* Correction complète de l'affichage messenger sur mobile */
-  .desktop-content-zone {
-    overflow: visible !important;
-    padding: 20px !important;
-  }
-
-  .container {
-    overflow: visible !important;
-    position: static !important;
-  }
-
-  .game-content {
-    overflow: visible !important;
-    position: static !important;
-  }
-
-  #soloMessengerView,
-  #messengerView {
-    position: relative !important;
-    z-index: 10 !important;
-    margin: 0 -20px 1.5rem -20px; /* Déborde du padding du conteneur */
-    box-shadow: var(--effet-miniDropShadow) !important;
-  }
-
-  /* Forcer l'affichage des ombres sur tous les éléments messenger */
-  .messenger-container {
-    overflow: visible !important;
-    isolation: isolate;
-  }
-}
-
-/* Ajustements spécifiques pour écrans plus petits en hauteur (type MacBook Pro 13") */
-@media (min-width: 1024px) and (max-height: 900px) {
-  
-  /* Encore plus de réduction pour les petits écrans */
-  #intervenant-screen .desktop-content-zone,
-  #player-screen .desktop-content-zone,
-  #solo-screen .desktop-content-zone {
-    padding: 50px 1.5rem 0.5rem 1.5rem; /* Encore moins de padding */
-  }
-  
-  #intervenant-screen .image-container {
-    height: 15vh !important; /* Encore plus petit */
-  }
-  
-  .brief {
-    padding: 0.8rem !important;
+  .button {
+    font-size: 0.9rem;
+    padding: 12px 24px;
   }
   
   .form-group {
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 1rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 0.9rem;
+    padding: 14px 18px;
   }
   
-  .participants-section {
-    padding-top: 0.8rem !important;
-    margin-bottom: 0.8rem !important;
+  /* Reposition elements that are 'fixed' to the viewport */
+  .pill {
+    left: 75%; /* Center in the right column */
+    transform: translateX(-50%);
+  }
+
+  .answer-panel {
+    left: 50%;
+    width: 50%;
+  }
+
+  #soloShowAnswersBtn, #showAnswersBtn {
+    left: 75%;
+    transform: translateX(-50%);
   }
 }
 
-/* === CORRECTION AFFICHAGE MESSENGER - Ordre des messages === */
+/* === Responsive - Desktop === */
+@media (min-width: 1280px) {
+  body {
+    overflow: hidden; /* Prevent scrolling on the body */
+  }
 
-/* Ciblage spécifique uniquement des écrans de jeu avec contexte + messenger */
-#solo-screen .game-content,
-#player-screen .game-content {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: stretch !important;
-  justify-content: flex-start !important;
-}
+  .screen {
+    padding: 0; /* Remove padding as the columns will handle it */
+    overflow: hidden; /* Ensure screen does not scroll */
+  }
 
-/* Contexte en premier - uniquement dans les écrans de jeu */
-#solo-screen .context-box,
-#solo-screen #soloQuestionContext,
-#player-screen .context-box,
-#player-screen #playerQuestionContext {
-  order: 1 !important;
-  flex-shrink: 0 !important;
-  margin-bottom: 1rem !important;
-}
+  .desktop-layout-container {
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-/* Messenger en deuxième - uniquement dans les écrans de jeu */
-#solo-screen .messenger-container,
-#solo-screen #soloMessengerView,
-#player-screen .messenger-container,
-#player-screen #messengerView {
-  order: 2 !important;
-  flex-grow: 1 !important;
-  flex-shrink: 0 !important;
-  display: block !important; /* Pas de flex pour le container messenger */
-}
+  .desktop-image-zone {
+    width: 50%;
+    height: 80%;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
 
-/* Messages à l'intérieur du messenger - ordre naturel */
-.messenger-messages {
-  display: block !important; /* Retour au display normal */
-  overflow-y: auto !important;
-  padding: 1rem !important;
-}
+  .desktop-image-zone.empty {
+    display: flex; /* Show the placeholder text again */
+  }
 
-/* Messages individuels - ordre naturel du DOM */
-.message {
-  display: flex !important; /* Flex uniquement pour l'alignement interne */
-  margin-bottom: 1.5rem !important;
-}
+  .desktop-content-zone {
+    width: 50%;
+    height: 100vh;
+    padding: 70px 3rem 3rem 3rem; /* More padding for desktop */
+    overflow-y: auto; /* Allow this column to scroll if needed */
+    -webkit-overflow-scrolling: touch;
+  }
 
-/* Bouton répondre en dernier - uniquement dans les écrans de jeu */
-#solo-screen .answer-toggle,
-#solo-screen #soloShowAnswersBtn,
-#player-screen .answer-toggle,
-#player-screen #showAnswersBtn {
-  order: 3 !important;
-  flex-shrink: 0 !important;
-  margin-top: auto !important;
-}
+  /* Adjust typography and spacing for desktop */
+  body {
+    font-size: 18px; /* Larger base font for desktop */
+  }
 
-/* Auto-scroll vers le bas pour nouveaux messages */
-.messenger-messages {
-  scroll-behavior: smooth !important;
-}
+  .card {
+    padding: 2.5rem; /* More padding */
+  }
 
-/* Correction pour le mode desktop spécifiquement */
-@media (min-width: 1024px) {
-  
-  /* Hauteur des game-content uniquement dans les écrans de jeu */
-  #solo-screen .game-content,
-  #player-screen .game-content {
-    height: calc(100vh - 120px) !important;
-    max-height: calc(100vh - 120px) !important;
-    display: flex !important;
-    flex-direction: column !important;
+  h2.card-title {
+    font-size: 2rem;
+  }
+
+  .button {
+    font-size: 1.1rem;
+    padding: 16px 32px;
   }
   
-  /* Messenger dans les écrans de jeu - croissance dynamique */
-  #solo-screen .messenger-container,
-  #solo-screen #soloMessengerView,
-  #player-screen .messenger-container,
-  #player-screen #messengerView {
-    flex: 0 1 auto !important; /* Ne grandit que selon le contenu */
-    min-height: 100px !important;
-    max-height: calc(100vh - 200px) !important; /* Maximum autorisé */
-    height: auto !important; /* Hauteur automatique selon le contenu */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 1rem;
+    padding: 18px 22px;
   }
   
-  /* Messages s'adaptent au contenu */
-  #solo-screen .messenger-messages,
-  #player-screen .messenger-messages {
-    height: auto !important; /* Hauteur selon le contenu */
-    max-height: calc(100vh - 250px) !important;
-    overflow-y: auto !important;
+  /* Reposition elements that are 'fixed' to the viewport */
+  .pill {
+    left: 75%; /* Center in the right column */
+    transform: translateX(-50%);
+  }
+
+  .answer-panel {
+    left: 50%;
+    width: 50%;
+  }
+
+  #soloShowAnswersBtn, #showAnswersBtn {
+    left: 75%;
+    transform: translateX(-50%);
   }
 }

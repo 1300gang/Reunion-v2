@@ -1,0 +1,912 @@
+{
+  "scenario_info": {
+    "title": "Parcours de Vie - Anthologie d'éducation à la santé et à la citoyenneté",
+    "description": "Une anthologie interactive explorant 7 thématiques essentielles de santé, de relations et de prévention à travers les histoires de jeunes de La Réunion",
+    "characters": ["Yasmina", "Mamadou", "Elodie", "Jack", "Emmy", "Antoine", "Camélia", "Jean-Michela", "Steven", "Olivia", "Lina", "Camille", "Cassandra", "Marc", "Cristelle", "Ti Jean"],
+    "start_question": "introduction"
+  },
+  "questions": {
+    "introduction": {
+      "id": "introduction",
+      "type": "messenger_scenario",
+      "context": "Bienvenue dans cette anthologie éducative interactive",
+      "contextual_image": null,
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "utilisateur",
+            "name": "Vous",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "🌺",
+            "content": "Bienvenue dans \"Parcours de Vie\"",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "🎭",
+            "content": "Une anthologie créée par et pour les jeunes de La Réunion",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Êtes-vous prêt(e) à explorer ces parcours de vie ?",
+      "choices": ["Découvrir les situations", "Non"],
+      "nextQuestions": {
+        "A": "scene1",
+        "B": "scene1"
+      }
+    },
+    "scene1": {
+      "id": "scene1",
+      "type": "messenger_scenario",
+      "context": "Yasmina se pose des questions sur la première fois. Elle est dans un parc avec son oncle Mamadou.",
+      "contextual_image": "img/Rive/img-context/Yasmina_discute_Mamadou.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "yasmina",
+            "name": "Yasmina",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/émotions_yasmina_neutre.png"
+          },
+          {
+            "id": "mamadou",
+            "name": "Mamadou",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/émotions_mamadou_neutre.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "yasmina",
+            "avatar": "img/Rive/perso_emo/émotions_yasmina_etonnée.png",
+            "content": "Je me demande si lors de la première fois ça saigne ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "yasmina",
+            "avatar": "img/Rive/perso_emo/émotions_yasmina_peur.png",
+            "content": "Mamadou, est-ce que ça saigne la première fois ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Mamadou devrait-il répondre à Yasmina ?",
+      "choices": [
+        "Ça dépend des personnes, de leur hymen etc... Je te conseillerai d'aller voir un gynéco",
+        "Enfin Yasmina, tu n'as pas honte de me parler de ça ?",
+        "Oui, la première fois déchire ton hymen et tu vas saigner"
+      ],
+      "nextQuestions": {
+        "A": "scene1A",
+        "B": "scene1B",
+        "C": "scene1C"
+      }
+    },
+    "scene4_2A": {
+      "id": "scene4_2A",
+      "type": "messenger_scenario",
+      "context": "Réponse positive et encourageante de l'entourage",
+      "contextual_image": "img/Rive/img-context/(H6)_fond_A_jmichela_doute.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emotions_jmichela_contente.png"
+          },
+          {
+            "id": "michel",
+            "name": "Michel",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emotions_michel_content.png"
+          },
+          {
+            "id": "coach",
+            "name": "Coach",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emotions_coach_content.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "img/Rive/perso_emo/emotions_jmichela_stressee.png",
+            "content": "Est-ce que je peux faire du sport en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "michel",
+            "avatar": "img/Rive/perso_emo/emotions_michel_content.png",
+            "content": "Mais oui bien sûr !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "michel",
+            "avatar": "img/Rive/perso_emo/emotions_michel_content.png",
+            "content": "Il y a plein de femmes qui font du sport au niveau pro",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "michel",
+            "avatar": "img/Rive/perso_emo/emotions_michel_content.png",
+            "content": "Elles doivent parfois participer à des compétitions en ayant leurs règles",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "jeanmichela",
+            "avatar": "img/Rive/perso_emo/emotions_jmichela_contente.png",
+            "content": "Coach, est-ce que je peux faire du foot même en ayant mes règles ?",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "coach",
+            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "content": "Oui tu peux mais que si tu te sens capable de le faire !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Jean-Michela se sent soutenue. Comment va se passer l'entraînement ?",
+      "choices": [
+        "Elle participe normalement au match",
+        "Elle commence mais ressent des douleurs"
+      ],
+      "nextQuestions": {
+        "A": "scene4_3A",
+        "B": "scene4_3B"
+      }
+    },
+    "scene4_3B": {
+      "id": "scene4_3B",
+      "type": "messenger_scenario",
+      "context": "Des douleurs apparaissent dès le début",
+      "contextual_image": "img/Rive/img-context/(H6)_fond_B_jmichela_douleur.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "jeanmichela",
+            "name": "Jean-Michela",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emotions_jmichela_douleur.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "jeanmichela",
+            "avatar": "img/Rive/perso_emo/emotions_jmichela_douleur.png",
+            "content": "Je commence à avoir mal, je vais arrêter",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "content": "Jean-Michela ressent des douleurs importantes",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment va-t-elle gérer cette situation ?",
+      "choices": [
+        "Elle demande à être remplacée",
+        "Elle essaie de continuer malgré la douleur"
+      ],
+      "nextQuestions": {
+        "A": "scene4_4",
+        "B": "fin4_negative3"
+      }
+    },
+    "scene5_1": {
+      "id": "scene5_1",
+      "type": "messenger_scenario",
+      "context": "Steven rentre chez lui alcoolisé après avoir bu chez un ami. Olivia l'attend, inquiète.",
+      "contextual_image": "img/Rive/img-context/(H7)_fond_A_rentree_maison.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_steven_ivre.png"
+          },
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_olivia_inquiete.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "img/Rive/perso_emo/emo_steven_ivre.png",
+            "content": "Kossa la fé ou lé meyer ou kossa ou la di ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "steven",
+            "avatar": "img/Rive/perso_emo/emo_steven_colere.png",
+            "content": "Koifé ou ve pran ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "olivia",
+            "avatar": "img/Rive/perso_emo/emo_olivia_peur.png",
+            "content": "Steven, tu es encore ivre... tu fais peur...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Olivia devrait-elle réagir face à Steven alcoolisé et agressif ?",
+      "choices": [
+        "Chercher à désamorcer calmement",
+        "Hésiter et se justifier",
+        "Confronter Steven"
+      ],
+      "nextQuestions": {
+        "A": "scene5_2A",
+        "B": "scene5_2B",
+        "C": "scene5_2C"
+      }
+    },
+    "scene5_3": {
+      "id": "scene5_3",
+      "type": "messenger_scenario",
+      "context": "L'escalade de violence",
+      "contextual_image": "img/Rive/img-context/(H7)_fond_B_jet_objet.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "steven",
+            "name": "Steven",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_steven_rage.png"
+          },
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_olivia_peur.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "steven",
+            "avatar": "img/Rive/perso_emo/emo_steven_rage.png",
+            "content": "Tu te fous de moi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "steven",
+            "avatar": "img/Rive/perso_emo/emo_steven_rage.png",
+            "content": "Je sais que tu vois un autre mec !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "content": "Steven jette un objet au sol",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "La situation devient dangereuse. Comment Olivia réagit-elle ?",
+      "choices": [
+        "S'éloigner et prendre son téléphone",
+        "Supplier Steven",
+        "Riposter verbalement"
+      ],
+      "nextQuestions": {
+        "A": "scene5_4A",
+        "B": "scene5_4B",
+        "C": "scene5_4C"
+      }
+    },
+    "scene5_4A": {
+      "id": "scene5_4A",
+      "type": "messenger_scenario",
+      "context": "Olivia se met en sécurité",
+      "contextual_image": "img/Rive/img-context/(H7)_fond_C_attrape_bras.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "olivia",
+            "name": "Olivia",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_olivia_demande_aide.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "olivia",
+            "avatar": "img/Rive/perso_emo/emo_olivia_colere.png",
+            "content": "Tu es dangereux",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "olivia",
+            "avatar": "img/Rive/perso_emo/emo_olivia_demande_aide.png",
+            "content": "Je ne veux pas rester là",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "content": "Elle prend de la distance et prévient la possibilité de violence",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Olivia se protège. Que se passe-t-il ?",
+      "choices": ["Les voisins appellent la police"],
+      "nextQuestions": {
+        "A": "scene5_5"
+      }
+    },
+    "scene5_5": {
+      "id": "scene5_5",
+      "type": "messenger_scenario",
+      "context": "Intervention policière",
+      "contextual_image": "img/Rive/img-context/(H7)_fond_D_arrivee_police.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "policier",
+            "name": "Policier",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_policiere_ferme.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "policier",
+            "avatar": "img/Rive/perso_emo/emo_policiere_ferme.png",
+            "content": "Arrêtez ! À terre et les mains sur la tête !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "content": "Steven et Olivier se retrouvent en cellule de dégrisement",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "content": "Steven décide de se rendre dans un CSAPA pour ses addictions",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Steven réagit-il face à la police ?",
+      "choices": [
+        "Il se rend",
+        "Il nie les faits",
+        "Il résiste"
+      ],
+      "nextQuestions": {
+        "A": "fin5_positive2",
+        "B": "fin5_negative1",
+        "C": "fin5_negative2"
+      }
+    },
+    "scene6_1": {
+      "id": "scene6_1",
+      "type": "messenger_scenario",
+      "context": "Lina va au centre commercial avec ses amies Camille et Cassandra",
+      "contextual_image": "img/Rive/img-context/(H8)_fond_A_discussion_banc.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_lina_neutre.png"
+          },
+          {
+            "id": "cassandra",
+            "name": "Cassandra",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_cassandra_contente.png"
+          },
+          {
+            "id": "camille",
+            "name": "Camille",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_camille_contente.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "cassandra",
+            "avatar": "img/Rive/perso_emo/emo_cassandra_vicieuse.png",
+            "content": "Venez on va au magasin d'à côté",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "content": "Les filles entrent dans le magasin",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "cassandra",
+            "avatar": "img/Rive/perso_emo/emo_cassandra_vicieuse.png",
+            "content": "Vas-y Lina, vole une montre !",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "camille",
+            "avatar": "img/Rive/perso_emo/emo_camille_jugeuse.png",
+            "content": "FAIS-LE !!",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Les amies de Lina la poussent à voler. Comment réagit-elle ?",
+      "choices": [
+        "Refuser fermement",
+        "Hésiter et douter",
+        "Se laisser influencer"
+      ],
+      "nextQuestions": {
+        "A": "scene6_2A",
+        "B": "scene6_2B",
+        "C": "scene6_2C"
+      }
+    },
+    "scene6_2C": {
+      "id": "scene6_2C",
+      "type": "messenger_scenario",
+      "context": "Lina cède à la pression",
+      "contextual_image": "img/Rive/img-context/(H8)_fond_B_vol_montre.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_lina_peur.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "vigile",
+            "name": "Vigile",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_vigile_colere.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "lina",
+            "avatar": "img/Rive/perso_emo/emo_lina_sourire_stressee.png",
+            "content": "Ok... d'accord...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "content": "L'alarme sonne \"BIP BIP BIP\"",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "vigile",
+            "avatar": "img/Rive/perso_emo/emo_vigile_colere.png",
+            "content": "STOP ! ARRÊTEZ-VOUS !",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Lina s'est fait prendre. Que se passe-t-il ?",
+      "choices": ["Confrontation avec les autorités"],
+      "nextQuestions": {
+        "A": "fin6_negative1"
+      }
+    },
+    "scene6_3C": {
+      "id": "scene6_3C",
+      "type": "messenger_scenario",
+      "context": "Violence physique et verbale",
+      "contextual_image": "img/Rive/img-context/(H8)_fond_C_discussion_apres_vol.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "cassandra",
+            "name": "Cassandra",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_cassandra_rage.png"
+          },
+          {
+            "id": "camille",
+            "name": "Camille",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_camille_dédain.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "cassandra",
+            "avatar": "img/Rive/perso_emo/emo_cassandra_rage.png",
+            "content": "Tu ne sais rien faire, sale p*te !",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "content": "Cassandra gifle violemment Lina",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "camille",
+            "avatar": "img/Rive/perso_emo/emo_camille_jugeuse.png",
+            "content": "Tu n'es même pas capable de faire ça franchement...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Lina est victime de violence. Que fait-elle ?",
+      "choices": ["Elle en parle immédiatement à son père"],
+      "nextQuestions": {
+        "A": "scene6_4C"
+      }
+    },
+    "scene6_4C": {
+      "id": "scene6_4C",
+      "type": "messenger_scenario",
+      "context": "Révélation de la violence au père",
+      "contextual_image": "img/Rive/img-context/(H8)_fond_D_pere.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pere",
+            "name": "Père",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_pere_lina_inquiet.png"
+          },
+          {
+            "id": "lina",
+            "name": "Lina",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_lina_pleurs.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pere",
+            "avatar": "img/Rive/perso_emo/emo_pere_lina_inquiet.png",
+            "content": "Salut ma puce, ça va pas ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "lina",
+            "avatar": "img/Rive/perso_emo/emo_lina_pleurs2.png",
+            "content": "Papa... Cassandra m'a giflée, elles m'insultent",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pere",
+            "avatar": "img/Rive/perso_emo/emo_pere_lina_severe.png",
+            "content": "C'est inacceptable ! On va porter plainte",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "pere",
+            "avatar": "img/Rive/perso_emo/emo_pere_lina_content.png",
+            "content": "Tu n'es pas seule, on va t'aider",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Action immédiate face à la violence",
+      "choices": ["Porter plainte et changement d'école"],
+      "nextQuestions": {
+        "A": "fin6_positive"
+      }
+    },
+    "scene7_1": {
+      "id": "scene7_1",
+      "type": "messenger_scenario",
+      "context": "Marc rentre chez lui et voit Cristelle sur son téléphone",
+      "contextual_image": "img/Rive/img-context/(H9)_fond_A_marc_rentre_maison.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_marc_suspecte.png"
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_christelle_genee.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "img/Rive/perso_emo/emo_marc_contrarie.png",
+            "content": "Salut je suis rentré... c'était qui ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "cristelle",
+            "avatar": "img/Rive/perso_emo/emo_christelle_genee2.png",
+            "content": "Rien d'important, t'inquiète...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Marc est suspicieux. Comment réagit-il ?",
+      "choices": [
+        "Faire confiance",
+        "Douter et fouiller",
+        "Confronter agressivement"
+      ],
+      "nextQuestions": {
+        "A": "scene7_2A",
+        "B": "scene7_2B",
+        "C": "scene7_2C"
+      }
+    },
+    "scene7_2B": {
+      "id": "scene7_2B",
+      "type": "messenger_scenario",
+      "context": "Marc fouille dans le téléphone",
+      "contextual_image": "img/Rive/img-context/(H9)_fond_B_discussion_marc_christelle.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_marc_suspecte.png"
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "img/Rive/perso_emo/emo_marc_suspecte.png",
+            "content": "J'ai quand même des doutes...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "marc",
+            "avatar": "img/Rive/perso_emo/emo_marc_contrarie.png",
+            "content": "Je vais vérifier",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "content": "Marc fouille sans permission",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "content": "Relation toxique, danger",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Marc découvre des messages de Ti Jean. Que fait-il ?",
+      "choices": [
+        "Confronter Cristelle calmement",
+        "Exploser de colère"
+      ],
+      "nextQuestions": {
+        "A": "scene7_3A",
+        "B": "scene7_3B"
+      }
+    },
+    "scene7_4": {
+      "id": "scene7_4",
+      "type": "messenger_scenario",
+      "context": "Confrontation avec Ti Jean",
+      "contextual_image": "img/Rive/img-context/(H9)_fond_C_confrontation_tijean.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_marc_colere.png"
+          },
+          {
+            "id": "tijean",
+            "name": "Ti Jean",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_tijean_neutre.png"
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_christelle_larmoyante.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "img/Rive/perso_emo/emo_marc_colere.png",
+            "content": "C'est toi qui envoies des messages à ma copine ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "tijean",
+            "avatar": "img/Rive/perso_emo/emo_tijean_desole.png",
+            "content": "On est juste amis !",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "cristelle",
+            "avatar": "img/Rive/perso_emo/emo_christelle_pleurs.png",
+            "content": "Marc, il n'y a rien entre nous...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment gérer cette confrontation ?",
+      "choices": [
+        "Discussion calme et clarification",
+        "Escalade vers la violence"
+      ],
+      "nextQuestions": {
+        "A": "fin7_positive",
+        "B": "scene7_5"
+      }
+    },
+    "fin7_positive": {
+      "id": "fin7_positive",
+      "type": "messenger_scenario",
+      "context": "Résolution par le dialogue",
+      "contextual_image": "img/Rive/img-context/(H9)_fond_B_discussion_marc_christelle.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "marc",
+            "name": "Marc",
+            "isCurrentUser": true,
+            "avatar": "img/Rive/perso_emo/emo_marc_regret.png"
+          },
+          {
+            "id": "tijean",
+            "name": "Ti Jean",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_tijean_neutre.png"
+          },
+          {
+            "id": "cristelle",
+            "name": "Cristelle",
+            "isCurrentUser": false,
+            "avatar": "img/Rive/perso_emo/emo_christelle_neutre.png"
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "marc",
+            "avatar": "img/Rive/perso_emo/emo_marc_regret.png",
+            "content": "Je vois... désolé de m'être emporté",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "marc",
+            "avatar": "img/Rive/perso_emo/emo_marc_content.png",
+            "content": "J'ai besoin qu'on se fasse confiance",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "tijean",
+            "avatar": "img/Rive/perso_emo/emo_tijean_neutre.png",
+            "content": "On est vraiment juste amis",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "cristelle",
+            "avatar": "img/Rive/perso_emo/emo_christelle_contente.png",
+            "content": "Marc, je t'aime, il n'y a que toi",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Fin positive - La communication résout les conflits",
+      "choices": ["Passer à la conclusion finale"],
+      "nextQuestions": {
+        "A": "conclusion_finale"
+      }
+    }
+  }
+}

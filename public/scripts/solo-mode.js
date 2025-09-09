@@ -146,6 +146,7 @@ class SoloGameManager {
   // ============================================================================
   
   async displayQuestion(questionData) {
+    this.showElement('soloShowAnswersBtn');
     console.log('📋 Affichage question solo:', questionData.id);
     
     this.state.currentQuestion = questionData;
@@ -234,7 +235,7 @@ class SoloGameManager {
     
     const titleEl = document.getElementById('soloQuestionTitle');
      titleEl.style.fontFamily =  'mocraRegular';
-    if (titleEl) titleEl.textContent = questionData.question || 'Que faire ?';
+    if (titleEl) titleEl.textContent = questionData.question || 'Que faIre ?';
     
     const choicesDiv = document.getElementById('soloAnswerChoices');
     if (!choicesDiv) {
@@ -392,10 +393,20 @@ class SoloGameManager {
   // ============================================================================
   // 5. MESSENGER CONVERSATION
   // ============================================================================
+  calculateReadingTime(messageContent) {
+  const MINIMUM_DELAY = 500; // Un délai minimum de 0.5s, même pour les messages très courts
+  const CHARS_PER_SECOND = 52; // Vitesse de lecture (ajustez selon vos préférences)
   
+  const calculatedDelay = (messageContent.length / CHARS_PER_SECOND) * 1000;
+  
+  // On s'assure de ne jamais avoir un délai plus court que le minimum
+  return Math.max(calculatedDelay, MINIMUM_DELAY);
+}
+
+
   async displayMessengerConversation(conversation) {
     console.log('💬 Affichage conversation messenger');
-    
+    this.hideElement('soloShowAnswersBtn');
     const messengerDiv = document.getElementById('soloMessengerView');
     if (!messengerDiv) {
       console.error('❌ Élément soloMessengerView non trouvé');
@@ -406,9 +417,9 @@ class SoloGameManager {
     messengerDiv.innerHTML = `
       <div class="messenger-messages"></div>
       <div class="typing-indicator hidden">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
       </div>
     `;
     
@@ -426,46 +437,43 @@ class SoloGameManager {
     await this.animateMessages(messages);
   }
   
-  async animateMessages(messages) {
-    const container = document.querySelector('#soloMessengerView .messenger-messages');
-    if (!container) {
-      console.error('❌ Conteneur messages non trouvé');
-      return;
+async animateMessages(messages) {
+  const container = document.querySelector('.messenger-messages');
+  if (!container) return;
+  
+  for (const message of messages) {
+    const typingIndicator = document.querySelector('.typing-indicator');
+    if (typingIndicator) {
+      showElement('typing-indicator');
+      await sleep(300 + Math.random() * 200);
+      hideElement('typing-indicator');
     }
     
-    console.log('🎬 Animation de', messages.length, 'messages');
+    const messageDiv = createMessageElement(message);
+    messageDiv.style.opacity = '0';
+    messageDiv.style.transform = 'translateY(20px) scale(0.9)';
+    container.appendChild(messageDiv);
     
-    for (let i = 0; i < messages.length; i++) {
-      const message = messages[i];
-      
-      // Indicateur de frappe
-      const typingIndicator = document.querySelector('#soloMessengerView .typing-indicator');
-      if (typingIndicator && !message.isCurrentUser) {
-        typingIndicator.classList.remove('hidden');
-        await this.sleep(300 + Math.random() * 200);
-        typingIndicator.classList.add('hidden');
-      }
-      
-      const messageDiv = this.createMessageElement(message);
-      messageDiv.style.opacity = '0';
-      messageDiv.style.transform = 'translateY(20px) scale(0.9)';
-      container.appendChild(messageDiv);
-      
-      await this.sleep(50);
-      messageDiv.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-      messageDiv.style.opacity = '1';
-      messageDiv.style.transform = 'translateY(0) scale(1)';
-      
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: 'smooth'
-      });
-      
-      await this.sleep(800);
-    }
+    await sleep(50);
+    messageDiv.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+    messageDiv.style.opacity = '1';
+    messageDiv.style.transform = 'translateY(0) scale(1)';
     
-    console.log('✅ Animation des messages terminée');
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: 'smooth'
+    });
+    
+    // ===== MODIFICATION CI-DESSOUS =====
+    // On remplace le délai fixe par notre calcul dynamique
+    const readingTime = calculateReadingTime(message.content);
+    console.log(`📖 Message: "${message.content.substring(0, 20)}..." | Délai de lecture: ${Math.round(readingTime)}ms`);
+    await sleep(readingTime);
+    // ===== FIN DE LA MODIFICATION =====
   }
+}
+
+
   
   createMessageElement(message) {
     playMessageSound()

@@ -77,7 +77,7 @@
           </div>
 
           <div id="intervenant-lobby" class="hidden">
-            <div class="card institutional-card">
+             <div class=""><!--. card institutional-card -->
               <div class="pill">
                 <span class="pill-icon">🎓</span>
                 <span id="lobbyNameDisplay"></span>
@@ -302,6 +302,7 @@
               <!-- Zone Image -->
               <div class="desktop-image-zone">
                 <img id="playerContextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+                <div id="playerQuestionContext" class="context-box card institutional-card"></div>
               </div>
               
               <!-- Zone Contenu -->
@@ -312,13 +313,13 @@
                 </div>
                 
                 <div class="game-content">
-                  <div id="playerQuestionContext" class="context-box"></div>
+                  
                   
                   <div id="messengerView" class="messenger-container">
                     <div class="typing-indicator hidden">
-                      <span></span>
-                      <span></span>
-                      <span></span>
+                      <span>!</span>
+                      <span>!</span>
+                      <span>!</span>
                     </div>
                   </div>
                   
@@ -377,6 +378,8 @@
       <!-- Zone Image -->
       <div class="desktop-image-zone">
         <img id="soloContextImage" src="img/img_contextuel/nico_gaetan_marche_des_fierte.png" alt="Contexte" class="context-image">
+        <!-- Contexte de la question -->
+            <div id="soloQuestionContext" class="context-box card institutional-card"></div>
       </div>
       
       <!-- Zone Contenu -->
@@ -390,8 +393,7 @@
           
           <!-- Interface de jeu identique au mode joueur -->
           <div class="game-content">
-            <!-- Contexte de la question -->
-            <div id="soloQuestionContext" class="context-box"></div>
+            
             
             <!-- Vue Messenger pour les dialogues -->
             <div id="soloMessengerView" class="messenger-container">

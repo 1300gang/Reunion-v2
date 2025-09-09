@@ -901,6 +901,43 @@ body.level-active #level-view {
 }
 
 /* Responsive */
+@media (max-width: 1023px) {
+    .desktop-layout-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .desktop-image-zone, .desktop-content-zone {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 1.5rem;
+    }
+
+    .desktop-image-zone {
+        height: 30vh;
+        min-height: 200px;
+    }
+
+    .desktop-content-zone {
+        overflow-y: visible;
+        padding-bottom: 5rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .mode-options {
+        flex-direction: column;
+    }
+
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+    }
+}
+
 @media (max-width: 768px) {
   .mode-icon-img {
     width: 50px;
@@ -910,4 +947,35 @@ body.level-active #level-view {
   .desktop-content-zone {
     padding: 1.5rem 1rem;
   }
+
+  .title {
+      font-size: 1.8rem;
+  }
+
+  .launch-button {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+  }
+
+  .level-card {
+      height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+    .desktop-image-zone {
+        min-height: 150px;
+    }
+
+    .desktop-content-zone {
+        padding: 1rem;
+    }
+
+    .level-header {
+        padding: 1rem;
+    }
+
+    .level-card .level-title {
+        font-size: 1rem;
+    }
 }
