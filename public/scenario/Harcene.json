@@ -131,7 +131,7 @@
                 { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
             ],
             "messages": [
-                { "id": "msg1", "sender": "narrateur", "avatar": "/../img/Harcene/perso_emo/emo_proviseur.png", "content": "Les parents déposent plainte. Bean est suspendu avec obligation de suivi. Les élèves ayant partagé le Snap sont sanctionnés et sensibilisés. Une intervention est organisée au lycée et Dora et Marguerite reçoivent un soutien.", "type": "text" }
+                { "id": "msg1", "sender": "narrateur", "avatar": "/../img/Harcene/perso_emo/emo_proviseur.png", "content": "Les parents déposent plainte. Bean est suspendu avec obligation de suivi. Les élèves ayant partagé le Snap sont sanctionnés et sensibilisés. Une intervention est organisée au lycée et Dora et Marguerite reçoivent un soutien.", "type": "text" },
                 { "id": "msg2", "sender": "narrateur", "avatar": "/../img/Harcene/perso_emo/emo_dora_soulagee.png", "content": "Dora est protégée, Marguerite la soutient, Wassim a agi.", "type": "text" }
               ]
         },
@@ -304,11 +304,11 @@
         "conversation": {
           "participants": [
             { "id": "dora", "name": "Dora", "isCurrentUser": true },
-            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false },
             { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
           ],
           "messages": [
-            { "id": "msg1", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_soulagee.png", "content": "Tu l'as dit, c'est ça qui compte. Merci.", "type": "text" }
+            { "id": "msg1", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_soulagee.png", "content": "Tu l'as dit, c'est ça qui compte. Merci.", "type": "text" },
             { "id": "msg2", "sender":"narrateur", "avatar":"", "content":"Dora reprend peu à peu confiance, mais une blessure reste. Elle accepte les excuses de Wassim, mais garde une distance. Le plus important est qu'elle est maintenant soutenue.", "type":"text" }
           ]
         },
