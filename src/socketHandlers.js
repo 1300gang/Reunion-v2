@@ -235,7 +235,6 @@ function initializeSocketIO(io) {
 
             // The 'continue' case is now handled like a regular vote, so the GM can advance.
             // We still emit player-continued for the GM UI.
-            const question = getQuestionFromScenario(scenario, questionId);
             if (lobbyManager.isContinueQuestion(question)) {
                  if (lobby.mode !== 'solo') io.to(lobby.gmId).emit('player-continued', { playerName, questionId });
                  return; // Don't broadcast vote updates for continue questions
