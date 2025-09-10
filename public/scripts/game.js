@@ -313,7 +313,7 @@ function initializeEventListeners() {
   attachButton('copyLinkBtn', copyPlayerLink);
   attachButton('startGameBtn', startGame);
   attachButton('endGameBtn', endGame);
-  attachButton('generateCsvBtn', generateCsv);
+  attachButton('generateJsonReportBtn', generateJsonReport);
   attachButton('sendResultsBtn', sendResults);
   attachButton('newSessionBtn', newSession);
   attachButton('backToMenuBtn', backToMenu);
@@ -332,13 +332,13 @@ function initializeEventListeners() {
     playerForm.onsubmit = submitPlayerInfo;
   }
   
-  // Bouton CSV final
-  attachButton('finalDownloadCsvBtn', () => {
-    const existingLink = document.getElementById('csvDownloadLink');
+  // Bouton JSON final
+  attachButton('finalDownloadJsonReportBtn', () => {
+    const existingLink = document.getElementById('jsonReportDownloadLink');
     if (existingLink && existingLink.href) {
       existingLink.click();
     } else {
-      generateCsv();
+      generateJsonReport();
     }
   });
 }
@@ -461,9 +461,9 @@ function endGame() {
   }
 }
 
-function generateCsv() {
-  socket.emit('generate-csv');
-  showNotification('Génération du CSV en cours...', 'info');
+function generateJsonReport() {
+  socket.emit('generate-json-report');
+  showNotification('Génération du rapport JSON en cours...', 'info');
 }
 
 function copyPlayerLink() {
@@ -570,13 +570,13 @@ function createVotingOptions(questionData) {
     if (typeof VoteComponent !== 'undefined') {
       gameState.voteComponents[letter] = new VoteComponent(optionDiv, {
         letter: letter,
-        text: choice,
+        text: choice.text,
         count: 0,
         totalVotes: 0,
         voters: [],
         isClickable: true,
         showVoters: true,
-        nextQuestionId: questionData.nextQuestions ? questionData.nextQuestions[letter] : null,
+        nextQuestionId: choice.next_question_id,
         onVote: (nextQuestionId) => confirmNextQuestion(nextQuestionId)
       });
     }
@@ -675,38 +675,33 @@ async function displayPlayerQuestion(questionData) {
 }
 
 function handlePlayerContinue(questionData) {
-  console.log('Question Continue côté joueur:', questionData.id);
-  
-  document.getElementById('playerQuestionTitle').textContent = 'Cliquez pour continuer';
-  
-  const choicesDiv = document.getElementById('answerChoices');
-  if (!choicesDiv) return;
-  
-  choicesDiv.innerHTML = '';
-  
-  const continueBtn = document.createElement('button');
-  continueBtn.className = 'button button-primary continue-button';
-  continueBtn.innerHTML = `
-    <span>${questionData.choices[0] || 'Continuer'}</span>
-    <span class="arrow">→</span>
-  `;
-  
-  continueBtn.onclick = () => {
-    socket.emit('player-answer', { 
-      questionId: questionData.id, 
-      answer: 'continue' 
-    });
+    console.log('Question Continue côté joueur:', questionData.id);
+
+    document.getElementById('playerQuestionTitle').textContent = 'Cliquez pour continuer';
+
+    const choicesDiv = document.getElementById('answerChoices');
+    if (!choicesDiv) return;
+
+    choicesDiv.innerHTML = '';
+    const choice = questionData.choices[0];
+    const letter = 'A';
+
+    const choiceContainer = document.createElement('div');
+    choiceContainer.className = 'answer-choice-container';
+    choiceContainer.id = `answer-choice-${letter}`;
+    choicesDiv.appendChild(choiceContainer);
+
+    if (typeof VoteComponent !== 'undefined') {
+        gameState.voteComponents[letter] = new VoteComponent(choiceContainer, {
+            letter: letter,
+            text: choice.text || 'Continuer',
+            isClickable: true,
+            onVote: (selectedLetter) => submitAnswer(questionData.id, selectedLetter)
+        });
+    }
     
-    continueBtn.classList.add('clicked');
-    continueBtn.disabled = true;
-    
-    document.getElementById('answerStatus').textContent = '✅ Suite de l\'histoire...';
-    hideAnswerPanel();
-    showElement('waitingMessage');
-  };
-  
-  choicesDiv.appendChild(continueBtn);
-  showElement('showAnswersBtn');
+    document.getElementById('answerStatus').textContent = '';
+    showElement('showAnswersBtn');
 }
 
 function setupPlayerChoices(questionData) {
@@ -731,7 +726,7 @@ function setupPlayerChoices(questionData) {
     if (typeof VoteComponent !== 'undefined') {
       gameState.voteComponents[letter] = new VoteComponent(choiceContainer, {
         letter: letter,
-        text: choice,
+        text: choice.text,
         count: 0,
         totalVotes: 0,
         isClickable: true,
@@ -1057,19 +1052,19 @@ function initializeSocketEvents() {
     }
   });
   
-  socket.on('csv-ready', (filename) => {
-    const link = document.getElementById('csvDownloadLink');
+  socket.on('json-report-ready', (filename) => {
+    const link = document.getElementById('jsonReportDownloadLink');
     if (link) {
       link.href = '/exports/' + filename;
       link.download = filename;
-      showElement('csvDownloadLink');
+      showElement('jsonReportDownloadLink');
       
       if (gameConfig.mode === 'intervenant') {
         link.click();
       }
     }
     
-    showNotification('CSV prêt au téléchargement', 'success');
+    showNotification('Rapport JSON prêt au téléchargement', 'success');
   });
   
   socket.on('lobby-closed', () => {

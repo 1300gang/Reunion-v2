@@ -115,33 +115,35 @@ app.post('/api/scenario', async (req, res) => {
     }
 });
 
-// Route pour le téléchargement des exports CSV
+// Route pour le téléchargement des exports JSON
 app.get('/exports/:filename', async (req, res) => {
-  const filename = req.params.filename;
-  if (!/^results_[a-zA-Z0-9_\-]+\.csv$/.test(filename)) {
-    return res.status(400).send('Nom de fichier invalide');
-  }
-  const filePath = path.join(__dirname, 'exports', filename);
-  if (!lobbyManager.fileAccess[filename]) {
-    return res.status(403).send('Accès non autorisé');
-  }
-  try {
-    await fs.access(filePath);
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.sendFile(filePath);
-    setTimeout(async () => {
-      try {
-        await fs.unlink(filePath);
-        delete lobbyManager.fileAccess[filename];
-      } catch (e) {
-        console.error('Erreur suppression fichier:', e);
-      }
-    }, 60000);
-  } catch (error) {
-    res.status(404).send('Fichier non trouvé');
-  }
+    const filename = req.params.filename;
+    // Mise à jour de l'expression régulière pour accepter .json
+    if (!/^results_[a-zA-Z0-9_\-]+\.json$/.test(filename)) {
+        return res.status(400).send('Nom de fichier invalide');
+    }
+    const filePath = path.join(__dirname, 'exports', filename);
+    if (!lobbyManager.fileAccess[filename]) {
+        return res.status(403).send('Accès non autorisé');
+    }
+    try {
+        await fs.access(filePath);
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        // Mise à jour du Content-Type pour JSON
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.sendFile(filePath);
+        setTimeout(async () => {
+            try {
+                await fs.unlink(filePath);
+                delete lobbyManager.fileAccess[filename];
+            } catch (e) {
+                console.error('Erreur suppression fichier:', e);
+            }
+        }, 60000);
+    } catch (error) {
+        res.status(404).send('Fichier non trouvé');
+    }
 });
 
 // === INITIALISATION DES MODULES ===

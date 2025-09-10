@@ -1,0 +1,34 @@
+{
+  "gameInfo": {
+    "lobbyName": "TestLobby-1757524765514",
+    "scenarioTitle": "Parcours de Vie - Anthologie d'éducation à la santé et à la citoyenneté",
+    "mode": "group",
+    "questionPath": [
+      "introduction",
+      "scene1",
+      "scene1A",
+      "scene2"
+    ],
+    "exportDate": "2025-09-10T17:19:26.224Z"
+  },
+  "players": [
+    {
+      "playerInfo": {
+        "name": "TestPlayer",
+        "age": 25,
+        "genre": "Autre",
+        "school": "Test School"
+      },
+      "responses": {
+        "introduction": "A",
+        "scene1": "A",
+        "scene1A": "A"
+      },
+      "thematicScores": {
+        "consentement": 1,
+        "entraide": 1,
+        "resilience": 1
+      }
+    }
+  ]
+}
