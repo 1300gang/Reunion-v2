@@ -88,11 +88,6 @@
           "engrenage",
           "perte_dignité"
         ]
-      },
-      "scores_thematiques": {
-        "A": { "désespoir": 1, "perte_dignité": 1, "engrenage": 1 },
-        "B": { "résilience": 1, "espoir": 1, "solidarité_institutionnelle": 1 },
-        "C": { "soutien_social": 1, "confiance": 1 }
       }
     },
     "scene2_changement": {

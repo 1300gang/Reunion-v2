@@ -136,63 +136,7 @@ async function deleteLobby(lobbyId) {
     await db.run("DELETE FROM feedbacks WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM responses WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM players WHERE lobbyId = ?", [lobbyId]);
-    await db.run("DELETE FROM player_scores WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM lobbies WHERE id = ?", [lobbyId]);
-}
-
-async function updatePlayerScores(lobbyId, playerName, scores) {
-    const sql = `
-        INSERT INTO player_scores (lobbyId, playerName, theme, score)
-        VALUES (?, ?, ?, ?)
-        ON CONFLICT(lobbyId, playerName, theme)
-        DO UPDATE SET score = score + excluded.score;
-    `;
-
-    return new Promise((resolve, reject) => {
-        db.serialize(() => {
-            db.run('BEGIN TRANSACTION');
-
-            const scoreEntries = Object.entries(scores);
-            if (scoreEntries.length === 0) {
-                db.run('COMMIT');
-                return resolve();
-            }
-
-            let completed = 0;
-            let failed = false;
-
-            for (const [theme, value] of scoreEntries) {
-                db.run(sql, [lobbyId, playerName, theme, value], function(err) {
-                    if (failed) return;
-                    if (err) {
-                        failed = true;
-                        db.run('ROLLBACK');
-                        return reject(err);
-                    }
-                    completed++;
-                    if (completed === scoreEntries.length) {
-                        db.run('COMMIT', (commitErr) => {
-                            if (commitErr) {
-                                db.run('ROLLBACK');
-                                reject(commitErr);
-                            } else {
-                                resolve();
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    });
-}
-
-async function getPlayerScores(lobbyId, playerName) {
-    const sql = `SELECT theme, score FROM player_scores WHERE lobbyId = ? AND playerName = ?`;
-    const rows = await db.all(sql, [lobbyId, playerName]);
-    return rows.reduce((acc, row) => {
-        acc[row.theme] = row.score;
-        return acc;
-    }, {});
 }
 
 async function cleanupInactiveLobbies() {
@@ -233,7 +177,5 @@ module.exports = {
   getPlayerResponses,
   deleteLobby,
   cleanupInactiveLobbies,
-  updatePlayerScores,
-  getPlayerScores,
   fileAccess,
 };

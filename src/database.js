@@ -50,15 +50,6 @@ const db = new sqlite3.Database(DB_SOURCE, (err) => {
                 feedback TEXT,
                 createdAt INTEGER
             )`, (err) => { if (err) console.error("Erreur table feedbacks:", err.message); });
-
-            db.run(`CREATE TABLE IF NOT EXISTS player_scores (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                lobbyId TEXT NOT NULL,
-                playerName TEXT NOT NULL,
-                theme TEXT NOT NULL,
-                score INTEGER NOT NULL DEFAULT 0,
-                UNIQUE(lobbyId, playerName, theme)
-            )`, (err) => { if (err) console.error("Erreur table player_scores:", err.message); });
         });
     }
 });

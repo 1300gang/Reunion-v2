@@ -219,21 +219,6 @@ function initializeSocketIO(io) {
             await lobbyManager.recordAnswer(socket.lobby, playerName, questionId, answer);
             socket.emit('answer-recorded');
 
-            // --- Thematic Score Update ---
-            try {
-                const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
-                const question = getQuestionFromScenario(scenario, questionId);
-
-                if (question && question.scores_thematiques && question.scores_thematiques[answer]) {
-                    const scores = question.scores_thematiques[answer];
-                    await lobbyManager.updatePlayerScores(socket.lobby, playerName, scores);
-                    console.log(`Scores thématiques mis à jour pour ${playerName}:`, scores);
-                }
-            } catch (scoreError) {
-                console.error(`Erreur lors de la mise à jour des scores thématiques pour ${playerName}:`, scoreError);
-            }
-            // --- End Thematic Score Update ---
-
             if (answer === 'continue') {
                 if (lobby.mode !== 'solo') io.to(lobby.gmId).emit('player-continued', { playerName, questionId });
                 return;
@@ -368,11 +353,9 @@ function initializeSocketIO(io) {
             const playerSummaries = [];
             for (const player of players) {
                 const responses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
-                const thematicScores = await lobbyManager.getPlayerScores(socket.lobby, player.playerName);
                 playerSummaries.push({
                     ...player,
-                    responses,
-                    thematicScores
+                    responses
                 });
             }
 
