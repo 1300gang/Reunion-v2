@@ -1143,10 +1143,12 @@ function displayQuestion(questionData) {
 }
 
 function isContinueQuestion(questionData) {
-  return questionData && 
-         questionData.choices && 
-         questionData.choices.length === 1 && 
-         (questionData.choices[0].toLowerCase() === 'continuer' || 
+  return questionData &&
+         questionData.choices &&
+         questionData.choices.length === 1 &&
+         questionData.choices[0] &&
+         typeof questionData.choices[0].text === 'string' &&
+         (questionData.choices[0].text.toLowerCase() === 'continuer' ||
           questionData.question === '' ||
           questionData.question === null);
 }
