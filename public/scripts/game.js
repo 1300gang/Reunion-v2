@@ -1052,20 +1052,53 @@ function initializeSocketEvents() {
     }
   });
   
-  socket.on('json-report-ready', (filename) => {
+  socket.on('json-report-ready', async (filename) => {
+    const url = '/exports/' + filename;
     const link = document.getElementById('jsonReportDownloadLink');
     if (link) {
-      link.href = '/exports/' + filename;
+      link.href = url;
       link.download = filename;
       showElement('jsonReportDownloadLink');
-      
-      if (gameConfig.mode === 'intervenant') {
-        link.click();
-      }
     }
     
     showNotification('Rapport JSON prêt au téléchargement', 'success');
+
+    // For facilitators, also display the summary on the end screen
+    if (gameConfig.mode === 'intervenant') {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+            const report = await response.json();
+            displayReportSummary(report.summary);
+
+            // Auto-click the download link for the facilitator
+            if (link) {
+                link.click();
+            }
+        } catch (error) {
+            console.error("Erreur lors de la récupération ou de l'affichage du rapport:", error);
+            showNotification("Impossible d'afficher le résumé du rapport.", "error");
+        }
+    }
   });
+
+function displayReportSummary(summary) {
+    const container = document.getElementById('difficultyPoints');
+    if (!container || !summary) return;
+
+    const avgScores = summary.averageScores;
+    container.innerHTML = `
+        <div class="summary-card">
+            <h4>Scores Thématiques Moyens</h4>
+            <p><strong>Consentement :</strong> ${avgScores.consentement.toFixed(2)}</p>
+            <p><strong>Entraide :</strong> ${avgScores.entraide.toFixed(2)}</p>
+            <p><strong>Résilience :</strong> ${avgScores.resilience.toFixed(2)}</p>
+            <small>Basé sur ${summary.totalPlayers} participant(s)</small>
+        </div>
+    `;
+}
   
   socket.on('lobby-closed', () => {
     showNotification('La partie a été fermée', 'warning');

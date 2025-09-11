@@ -327,6 +327,7 @@ function initializeSocketIO(io) {
             const allScores = await lobbyManager.getAllPlayerScores(socket.lobby);
             const questionPath = JSON.parse(lobby.questionPath);
 
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
             const report = {
                 gameInfo: {
                     lobbyName: lobby.id,
@@ -335,12 +336,39 @@ function initializeSocketIO(io) {
                     questionPath: questionPath,
                     exportDate: new Date().toISOString()
                 },
-                players: []
+                players: [],
+                summary: {
+                    totalPlayers: players.length,
+                    averageScores: {
+                        consentement: 0,
+                        entraide: 0,
+                        resilience: 0
+                    }
+                }
             };
 
+            let totalConsentement = 0;
+            let totalEntraide = 0;
+            let totalResilience = 0;
+
             for (const player of players) {
-                const playerResponses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
+                const rawResponses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
+                const detailedResponses = Object.entries(rawResponses).map(([qId, answerId]) => {
+                    const question = getQuestionFromScenario(scenario, qId);
+                    const choice = question ? question.choices.find(c => c.id === `choix${answerId}`) : null;
+                    return {
+                        questionId: qId,
+                        questionText: question ? question.question : 'Question non trouvée',
+                        answerId: answerId,
+                        answerText: choice ? choice.text : 'Réponse non trouvée'
+                    };
+                });
+
                 const playerScores = allScores.find(s => s.playerName === player.playerName) || { consentement: 0, entraide: 0, resilience: 0 };
+
+                totalConsentement += playerScores.consentement;
+                totalEntraide += playerScores.entraide;
+                totalResilience += playerScores.resilience;
 
                 report.players.push({
                     playerInfo: {
@@ -349,13 +377,19 @@ function initializeSocketIO(io) {
                         genre: player.genre,
                         school: player.ecole
                     },
-                    responses: playerResponses,
+                    responses: detailedResponses,
                     thematicScores: {
                         consentement: playerScores.consentement,
                         entraide: playerScores.entraide,
                         resilience: playerScores.resilience
                     }
                 });
+            }
+
+            if (players.length > 0) {
+                report.summary.averageScores.consentement = totalConsentement / players.length;
+                report.summary.averageScores.entraide = totalEntraide / players.length;
+                report.summary.averageScores.resilience = totalResilience / players.length;
             }
 
             await fs.writeFile(filepath, JSON.stringify(report, null, 2), 'utf-8');

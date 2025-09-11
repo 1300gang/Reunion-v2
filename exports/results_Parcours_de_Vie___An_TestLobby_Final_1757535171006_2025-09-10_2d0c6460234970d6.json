@@ -1,0 +1,57 @@
+{
+  "gameInfo": {
+    "lobbyName": "TestLobby-Final-1757535171006",
+    "scenarioTitle": "Parcours de Vie - Anthologie d'éducation à la santé et à la citoyenneté",
+    "mode": "group",
+    "questionPath": [
+      "introduction",
+      "scene1",
+      "scene1A",
+      "scene2"
+    ],
+    "exportDate": "2025-09-10T20:12:51.641Z"
+  },
+  "players": [
+    {
+      "playerInfo": {
+        "name": "TestPlayer",
+        "age": 25,
+        "genre": "Autre",
+        "school": "Test"
+      },
+      "responses": [
+        {
+          "questionId": "introduction",
+          "questionText": "Êtes-vous prêt(e) à explorer ces parcours de vie ?",
+          "answerId": "A",
+          "answerText": "Découvrir les situations"
+        },
+        {
+          "questionId": "scene1",
+          "questionText": "Comment Mamadou devrait-il répondre à Yasmina ?",
+          "answerId": "A",
+          "answerText": "Ça dépend des personnes, parfois oui mais ce n’est pas obligé... je te conseillerai d’aller voir un gynéco si tu as des questions."
+        },
+        {
+          "questionId": "scene1A",
+          "questionText": "Yasmina décide de suivre le conseil. Que fait-elle ensuite ?",
+          "answerId": "A",
+          "answerText": "Elle va voir un gynécologue pour poser ses questions"
+        }
+      ],
+      "thematicScores": {
+        "consentement": 1,
+        "entraide": 1,
+        "resilience": 1
+      }
+    }
+  ],
+  "summary": {
+    "totalPlayers": 1,
+    "averageScores": {
+      "consentement": 1,
+      "entraide": 1,
+      "resilience": 1
+    }
+  }
+}

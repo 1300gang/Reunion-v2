@@ -205,10 +205,12 @@ class SoloGameManager {
   }
   
   isContinueQuestion(questionData) {
-    return questionData && 
-           questionData.choices && 
-           questionData.choices.length === 1 && 
-           (questionData.choices[0].toLowerCase() === 'continuer' || 
+    return questionData &&
+           questionData.choices &&
+           questionData.choices.length === 1 &&
+           questionData.choices[0] &&
+           typeof questionData.choices[0].text === 'string' &&
+           (questionData.choices[0].text.toLowerCase() === 'continuer' ||
             questionData.question === '' ||
             questionData.question === null);
   }
@@ -257,10 +259,10 @@ class SoloGameManager {
       
       // Utiliser VoteComponent si disponible
       if (typeof VoteComponent !== 'undefined') {
-        console.log(`📊 Création VoteComponent pour ${letter}: ${choice}`);
+        console.log(`📊 Création VoteComponent pour ${letter}: ${choice.text}`);
         this.state.voteComponents[letter] = new VoteComponent(choiceContainer, {
           letter: letter,
-          text: choice,
+          text: choice.text,
           count: 0,
           totalVotes: 0,
           isClickable: true,
@@ -310,35 +312,30 @@ class SoloGameManager {
     if (!choicesDiv) return;
     
     choicesDiv.innerHTML = '';
-    
-    const continueBtn = document.createElement('button');
-    continueBtn.className = 'button button-primary continue-button';
-    continueBtn.style.fontFamily = 'mocraRegular';
-    continueBtn.innerHTML = `
-      <span>${questionData.choices[0] || 'ConTinuer'}</span>
-      <span class="arrow">→</span>
-    `;
-    
-    continueBtn.onclick = () => {
-      console.log('⏭️ Bouton continuer cliqué');
-      
-      if (questionData.nextQuestions && questionData.nextQuestions.A) {
-        this.socket.emit('choose-next-question', { 
-          nextQuestionId: questionData.nextQuestions.A 
+    const choice = questionData.choices[0];
+    const letter = 'A';
+
+    const choiceContainer = document.createElement('div');
+    choiceContainer.className = 'answer-choice-container';
+    choiceContainer.id = `solo-answer-choice-${letter}`;
+    choicesDiv.appendChild(choiceContainer);
+
+    if (typeof VoteComponent !== 'undefined') {
+        this.state.voteComponents[letter] = new VoteComponent(choiceContainer, {
+            letter: letter,
+            text: choice.text || 'Continuer',
+            isClickable: true,
+            onVote: (selectedLetter) => this.submitAnswer(
+                questionData.id,
+                selectedLetter,
+                choice.next_question_id
+            )
         });
-      }
-      
-      continueBtn.classList.add('clicked');
-      continueBtn.disabled = true;
-      
-      const statusEl = document.getElementById('soloAnswerStatus');
-      if (statusEl) statusEl.textContent = '✅ Suite de l\'histoire...';
-      
-      this.hideAnswerPanel();
-      this.showElement('soloWaitingMessage');
-    };
+    }
+
+    const statusEl = document.getElementById('soloAnswerStatus');
+    if (statusEl) statusEl.textContent = '';
     
-    choicesDiv.appendChild(continueBtn);
     this.showElement('soloShowAnswersBtn');
   }
   
@@ -517,26 +514,82 @@ async animateMessages(messages) {
   
   async handleScenarioEnd(finalQuestion) {
     console.log('🏁 Gestion de la fin du scénario');
-    
     this.state.endTime = Date.now();
-    
+
     // Si c'est une conversation messenger finale, l'afficher
     if (finalQuestion.type === 'messenger_scenario' && finalQuestion.conversation) {
-      if (finalQuestion.contextual_image) {
-        const imageEl = document.getElementById('soloContextImage');
-        if (imageEl) imageEl.src = finalQuestion.contextual_image;
-      }
-      
-      await this.displayMessengerConversation(finalQuestion.conversation);
-      this.showElement('soloMessengerView');
-      await this.sleep(3000);
-      
-      this.showNotification('🎉 Félicitations ! Vous avez terminé le scénario', 'success', 4000);
-      await this.sleep(2000);
+        if (finalQuestion.contextual_image) {
+            const imageEl = document.getElementById('soloContextImage');
+            if (imageEl) imageEl.src = finalQuestion.contextual_image;
+        }
+        await this.displayMessengerConversation(finalQuestion.conversation);
+        this.showElement('soloMessengerView');
+        await this.sleep(1000); // Shorter wait
     }
-    
-    this.prepareEndScreen();
+
+    this.showNotification('Génération de votre rapport personnalisé...', 'info', 2000);
+    this.socket.emit('generate-json-report');
+  }
+
+  async populateEndScreenWithReport(report) {
+    console.log('📊 Préparation de l\'écran de fin avec le rapport JSON');
+
+    const playerReport = report.players[0];
+    if (!playerReport) {
+        console.error("Rapport invalide: pas de données de joueur.");
+        return;
+    }
+
+    const scenarioTitle = report.gameInfo.scenarioTitle || 'Scénario';
+    const scenarioCreators = this.config.scenario?.scenario_info?.creators || ['les créateurs'];
+
+    // Calculer la durée
+    const duration = this.state.endTime ? Math.floor((this.state.endTime - this.state.startTime) / 1000) : 0;
+    const formattedDuration = this.formatDuration(duration);
+
+    // Mettre à jour les stats de base
+    this.setTextContent('solo-completed-scenario', scenarioTitle);
+    this.setTextContent('solo-creators', Array.isArray(scenarioCreators) ? scenarioCreators.join(', ') : scenarioCreators);
+    this.setTextContent('solo-total-answers', playerReport.responses.length);
+    this.setTextContent('solo-total-time', formattedDuration);
+    this.setTextContent('solo-path-taken', `${playerReport.responses.length} décisions prises`);
+
+    // Afficher les scores thématiques
+    this.displayThematicScores(playerReport.thematicScores);
+
+    // Afficher les choix clés (les 3 derniers)
+    this.displayKeyChoices(playerReport.responses.slice(-3));
+
     this.showEndScreen();
+  }
+
+  displayThematicScores(scores) {
+      const container = document.getElementById('solo-themes-list'); // Re-using this container for scores
+      if (!container || !scores) return;
+
+      container.innerHTML = `
+          <div class="summary-stat">
+              <span class="summary-icon">🤝</span>
+              <div class="summary-content">
+                  <span class="summary-label">Consentement</span>
+                  <span class="summary-value">${scores.consentement}</span>
+              </div>
+          </div>
+          <div class="summary-stat">
+              <span class="summary-icon">❤️</span>
+              <div class="summary-content">
+                  <span class="summary-label">Entraide</span>
+                  <span class="summary-value">${scores.entraide}</span>
+              </div>
+          </div>
+          <div class="summary-stat">
+              <span class="summary-icon">💪</span>
+              <div class="summary-content">
+                  <span class="summary-label">Résilience</span>
+                  <span class="summary-value">${scores.resilience}</span>
+              </div>
+          </div>
+      `;
   }
   
   prepareEndScreen() {
@@ -638,31 +691,29 @@ async animateMessages(messages) {
   
   displayKeyChoices(responses) {
     const keyChoicesContainer = document.getElementById('solo-key-choices');
-    if (!keyChoicesContainer || Object.keys(responses).length === 0) return;
+    if (!keyChoicesContainer || responses.length === 0) return;
     
     keyChoicesContainer.innerHTML = '';
     
-    const responseEntries = Object.entries(responses);
-    const keyChoices = responseEntries.slice(-3);
-    
-    keyChoices.forEach(([questionId, answer]) => {
-      const question = this.config.scenario?.questions?.[questionId];
-      if (question) {
+    responses.forEach(response => {
         const choiceDiv = document.createElement('div');
         choiceDiv.className = 'key-choice-item';
         
-        const choiceIndex = answer.charCodeAt(0) - 65;
-        const choiceText = question.choices?.[choiceIndex] || answer;
-        
         choiceDiv.innerHTML = `
           <div>
-            <strong>${question.question || 'Question'}</strong><br>
-            <span>→ ${choiceText}</span>
+            <strong>${response.questionText || 'Question'}</strong><br>
+            <span>→ ${response.answerText || 'Réponse'}</span>
           </div>
         `;
         keyChoicesContainer.appendChild(choiceDiv);
-      }
     });
+  }
+
+  setTextContent(id, text) {
+      const el = document.getElementById(id);
+      if (el) {
+          el.textContent = text;
+      }
   }
   
   showEndScreen() {
@@ -781,7 +832,24 @@ async animateMessages(messages) {
     // Fin de partie
     this.socket.on('game-over', () => {
       console.log('🏁 Fin de partie solo');
-      // La fin est gérée par handleScenarioEnd
+      // La fin est gérée par handleScenarioEnd, qui déclenche la génération du rapport
+    });
+
+    // Rapport prêt
+    this.socket.on('json-report-ready', async (filename) => {
+        console.log('[SOLO] Rapport JSON prêt:', filename);
+        const url = '/exports/' + filename;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+            const report = await response.json();
+            this.populateEndScreenWithReport(report);
+        } catch (error) {
+            console.error("Erreur lors de la récupération du rapport solo:", error);
+            this.showNotification("Impossible d'afficher le rapport final.", "error");
+        }
     });
     
     // Gestion des erreurs
