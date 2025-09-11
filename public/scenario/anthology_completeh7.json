@@ -2,7 +2,22 @@
   "scenario_info": {
     "title": "Parcours de Vie - Anthologie d'éducation à la santé et à la citoyenneté",
     "description": "Une anthologie interactive explorant des thématiques essentielles de santé, de relations et de prévention à travers les histoires de jeunes de La Réunion",
-    "characters": ["Yasmina", "Mamadou", "Elodie", "Jack", "Emmy", "Antoine", "Camélia", "Jean-Michela", "Lina", "Camille", "Cassandra", "Marc", "Cristelle", "Ti Jean"],
+    "characters": [
+      "Yasmina",
+      "Mamadou",
+      "Elodie",
+      "Jack",
+      "Emmy",
+      "Antoine",
+      "Camélia",
+      "Jean-Michela",
+      "Lina",
+      "Camille",
+      "Cassandra",
+      "Marc",
+      "Cristelle",
+      "Ti Jean"
+    ],
     "start_question": "introduction"
   },
   "questions": {
@@ -65,17 +80,45 @@
       },
       "question": "Êtes-vous prêt(e) à explorer ces parcours de vie ?",
       "choices": [
-        "Découvrir les situations",
-        "Je préfère attendre",
-        "Je veux en savoir plus"
+        {
+          "id": "choixA",
+          "text": "Découvrir les situations",
+          "next_question_id": "scene1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Je préfère attendre",
+          "next_question_id": "introduction",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Je veux en savoir plus",
+          "next_question_id": "introduction",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene1",
-        "B": "introduction",
-        "C": "introduction"
-      },
       "metadata": {
-        "themes_abordes": ["éducation", "prévention", "choix", "apprentissage", "empowerment"]
+        "themes_abordes": [
+          "éducation",
+          "prévention",
+          "choix",
+          "apprentissage",
+          "empowerment"
+        ]
       }
     },
     "scene1": {
@@ -109,17 +152,45 @@
       },
       "question": "Comment Mamadou devrait-il répondre à Yasmina ?",
       "choices": [
-        "Ça dépend des personnes, parfois oui mais ce n’est pas obligé... je te conseillerai d’aller voir un gynéco si tu as des questions.",
-        "Enfin Yasmina, tu n’as pas honte de me parler de ça ? Va voir ta tante ou tes amies, tu ne dois pas en parler ouvertement comme ça !",
-        "Oui, la première fois déchire ton hymen et tu vas saigner. Si tu ne saignes pas ça veut dire que tu n’étais plus vierge et personne ne voudra de toi !"
+        {
+          "id": "choixA",
+          "text": "Ça dépend des personnes, parfois oui mais ce n’est pas obligé... je te conseillerai d’aller voir un gynéco si tu as des questions.",
+          "next_question_id": "scene1A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Enfin Yasmina, tu n’as pas honte de me parler de ça ? Va voir ta tante ou tes amies, tu ne dois pas en parler ouvertement comme ça !",
+          "next_question_id": "scene1B",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Oui, la première fois déchire ton hymen et tu vas saigner. Si tu ne saignes pas ça veut dire que tu n’étais plus vierge et personne ne voudra de toi !",
+          "next_question_id": "scene1C",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene1A",
-        "B": "scene1B",
-        "C": "scene1C"
-      },
       "metadata": {
-        "themes_abordes": ["première_fois", "virginité", "saignement", "tabou", "communication_familiale"]
+        "themes_abordes": [
+          "première_fois",
+          "virginité",
+          "saignement",
+          "tabou",
+          "communication_familiale"
+        ]
       }
     },
     "scene1A": {
@@ -159,13 +230,24 @@
       },
       "question": "Yasmina décide de suivre le conseil. Que fait-elle ensuite ?",
       "choices": [
-        "Elle va voir un gynécologue pour poser ses questions"
+        {
+          "id": "choixA",
+          "text": "Elle va voir un gynécologue pour poser ses questions",
+          "next_question_id": "scene2",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene2"
-      },
       "metadata": {
-        "themes_abordes": ["éducation_sexuelle", "bienveillance", "information_correcte", "santé"]
+        "themes_abordes": [
+          "éducation_sexuelle",
+          "bienveillance",
+          "information_correcte",
+          "santé"
+        ]
       }
     },
     "scene1B": {
@@ -193,13 +275,24 @@
       },
       "question": "Face à cette réaction, que peut faire Yasmina ?",
       "choices": [
-        "Elle décide quand même d'aller voir un professionnel"
+        {
+          "id": "choixA",
+          "text": "Elle décide quand même d'aller voir un professionnel",
+          "next_question_id": "scene2",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene2"
-      },
       "metadata": {
-        "themes_abordes": ["tabou", "honte", "manque_communication", "ignorance"]
+        "themes_abordes": [
+          "tabou",
+          "honte",
+          "manque_communication",
+          "ignorance"
+        ]
       }
     },
     "scene1C": {
@@ -227,13 +320,24 @@
       },
       "question": "Comment Yasmina peut-elle réagir à ces fausses informations ?",
       "choices": [
-        "Elle décide de vérifier auprès d'un professionnel"
+        {
+          "id": "choixA",
+          "text": "Elle décide de vérifier auprès d'un professionnel",
+          "next_question_id": "scene2",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene2"
-      },
       "metadata": {
-        "themes_abordes": ["fausses_croyances", "désinformation", "mythes_virginité", "pression_sociale"]
+        "themes_abordes": [
+          "fausses_croyances",
+          "désinformation",
+          "mythes_virginité",
+          "pression_sociale"
+        ]
       }
     },
     "scene2": {
@@ -261,17 +365,44 @@
       },
       "question": "Comment se passe la consultation ?",
       "choices": [
-        "Le gynécologue explique les faits de manière bienveillante.",
-        "Yasmina doit d'abord convaincre sa mère.",
-        "Le gynécologue a une attitude peu professionnelle."
+        {
+          "id": "choixA",
+          "text": "Le gynécologue explique les faits de manière bienveillante.",
+          "next_question_id": "scene2A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Yasmina doit d'abord convaincre sa mère.",
+          "next_question_id": "scene2B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": -1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Le gynécologue a une attitude peu professionnelle.",
+          "next_question_id": "scene2C",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene2A",
-        "B": "scene2B",
-        "C": "scene2C"
-      },
       "metadata": {
-        "themes_abordes": ["consultation_médicale", "prévention", "contraception", "IST"]
+        "themes_abordes": [
+          "consultation_médicale",
+          "prévention",
+          "contraception",
+          "IST"
+        ]
       }
     },
     "scene2A": {
@@ -337,13 +468,25 @@
       },
       "question": "Yasmina repart avec toutes les informations nécessaires.",
       "choices": [
-        "Terminer cette histoire et continuer"
+        {
+          "id": "choixA",
+          "text": "Terminer cette histoire et continuer",
+          "next_question_id": "scene3_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_1"
-      },
       "metadata": {
-        "themes_abordes": ["consentement", "prévention", "contraception", "IST", "bien_être"]
+        "themes_abordes": [
+          "consentement",
+          "prévention",
+          "contraception",
+          "IST",
+          "bien_être"
+        ]
       }
     },
     "scene2B": {
@@ -383,15 +526,33 @@
       },
       "question": "Yasmina se retrouve sans accès aux informations. C'est une fin négative.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers la prochaine histoire"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers la prochaine histoire",
+          "next_question_id": "scene3_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene1",
-        "B": "scene3_1"
-      },
       "metadata": {
-        "themes_abordes": ["tabou_familial", "interdiction", "manque_accès_soins"]
+        "themes_abordes": [
+          "tabou_familial",
+          "interdiction",
+          "manque_accès_soins"
+        ]
       }
     },
     "scene2C": {
@@ -431,15 +592,33 @@
       },
       "question": "Face à ce médecin peu bienveillant, c'est une fin négative.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers la prochaine histoire"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers la prochaine histoire",
+          "next_question_id": "scene3_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene1",
-        "B": "scene3_1"
-      },
       "metadata": {
-        "themes_abordes": ["jugement", "culpabilisation", "mauvaise_pratique_médicale"]
+        "themes_abordes": [
+          "jugement",
+          "culpabilisation",
+          "mauvaise_pratique_médicale"
+        ]
       }
     },
     "scene3_1": {
@@ -468,17 +647,44 @@
       },
       "question": "Comment devrait se dérouler cette conversation importante ?",
       "choices": [
-        "Emmy se sent prête.",
-        "Emmy n'est pas sûre et Antoine la pousse.",
-        "Ils discutent de la contraception et des IST."
+        {
+          "id": "choixA",
+          "text": "Emmy se sent prête.",
+          "next_question_id": "scene3_2A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Emmy n'est pas sûre et Antoine la pousse.",
+          "next_question_id": "scene3_2B",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Ils discutent de la contraception et des IST.",
+          "next_question_id": "scene3_2C",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_2A",
-        "B": "scene3_2B",
-        "C": "scene3_2C"
-      },
       "metadata": {
-        "themes_abordes": ["première_fois", "communication", "relation_amoureuse", "questionnement"]
+        "themes_abordes": [
+          "première_fois",
+          "communication",
+          "relation_amoureuse",
+          "questionnement"
+        ]
       }
     },
     "scene3_2A": {
@@ -537,13 +743,24 @@
       },
       "question": "Pendant qu'Antoine est parti, Emmy réfléchit. Que fait-elle ?",
       "choices": [
-        "Elle appelle sa cousine Camélia pour avoir des conseils"
+        {
+          "id": "choixA",
+          "text": "Elle appelle sa cousine Camélia pour avoir des conseils",
+          "next_question_id": "scene3_3",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_3"
-      },
       "metadata": {
-        "themes_abordes": ["protection", "responsabilité", "respect", "consentement"]
+        "themes_abordes": [
+          "protection",
+          "responsabilité",
+          "respect",
+          "consentement"
+        ]
       }
     },
     "scene3_2B": {
@@ -602,13 +819,24 @@
       },
       "question": "Cette situation est très problématique. Emmy devrait demander de l'aide.",
       "choices": [
-        "Appeler sa cousine pour en parler"
+        {
+          "id": "choixA",
+          "text": "Appeler sa cousine pour en parler",
+          "next_question_id": "scene3_3",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_3"
-      },
       "metadata": {
-        "themes_abordes": ["pression", "manipulation", "coercition", "consentement_non_respecté"]
+        "themes_abordes": [
+          "pression",
+          "manipulation",
+          "coercition",
+          "consentement_non_respecté"
+        ]
       }
     },
     "scene3_2C": {
@@ -667,13 +895,24 @@
       },
       "question": "Cette discussion est nécessaire. Emmy décide d'en parler à sa cousine.",
       "choices": [
-        "Appeler Camélia pour avoir un autre avis"
+        {
+          "id": "choixA",
+          "text": "Appeler Camélia pour avoir un autre avis",
+          "next_question_id": "scene3_3",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_3"
-      },
       "metadata": {
-        "themes_abordes": ["charge_contraceptive", "égalité", "responsabilité_partagée", "IST"]
+        "themes_abordes": [
+          "charge_contraceptive",
+          "égalité",
+          "responsabilité_partagée",
+          "IST"
+        ]
       }
     },
     "scene3_3": {
@@ -701,15 +940,34 @@
       },
       "question": "Comment Camélia va-t-elle conseiller Emmy ?",
       "choices": [
-        "Elle l'écoute et lui donne des conseils.",
-        "Elle la juge."
+        {
+          "id": "choixA",
+          "text": "Elle l'écoute et lui donne des conseils.",
+          "next_question_id": "scene3_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Elle la juge.",
+          "next_question_id": "scene3_3B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_3A",
-        "B": "scene3_3B"
-      },
       "metadata": {
-        "themes_abordes": ["soutien_familial", "conseils", "inquiétudes", "communication"]
+        "themes_abordes": [
+          "soutien_familial",
+          "conseils",
+          "inquiétudes",
+          "communication"
+        ]
       }
     },
     "scene3_3A": {
@@ -768,13 +1026,24 @@
       },
       "question": "Emmy retourne voir Antoine avec ces nouvelles réflexions.",
       "choices": [
-        "Elle décide de parler à Antoine de ses inquiétudes."
+        {
+          "id": "choixA",
+          "text": "Elle décide de parler à Antoine de ses inquiétudes.",
+          "next_question_id": "scene3_4A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_4A"
-      },
       "metadata": {
-        "themes_abordes": ["conseils_sains", "protection", "douleur", "consentement"]
+        "themes_abordes": [
+          "conseils_sains",
+          "protection",
+          "douleur",
+          "consentement"
+        ]
       }
     },
     "scene3_3B": {
@@ -814,13 +1083,23 @@
       },
       "question": "Face à cette pression, Emmy décide d'être honnête avec Antoine.",
       "choices": [
-        "Parler à Antoine"
+        {
+          "id": "choixA",
+          "text": "Parler à Antoine",
+          "next_question_id": "scene3_4A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_4A"
-      },
       "metadata": {
-        "themes_abordes": ["pression_sociale", "fausses_croyances", "mauvais_conseils"]
+        "themes_abordes": [
+          "pression_sociale",
+          "fausses_croyances",
+          "mauvais_conseils"
+        ]
       }
     },
     "scene3_4A": {
@@ -848,17 +1127,43 @@
       },
       "question": "Comment Antoine va-t-il réagir à l'honnêteté d'Emmy ?",
       "choices": [
-        "Il respecte son choix.",
-        "Il pense qu'il doit avoir envie.",
-        "Il la force."
+        {
+          "id": "choixA",
+          "text": "Il respecte son choix.",
+          "next_question_id": "fin3_positive1",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Il pense qu'il doit avoir envie.",
+          "next_question_id": "fin3_positive2",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": 0,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Il la force.",
+          "next_question_id": "fin3_negative4",
+          "scores_thematiques": {
+            "consentement": -10,
+            "entraide": -10,
+            "resilience": -10
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "fin3_positive1",
-        "B": "fin3_positive2",
-        "C": "fin3_negative4"
-      },
       "metadata": {
-        "themes_abordes": ["communication", "respect", "consentement_mutuel"]
+        "themes_abordes": [
+          "communication",
+          "respect",
+          "consentement_mutuel"
+        ]
       }
     },
     "fin3_positive1": {
@@ -910,13 +1215,24 @@
       },
       "question": "Fin positive - Le respect mutuel renforce leur relation !",
       "choices": [
-        "Continuer vers une nouvelle situation"
+        {
+          "id": "choixA",
+          "text": "Continuer vers une nouvelle situation",
+          "next_question_id": "scene4_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_1"
-      },
       "metadata": {
-        "themes_abordes": ["respect", "consentement", "confiance", "amour_sain"]
+        "themes_abordes": [
+          "respect",
+          "consentement",
+          "confiance",
+          "amour_sain"
+        ]
       }
     },
     "fin3_positive2": {
@@ -975,13 +1291,23 @@
       },
       "question": "Fin positive - Les garçons aussi ont le droit de ne pas être prêts !",
       "choices": [
-        "Continuer vers une nouvelle situation"
+        {
+          "id": "choixA",
+          "text": "Continuer vers une nouvelle situation",
+          "next_question_id": "scene4_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_1"
-      },
       "metadata": {
-        "themes_abordes": ["communication_bidirectionnelle", "honnêteté", "préjugés_masculins"]
+        "themes_abordes": [
+          "communication_bidirectionnelle",
+          "honnêteté",
+          "préjugés_masculins"
+        ]
       }
     },
     "fin3_negative4": {
@@ -1033,15 +1359,33 @@
       },
       "question": "Fin négative - Le consentement peut être retiré à tout moment",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers une nouvelle situation"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene3_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers une nouvelle situation",
+          "next_question_id": "scene4_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene3_1",
-        "B": "scene4_1"
-      },
       "metadata": {
-        "themes_abordes": ["non_respect", "violation", "agression"]
+        "themes_abordes": [
+          "non_respect",
+          "violation",
+          "agression"
+        ]
       }
     },
     "scene4_1": {
@@ -1070,17 +1414,44 @@
       },
       "question": "Jean-Michela cherche des conseils. Comment va-t-elle être accueillie ?",
       "choices": [
-        "Elle reçoit des encouragements bienveillants.",
-        "On lui suggère d'éviter le sport.",
-        "Elle fait face à des préjugés."
+        {
+          "id": "choixA",
+          "text": "Elle reçoit des encouragements bienveillants.",
+          "next_question_id": "scene4_2A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "On lui suggère d'éviter le sport.",
+          "next_question_id": "scene4_2B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Elle fait face à des préjugés.",
+          "next_question_id": "scene4_2C",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_2A",
-        "B": "scene4_2B",
-        "C": "scene4_2C"
-      },
       "metadata": {
-        "themes_abordes": ["sport", "règles", "inclusion", "activité_physique"]
+        "themes_abordes": [
+          "sport",
+          "règles",
+          "inclusion",
+          "activité_physique"
+        ]
       }
     },
     "scene4_2A": {
@@ -1132,13 +1503,24 @@
       },
       "question": "Jean-Michela se sent soutenue. Comment va se passer l'entraînement ?",
       "choices": [
-        "Elle commence mais ressent des douleurs."
+        {
+          "id": "choixA",
+          "text": "Elle commence mais ressent des douleurs.",
+          "next_question_id": "scene4_3B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_3B"
-      },
       "metadata": {
-        "themes_abordes": ["soutien", "normalisation", "sport_féminin", "égalité"]
+        "themes_abordes": [
+          "soutien",
+          "normalisation",
+          "sport_féminin",
+          "égalité"
+        ]
       }
     },
     "scene4_2B": {
@@ -1190,13 +1572,23 @@
       },
       "question": "Face à ces réactions décourageantes, que fait Jean-Michela ?",
       "choices": [
-        "Elle insiste pour jouer quand même."
+        {
+          "id": "choixA",
+          "text": "Elle insiste pour jouer quand même.",
+          "next_question_id": "scene4_3B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_3B"
-      },
       "metadata": {
-        "themes_abordes": ["discrimination_douce", "paternalisme", "exclusion_subtile"]
+        "themes_abordes": [
+          "discrimination_douce",
+          "paternalisme",
+          "exclusion_subtile"
+        ]
       }
     },
     "scene4_2C": {
@@ -1248,15 +1640,34 @@
       },
       "question": "Face à cette discrimination, c'est une fin négative.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers la prochaine histoire"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene4_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers la prochaine histoire",
+          "next_question_id": "scene6_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_1",
-        "B": "scene6_1"
-      },
       "metadata": {
-        "themes_abordes": ["tabou", "honte", "discrimination", "préjugés"]
+        "themes_abordes": [
+          "tabou",
+          "honte",
+          "discrimination",
+          "préjugés"
+        ]
       }
     },
     "scene4_3B": {
@@ -1284,15 +1695,33 @@
       },
       "question": "Comment va-t-elle gérer cette situation ?",
       "choices": [
-        "Elle demande à être remplacée.",
-        "Elle essaie de continuer malgré la douleur."
+        {
+          "id": "choixA",
+          "text": "Elle demande à être remplacée.",
+          "next_question_id": "scene4_4",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 0,
+            "resilience": 1
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Elle essaie de continuer malgré la douleur.",
+          "next_question_id": "fin4_negative3",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": 0,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_4",
-        "B": "fin4_negative3"
-      },
       "metadata": {
-        "themes_abordes": ["douleurs_menstruelles", "écoute_du_corps", "santé"]
+        "themes_abordes": [
+          "douleurs_menstruelles",
+          "écoute_du_corps",
+          "santé"
+        ]
       }
     },
     "scene4_4": {
@@ -1332,13 +1761,23 @@
       },
       "question": "Fin positive - Un bon encadrement fait la différence !",
       "choices": [
-        "Continuer vers une nouvelle situation"
+        {
+          "id": "choixA",
+          "text": "Continuer vers une nouvelle situation",
+          "next_question_id": "scene6_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_1"
-      },
       "metadata": {
-        "themes_abordes": ["écoute_du_corps", "bienveillance", "santé"]
+        "themes_abordes": [
+          "écoute_du_corps",
+          "bienveillance",
+          "santé"
+        ]
       }
     },
     "fin4_negative3": {
@@ -1378,15 +1817,33 @@
       },
       "question": "Fin négative - Il ne faut jamais ignorer les signaux du corps.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers une nouvelle situation"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene4_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers une nouvelle situation",
+          "next_question_id": "scene6_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene4_1",
-        "B": "scene6_1"
-      },
       "metadata": {
-        "themes_abordes": ["déni", "souffrance", "danger"]
+        "themes_abordes": [
+          "déni",
+          "souffrance",
+          "danger"
+        ]
       }
     },
     "scene6_1": {
@@ -1427,17 +1884,44 @@
       },
       "question": "Les amies de Lina la poussent à voler. Comment réagit-elle ?",
       "choices": [
-        "Refuser fermement.",
-        "Hésiter et se laisser manipuler.",
-        "Voler la montre."
+        {
+          "id": "choixA",
+          "text": "Refuser fermement.",
+          "next_question_id": "scene6_2A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 0,
+            "resilience": 1
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Hésiter et se laisser manipuler.",
+          "next_question_id": "scene6_2B",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Voler la montre.",
+          "next_question_id": "scene6_2C",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_2A",
-        "B": "scene6_2B",
-        "C": "scene6_2C"
-      },
       "metadata": {
-        "themes_abordes": ["amitié", "pression_sociale", "influence", "vol"]
+        "themes_abordes": [
+          "amitié",
+          "pression_sociale",
+          "influence",
+          "vol"
+        ]
       }
     },
     "scene6_2A": {
@@ -1477,17 +1961,43 @@
       },
       "question": "Lina résiste à la pression. Comment réagissent ses amies le lendemain ?",
       "choices": [
-        "Elles s'excusent.",
-        "Elles la rabaissent.",
-        "Elles deviennent violentes."
+        {
+          "id": "choixA",
+          "text": "Elles s'excusent.",
+          "next_question_id": "scene6_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Elles la rabaissent.",
+          "next_question_id": "scene6_3B",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Elles deviennent violentes.",
+          "next_question_id": "scene6_3C",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_3A",
-        "B": "scene6_3B",
-        "C": "scene6_3C"
-      },
       "metadata": {
-        "themes_abordes": ["affirmation_de_soi", "résistance", "bonnes_décisions"]
+        "themes_abordes": [
+          "affirmation_de_soi",
+          "résistance",
+          "bonnes_décisions"
+        ]
       }
     },
     "scene6_2B": {
@@ -1527,15 +2037,33 @@
       },
       "question": "L'hésitation de Lina la rend vulnérable. Que font ses amies le lendemain ?",
       "choices": [
-        "Elles insistent encore plus.",
-        "Elles s'excusent."
+        {
+          "id": "choixA",
+          "text": "Elles insistent encore plus.",
+          "next_question_id": "scene6_3B",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Elles s'excusent.",
+          "next_question_id": "scene6_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_3B",
-        "B": "scene6_3A"
-      },
       "metadata": {
-        "themes_abordes": ["doute", "vulnérabilité", "manipulation"]
+        "themes_abordes": [
+          "doute",
+          "vulnérabilité",
+          "manipulation"
+        ]
       }
     },
     "scene6_2C": {
@@ -1582,15 +2110,33 @@
       },
       "question": "Lina s'est fait prendre. Fin négative.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene6_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene7_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_1",
-        "B": "scene7_1"
-      },
       "metadata": {
-        "themes_abordes": ["influence_négative", "danger", "conséquences"]
+        "themes_abordes": [
+          "influence_négative",
+          "danger",
+          "conséquences"
+        ]
       }
     },
     "scene6_3A": {
@@ -1642,13 +2188,23 @@
       },
       "question": "Après la discussion, Lina rentre chez elle.",
       "choices": [
-        "Lina en parle à son père"
+        {
+          "id": "choixA",
+          "text": "Lina en parle à son père",
+          "next_question_id": "scene6_4A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_4A"
-      },
       "metadata": {
-        "themes_abordes": ["excuses", "reconnaissance", "amitié_saine"]
+        "themes_abordes": [
+          "excuses",
+          "reconnaissance",
+          "amitié_saine"
+        ]
       }
     },
     "scene6_3B": {
@@ -1700,13 +2256,23 @@
       },
       "question": "Face au harcèlement, que fait Lina ?",
       "choices": [
-        "Elle en parle à son père"
+        {
+          "id": "choixA",
+          "text": "Elle en parle à son père",
+          "next_question_id": "scene6_4B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_4B"
-      },
       "metadata": {
-        "themes_abordes": ["harcèlement", "pression", "isolement"]
+        "themes_abordes": [
+          "harcèlement",
+          "pression",
+          "isolement"
+        ]
       }
     },
     "scene6_3C": {
@@ -1765,13 +2331,23 @@
       },
       "question": "Lina est victime de violence. Que fait-elle ?",
       "choices": [
-        "Elle en parle immédiatement à son père"
+        {
+          "id": "choixA",
+          "text": "Elle en parle immédiatement à son père",
+          "next_question_id": "scene6_4C",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene6_4C"
-      },
       "metadata": {
-        "themes_abordes": ["violence", "harcèlement_grave", "danger"]
+        "themes_abordes": [
+          "violence",
+          "harcèlement_grave",
+          "danger"
+        ]
       }
     },
     "scene6_4A": {
@@ -1823,13 +2399,23 @@
       },
       "question": "Fin positive - Le dialogue et le soutien familial sont essentiels.",
       "choices": [
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene7_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_1"
-      },
       "metadata": {
-        "themes_abordes": ["communication_familiale", "soutien", "confiance"]
+        "themes_abordes": [
+          "communication_familiale",
+          "soutien",
+          "confiance"
+        ]
       }
     },
     "scene6_4B": {
@@ -1881,13 +2467,23 @@
       },
       "question": "Fin positive - L'aide des adultes est cruciale.",
       "choices": [
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene7_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_1"
-      },
       "metadata": {
-        "themes_abordes": ["confidence", "aide_parentale", "solutions"]
+        "themes_abordes": [
+          "confidence",
+          "aide_parentale",
+          "solutions"
+        ]
       }
     },
     "scene6_4C": {
@@ -1939,13 +2535,23 @@
       },
       "question": "Fin positive - L'aide des adultes est cruciale.",
       "choices": [
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene7_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_1"
-      },
       "metadata": {
-        "themes_abordes": ["violence_révélée", "protection", "action_immédiate"]
+        "themes_abordes": [
+          "violence_révélée",
+          "protection",
+          "action_immédiate"
+        ]
       }
     },
     "scene7_1": {
@@ -1986,17 +2592,44 @@
       },
       "question": "Marc est suspicieux. Comment réagit-il ?",
       "choices": [
-        "Faire confiance.",
-        "Douter et vérifier son téléphone.",
-        "Devenir agressif."
+        {
+          "id": "choixA",
+          "text": "Faire confiance.",
+          "next_question_id": "scene7_2A",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Douter et vérifier son téléphone.",
+          "next_question_id": "scene7_2B",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Devenir agressif.",
+          "next_question_id": "scene7_2C",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_2A",
-        "B": "scene7_2B",
-        "C": "scene7_2C"
-      },
       "metadata": {
-        "themes_abordes": ["jalousie", "vie_privée", "confiance", "possessivité"]
+        "themes_abordes": [
+          "jalousie",
+          "vie_privée",
+          "confiance",
+          "possessivité"
+        ]
       }
     },
     "scene7_2A": {
@@ -2036,13 +2669,23 @@
       },
       "question": "Le lendemain, Marc décide quand même de parler avec Cristelle.",
       "choices": [
-        "Continuer"
+        {
+          "id": "choixA",
+          "text": "Continuer",
+          "next_question_id": "scene7_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_3A"
-      },
       "metadata": {
-        "themes_abordes": ["confiance", "respect", "relation_saine"]
+        "themes_abordes": [
+          "confiance",
+          "respect",
+          "relation_saine"
+        ]
       }
     },
     "scene7_2B": {
@@ -2082,13 +2725,23 @@
       },
       "question": "Le lendemain, Marc décide de parler avec Cristelle.",
       "choices": [
-        "Continuer"
+        {
+          "id": "choixA",
+          "text": "Continuer",
+          "next_question_id": "scene7_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_3A"
-      },
       "metadata": {
-        "themes_abordes": ["violation_intimité", "jalousie_maladive", "toxicité"]
+        "themes_abordes": [
+          "violation_intimité",
+          "jalousie_maladive",
+          "toxicité"
+        ]
       }
     },
     "scene7_2C": {
@@ -2128,13 +2781,23 @@
       },
       "question": "Le lendemain, Marc décide de parler avec Cristelle.",
       "choices": [
-        "Continuer"
+        {
+          "id": "choixA",
+          "text": "Continuer",
+          "next_question_id": "scene7_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_3A"
-      },
       "metadata": {
-        "themes_abordes": ["agressivité", "violence_verbale", "escalade"]
+        "themes_abordes": [
+          "agressivité",
+          "violence_verbale",
+          "escalade"
+        ]
       }
     },
     "scene7_3A": {
@@ -2162,17 +2825,43 @@
       },
       "question": "Comment Cristelle répond-elle ?",
       "choices": [
-        "Cristelle est honnête.",
-        "Cristelle esquive la question.",
-        "Cristelle provoque Marc."
+        {
+          "id": "choixA",
+          "text": "Cristelle est honnête.",
+          "next_question_id": "scene7_3A_1",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Cristelle esquive la question.",
+          "next_question_id": "scene7_3A_2",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Cristelle provoque Marc.",
+          "next_question_id": "scene7_3A_3",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_3A_1",
-        "B": "scene7_3A_2",
-        "C": "scene7_3A_3"
-      },
       "metadata": {
-        "themes_abordes": ["communication", "clarification", "médiation"]
+        "themes_abordes": [
+          "communication",
+          "clarification",
+          "médiation"
+        ]
       }
     },
     "scene7_3A_1": {
@@ -2224,13 +2913,22 @@
       },
       "question": "Marc, de plus en plus jaloux, veut confronter Ti Jean.",
       "choices": [
-        "Continuer"
+        {
+          "id": "choixA",
+          "text": "Continuer",
+          "next_question_id": "scene7_4",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_4"
-      },
       "metadata": {
-        "themes_abordes": ["honnêteté", "confiance"]
+        "themes_abordes": [
+          "honnêteté",
+          "confiance"
+        ]
       }
     },
     "scene7_3A_2": {
@@ -2282,13 +2980,22 @@
       },
       "question": "Marc, de plus en plus jaloux, veut confronter Ti Jean.",
       "choices": [
-        "Continuer"
+        {
+          "id": "choixA",
+          "text": "Continuer",
+          "next_question_id": "scene7_4",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_4"
-      },
       "metadata": {
-        "themes_abordes": ["méfiance", "doute"]
+        "themes_abordes": [
+          "méfiance",
+          "doute"
+        ]
       }
     },
     "scene7_3A_3": {
@@ -2340,13 +3047,22 @@
       },
       "question": "Marc, de plus en plus jaloux, veut confronter Ti Jean.",
       "choices": [
-        "Continuer"
+        {
+          "id": "choixA",
+          "text": "Continuer",
+          "next_question_id": "scene7_4",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_4"
-      },
       "metadata": {
-        "themes_abordes": ["escalade", "provocation"]
+        "themes_abordes": [
+          "escalade",
+          "provocation"
+        ]
       }
     },
     "scene7_4": {
@@ -2374,17 +3090,43 @@
       },
       "question": "Que se passe-t-il lors de la confrontation ?",
       "choices": [
-        "Marc cherche le dialogue et l'apaisement.",
-        "La tension monte.",
-        "La situation dégénère en violence."
+        {
+          "id": "choixA",
+          "text": "Marc cherche le dialogue et l'apaisement.",
+          "next_question_id": "fin7_positive",
+          "scores_thematiques": {
+            "consentement": 1,
+            "entraide": 1,
+            "resilience": 1
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "La tension monte.",
+          "next_question_id": "scene7_4_2",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "La situation dégénère en violence.",
+          "next_question_id": "scene7_5",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "fin7_positive",
-        "B": "scene7_4_2",
-        "C": "scene7_5"
-      },
       "metadata": {
-        "themes_abordes": ["confrontation", "jalousie", "clarification"]
+        "themes_abordes": [
+          "confrontation",
+          "jalousie",
+          "clarification"
+        ]
       }
     },
     "scene7_4_2": {
@@ -2448,15 +3190,33 @@
       },
       "question": "Fin négative. La méfiance détruit la relation.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene7_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene8_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_1",
-        "B": "scene8_1"
-      },
       "metadata": {
-        "themes_abordes": ["jalousie", "conflit", "rupture"]
+        "themes_abordes": [
+          "jalousie",
+          "conflit",
+          "rupture"
+        ]
       }
     },
     "scene7_5": {
@@ -2515,15 +3275,33 @@
       },
       "question": "Fin négative. La jalousie a mené à la violence.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene7_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene8_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene7_1",
-        "B": "scene8_1"
-      },
       "metadata": {
-        "themes_abordes": ["violence_physique", "police", "conséquences"]
+        "themes_abordes": [
+          "violence_physique",
+          "police",
+          "conséquences"
+        ]
       }
     },
     "fin7_positive": {
@@ -2594,13 +3372,23 @@
       },
       "question": "Fin positive - La communication résout les conflits.",
       "choices": [
-        "Continuer vers le prochain scénario"
+        {
+          "id": "choixA",
+          "text": "Continuer vers le prochain scénario",
+          "next_question_id": "scene8_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_1"
-      },
       "metadata": {
-        "themes_abordes": ["communication", "confiance_retrouvée", "maturité"]
+        "themes_abordes": [
+          "communication",
+          "confiance_retrouvée",
+          "maturité"
+        ]
       }
     },
     "scene8_1": {
@@ -2629,17 +3417,44 @@
       },
       "question": "Comment Jack devrait-il réagir face à la situation d'Elodie ?",
       "choices": [
-        "J'appelle les pompiers.",
-        "Si ça se trouve c’est super grave... tu vas mourir !",
-        "Roooh ça va hein, vous les femmes vous avez toujours un problème."
+        {
+          "id": "choixA",
+          "text": "J'appelle les pompiers.",
+          "next_question_id": "scene8_3A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Si ça se trouve c’est super grave... tu vas mourir !",
+          "next_question_id": "scene8_3B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": -1,
+            "resilience": -1
+          }
+        },
+        {
+          "id": "choixC",
+          "text": "Roooh ça va hein, vous les femmes vous avez toujours un problème.",
+          "next_question_id": "scene8_3C",
+          "scores_thematiques": {
+            "consentement": -1,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_3A",
-        "B": "scene8_3B",
-        "C": "scene8_3C"
-      },
       "metadata": {
-        "themes_abordes": ["douleurs_menstruelles", "premières_règles", "urgence_médicale", "soutien"]
+        "themes_abordes": [
+          "douleurs_menstruelles",
+          "premières_règles",
+          "urgence_médicale",
+          "soutien"
+        ]
       }
     },
     "scene8_3A": {
@@ -2679,13 +3494,24 @@
       },
       "question": "Les pompiers sont en route. Que va-t-il se passer ?",
       "choices": [
-        "Les pompiers arrivent et prennent en charge Elodie."
+        {
+          "id": "choixA",
+          "text": "Les pompiers arrivent et prennent en charge Elodie.",
+          "next_question_id": "scene8_4A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_4A"
-      },
       "metadata": {
-        "themes_abordes": ["solidarité", "bonne_réaction", "urgence", "soutien"]
+        "themes_abordes": [
+          "solidarité",
+          "bonne_réaction",
+          "urgence",
+          "soutien"
+        ]
       }
     },
     "scene8_3B": {
@@ -2713,13 +3539,24 @@
       },
       "question": "Cette réaction aggrave l'anxiété d'Elodie.",
       "choices": [
-        "Il faut appeler les secours"
+        {
+          "id": "choixA",
+          "text": "Il faut appeler les secours",
+          "next_question_id": "scene8_4A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_4A"
-      },
       "metadata": {
-        "themes_abordes": ["panique", "désinformation", "anxiété", "mauvaise_réaction"]
+        "themes_abordes": [
+          "panique",
+          "désinformation",
+          "anxiété",
+          "mauvaise_réaction"
+        ]
       }
     },
     "scene8_3C": {
@@ -2747,13 +3584,24 @@
       },
       "question": "Face à cette minimisation dangereuse, que se passe-t-il ?",
       "choices": [
-        "Elodie insiste sur la gravité de sa douleur."
+        {
+          "id": "choixA",
+          "text": "Elodie insiste sur la gravité de sa douleur.",
+          "next_question_id": "scene8_4A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_4A"
-      },
       "metadata": {
-        "themes_abordes": ["stéréotypes_genre", "minimisation", "sexisme", "manque_empathie"]
+        "themes_abordes": [
+          "stéréotypes_genre",
+          "minimisation",
+          "sexisme",
+          "manque_empathie"
+        ]
       }
     },
     "scene8_4A": {
@@ -2781,15 +3629,33 @@
       },
       "question": "Comment va se passer la prise en charge ?",
       "choices": [
-        "Les pompiers aident Elodie.",
-        "Les pompiers n'aident pas Elodie."
+        {
+          "id": "choixA",
+          "text": "Les pompiers aident Elodie.",
+          "next_question_id": "scene8_5A",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Les pompiers n'aident pas Elodie.",
+          "next_question_id": "scene8_5B",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": -1,
+            "resilience": -1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_5A",
-        "B": "scene8_5B"
-      },
       "metadata": {
-        "themes_abordes": ["secours", "prise_en_charge", "professionnalisme"]
+        "themes_abordes": [
+          "secours",
+          "prise_en_charge",
+          "professionnalisme"
+        ]
       }
     },
     "scene8_5A": {
@@ -2850,15 +3716,34 @@
       },
       "question": "Elodie est bien prise en charge. Fin positive !",
       "choices": [
-        "Terminer cette histoire",
-        "Passer à la conclusion finale"
+        {
+          "id": "choixA",
+          "text": "Terminer cette histoire",
+          "next_question_id": "fin8_positive",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Passer à la conclusion finale",
+          "next_question_id": "conclusion_finale",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "fin8_positive",
-        "B": "conclusion_finale"
-      },
       "metadata": {
-        "themes_abordes": ["diagnostic", "premières_règles", "bienveillance_médicale", "examens"]
+        "themes_abordes": [
+          "diagnostic",
+          "premières_règles",
+          "bienveillance_médicale",
+          "examens"
+        ]
       }
     },
     "scene8_5B": {
@@ -2898,15 +3783,33 @@
       },
       "question": "Fin négative - Le manque de prise au sérieux peut avoir des conséquences graves.",
       "choices": [
-        "Recommencer pour faire de meilleurs choix",
-        "Continuer vers la conclusion finale"
+        {
+          "id": "choixA",
+          "text": "Recommencer pour faire de meilleurs choix",
+          "next_question_id": "scene8_1",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Continuer vers la conclusion finale",
+          "next_question_id": "conclusion_finale",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "scene8_1",
-        "B": "conclusion_finale"
-      },
       "metadata": {
-        "themes_abordes": ["minimisation", "manque_professionnalisme", "stéréotypes"]
+        "themes_abordes": [
+          "minimisation",
+          "manque_professionnalisme",
+          "stéréotypes"
+        ]
       }
     },
     "fin8_positive": {
@@ -2934,13 +3837,23 @@
       },
       "question": "Fin positive - Une prise en charge appropriée est essentielle !",
       "choices": [
-        "Continuer vers la conclusion finale"
+        {
+          "id": "choixA",
+          "text": "Continuer vers la conclusion finale",
+          "next_question_id": "conclusion_finale",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "conclusion_finale"
-      },
       "metadata": {
-        "themes_abordes": ["soins_appropriés", "soulagement", "éducation_santé"]
+        "themes_abordes": [
+          "soins_appropriés",
+          "soulagement",
+          "éducation_santé"
+        ]
       }
     },
     "conclusion_finale": {
@@ -2996,15 +3909,33 @@
       },
       "question": "Anthologie complète - Merci d'avoir exploré ces sujets importants",
       "choices": [
-        "Recommencer l'anthologie",
-        "Voir les ressources d'aide"
+        {
+          "id": "choixA",
+          "text": "Recommencer l'anthologie",
+          "next_question_id": "introduction",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 0,
+            "resilience": 0
+          }
+        },
+        {
+          "id": "choixB",
+          "text": "Voir les ressources d'aide",
+          "next_question_id": "ressources",
+          "scores_thematiques": {
+            "consentement": 0,
+            "entraide": 1,
+            "resilience": 1
+          }
+        }
       ],
-      "nextQuestions": {
-        "A": "introduction",
-        "B": "ressources"
-      },
       "metadata": {
-        "themes_abordes": ["bilan", "apprentissages", "prévention"]
+        "themes_abordes": [
+          "bilan",
+          "apprentissages",
+          "prévention"
+        ]
       }
     },
     "ressources": {
@@ -3088,10 +4019,15 @@
         ]
       },
       "question": "",
-      "choices": [ ],
+      "choices": [],
       "nextQuestions": {},
       "metadata": {
-        "themes_abordes": ["aide", "soutien", "ressources", "urgences"]
+        "themes_abordes": [
+          "aide",
+          "soutien",
+          "ressources",
+          "urgences"
+        ]
       }
     }
   }
