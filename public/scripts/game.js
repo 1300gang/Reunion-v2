@@ -840,7 +840,7 @@ async function displayMessengerConversation(conversation) {
   const messengerDiv = document.getElementById('messengerView');
   if (!messengerDiv) return;
   
-  messengerDiv.innerHTML = '<div class="messenger-messages"></div>';
+  messengerDiv.innerHTML = '<div class="messenger-messages"></div><div class="typing-indicator"><span></span><span></span><span></span></div>';
   
   const messages = conversation.messages.map(message => {
     const participant = conversation.participants.find(p => p.id === message.sender);
@@ -853,37 +853,6 @@ async function displayMessengerConversation(conversation) {
   });
   
   await animateMessages(messages);
-}
-
-async function animateMessages(messages) {
-  const container = document.querySelector('.messenger-messages');
-  if (!container) return;
-  
-  for (const message of messages) {
-    const typingIndicator = document.querySelector('.typing-indicator');
-    if (typingIndicator) {
-      showElement('typing-indicator');
-      await sleep(300 + Math.random() * 200);
-      hideElement('typing-indicator');
-    }
-    
-    const messageDiv = createMessageElement(message);
-    messageDiv.style.opacity = '0';
-    messageDiv.style.transform = 'translateY(20px) scale(0.9)';
-    container.appendChild(messageDiv);
-    
-    await sleep(50);
-    messageDiv.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-    messageDiv.style.opacity = '1';
-    messageDiv.style.transform = 'translateY(0) scale(1)';
-    
-    container.scrollTo({
-      top: container.scrollHeight,
-      behavior: 'smooth'
-    });
-    
-    await sleep(400);
-  }
 }
 
 function createMessageElement(message) {
@@ -1157,9 +1126,10 @@ function isContinueQuestion(questionData) {
 }
 
 function confirmNextQuestion(nextQuestionId) {
-  if (confirm('Passer à la question suivante ?')) {
+  showNotification("Transition vers la prochaine scène dans 5 secondes...", "info", 4500); // Durée légèrement plus courte pour que la notif disparaisse avant la transition
+  setTimeout(() => {
     socket.emit('choose-next-question', { nextQuestionId });
-  }
+  }, 5000);
 }
 
 // ============================================================================

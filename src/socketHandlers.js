@@ -299,6 +299,11 @@ function initializeSocketIO(io) {
             const lobby = await lobbyManager.getLobby(socket.lobby);
             if (!lobby || (lobby.gmId !== socket.id && lobby.mode !== 'solo')) return socket.emit('error', 'Non autorisé');
 
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
+            if (!scenario) {
+                return socket.emit('error', 'Scénario non trouvé pour le CSV.');
+            }
+
             const exportsDir = path.join(__dirname, '..', 'exports');
             await fs.mkdir(exportsDir, { recursive: true });
             const filename = lobbyManager.generateSecureFilename(lobby.id, lobby.scenarioTitle);
@@ -306,13 +311,31 @@ function initializeSocketIO(io) {
 
             const players = await lobbyManager.getPlayers(socket.lobby);
             const questionPath = JSON.parse(lobby.questionPath);
-            const headers = ['Nom de la partie', 'Nom du scénario', 'Mode', 'Prénom', 'Âge', 'Genre', 'École', ...questionPath];
+
+            // Entêtes dynamiques avec thèmes
+            const dynamicHeaders = [];
+            questionPath.forEach(qId => {
+                dynamicHeaders.push(qId);
+                dynamicHeaders.push(`theme_aborde_${qId}`);
+            });
+            const headers = ['Nom de la partie', 'Nom du scénario', 'Mode', 'Prénom', 'Âge', 'Genre', 'École', ...dynamicHeaders];
             const rows = [headers];
 
             for (const player of players) {
                 const playerResponses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
-                const row = [lobby.id, lobby.scenarioTitle, lobby.mode, player.playerName, player.age, player.genre, player.ecole, ...questionPath.map(qId => playerResponses[qId] || '')];
-                rows.push(row);
+                const rowData = [lobby.id, lobby.scenarioTitle, lobby.mode, player.playerName, player.age, player.genre, player.ecole];
+
+                questionPath.forEach(qId => {
+                    // Ajoute la réponse du joueur
+                    rowData.push(playerResponses[qId] || '');
+
+                    // Ajoute les thèmes abordés
+                    const questionData = scenario.questions[qId];
+                    const themes = questionData?.metadata?.themes_abordes || [];
+                    rowData.push(themes.join('; ')); // On join avec un point-virgule pour éviter les conflits avec la virgule du CSV
+                });
+
+                rows.push(rowData);
             }
 
             const csvContent = '\ufeff' + rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
