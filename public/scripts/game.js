@@ -1019,7 +1019,6 @@ function initializeSocketEvents() {
   socket.on('game-over', (endStats) => {
     if (gameConfig.mode === 'player') {
       hideElement('player-game');
-      // Populate the new end screen
       if (endStats) {
         document.getElementById('player-completed-scenario').textContent = endStats.scenarioTitle || 'N/A';
         document.getElementById('player-total-answers').textContent = endStats.questionCount || 0;
@@ -1035,11 +1034,10 @@ function initializeSocketEvents() {
           });
         }
 
-        // Populate key choices - using the client's own response history
         const keyChoicesContainer = document.getElementById('player-key-choices');
         const playerResponses = gameState.responses[gameConfig.lobby] || {};
         const responseEntries = Object.entries(playerResponses);
-        const keyChoices = responseEntries.slice(-3); // Get the last 3 choices
+        const keyChoices = responseEntries.slice(-3);
 
         if (keyChoicesContainer) {
             keyChoicesContainer.innerHTML = '';
@@ -1048,10 +1046,8 @@ function initializeSocketEvents() {
                 if (question) {
                     const choiceDiv = document.createElement('div');
                     choiceDiv.className = 'key-choice-item';
-
                     const choiceIndex = answer.charCodeAt(0) - 65;
                     const choiceText = question.choices?.[choiceIndex] || answer;
-
                     choiceDiv.innerHTML = `
                       <div>
                         <strong>${question.question || 'Question'}</strong><br>
@@ -1066,6 +1062,57 @@ function initializeSocketEvents() {
       showElement('player-game-over');
     } else if (gameConfig.mode === 'intervenant') {
       hideElement('game-control');
+
+      if (endStats) {
+        document.getElementById('gm-total-players').textContent = endStats.totalPlayers || 0;
+        document.getElementById('gm-avg-age').textContent = endStats.avgAge || 'N/A';
+
+        const genreDistEl = document.getElementById('gm-genre-distribution');
+        if (genreDistEl && endStats.genreDistribution) {
+            genreDistEl.textContent = Object.entries(endStats.genreDistribution)
+                .map(([genre, count]) => `${genre}: ${count}`)
+                .join(', ');
+        }
+
+        const themesContainer = document.getElementById('gm-themes-list');
+        if (themesContainer && endStats.themes) {
+            themesContainer.innerHTML = '';
+            endStats.themes.forEach(theme => {
+                const pill = document.createElement('span');
+                pill.className = 'theme-pill';
+                pill.textContent = theme;
+                themesContainer.appendChild(pill);
+            });
+        }
+
+        const keyChoicesContainer = document.getElementById('gm-key-choices');
+        if (keyChoicesContainer && endStats.voteDistribution) {
+            keyChoicesContainer.innerHTML = '';
+            for (const qId in endStats.voteDistribution) {
+                const dist = endStats.voteDistribution[qId];
+                const totalVotes = dist.votes.reduce((sum, v) => sum + v.count, 0);
+
+                const choiceItem = document.createElement('div');
+                choiceItem.className = 'key-choice-item';
+
+                let votesHtml = '<ul class="vote-distribution-list">';
+                dist.choices.forEach((choiceText, index) => {
+                    const letter = String.fromCharCode(65 + index);
+                    const voteInfo = dist.votes.find(v => v.answer === letter);
+                    const count = voteInfo ? voteInfo.count : 0;
+                    const percentage = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+                    votesHtml += `<li><strong>${letter}:</strong> ${choiceText} - ${count} vote(s) (${percentage}%)</li>`;
+                });
+                votesHtml += '</ul>';
+
+                choiceItem.innerHTML = `
+                    <strong>${dist.question}</strong>
+                    ${votesHtml}
+                `;
+                keyChoicesContainer.appendChild(choiceItem);
+            }
+        }
+      }
       showElement('game-over-gm');
     }
   });

@@ -292,32 +292,66 @@ function initializeSocketIO(io) {
 
             const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
             if (!scenario) {
-                // Si le scénario n'est pas trouvé, on envoie quand même la fin de partie
-                // pour ne pas bloquer les clients.
                 return io.in(socket.lobby).emit('game-over', {});
             }
 
+            const players = await lobbyManager.getPlayers(lobby.id);
             const questionPath = JSON.parse(lobby.questionPath || '[]');
             const themes = new Set();
-
-            for (const qId of questionPath) {
+            questionPath.forEach(qId => {
                 const questionData = scenario.questions[qId];
-                if (questionData && questionData.metadata && questionData.metadata.themes_abordes) {
+                if (questionData?.metadata?.themes_abordes) {
                     questionData.metadata.themes_abordes.forEach(theme => themes.add(theme));
                 }
-            }
+            });
 
-            const endStats = {
+            // --- Payload pour les joueurs ---
+            const playerStats = {
                 scenarioTitle: scenario.scenario_info.title,
                 questionCount: questionPath.length,
                 themes: Array.from(themes)
             };
+            // On envoie les stats de base à tous les joueurs
+            socket.to(socket.lobby).emit('game-over', playerStats);
 
-            io.in(socket.lobby).emit('game-over', endStats);
+
+            // --- Payload pour le MJ ---
+            let avgAge = 0;
+            const genreCounts = {};
+            if (players.length > 0) {
+                const totalAge = players.reduce((sum, p) => sum + p.age, 0);
+                avgAge = Math.round(totalAge / players.length);
+                players.forEach(p => {
+                    genreCounts[p.genre] = (genreCounts[p.genre] || 0) + 1;
+                });
+            }
+
+            const voteDistribution = {};
+            for (const qId of questionPath) {
+                const questionData = scenario.questions[qId];
+                if (questionData && questionData.choices.length > 1) { // On ne calcule la distrib que pour les vraies questions
+                    const votes = await lobbyManager.getVotesForQuestion(lobby.id, qId);
+                    voteDistribution[qId] = {
+                        question: questionData.question,
+                        choices: questionData.choices,
+                        votes: votes.map(v => ({ answer: v.answer, count: v.count }))
+                    };
+                }
+            }
+
+            const gmStats = {
+                ...playerStats,
+                totalPlayers: players.length,
+                avgAge,
+                genreDistribution: genreCounts,
+                voteDistribution
+            };
+
+            // On envoie les stats complètes uniquement au MJ
+            socket.emit('game-over', gmStats);
 
         } catch (err) {
             console.error("Erreur 'end-game':", err);
-            // En cas d'erreur, on s'assure que les clients ne sont pas bloqués.
             if (socket.lobby) {
                 io.in(socket.lobby).emit('game-over', {});
             }

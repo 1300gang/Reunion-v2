@@ -169,39 +169,63 @@
             </div>
           </div>
           
-          <div id="game-over-gm" class="hidden">
-            <div class="card institutional-card">
-              <div class="pill">
-                <span class="pill-icon">✅</span>
-                <span id="lobbyNameEnd"></span> - Terminée
-              </div>
+          <div id="game-over-gm" class="hidden card end-card">
+            <div class="pill pill-success">🎉 Session Terminée</div>
+            <h1 class="end-title">RÉSUMÉ DE LA SESSION</h1>
+
+            <div class="solo-summary">
+              <h3>📊 Statistiques de la session</h3>
               
-              <h2 class="end-title">Session terminée avec succès</h2>
-              
-              <div class="stats-section">
-                <h3>📊 Points de difficulté identifiés</h3>
-                <div id="difficultyPoints" class="difficulty-cards"></div>
+              <div class="summary-stats">
+                <div class="summary-stat">
+                  <span class="summary-icon">👥</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Participants</span>
+                    <span class="summary-value" id="gm-total-players">0</span>
+                  </div>
+                </div>
+                <div class="summary-stat">
+                  <span class="summary-icon">🎂</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Âge moyen</span>
+                    <span class="summary-value" id="gm-avg-age">0</span>
+                  </div>
+                </div>
+                <div class="summary-stat">
+                  <span class="summary-icon">🚻</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Genres</span>
+                    <span class="summary-value" id="gm-genre-distribution">-</span>
+                  </div>
+                </div>
               </div>
-              
-              <div class="observations-section">
-                <h3>💭 Vos observations</h3>
-                <textarea id="gmObservations" rows="5" placeholder="Notez vos impressions sur la session..." class="textarea-institutional"></textarea>
+
+              <div class="themes-section">
+                <h4>🏷️ Thèmes abordés durant la session</h4>
+                <div id="gm-themes-list" class="themes-pills"></div>
               </div>
-              
-              <div class="final-actions">
-                <button id="finalDownloadCsvBtn" class="button button-primary">
-                  <span>📊</span>
-                  <span>Télécharger CSV</span>
-                </button>
-                <button id="sendResultsBtn" class="button button-secondary" disabled>
-                  <span>📧</span>
-                  <span>Envoyer résultats</span>
-                </button>
-                <button id="newSessionBtn" class="button">
-                  <span>🔄</span>
-                  <span>Retour au menu</span>
-                </button>
+
+              <div class="key-choices-section">
+                <h3>🔑 Points de discussion & votes</h3>
+                <p class="section-description">Voici les questions qui ont généré le plus de débat ou qui sont cruciales pour le parcours.</p>
+                <div id="gm-key-choices" class="key-choices-list"></div>
               </div>
+            </div>
+
+            <div class="observations-section">
+              <h3>💭 Vos observations</h3>
+              <textarea id="gmObservations" rows="5" placeholder="Notez vos impressions sur la session..." class="textarea-institutional"></textarea>
+            </div>
+
+            <div class="final-actions">
+              <button id="finalDownloadCsvBtn" class="button button-primary">
+                <span>📊</span>
+                <span>Télécharger CSV</span>
+              </button>
+              <button id="newSessionBtn" class="button">
+                <span>🔄</span>
+                <span>Retour au menu</span>
+              </button>
             </div>
           </div>
         </div>
