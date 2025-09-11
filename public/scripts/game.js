@@ -1016,9 +1016,53 @@ function initializeSocketEvents() {
     }
   });
   
-  socket.on('game-over', () => {
+  socket.on('game-over', (endStats) => {
     if (gameConfig.mode === 'player') {
       hideElement('player-game');
+      // Populate the new end screen
+      if (endStats) {
+        document.getElementById('player-completed-scenario').textContent = endStats.scenarioTitle || 'N/A';
+        document.getElementById('player-total-answers').textContent = endStats.questionCount || 0;
+
+        const themesContainer = document.getElementById('player-themes-list');
+        if (themesContainer && endStats.themes) {
+          themesContainer.innerHTML = '';
+          endStats.themes.forEach(theme => {
+            const pill = document.createElement('span');
+            pill.className = 'theme-pill';
+            pill.textContent = theme;
+            themesContainer.appendChild(pill);
+          });
+        }
+
+        // Populate key choices - using the client's own response history
+        const keyChoicesContainer = document.getElementById('player-key-choices');
+        const playerResponses = gameState.responses[gameConfig.lobby] || {};
+        const responseEntries = Object.entries(playerResponses);
+        const keyChoices = responseEntries.slice(-3); // Get the last 3 choices
+
+        if (keyChoicesContainer) {
+            keyChoicesContainer.innerHTML = '';
+            keyChoices.forEach(([questionId, answer]) => {
+                const question = gameConfig.scenario?.questions?.[questionId];
+                if (question) {
+                    const choiceDiv = document.createElement('div');
+                    choiceDiv.className = 'key-choice-item';
+
+                    const choiceIndex = answer.charCodeAt(0) - 65;
+                    const choiceText = question.choices?.[choiceIndex] || answer;
+
+                    choiceDiv.innerHTML = `
+                      <div>
+                        <strong>${question.question || 'Question'}</strong><br>
+                        <span>→ ${choiceText}</span>
+                      </div>
+                    `;
+                    keyChoicesContainer.appendChild(choiceDiv);
+                }
+            });
+        }
+      }
       showElement('player-game-over');
     } else if (gameConfig.mode === 'intervenant') {
       hideElement('game-control');

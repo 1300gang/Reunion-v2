@@ -345,26 +345,64 @@
             </div>
           </div>
 
-          <div id="player-game-over" class="hidden card institutional-card">
-            <div class="pill">
-              <span class="pill-icon">✅</span>
-              <span>Partie terminée</span>
+          <div id="player-game-over" class="hidden card end-card">
+            <div class="pill pill-success">🎉 Partie Terminée</div>
+
+            <h1 class="end-title">braVo ! vouS avez terMine le sCenario</h1>
+
+            <!-- Résumé de la partie -->
+            <div class="solo-summary">
+              <h3>📊 Résumé de votre parcours</h3>
+
+              <div class="summary-stats">
+                <div class="summary-stat">
+                  <span class="summary-icon">📖</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Scénario complété</span>
+                    <span class="summary-value" id="player-completed-scenario">-</span>
+                  </div>
+                </div>
+
+                <div class="summary-stat">
+                  <span class="summary-icon">❓</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Questions dans le parcours</span>
+                    <span class="summary-value" id="player-total-answers">0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thèmes abordés -->
+              <div class="themes-section">
+                <h4>🏷️ Thèmes abordés durant votre parcours</h4>
+                <div id="player-themes-list" class="themes-pills"></div>
+              </div>
+
+              <!-- Choix marquants -->
+              <div class="key-choices-section">
+                <h4>🔑 Vos choix clés</h4>
+                <div id="player-key-choices" class="key-choices-list"></div>
+              </div>
             </div>
             
-            <h2 class="end-title">Merci d'avoir participé !</h2>
+            <!-- Actions finales -->
+            <div class="solo-end-actions">
+              <button id="backToHomeBtn" class="button button-secondary">
+                <span>Retour à l'accueil</span>
+              </button>
+            </div>
             
             <div class="feedback-section">
               <h3>💭 Avez-vous des observations à partager ?</h3>
               <textarea id="playerFeedback" rows="4" placeholder="Vos impressions, difficultés rencontrées..." class="textarea-institutional"></textarea>
-            </div>
-            
-            <div class="final-actions">
               <button id="sendFeedbackBtn" class="button button-primary">
                 <span>Envoyer mon feedback</span>
               </button>
-              <button id="backToHomeBtn" class="button button-secondary">
-                <span>Retour à l'accueil</span>
-              </button>
+            </div>
+
+            <!-- Message de remerciement -->
+            <div class="thank-you-message">
+              <p>Merci d'avoir joué ! Votre parcours a été unique et nous espérons que vous avez apprécié l'expérience.</p>
             </div>
           </div>
         </div>

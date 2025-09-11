@@ -289,8 +289,39 @@ function initializeSocketIO(io) {
             if (!socket.lobby) return;
             const lobby = await lobbyManager.getLobby(socket.lobby);
             if (!lobby || (lobby.gmId !== socket.id && lobby.mode !== 'solo')) return;
-            io.in(socket.lobby).emit('game-over');
-        } catch (err) { console.error("Erreur 'end-game':", err); }
+
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
+            if (!scenario) {
+                // Si le scénario n'est pas trouvé, on envoie quand même la fin de partie
+                // pour ne pas bloquer les clients.
+                return io.in(socket.lobby).emit('game-over', {});
+            }
+
+            const questionPath = JSON.parse(lobby.questionPath || '[]');
+            const themes = new Set();
+
+            for (const qId of questionPath) {
+                const questionData = scenario.questions[qId];
+                if (questionData && questionData.metadata && questionData.metadata.themes_abordes) {
+                    questionData.metadata.themes_abordes.forEach(theme => themes.add(theme));
+                }
+            }
+
+            const endStats = {
+                scenarioTitle: scenario.scenario_info.title,
+                questionCount: questionPath.length,
+                themes: Array.from(themes)
+            };
+
+            io.in(socket.lobby).emit('game-over', endStats);
+
+        } catch (err) {
+            console.error("Erreur 'end-game':", err);
+            // En cas d'erreur, on s'assure que les clients ne sont pas bloqués.
+            if (socket.lobby) {
+                io.in(socket.lobby).emit('game-over', {});
+            }
+        }
     });
 
     socket.on('generate-csv', async () => {
