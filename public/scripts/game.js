@@ -1217,10 +1217,10 @@ function isContinueQuestion(questionData) {
 }
 
 function confirmNextQuestion(nextQuestionId) {
-  showNotification("Transition vers la prochaine scène dans 5 secondes...", "info", 4500); // Durée légèrement plus courte pour que la notif disparaisse avant la transition
+  showNotification("Transition vers la prochaine scène dans 1.5 secondes...", "info", 1400); // Durée légèrement plus courte pour que la notif disparaisse avant la transition
   setTimeout(() => {
     socket.emit('choose-next-question', { nextQuestionId });
-  }, 5000);
+  }, 1500);
 }
 
 // ============================================================================
