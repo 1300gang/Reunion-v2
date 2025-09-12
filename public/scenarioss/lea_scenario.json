@@ -1,0 +1,858 @@
+{
+  "scenario_info": {
+    "title": "Mya et Yanis - Stéréotypes et Consentement",
+    "description": "Scénario éducatif sur les stéréotypes, discriminations et consentement",
+    "characters": ["Mya", "Yanis"],
+    "start_question": "questionMya1"
+  },
+  "questions": {
+    "questionMya1": {
+      "id": "questionMya1",
+      "type": "messenger_scenario",
+      "context": "Mya et Yanis sortent du lycée. Ils sont dans la rue du centre-ville de Saint-Louis en direction de la gare de bus.",
+      "contextual_image": "lycee_sortie_saint_louis.webp",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mya",
+            "name": "Mya",
+            "isCurrentUser": false
+          },
+          {
+            "id": "yanis", 
+            "name": "Yanis",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mya",
+            "avatar": "😊",
+            "content": "C'était cool ta journée ?",
+            "type": "text"
+          },
+          {
+            "id": "msg2", 
+            "sender": "yanis",
+            "avatar": "😌",
+            "content": "Ouaip, tranquille. Je crois que je m'en suis bien sorti sur mon contrôle d'anglais",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mya", 
+            "avatar": "👍",
+            "content": "Cool ! Moi j'ai eu cours de français avec Madame Faure",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "yanis",
+            "avatar": "🤔",
+            "content": "Vous avez parlé de quoi ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "mya",
+            "avatar": "🤓",
+            "content": "Des stéréotypes",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "yanis",
+            "avatar": "😅",
+            "content": "Rappelle-moi ce que ça veut dire déjà ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Mya répond-elle à Yanis sur la définition d'un stéréotype ?",
+      "choices": [
+        "C'est un fait qui est le plus souvent vrai",
+        "C'est quand on parle mal des gens", 
+        "C'est une opinion qui peut conduire à des discriminations"
+      ],
+      "nextQuestions": {
+        "A": "questionMya2A",
+        "B": "questionMya2B",
+        "C": "questionMya2"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "définition_stéréotypes",
+          "éducation_civique", 
+          "discrimination",
+          "préjugés"
+        ],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya2A": {
+      "id": "questionMya2A",
+      "type": "messenger_scenario",
+      "context": "Mya donne une mauvaise définition puis se corrige.",
+      "contextual_image": "lycee_sortie_saint_louis.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤨",
+            "content": "Elle a dit que c'est un fait qui est le plus souvent vrai", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😕",
+            "content": "Ah bon ? T'es sûre ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "😳",
+            "content": "Non. En fait, la prof a dit que c'était plutôt une opinion qui peut conduire à des discriminations, je m'en souviens maintenant !", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons la conversation...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya2"},
+      "metadata": {
+        "themes_abordes": ["correction_erreur", "apprentissage"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya2B": {
+      "id": "questionMya2B",
+      "type": "messenger_scenario", 
+      "context": "Mya donne une mauvaise définition puis se corrige.",
+      "contextual_image": "lycee_sortie_saint_louis.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤨",
+            "content": "C'est quand on parle mal des gens", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😕", 
+            "content": "Ah bon ? T'es sûre ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "😳",
+            "content": "Non. En fait, la prof a dit que c'était une opinion qui peut conduire à des discriminations, je m'en souviens maintenant !", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons la conversation...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya2"},
+      "metadata": {
+        "themes_abordes": ["correction_erreur", "apprentissage"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya2": {
+      "id": "questionMya2",
+      "type": "messenger_scenario", 
+      "context": "Mya et Yanis continuent leur conversation en marchant. Ils remarquent une publicité au loin.",
+      "contextual_image": "publicite_cuisine_femme.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "💯",
+            "content": "C'est une opinion qui peut conduire à des discriminations", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "👍",
+            "content": "Ah oui c'est vrai !", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "yanis", "avatar": "🤔", 
+            "content": "T'as un exemple ?", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "mya", "avatar": "🙄",
+            "content": "Ben, par exemple dire que les personnes grosses sont paresseuses ou dire que les blondes sont bêtes !", "type": "text"
+          },
+          {
+            "id": "msg5", "sender": "mya", "avatar": "😤",
+            "content": "En voilà un bel exemple de stéréotype ! Regarde cette affiche, elle est éclatée", "type": "text",
+            "attachment": {"type": "photo", "description": "Photo d'une publicité avec une femme en cuisine"}
+          },
+          {
+            "id": "msg6", "sender": "yanis", "avatar": "😕",
+            "content": "Ah bon pourquoi tu dis ça ?", "type": "text"
+          },
+          {
+            "id": "msg7", "sender": "mya", "avatar": "🤨",
+            "content": "Ben, t'as pas l'impression de voir toujours des femmes représentées sur les affiches de cuisine toi ?", "type": "text"
+          },
+          {
+            "id": "msg8", "sender": "yanis", "avatar": "🤯", 
+            "content": "Ben si ! Et pourquoi d'après toi ?", "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Yanis explique-t-il pourquoi on voit souvent des femmes dans les publicités de cuisine ?",
+      "choices": [
+        "Ce sont de vieux stéréotypes misogynes qui veulent nous faire croire que la cuisine est \"une tâche réservée\" aux femmes",
+        "Elles sont bien meilleures que les hommes dans ce domaine", 
+        "Des études sociologiques ont montré que les femmes s'intéressent plus à la cuisine"
+      ],
+      "nextQuestions": {
+        "A": "questionMya3A",
+        "B": "questionMya3B", 
+        "C": "questionMya3C"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "stéréotypes_genre", "misogynie", "répartition_tâches_domestiques",
+          "publicité_sexiste", "rôles_sociaux"
+        ],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya3A": {
+      "id": "questionMya3A",
+      "type": "messenger_scenario",
+      "context": "Yanis donne la bonne réponse.",
+      "contextual_image": "publicite_cuisine_femme.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "💡",
+            "content": "Ce sont de vieux stéréotypes misogynes qui veulent nous faire croire que la cuisine est \"une tâche réservée\" aux femmes", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "🔥",
+            "content": "Exactement !", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la scène du bus...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya4"},
+      "metadata": {
+        "themes_abordes": ["misogynie", "prise_conscience"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya3B": {
+      "id": "questionMya3B", 
+      "type": "messenger_scenario",
+      "context": "Yanis donne une mauvaise réponse, Mya le corrige.",
+      "contextual_image": "publicite_cuisine_femme.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "🤷",
+            "content": "Parce que les femmes sont bien meilleures dans ce domaine", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "😤",
+            "content": "N'importe quoi ! Pourquoi c'est toujours des chefs hommes qu'on voit à la TV dans les concours de cuisine alors ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "🙄",
+            "content": "Ce sont de vieux stéréotypes misogynes qui veulent nous faire croire que la cuisine est \"une tâche réservée\" aux femmes", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la scène du bus...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya4"},
+      "metadata": {
+        "themes_abordes": ["correction_stéréotype", "misogynie"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya3C": {
+      "id": "questionMya3C",
+      "type": "messenger_scenario",
+      "context": "Yanis mentionne des études, Mya le corrige.",
+      "contextual_image": "publicite_cuisine_femme.webp", 
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "🤓",
+            "content": "Des études sociologiques ont montré que les femmes s'intéressent plus à la cuisine", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "🧐",
+            "content": "J'aimerais bien voir ton étude !", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "💭",
+            "content": "Si elles s'intéressent plus à la cuisine c'est peut-être parce que la société leur a donné ce rôle et que c'est un stéréotype misogyne", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la scène du bus...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya4"},
+      "metadata": {
+        "themes_abordes": ["esprit_critique", "construction_sociale"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya4": {
+      "id": "questionMya4",
+      "type": "messenger_scenario",
+      "context": "Yanis et Mya arrivent à la gare routière et montent dans le bus. Le conducteur fait une remarque sexiste à Mya.",
+      "contextual_image": "bus_conducteur_scene.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true},
+          {"id": "conducteur", "name": "Conducteur", "isCurrentUser": false}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "😄",
+            "content": "Hum ! Donc pour la fête des Pères il vaudrait mieux que j'offre un lave-vaisselle à mon père plutôt qu'à ma mère si je comprends bien ?", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "😂",
+            "content": "Haha ! Voilà, exactement !", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "conducteur", "avatar": "😤",
+            "content": "Toute bonne kafrine pareil, après y vien fait commérage pour d'viole", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "yanis", "avatar": "😠",
+            "content": "Mais j'ai le même short qu'elle !", "type": "text"
+          },
+          {
+            "id": "msg5", "sender": "mya", "avatar": "😡",
+            "content": "Pourquoi vous me faites la réflexion à moi et pas à lui ?", "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Yanis répond-il à cette situation ?",
+      "choices": [
+        "Les règles vestimentaires sont les mêmes pour les filles et les garçons, Mya a mal compris ce qu'a voulu dire le conducteur",
+        "Les garçons s'habillent plus large et donc il n'est pas nécessaire de leur rappeler les règles vestimentaires",
+        "Les filles sont plus surveillées que les garçons sous prétexte qu'elles pourraient être victime d'une agression"
+      ],
+      "nextQuestions": {
+        "A": "questionMya5A",
+        "B": "questionMya5B",
+        "C": "questionMya5C"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "sexisme", "victim_blaming", "inégalités_filles_garçons",
+          "harcèlement_rue", "vêtements_victimisation"
+        ],
+        "characters": ["Mya", "Yanis", "Conducteur"]
+      }
+    },
+
+    "questionMya5A": {
+      "id": "questionMya5A",
+      "type": "messenger_scenario",
+      "context": "Yanis minimise la situation, Mya le corrige.",
+      "contextual_image": "bus_conducteur_scene.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "😕",
+            "content": "Non mais Mya, je pense que t'as dû mal comprendre. Il veut seulement faire attention à toi en fait", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "😤",
+            "content": "C'est n'importe quoi. Depuis quand se prendre une réflexion sur ce qu'on porte c'est pour faire attention aux autres ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "💪",
+            "content": "Quoiqu'il en soit, le vêtement qu'on porte ou notre genre n'est pas une raison pour se faire agresser", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "yanis", "avatar": "😔",
+            "content": "C'est vrai tu as raison", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la scène du message...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya6"},
+      "metadata": {
+        "themes_abordes": ["victim_blaming", "prise_conscience"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya5B": {
+      "id": "questionMya5B",
+      "type": "messenger_scenario",
+      "context": "Yanis évoque les différences vestimentaires, Mya le corrige fermement.",
+      "contextual_image": "bus_conducteur_scene.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "🤷",
+            "content": "En même temps, mon short est un peu plus large comme les garçons en général. Toi il met en valeur tes formes c'est pour ça aussi", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "😡",
+            "content": "Mais qu'est-ce que tu racontes ? T'es en train de me dire que parce que j'ai un short c'est normal que je me fasse agresser ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "yanis", "avatar": "😰",
+            "content": "Mais non ... C'est pas ce que je voulais dire", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "mya", "avatar": "🛑",
+            "content": "Alors ne dit rien. Fille comme garçon on peut tous être victime d'agression et quoiqu'il en soit les vêtements qu'on porte ne sont pas un prétexte pour nous faire du mal", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la scène du message...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya6"},
+      "metadata": {
+        "themes_abordes": ["victim_blaming", "vêtements_agression"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya5C": {
+      "id": "questionMya5C",
+      "type": "messenger_scenario",
+      "context": "Yanis comprend la situation et soutient Mya.",
+      "contextual_image": "bus_conducteur_scene.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "😠",
+            "content": "C'est n'importe quoi. Qu'on soit fille ou garçon, on peut tous se faire agresser", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "💪",
+            "content": "Quoi qu'il arrive le vêtement qu'on porte ne doit pas être un prétexte pour être agressé.e.s", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "🙏",
+            "content": "Exactement !", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la scène du message...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya6"},
+      "metadata": {
+        "themes_abordes": ["soutien", "égalité_genre"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya6": {
+      "id": "questionMya6",
+      "type": "messenger_scenario",
+      "context": "Dans le bus, Yanis reçoit un message de rupture de sa copine Julie et se met à pleurer. Un petit garçon fait une remarque.",
+      "contextual_image": "bus_yanis_pleure.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true},
+          {"id": "petit_garcon", "name": "Petit garçon", "isCurrentUser": false}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "📱",
+            "content": "*lit un message de Julie* ❤️🫰💫 \"C'est fini. Je suis plus amoureuse. On s'arrête là\"", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😭",
+            "content": "*se met à pleurer*", "type": "action"
+          },
+          {
+            "id": "msg3", "sender": "petit_garcon", "avatar": "😮",
+            "content": "Pourquoi il pleure ? Les garçons ça pleure pas !", "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Mya réagit-elle face à Yanis qui pleure ?",
+      "choices": [
+        "Est-ce que ça va ? Tu veux en parler ?",
+        "Soit fort ! T'es un homme montre-le !",
+        "Arrête de pleurer, ne fais pas ta tapette"
+      ],
+      "nextQuestions": {
+        "A": "questionMya7A",
+        "B": "questionMya7B",
+        "C": "questionMya7C"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "masculinité_toxique", "émotions_garçons", "stéréotypes_genre",
+          "expression_sentiments", "rupture_amoureuse"
+        ],
+        "characters": ["Mya", "Yanis", "Petit garçon"]
+      }
+    },
+
+    "questionMya7A": {
+      "id": "questionMya7A",
+      "type": "messenger_scenario",
+      "context": "Mya réagit avec empathie.",
+      "contextual_image": "bus_yanis_pleure.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤫",
+            "content": "Tssss *en s'adressant au petit garçon*", "type": "action"
+          },
+          {
+            "id": "msg2", "sender": "mya", "avatar": "💙",
+            "content": "Est-ce que ça va ? Tu veux en parler ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "yanis", "avatar": "🥺",
+            "content": "Ça me fait plaisir que tu me demandes et que tu ne réagisses pas comme ce petit garçon. Je viens de me faire larguer... Ça me rend triste", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "mya", "avatar": "🤗",
+            "content": "Les garçons ont carrément le droit d'être tristes et de pleurer. Qu'est-ce qu'il se passe ?", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la question du câlin...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya8"},
+      "metadata": {
+        "themes_abordes": ["empathie", "soutien_émotionnel"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya7B": {
+      "id": "questionMya7B",
+      "type": "messenger_scenario", 
+      "context": "Mya utilise des stéréotypes masculins, Yanis la corrige.",
+      "contextual_image": "bus_yanis_pleure.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "💪",
+            "content": "Soit fort ! T'es un homme montre-le !", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😤",
+            "content": "Tu me saoules Mya ! Qu'est-ce que ça veut dire ? Les filles peuvent s'habiller comme elles veulent mais les garçons n'ont pas le droit de pleurer ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "🤷",
+            "content": "Ben ça fait faible quoi !", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "yanis", "avatar": "😠",
+            "content": "Où tu vois de la faiblesse dans le fait de pleurer ? Les mecs ne peuvent pas être tristes ?", "type": "text"
+          },
+          {
+            "id": "msg5", "sender": "yanis", "avatar": "💭",
+            "content": "C'est pas parce qu'on nous éduque pour être forts et virils qu'on est obligés de s'y plier", "type": "text"
+          },
+          {
+            "id": "msg6", "sender": "mya", "avatar": "😔",
+            "content": "C'est vrai. Excuse-moi. Comment tu te sens ? Qu'est-ce qu'il s'est passé ?", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la question du câlin...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya8"},
+      "metadata": {
+        "themes_abordes": ["masculinité_toxique", "remise_en_question"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya7C": {
+      "id": "questionMya7C",
+      "type": "messenger_scenario",
+      "context": "Mya utilise une insulte homophobe, Yanis la corrige sévèrement.",
+      "contextual_image": "bus_yanis_pleure.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "😒",
+            "content": "Arrête de pleurer, ne fais pas ta tapette !", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😡",
+            "content": "Ça va pas ou quoi ? Tu sais que c'est une insulte homophobe ce que tu dis là ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "🙄",
+            "content": "Bah oui et alors ?", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "yanis", "avatar": "😠",
+            "content": "Donc pour toi y' a que les gays qui peuvent pleurer ? Tu dis vraiment n'importe quoi", "type": "text"
+          },
+          {
+            "id": "msg5", "sender": "yanis", "avatar": "💔",
+            "content": "La tristesse c'est un truc qu'on partage tous quel que soit notre genre ou notre orientation sexuelle. J'aurais préféré que tu réagisses autrement", "type": "text"
+          },
+          {
+            "id": "msg6", "sender": "mya", "avatar": "😔",
+            "content": "C'est vrai. Excuse-moi. Comment tu te sens ? Qu'est-ce qu'il s'est passé ?", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la question du câlin...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya8"},
+      "metadata": {
+        "themes_abordes": ["homophobie", "insultes", "éducation_respect"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya8": {
+      "id": "questionMya8",
+      "type": "messenger_scenario",
+      "context": "Après leur discussion, Mya propose un câlin à Yanis.",
+      "contextual_image": "bus_proposition_calin.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤗",
+            "content": "Tu veux un câlin ?", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😅",
+            "content": "MDR", "type": "text"
+          }
+        ]
+      },
+      "question": "Comment Mya interprète-t-elle cette réponse ?",
+      "choices": [
+        "Lui redemander pour être sûre",
+        "Lui faire un câlin directement",
+        "Ne pas lui en faire"
+      ],
+      "nextQuestions": {
+        "A": "questionMya9A",
+        "B": "questionMya9B",
+        "C": "questionMya9C"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "consentement", "communication", "respect_limites",
+          "ambiguïté_réponse"
+        ],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya9A": {
+      "id": "questionMya9A",
+      "type": "messenger_scenario",
+      "context": "Mya demande des clarifications.",
+      "contextual_image": "bus_proposition_calin.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤔",
+            "content": "J'ai pas compris. Tu peux être plus clair ? Parce que là...", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😊",
+            "content": "J'ai pas trop envie. Mais je voulais pas te vexer", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "👍",
+            "content": "T'as le droit de pas avoir envie. Tu ne me vexes pas", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la conclusion...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya10"},
+      "metadata": {
+        "themes_abordes": ["communication_claire", "respect_consentement"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya9B": {
+      "id": "questionMya9B",
+      "type": "messenger_scenario",
+      "context": "Mya fait un câlin sans avoir eu de réponse claire.",
+      "contextual_image": "bus_proposition_calin.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤗",
+            "content": "*fait un câlin*", "type": "action"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😰",
+            "content": "Euh ça va pas ou quoi ?", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "😕",
+            "content": "Bah quoi ?", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "yanis", "avatar": "😠",
+            "content": "J'ai pas dit oui !", "type": "text"
+          },
+          {
+            "id": "msg5", "sender": "mya", "avatar": "😔",
+            "content": "Désolée...", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la conclusion...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya10"},
+      "metadata": {
+        "themes_abordes": ["non_consentement", "erreur_interpretation"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya9C": {
+      "id": "questionMya9C",
+      "type": "messenger_scenario",
+      "context": "Mya interprète la réponse comme un refus.",
+      "contextual_image": "bus_proposition_calin.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "mya", "avatar": "🤔",
+            "content": "Tu ne veux pas de câlin c'est bien ça ?", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😊",
+            "content": "Non je n'ai pas envie", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "mya", "avatar": "👍",
+            "content": "J'étais pas certaine d'avoir compris", "type": "text"
+          }
+        ]
+      },
+      "question": "Continuons vers la conclusion...",
+      "choices": ["Continuer"],
+      "nextQuestions": {"A": "questionMya10"},
+      "metadata": {
+        "themes_abordes": ["clarification", "respect_refus"],
+        "characters": ["Mya", "Yanis"]
+      }
+    },
+
+    "questionMya10": {
+      "id": "questionMya10",
+      "type": "messenger_scenario",
+      "context": "Yanis explique les difficultés du consentement pour les garçons.",
+      "contextual_image": "bus_reflexion_finale.webp",
+      "conversation": {
+        "participants": [
+          {"id": "mya", "name": "Mya", "isCurrentUser": false},
+          {"id": "yanis", "name": "Yanis", "isCurrentUser": true}
+        ],
+        "messages": [
+          {
+            "id": "msg1", "sender": "yanis", "avatar": "💭",
+            "content": "Ce n'est pas toujours évident de dire \"non\" franchement quand on est un garçon", "type": "text"
+          },
+          {
+            "id": "msg2", "sender": "yanis", "avatar": "😔",
+            "content": "On valorise tout le temps l'idée que les garçons ont toujours envie, que c'est bien si c'est des charos, même si c'est pour un câlin avec une amie", "type": "text"
+          },
+          {
+            "id": "msg3", "sender": "yanis", "avatar": "💪",
+            "content": "Alors qu'en vrai bah les garçons n'ont pas toujours envie et eux aussi doivent donner leur consentement", "type": "text"
+          },
+          {
+            "id": "msg4", "sender": "mya", "avatar": "💡",
+            "content": "Je comprends ce que tu dis. C'est vrai !", "type": "text"
+          }
+        ]
+      },
+      "question": "Fin du scénario",
+      "choices": ["Terminer"],
+      "nextQuestions": {"A": "fin"},
+      "metadata": {
+        "themes_abordes": [
+          "consentement_masculin", "pression_sociale", "stéréotypes_virilité",
+          "droit_refuser", "éducation_consentement"
+        ],
+        "characters": ["Mya", "Yanis"]
+      }
+    }
+  }
+}

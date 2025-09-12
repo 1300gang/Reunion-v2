@@ -1,0 +1,322 @@
+{
+  "scenario_info": {
+    "title": "Scénario de test créé par Jules",
+    "file": "test_scenario_jules_1756888711446.json",
+    "start_question": "questionMya1",
+    "creators": [
+      "Éditeur Web"
+    ]
+  },
+  "questions": {
+    "questionMya1": {
+      "question": "Comment Mya répond-elle à Yanis sur la définition d'un stéréotype ?",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": "",
+        "B": "",
+        "C": ""
+      }
+    },
+    "questionMya2A": {
+      "question": "Continuons la conversation...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya2B": {
+      "question": "Continuons la conversation...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya2": {
+      "question": "Comment Yanis explique-t-il pourquoi on voit souvent des femmes dans les publicités de cuisine ?",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": "",
+        "B": "",
+        "C": ""
+      }
+    },
+    "questionMya3A": {
+      "question": "Continuons vers la scène du bus...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya3B": {
+      "question": "Continuons vers la scène du bus...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya3C": {
+      "question": "Continuons vers la scène du bus...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya4": {
+      "question": "Comment Yanis répond-il à cette situation ?",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": "",
+        "B": "",
+        "C": ""
+      }
+    },
+    "questionMya5A": {
+      "question": "Continuons vers la scène du message...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya5B": {
+      "question": "Continuons vers la scène du message...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya5C": {
+      "question": "Continuons vers la scène du message...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya6": {
+      "question": "Comment Mya réagit-elle face à Yanis qui pleure ?",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": "",
+        "B": "",
+        "C": ""
+      }
+    },
+    "questionMya7A": {
+      "question": "Continuons vers la question du câlin...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya7B": {
+      "question": "Continuons vers la question du câlin...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya7C": {
+      "question": "Continuons vers la question du câlin...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya8": {
+      "question": "Comment Mya interprète-t-elle cette réponse ?",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        },
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": "",
+        "B": "",
+        "C": ""
+      }
+    },
+    "questionMya9A": {
+      "question": "Continuons vers la conclusion...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya9B": {
+      "question": "Continuons vers la conclusion...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya9C": {
+      "question": "Continuons vers la conclusion...",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    },
+    "questionMya10": {
+      "question": "Fin du scénario",
+      "background_image": "",
+      "choices": [
+        {
+          "text": "",
+          "next_question": ""
+        }
+      ],
+      "nextQuestions": {
+        "A": ""
+      }
+    }
+  }
+}

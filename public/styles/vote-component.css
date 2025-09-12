@@ -1,0 +1,403 @@
+/* === VOTE COMPONENT STYLES - REFONTE GLASSMORPHISM === */
+
+/* Variables pour le thème dynamique */
+:root {
+  /* Ces couleurs seront modifiées dynamiquement par JS */
+  --couleur-jaunePeps: #e9bc40; /* Couleur principale [0] */
+  --couleur-grisBleuClair: #c9e2e5; /* Couleur secondaire [1] */
+  
+  /* Couleurs fixes */
+  --couleur-noirVolcan: #322a22;
+  --couleur-blancSite: #fafff6;
+  --couleur-grisFonce: #415a51;
+  --couleur-beigeNorm: #ede0cf;
+}
+
+/* Conteneur principal du composant de vote */
+.vote-component {
+  position: relative;
+  min-height: 60px;
+  margin: 12px 0;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vote-component.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Inner container avec glassmorphism amélioré - Utilise couleur secondaire */
+.component-inner {
+  position: relative;
+  min-height: 60px;
+  padding: 12px 20px 12px 70px;
+  border-radius: 40px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 40px;
+  background: var(--couleur-grisBleuClair); /* Couleur secondaire avec transparence */
+  background: linear-gradient(135deg, 
+    rgba(var(--couleur-grisBleuClair-rgb, 201, 226, 229), 0.4),
+    rgba(250, 255, 246, 0.2)
+  );
+  backdrop-filter: blur(0.8px) saturate(180%);
+  -webkit-backdrop-filter: blur(0.8px) saturate(180%);
+  border: 2px solid rgba(250, 255, 246, 0.6);
+  box-shadow: 
+    0 8px 32px 0 rgba(50, 42, 34, 0.1),
+    inset 0 2px 8px 0 rgba(250, 255, 246, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+/* Background avec texture papier */
+.vote-background {
+    display: none; /* Masqué par défaut */  
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.vote-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/img/css/painted-relief-texture.jpg");
+  background-size: cover;
+  opacity: 0.0;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Barre de progression avec couleur principale */
+.vote-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 90%;
+  top: 50%; 
+  transform: translateY(-50%);
+  background: var(--couleur-jaunePeps); /* Couleur principale */
+  background: linear-gradient(135deg, 
+    var(--couleur-jaunePeps) 0%, 
+    color-mix(in srgb, var(--couleur-jaunePeps) 85%, white) 50%, 
+    var(--couleur-jaunePeps) 100%
+  );
+  border-radius: 40px 12px 12px 40px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  overflow: hidden;
+  width: 80px;
+}
+
+/* Texture papier sur la barre de progression */
+.vote-progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/img/css/Illustration_sans_titre 3.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+}
+
+/* Icon container avec glassmorphism premium */
+.icon-container {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: #00000003;
+  backdrop-filter: blur(0.8px) saturate(200%);
+  -webkit-backdrop-filter: blur(0.8px) saturate(200%);
+  border: 2px solid rgba(250, 255, 246, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 
+    -15px 13px 16px 0 rgb(0 0 0 / 27%), 
+    inset 0 0px 13px 0 rgb(255 255 255 / 68%), 
+    inset -1px 2px 4px 0 rgb(50 34 34 / 13%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Lettre de l'icône */
+.icon-letter {
+  font-family: "mocraRegular", sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fafff6;
+  user-select: none;
+  text-shadow: 0 1px 2px rgba(50, 42, 34, 0.2);
+}
+
+/* Conteneur de texte */
+.text-container {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+}
+
+.vote-text {
+  flex: 1;
+  font-family: 'Satoshi-Regular', sans-serif;
+  font-size: 1rem;
+  color: #322a22;
+  line-height: 1.4;
+}
+
+/* Conteneur des étoiles animées */
+.star-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.star {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.star::before {
+  content: '✨';
+  font-size: 20px;
+}
+
+.star.animate {
+  animation: starBurst 0.6s ease-out forwards;
+}
+
+/* Animation sautillante des étoiles */
+@keyframes starBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(0);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-15px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) translateY(-25px);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(-35px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-45px);
+  }
+}
+
+.star-1 {
+  top: 20%;
+  left: 60px;
+}
+
+.star-2 {
+  top: 50%;
+  left: 45%;
+}
+
+.star-3 {
+  bottom: 20%;
+  right: 30px;
+}
+
+/* Section des votants - Utilise couleur secondaire */
+.voters-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  min-height: 28px;
+}
+
+.voters-section .player-pill {
+  background: var(--couleur-grisBleuClair); /* Couleur secondaire avec transparence */
+  background: linear-gradient(135deg,
+    rgba(var(--couleur-grisBleuClair-rgb, 201, 226, 229), 0.6),
+    rgba(250, 255, 246, 0.3)
+  );
+  color: #322a22;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-family: 'Satoshi-Medium', sans-serif;
+  box-shadow: 0 2px 4px 0 rgba(50, 42, 34, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 60px;
+}
+
+/* États hover - Teinte avec couleur principale */
+.vote-component:hover:not(.disabled) .component-inner {
+  background: linear-gradient(135deg,
+    rgba(var(--couleur-jaunePeps-rgb, 233, 188, 64), 0.15),
+    rgba(250, 255, 246, 0.2)
+  );
+  border-color: var(--couleur-jaunePeps);
+  border-color: color-mix(in srgb, var(--couleur-jaunePeps) 40%, transparent);
+  box-shadow: 
+    0 8px 32px 0 rgba(var(--couleur-jaunePeps-rgb, 233, 188, 64), 0.15),
+    inset 0 2px 8px 0 rgba(250, 255, 246, 0.4);
+}
+
+.vote-component:hover:not(.disabled) .icon-container {
+  background: #00000005;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 
+    -15px 13px 16px 0 rgb(0 0 0 / 30%),
+    inset 0 0px 13px 0 rgb(255 255 255 / 75%),
+    inset -1px 2px 4px 0 rgb(50 34 34 / 15%);
+}
+
+/* État sélectionné - Utilise couleur principale */
+.vote-component.selected .component-inner {
+  background: linear-gradient(135deg,
+    rgba(var(--couleur-jaunePeps-rgb, 233, 188, 64), 0.2),
+    rgba(250, 255, 246, 0.3)
+  );
+  border-color: var(--couleur-jaunePeps);
+  border-color: color-mix(in srgb, var(--couleur-jaunePeps) 60%, transparent);
+  border-width: 2px;
+}
+
+.vote-component.selected .icon-container {
+  background: #00000008;
+  border-color: rgba(250, 255, 246, 0.9);
+}
+
+.vote-component.selected .icon-letter {
+  color: var(--couleur-blancSite);
+  transform: scale(1.1);
+}
+
+/* Ajustement pour les conteneurs avec votants */
+.has-voters {
+  margin-bottom: 16px;
+}
+
+/* Fallback pour les navigateurs qui ne supportent pas color-mix */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .vote-progress {
+    background: var(--couleur-jaunePeps);
+  }
+  
+  .vote-component:hover:not(.disabled) .component-inner {
+    background: rgba(233, 188, 64, 0.15);
+    border-color: rgba(233, 188, 64, 0.4);
+  }
+  
+  .vote-component.selected .component-inner {
+    background: rgba(233, 188, 64, 0.2);
+    border-color: rgba(233, 188, 64, 0.6);
+  }
+  
+  .voters-section .player-pill {
+    background: rgba(201, 226, 229, 0.6);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .vote-component {
+    min-height: 56px;
+  }
+  
+  .component-inner {
+    padding: 10px 16px 10px 64px;
+    border-radius: 36px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  
+  .vote-progress {
+    border-radius: 36px 10px 10px 36px;
+  }
+  
+  .icon-container {
+    width: 46px;
+    height: 46px;
+    left: 3px;
+  }
+  
+  .icon-letter {
+    font-family: "mocraRegular", sans-serif;
+    font-size: 1.1rem;
+  }
+  
+  .vote-text {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vote-component {
+    min-height: 52px;
+  }
+  
+  .component-inner {
+    padding: 8px 14px 8px 60px;
+    border-radius: 32px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  .vote-progress {
+    border-radius: 32px 8px 8px 32px;
+  }
+  
+  .icon-container {
+    width: 42px;
+    height: 42px;
+    left: 2px;
+    border-width: 2px;
+  }
+  
+  .icon-letter {
+    font-family: "mocraRegular", sans-serif;
+    font-size: 1rem;
+  }
+  
+  .vote-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Amélioration de l'accessibilité */
+.vote-component:focus-visible .component-inner {
+  outline: 3px solid var(--couleur-jaunePeps);
+  outline-offset: 2px;
+}
