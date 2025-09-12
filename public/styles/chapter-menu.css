@@ -64,12 +64,13 @@
 
 .chapters-toggle-pill .pill-icon {
   font-size: 1.2rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .chapters-toggle-pill.active .pill-icon {
   transform: rotate(180deg);
 }
+
 
 /* ============================================= */
 /* 3. OVERLAY */
