@@ -83,7 +83,9 @@ h1 {
 /* ---------------------------------------------------- */
 /* Structure Flex Responsive Desktop/Mobile */
 /* ---------------------------------------------------- */
-
+#proceed-to-levels-button {
+  overflow:visible;
+}
 .desktop-layout-container {
   display: flex;
   flex-direction: column;

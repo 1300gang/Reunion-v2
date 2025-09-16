@@ -10,7 +10,7 @@
       "id": "introduction",
       "type": "messenger_scenario",
       "context": "Bienvenue dans cette anthologie éducative interactive",
-      "contextual_image": null,
+      "contextual_image": "img/Rive/img-context/(ANT)_fond_A_intro.png",
       "conversation": {
         "participants": [
           {

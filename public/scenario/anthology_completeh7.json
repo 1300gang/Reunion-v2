@@ -11,7 +11,7 @@
       "id": "introduction",
       "type": "messenger_scenario",
       "context": "Bienvenue dans cette anthologie éducative interactive",
-      "contextual_image": "Collage représentant la diversité des jeunes de La Réunion",
+      "contextual_image": "img/Rive/img-context/(ANT)_fond_A_intro.png",
       "conversation": {
         "participants": [
           {
@@ -29,35 +29,35 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "🌺",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Bienvenue dans \"Parcours de Vie\"",
             "type": "text"
           },
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "🎭",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Une anthologie créée par et pour les jeunes de La Réunion",
             "type": "text"
           },
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "👭",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Vous allez vivre 6 histoires, 6 situations réelles",
             "type": "text"
           },
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "🎯",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_clin_oeil.png",
             "content": "Chaque choix compte, chaque décision a des conséquences",
             "type": "text"
           },
           {
             "id": "msg5",
             "sender": "narrateur",
-            "avatar": "❤️",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Ces histoires sont les vôtres, celles de vos amis, de vos proches",
             "type": "text"
           }
@@ -151,7 +151,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Il existe effectivement des croyances qui font dépendre la preuve de la virginité des jeunes femmes sur le saignement. Ce sont de fausses croyances, toutes les femmes ne saignent pas lors de leurs premiers rapports sexuels.",
             "type": "text"
           }
@@ -185,7 +185,7 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Le tabou et la honte autour de la première fois entretiennent l’ignorance. Il n’est pas facile de libérer la parole sur cette thématique.",
             "type": "text"
           }
@@ -219,7 +219,7 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "L’hymen n’est pas une membrane qui ferme l’entrée du vagin jusqu’à la première pénétration. Certaines femmes n’ont pas d’hymen ou bien des hymens de formes et de tailles différentes. Il n’est pas possible d’observer l’hymen intact lors d’un examen médical.",
             "type": "text"
           }
@@ -329,7 +329,7 @@
           {
             "id": "msg5",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "De même que pour les saignements, on a l’idée reçue que la première fois fait toujours mal. Ça ne devrait pas être le cas, des douleurs peuvent être le signe que la personne n’est pas dans un cadre sécurisant. En cas de douleur pendant les rapports sexuels, il est conseillé de consulter un professionnel de santé.",
             "type": "text"
           }
@@ -350,7 +350,7 @@
       "id": "scene2B",
       "type": "messenger_scenario",
       "context": "La mère de Yasmina refuse la consultation",
-      "contextual_image": "img/Rive/img-context/Yasmina_discute_Mamadou.webp",
+      "contextual_image": "img/Rive/img-context/(H3)_fond_C_discuss_maman_yasmina.png",
       "conversation": {
         "participants": [
           {
@@ -375,7 +375,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Empêcher un.e jeune de poser ses questions sur la sexualité augmente les risques qu’il ou elle va prendre. En effet, si la personne pense que sa sexualité doit rester cachée, elle n’osera pas demander de l’aide en cas de besoin.",
             "type": "text"
           }
@@ -423,7 +423,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Si un professionnel de santé n’est pas à l’écoute, minimise ou culpabilise un.e patient.e sur sa santé sexuelle, il est conseillé de changer de professionnel.",
             "type": "text"
           }
@@ -529,7 +529,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "La première fois peut être un moment stressant, il est important de s’assurer du consentement de l’autre personne et d’évaluer tous les risques. Ici le préservatif externe permet de réduire le risque d’IST et de tomber enceinte.",
             "type": "text"
           }
@@ -594,7 +594,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Avoir des relations sexuelles après avoir mis la pression à son partenaire est considéré comme un viol.",
             "type": "text"
           }
@@ -659,7 +659,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Malheureusement encore aujourd’hui il existe peu de moyens de contraception qui n’ont pas d’effets secondaires contraignants pour les femmes. Dans l’imaginaire collectif, c’est encore majoritairement aux femmes de porter cette charge.",
             "type": "text"
           }
@@ -760,7 +760,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Le tabou sur la sexualité empêche souvent de faire part de ses inquiétudes. Il est important d’avoir des proches de confiance pour pouvoir se confier.",
             "type": "text"
           }
@@ -806,7 +806,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Beaucoup d’idées reçues circulent sur la première fois mais le consentement est personnel et individuel. Il n’y a pas de règles de temps ou de notion de redevabilité. Avoir une relation amoureuse n’oblige pas à partager du sexe.",
             "type": "text"
           }
@@ -902,7 +902,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Le consentement est respecté. Le lien de confiance est renforcé, créant les conditions idéales pour une sexualité épanouie.",
             "type": "text"
           }
@@ -967,7 +967,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Une des idées reçues sur la sexualité est que les hommes ont plus de libido que les femmes. C’est un préjugé sexiste qui enferme les hommes dans un cliché naturaliste, les empêchant d’avoir accès à un consentement libre et éclairé.",
             "type": "text"
           }
@@ -988,7 +988,7 @@
       "id": "fin3_negative4",
       "type": "messenger_scenario",
       "context": "Non-respect du refus",
-      "contextual_image": "img/Rive/img-context/(H7)_fond_C_attrape_bras.png",
+      "contextual_image": "img/Rive/img-context/(H5)_fond_D_dispute.png",
       "conversation": {
         "participants": [
           {
@@ -1025,7 +1025,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "C’est une situation de viol. Définition légale du viol (Article 222-23) : 'Tout acte de pénétration sexuelle, de quelque nature qu'il soit, commis sur la personne d'autrui par violence, contrainte, menace ou surprise est un viol.' Le viol est puni de quinze ans de réclusion criminelle.",
             "type": "text"
           }
@@ -1124,7 +1124,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Il n’y a pas de contre-indication pour faire du sport pendant ses règles. Un entourage bienveillant permet aux jeunes femmes de ne pas se sentir exclues du milieu sportif.",
             "type": "text"
           }
@@ -1182,7 +1182,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Partir du principe que les règles sont forcément douloureuses ou handicapantes renvoie l’idée que les femmes devraient s’abstenir de toutes activités 'dans le doute'.",
             "type": "text"
           }
@@ -1240,7 +1240,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Des préjugés sur les règles peuvent participer à l’exclusion des jeunes femmes du milieu sportif. Associer les règles à quelque chose de sale renforce le sentiment de honte.",
             "type": "text"
           }
@@ -1324,7 +1324,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Les règles peuvent entraîner des symptômes comme des crampes et des douleurs, de la fatigue... Les règles ne sont pas censées faire mal, dans ce cas, il faut consulter un médecin.",
             "type": "text"
           }
@@ -1370,7 +1370,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Les règles étant encore un sujet tabou dans notre société, certaines femmes n’osent pas en parler de peur d’être jugées. Il est important de lutter contre ces non-dits.",
             "type": "text"
           }
@@ -1469,7 +1469,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Elle ne vole pas la montre et ne se fait pas influencer. Elle comprend que ce ne sont pas de bonnes amies pour elle et décide de se protéger.",
             "type": "text"
           }
@@ -1519,7 +1519,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Lina ne donne pas de réponse claire, elle laisse ses amies la manipuler. Elle devient vulnérable à la pression. Cassandra et Camille insistent encore plus, l’isolent et la ridiculisent. Elle reste coincée dans une relation toxique.",
             "type": "text"
           }
@@ -1560,7 +1560,7 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Lina met la montre dans sa poche. L’alarme sonne.",
             "type": "text"
           },
@@ -1574,7 +1574,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Elle vole la montre, elle fait tout pour être dans leur groupe. Elle les écoute tout le temps et se met en danger.",
             "type": "text"
           }
@@ -1634,7 +1634,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Les amies reconnaissent avoir tort et s’excusent. Leur relation peut repartir sur de meilleures bases.",
             "type": "text"
           }
@@ -1692,7 +1692,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Lina est culpabilisée. Ses amies la rabaissent et mettent la pression pour qu’elle cède la prochaine fois. Elles entretiennent un climat de harcèlement moral.",
             "type": "text"
           }
@@ -1743,7 +1743,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Cassandra gifle violemment Lina.",
             "type": "text"
           },
@@ -1757,7 +1757,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Lina est victime de violence physique et verbale. C’est le début d’un harcèlement grave. Lina est en danger.",
             "type": "text"
           }
@@ -1815,7 +1815,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Lina a restauré sa confiance et comprend qu’il est important de dire non. La fin du jeu montre une issue positive : dialogue et compréhension.",
             "type": "text"
           }
@@ -1873,7 +1873,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Lina prend conscience qu’elle doit se confier. Elle réalise qu’elle a besoin d’aide pour sortir d’une relation toxique.",
             "type": "text"
           }
@@ -1931,7 +1931,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Lina comprend qu’elle doit alerter un adulte face à la violence. Le jeu se termine en montrant qu’il existe des solutions pour se protéger.",
             "type": "text"
           }
@@ -2028,7 +2028,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Marc accepte la situation, il respecte la vie privée de Cristelle, et leur relation est basée sur la confiance, sans conflit.",
             "type": "text"
           }
@@ -2074,7 +2074,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Marc ne respecte pas la vie privée de Cristelle, il fouille dans son téléphone sans demander. Cette situation peut être le signe d'une relation toxique.",
             "type": "text"
           }
@@ -2120,7 +2120,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "La situation s'envenime, il y a un risque de dispute et d'agressivité.",
             "type": "text"
           }
@@ -2216,7 +2216,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Une discussion est possible, la confiance peut être restaurée.",
             "type": "text"
           }
@@ -2274,7 +2274,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Cette réponse alimente le doute et la méfiance, la tension augmente.",
             "type": "text"
           }
@@ -2332,7 +2332,7 @@
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Le ton monte, des insultes et une dispute immédiate sont possibles. Un climat de peur peut s'installer.",
             "type": "text"
           }
@@ -2440,7 +2440,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "La tension monte, les échanges deviennent agressifs. Cristelle se sent prise au piège et la méfiance domine la relation.",
             "type": "text"
           }
@@ -2493,7 +2493,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Ils se battent.",
             "type": "text"
           },
@@ -2507,7 +2507,7 @@
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "La situation dégénère en violences physiques. Cristelle est en danger. La police doit intervenir.",
             "type": "text"
           }
@@ -2586,7 +2586,7 @@
           {
             "id": "msg5",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Une discussion est possible, le malentendu se dissipe. Marc prend conscience de son comportement et la relation peut repartir sur des bases plus saines.",
             "type": "text"
           }
@@ -2671,7 +2671,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Les règles peuvent entraîner des symptômes comme des crampes et des douleurs. À l’arrivée des premières règles, nous pouvons être surprises par des symptômes jamais ressentis auparavant. Les règles ne sont pas censées faire mal ; dans ce cas, il faut consulter un médecin.",
             "type": "text"
           }
@@ -2705,7 +2705,7 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Seul un médecin peut poser un diagnostic. Évitez de faire des suppositions ou de l’auto-médication tant que vous n’avez pas eu l’avis d’un spécialiste.",
             "type": "text"
           }
@@ -2739,7 +2739,7 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Minimiser la douleur est une manière de perpétuer les stéréotypes de genre. Les douleurs peuvent être un signe d’une pathologie ou d’un dysfonctionnement. Il faut consulter un professionnel de santé en cas de douleur.",
             "type": "text"
           }
@@ -2814,7 +2814,7 @@
           {
             "id": "msg1",
             "sender": "medecin",
-            "avatar": "img/Rive/perso_emo/émotions_médecin_neutre.png",
+            "avatar": "img/Rive/perso_emo/émotions_gyneco_neutre.png",
             "content": "Vous avez quel âge Elodie ?",
             "type": "text"
           },
@@ -2828,7 +2828,7 @@
           {
             "id": "msg3",
             "sender": "medecin",
-            "avatar": "img/Rive/perso_emo/émotions_médecin_neutre.png",
+            "avatar": "img/Rive/perso_emo/émotions_gyneco_neutre.png",
             "content": "Est-ce que vous avez eu des saignements dans vos sous-vêtements ?",
             "type": "text"
           },
@@ -2842,7 +2842,7 @@
           {
             "id": "msg5",
             "sender": "medecin",
-            "avatar": "img/Rive/perso_emo/émotions_médecin_contente.png",
+            "avatar": "img/Rive/perso_emo/émotions_gyneco_contente.png",
             "content": "Au vu de vos symptômes et de votre âge je pense que vous avez vos premières règles. Cependant il est inhabituel d’avoir des douleurs aussi fortes. Nous allons mener des examens complémentaires pour vérifier que tout va bien.",
             "type": "text"
           }
@@ -2890,7 +2890,7 @@
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_colere.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Les fortes douleurs de règles ne sont pas normales et peuvent être le signe d’une pathologie plus grave. Il peut cependant arriver que même les professionnel.les de santé ne les prennent pas au sérieux.",
             "type": "text"
           }
@@ -2913,7 +2913,7 @@
       "id": "fin8_positive",
       "type": "messenger_scenario",
       "context": "Elodie reçoit les soins appropriés",
-      "contextual_image": "img/Rive/img-context/Yasmina_chez_Gynecologue.webp",
+      "contextual_image": "img/Rive/img-context/(H4)_fond_C_elodie_gyneco.png",
       "conversation": {
         "participants": [
           {
@@ -2926,7 +2926,7 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Elodie est bien prise en charge. Elle reçoit un traitement adapté et des conseils pour gérer ses règles. Elle apprend que les règles ne devraient pas faire mal à ce point et qu'il faut consulter en cas de douleurs intenses.",
             "type": "text"
           }
@@ -2960,35 +2960,35 @@
           {
             "id": "msg1",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Vous avez exploré 6 scénarios essentiels.",
             "type": "text"
           },
           {
             "id": "msg2",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "Santé sexuelle, violence, harcèlement...",
             "type": "text"
           },
           {
             "id": "msg3",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Chaque histoire enseigne des leçons vitales.",
             "type": "text"
           },
           {
             "id": "msg4",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_content.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_content.png",
             "content": "Le respect, le consentement et la communication sont la base.",
             "type": "text"
           },
           {
             "id": "msg5",
             "sender": "narrateur",
-            "avatar": "img/Rive/perso_emo/emotions_coach_neutre.png",
+            "avatar": "img/Rive/perso_emo/(ANT)_emo_robby_neutre.png",
             "content": "N'oubliez jamais : l'aide existe toujours.",
             "type": "text"
           }
@@ -3012,7 +3012,7 @@
       "id": "ressources",
       "type": "messenger_scenario",
       "context": "Liste des ressources d'aide",
-      "contextual_image": "Numéros et contacts utiles",
+      "contextual_image": "img/Rive/img-context/(ANT)_fond_C_ressources.png",
       "conversation": {
         "participants": [
           {

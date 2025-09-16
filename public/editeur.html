@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditeur de Scénarios avec Visualisateur</title>
+    <link rel="icon" type="image/png" href="/img/css/favicon_test.png" />
+    
+    <style>
+        /* Import des polices */
+        @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        @import url("styles/satoshi.css");
+        
+
+        /* Variables CSS */
+        :root {
+          /* Couleurs de base (ne changent pas) */
+          --couleur-noirVolcan: #322a22;
+          --couleur-beigeVif: #f1e1b8;
+          --couleur-grisFonce: #415a51;
+          
+          /* COULEURS DYNAMIQUES DU THÈME */
+          --couleur-jaunePeps: #e9bc40;
+          --couleur-grisBleuClair: #c9e2e5;
+          
+          --couleur-blancSite: #fafff6;
+          --couleur-beigeNorm: #ede0cf;
+
+          /* Couleur d'accentuation de l'UI */
+          --ui-accent-color: var(--couleur-jaunePeps);
+          
+          /* Variations avec transparence */
+          --couleur-primary-light: rgba(233, 188, 64, 0.2);
+          --couleur-primary-hover: rgba(233, 188, 64, 0.8);
+          --couleur-secondary-light: rgba(201, 226, 229, 0.3);
+          --couleur-secondary-hover: rgba(201, 226, 229, 0.8);
+
+          /* Effets */
+          --effet-backgroundBlur: blur(4px);
+          --effet-innerShadow: inset -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+          --effet-grosDropShadow: -9px 4px 11px 0px rgba(0, 0, 0, 0.25);
+          --effet-miniDropShadow: -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ---------------------------------------------------- */
+        /* Styles Généraux et Réinitialisation */
+        /* ---------------------------------------------------- */
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: "Satoshi-Medium", sans-serif;
+          background: var(--couleur-blancSite);
+          background-image: linear-gradient(
+              var(--couleur-secondary-light) 1px,
+              transparent 1px
+            ),
+            linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
+          background-size: 20px 20px;
+          min-height: 100vh;
+          overflow-x: hidden;
+          color: var(--couleur-noirVolcan);
+          padding: 2rem;
+        }
+
+        body.visualizer-open {
+            padding-right: 52%; /* Espace pour le visualisateur */
+        }
+
+        p {
+          color: var(--couleur-noirVolcan);
+          font-family: "Satoshi-Medium", sans-serif;
+        }
+
+        h2 {
+          color: var(--couleur-noirVolcan);
+          font-family: "mocraRegular", sans-serif;
+          
+        }
+
+        h1 {
+          color: var(--couleur-noirVolcan);
+          font-family: "mocraRegular", sans-serif;
+          
+        }
+
+        /* ---------------------------------------------------- */
+        /* Container principal */
+        /* ---------------------------------------------------- */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--couleur-blancSite);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--effet-grosDropShadow);
+            border: 2px solid var(--couleur-beigeVif);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        body.visualizer-open .container {
+            max-width: 100%;
+            /* margin-right: 50%; */
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--couleur-beigeVif);
+            opacity: 0.1;
+            border-radius: 18px;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--couleur-grisFonce);
+            text-shadow: var(--effet-miniDropShadow);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--couleur-jaunePeps);
+            color: var(--couleur-grisFonce);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--couleur-grisFonce);
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        /* ---------------------------------------------------- */
+        /* Éléments de formulaire */
+        /* ---------------------------------------------------- */
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--couleur-noirVolcan);
+            font-size: 1.1rem;
+            font-family: "Inter", sans-serif;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            border: 2px solid var(--couleur-beigeVif);
+            border-radius: 12px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: var(--couleur-blancSite);
+            color: var(--couleur-noirVolcan);
+            font-family: "Inter", sans-serif;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--couleur-jaunePeps);
+            box-shadow: 0 0 0 4px var(--couleur-primary-light);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ---------------------------------------------------- */
+        /* Sections spéciales */
+        /* ---------------------------------------------------- */
+
+        .scenario-details, 
+        .global-participants {
+            background: linear-gradient(135deg, var(--couleur-beigeNorm) 0%, var(--couleur-blancSite) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
+            border: 2px solid var(--couleur-beigeVif);
+            box-shadow: var(--effet-miniDropShadow);
+            position: relative;
+        }
+
+        .scene {
+            border: 2px solid var(--couleur-grisBleuClair);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--couleur-blancSite) 0%, var(--couleur-secondary-light) 100%);
+            box-shadow: var(--effet-miniDropShadow);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .scene:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--effet-grosDropShadow);
+        }
+
+        .scene.highlighted {
+            border-color: var(--couleur-jaunePeps);
+            border-width: 3px;
+            box-shadow: 0 0 20px rgba(233, 188, 64, 0.4);
+        }
+
+        /* ---------------------------------------------------- */
+        /* Boutons */
+        /* ---------------------------------------------------- */
+
+        .menu-button {
+            background: linear-gradient(135deg, var(--couleur-jaunePeps) 0%, var(--couleur-primary-hover) 100%);
+            color: var(--couleur-noirVolcan);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .menu-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--effet-grosDropShadow);
+            background: linear-gradient(135deg, var(--couleur-primary-hover) 0%, var(--couleur-jaunePeps) 100%);
+        }
+
+        .menu-button.add-choice {
+            background: linear-gradient(135deg, var(--couleur-grisBleuClair) 0%, var(--couleur-secondary-hover) 100%);
+            color: var(--couleur-grisFonce);
+            font-size: 0.9rem;
+            padding: 0.8rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .menu-button.add-choice:hover {
+            background: linear-gradient(135deg, var(--couleur-secondary-hover) 0%, var(--couleur-grisBleuClair) 100%);
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, var(--couleur-grisFonce) 0%, #2d3e35 100%);
+            color: var(--couleur-blancSite);
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(135deg, #2d3e35 0%, var(--couleur-grisFonce) 100%);
+        }
+
+        .load-button {
+            background: linear-gradient(135deg, var(--couleur-beigeVif) 0%, #d4b88a 100%);
+            color: var(--couleur-noirVolcan);
+        }
+
+        .load-button:hover {
+            background: linear-gradient(135deg, #d4b88a 0%, var(--couleur-beigeVif) 100%);
+        }
+
+        /* ---------------------------------------------------- */
+        /* Visualisateur Toggle Button */
+        /* ---------------------------------------------------- */
+
+        #visualizer-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #5a7fd8 0%, #6a8fe8 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 11999;
+            box-shadow: 0 8px 20px rgba(90, 127, 216, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #visualizer-toggle-btn:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 12px 30px rgba(90, 127, 216, 0.4);
+            background: linear-gradient(135deg, #6a8fe8 0%, #5a7fd8 100%);
+        }
+
+        #visualizer-toggle-btn.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        #visualizer-toggle-btn.active:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+
+        /* ---------------------------------------------------- */
+        /* Visualisateur Panel */
+        /* ---------------------------------------------------- */
+
+        #visualizer-panel {
+            position: fixed;
+            top: 0;
+            right: -50%;
+            width: 50%;
+            height: 100vh;
+            background: #1a1a1a;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #visualizer-panel.open {
+            right: 0;
+        }
+
+        .visualizer-header {
+            background: #242424;
+            padding: 20px;
+            border-bottom: 1px solid #383838;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .visualizer-title {
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .visualizer-close {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .visualizer-close:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .visualizer-content {
+            flex: 1;
+            position: relative;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .visualizer-toolbar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+            background: rgba(36, 36, 36, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .visualizer-tool-btn {
+            padding: 8px 12px;
+            background: #3a3a3a;
+            color: #e0e0e0;
+            border: 1px solid #4a4a4a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .visualizer-tool-btn:hover {
+            background: #4a4a4a;
+            border-color: #5a5a5a;
+            transform: translateY(-1px);
+        }
+
+        .visualizer-tool-btn.active {
+            background: #5a7fd8;
+            border-color: #6a8fe8;
+        }
+
+        .visualizer-minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: rgba(36, 36, 36, 0.9);
+            border: 1px solid #4a4a4a;
+            border-radius: 8px;
+            z-index: 100;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #visualizer-canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        #visualizer-canvas.pan-mode {
+            cursor: grab;
+        }
+
+        #visualizer-canvas.pan-mode:active {
+            cursor: grabbing;
+        }
+
+        #visualizer-canvas.dragging-node {
+            cursor: move;
+        }
+
+        .visualizer-tooltip {
+            position: absolute;
+            background: rgba(36, 36, 36, 0.95);
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 350px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #4a4a4a;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .visualizer-tooltip.visible {
+            display: block;
+        }
+
+        /* ---------------------------------------------------- */
+        /* Éléments spécifiques */
+        /* ---------------------------------------------------- */
+
+        .choice {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 100px auto;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--couleur-blancSite) 0%, var(--couleur-primary-light) 100%);
+            border: 1px solid var(--couleur-beigeVif);
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        .choice-evaluation,
+        .choice-evaluation-display {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            min-width: 80px;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .choice-evaluation.good, 
+        .choice-evaluation-display.good { 
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+        
+        .choice-evaluation.neutral,
+        .choice-evaluation-display.neutral { 
+            background: linear-gradient(135deg, var(--couleur-grisFonce) 0%, #7f8c8d 100%);
+        }
+        
+        .choice-evaluation.bad,
+        .choice-evaluation-display.bad { 
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .delete-btn {
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+
+        .delete-btn:hover {
+            color: #c0392b;
+            transform: scale(1.2);
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .delete-scene-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .delete-scene-btn:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: scale(1.1);
+            box-shadow: var(--effet-grosDropShadow);
+        }
+
+        /* ---------------------------------------------------- */
+        /* Layouts */
+        /* ---------------------------------------------------- */
+
+        .main-actions {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .participants-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .participant {
+            background: linear-gradient(135deg, var(--couleur-blancSite) 0%, var(--couleur-beigeVif) 100%);
+            padding: 1.8rem;
+            border-radius: 12px;
+            border: 2px solid var(--couleur-beigeVif);
+            position: relative;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        .messages-container {
+            border: 2px solid var(--couleur-grisBleuClair);
+            border-radius: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            background: var(--couleur-blancSite);
+        }
+
+        .message {
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--couleur-secondary-light);
+            align-items: center;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message:nth-child(even) {
+            background: var(--couleur-secondary-light);
+        }
+
+        /* ---------------------------------------------------- */
+        /* États et animations */
+        /* ---------------------------------------------------- */
+
+        .hidden {
+            display: none;
+        }
+
+        #notification-area {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1001;
+            width: 400px;
+            padding: 1.5rem;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            box-shadow: var(--effet-grosDropShadow);
+            transform: translateX(120%);
+            transition: transform 0.5s ease-in-out;
+            border: 2px solid transparent;
+        }
+
+        #notification-area.show {
+            transform: translateX(0);
+        }
+
+        body.visualizer-open #notification-area.show {
+            right: 52%;
+        }
+
+        #notification-area.success {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            border-color: #1e8449;
+        }
+
+        #notification-area.error {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: #a93226;
+        }
+
+        /* ---------------------------------------------------- */
+        /* Éléments spéciaux */
+        /* ---------------------------------------------------- */
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .json-output {
+            background: var(--couleur-noirVolcan);
+            color: var(--couleur-beigeVif);
+            padding: 2rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1.5rem;
+            border: 2px solid var(--couleur-grisFonce);
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        /* ---------------------------------------------------- */
+        /* Responsive */
+        /* ---------------------------------------------------- */
+
+        @media (max-width: 768px) {
+            body { 
+                padding: 1rem; 
+            }
+            
+            .container { 
+                padding: 2rem; 
+            }
+            
+            .choice { 
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .main-actions { 
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .participants-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .message {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            #notification-area {
+                width: 90%;
+                right: 5%;
+            }
+
+            #visualizer-panel {
+                width: 100%;
+            }
+
+            body.visualizer-open {
+                padding-right: 2rem;
+            }
+
+            body.visualizer-open .container {
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .scene {
+                padding: 1.5rem;
+            }
+
+            .delete-scene-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Éditeur de Scénarios</h1>
+        <p class="subtitle">Créez et modifiez vos scénarios de jeu à embranchement</p>
+
+        <div class="main-actions">
+            <div class="file-input-wrapper">
+                <button class="menu-button load-button">Charger un fichier JSON</button>
+                <input type="file" id="file-input" accept=".json">
+            </div>
+            <button id="export-btn" class="menu-button action-button">Exporter le JSON</button>
+            <button id="new-scenario-btn" class="menu-button">Nouveau Scénario</button>
+        </div>
+
+        <form id="editor-form">
+            <div class="scenario-details">
+                <h2>Détails du Scénario</h2>
+                <div class="form-group">
+                    <label for="scenario-title">Titre du Scénario</label>
+                    <input type="text" id="scenario-title" placeholder="Ex: Mon scénario éducatif">
+                </div>
+                <div class="form-group">
+                    <label for="scenario-description">Description</label>
+                    <textarea id="scenario-description" placeholder="Description du scénario..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="start-question">ID de la Scène de Départ</label>
+                    <input type="text" id="start-question" placeholder="Ex: scene1">
+                </div>
+            </div>
+
+            <div class="global-participants">
+                <h2>Personnages</h2>
+                <p style="color: var(--couleur-grisFonce); margin-bottom: 1.5rem; font-style: italic;">Définissez ici tous les personnages de votre scénario. Ils pourront être utilisés dans toutes les scènes.</p>
+                <div id="global-participants-container" class="participants-container">
+                    <!-- Les personnages globaux seront générés ici -->
+                </div>
+                <button type="button" id="add-global-participant-btn" class="menu-button add-choice">Ajouter un Personnage</button>
+            </div>
+
+            <h2>Scènes</h2>
+            <div id="scenes-container">
+                <!-- Les scènes seront générées ici -->
+            </div>
+            
+            <button type="button" id="add-scene-btn" class="menu-button add-choice">Ajouter une Scène</button>
+        </form>
+
+        <div id="json-preview" class="hidden">
+            <h2>Aperçu JSON</h2>
+            <div id="json-output" class="json-output"></div>
+            <div style="margin-top: 1rem; text-align: center;">
+                <button id="copy-json-btn" class="menu-button">Copier le JSON</button>
+                <button id="download-json-btn" class="menu-button action-button">Télécharger le fichier</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualizer Toggle Button -->
+    <button id="visualizer-toggle-btn">
+        <span id="visualizer-icon">📊</span>
+        <span id="visualizer-text">Visualiser le Scénario</span>
+    </button>
+
+    <!-- Visualizer Panel -->
+    <div id="visualizer-panel">
+        <div class="visualizer-header">
+            <div class="visualizer-title">
+                <span>📊</span>
+                <span>Visualisateur de Scénario</span>
+            </div>
+            <button class="visualizer-close">Fermer ✕</button>
+        </div>
+        <div class="visualizer-content">
+            <div class="visualizer-toolbar">
+                <button class="visualizer-tool-btn active" onclick="setVisualizerMode('select')" id="viz-select-btn">
+                    <span>↖</span> Sélection
+                </button>
+                <button class="visualizer-tool-btn" onclick="setVisualizerMode('pan')" id="viz-pan-btn">
+                    <span>✋</span> Navigation
+                </button>
+                <button class="visualizer-tool-btn" onclick="fitVisualizerToScreen()">
+                    <span>⊡</span> Ajuster
+                </button>
+                <button class="visualizer-tool-btn" onclick="resetVisualizerView()">
+                    <span>⟲</span> Réinitialiser
+                </button>
+                <button class="visualizer-tool-btn" onclick="autoVisualizerLayout()">
+                    <span>⚡</span> Auto-organiser
+                </button>
+            </div>
+            
+            <canvas id="visualizer-canvas"></canvas>
+            
+            <div class="visualizer-minimap">
+                <canvas id="visualizer-minimap-canvas"></canvas>
+            </div>
+            
+            <div id="visualizer-tooltip" class="visualizer-tooltip"></div>
+        </div>
+    </div>
+
+    <!-- Notification Area -->
+    <div id="notification-area" class="hidden"></div>
+
+    <script>
+        // ========================================
+        // ÉDITEUR DE SCÉNARIOS - CODE PRINCIPAL
+        // ========================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('file-input');
+            const exportBtn = document.getElementById('export-btn');
+            const newScenarioBtn = document.getElementById('new-scenario-btn');
+            const addSceneBtn = document.getElementById('add-scene-btn');
+            const addGlobalParticipantBtn = document.getElementById('add-global-participant-btn');
+            const scenesContainer = document.getElementById('scenes-container');
+            const globalParticipantsContainer = document.getElementById('global-participants-container');
+            const jsonPreview = document.getElementById('json-preview');
+            const jsonOutput = document.getElementById('json-output');
+            const copyJsonBtn = document.getElementById('copy-json-btn');
+            const downloadJsonBtn = document.getElementById('download-json-btn');
+
+            const titleInput = document.getElementById('scenario-title');
+            const descriptionInput = document.getElementById('scenario-description');
+            const startQuestionInput = document.getElementById('start-question');
+
+            const notificationArea = document.getElementById('notification-area');
+
+            // --- FONCTIONS UTILITAIRES ---
+
+            function showNotification(message, isError = false) {
+                notificationArea.textContent = message;
+                notificationArea.className = isError ? 'error show' : 'success show';
+                setTimeout(() => {
+                    notificationArea.classList.remove('show');
+                }, 3000);
+            }
+
+            function generateId() {
+                return 'scene' + Date.now();
+            }
+
+            // --- CRÉATION DES ÉLÉMENTS ---
+
+            function createGlobalParticipantElement(participant = {}) {
+                const div = document.createElement('div');
+                div.className = 'participant';
+                div.innerHTML = `
+                    <div class="form-group">
+                        <label>ID du personnage</label>
+                        <input type="text" class="global-participant-id" value="${participant.id || ''}" placeholder="Ex: mya">
+                    </div>
+                    <div class="form-group">
+                        <label>Nom du personnage</label>
+                        <input type="text" class="global-participant-name" value="${participant.name || participant.id || ''}" placeholder="Ex: Mya">
+                    </div>
+                    <div class="form-group">
+                        <label>Avatar par défaut</label>
+                        <input type="text" class="global-participant-avatar" value="${participant.avatar || ''}" placeholder="Ex: img/avatars/mya.png">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" class="global-participant-current" ${participant.isCurrentUser ? 'checked' : ''}>
+                            Utilisateur principal
+                        </label>
+                    </div>
+                    <button type="button" class="delete-btn global-participant-delete">×</button>
+                `;
+                return div;
+            }
+
+            function createMessageElement(message = {}) {
+                const div = document.createElement('div');
+                div.className = 'message';
+                div.innerHTML = `
+                    <select class="message-sender">
+                        <option value="">Choisir l'expéditeur</option>
+                    </select>
+                    <input type="text" class="message-content" value="${message.content || ''}" placeholder="Contenu du message">
+                    <button type="button" class="delete-btn message-delete">×</button>
+                `;
+                return div;
+            }
+
+            function createChoiceElement(choice = {}) {
+                const div = document.createElement('div');
+                div.className = 'choice';
+                div.innerHTML = `
+                    <input type="text" class="choice-text" value="${choice.text || ''}" placeholder="Texte du choix">
+                    <select class="choice-next">
+                        <option value="">-- Choisir la suite --</option>
+                    </select>
+                    <select class="choice-evaluation">
+                        <option value="1" ${choice.evaluation === 1 ? 'selected' : ''}>Bon choix (+1)</option>
+                        <option value="0" ${choice.evaluation === 0 ? 'selected' : ''}>Neutre (0)</option>
+                        <option value="-1" ${choice.evaluation === -1 ? 'selected' : ''}>Mauvais choix (-1)</option>
+                    </select>
+                    <div class="choice-evaluation-display ${choice.evaluation === 1 ? 'good' : choice.evaluation === -1 ? 'bad' : 'neutral'}">
+                        ${choice.evaluation === 1 ? 'Bon (+1)' : choice.evaluation === -1 ? 'Mauvais (-1)' : 'Neutre (0)'}
+                    </div>
+                    <button type="button" class="delete-btn choice-delete">×</button>
+                `;
+                
+                // Mise à jour en temps réel de l'affichage de l'évaluation
+                const evaluationSelect = div.querySelector('.choice-evaluation');
+                const evaluationDisplay = div.querySelector('.choice-evaluation-display');
+                evaluationSelect.addEventListener('change', (e) => {
+                    const value = parseInt(e.target.value);
+                    evaluationDisplay.className = `choice-evaluation-display ${value === 1 ? 'good' : value === -1 ? 'bad' : 'neutral'}`;
+                    evaluationDisplay.textContent = value === 1 ? 'Bon (+1)' : value === -1 ? 'Mauvais (-1)' : 'Neutre (0)';
+                });
+                
+                return div;
+            }
+
+            function createSceneElement(id, sceneData = {}) {
+                const sceneDiv = document.createElement('div');
+                sceneDiv.className = 'scene';
+                sceneDiv.dataset.sceneId = id;
+
+                sceneDiv.innerHTML = `
+                    <button type="button" class="delete-scene-btn">×</button>
+                    
+                    <div class="form-group">
+                        <label>ID de la Scène (unique)</label>
+                        <input type="text" class="scene-id-input" value="${id}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select class="scene-type">
+                            <option value="messenger_scenario" ${sceneData.type === 'messenger_scenario' ? 'selected' : ''}>Messenger Scenario</option>
+                            <option value="simple" ${sceneData.type === 'simple' ? 'selected' : ''}>Simple</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Contexte</label>
+                        <textarea class="scene-context" placeholder="Description du contexte...">${sceneData.context || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Image contextuelle</label>
+                        <input type="text" class="scene-contextual-image" value="${sceneData.contextual_image || ''}" placeholder="chemin/vers/image.png">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Messages de conversation</label>
+                        <div class="messages-container"></div>
+                        <button type="button" class="menu-button add-message">Ajouter un message</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Question posée au joueur</label>
+                        <textarea class="scene-text" placeholder="Question à poser au joueur...">${sceneData.question || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Choix</label>
+                        <div class="choices-container"></div>
+                        <button type="button" class="menu-button add-choice">Ajouter un choix</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Thèmes abordés (séparés par des virgules)</label>
+                        <input type="text" class="scene-themes" value="${sceneData.metadata?.themes_abordes?.join(', ') || ''}" placeholder="Ex: stéréotypes, consentement">
+                    </div>
+                `;
+
+                // Ajouter les messages existants
+                const messagesContainer = sceneDiv.querySelector('.messages-container');
+                if (sceneData.conversation && sceneData.conversation.messages) {
+                    sceneData.conversation.messages.forEach(message => {
+                        messagesContainer.appendChild(createMessageElement(message));
+                    });
+                }
+
+                // Ajouter les choix existants
+                const choicesContainer = sceneDiv.querySelector('.choices-container');
+                if (sceneData.choices) {
+                    sceneData.choices.forEach((choice, index) => {
+                        const choiceData = {
+                            text: choice,
+                            next_question: sceneData.nextQuestions ? sceneData.nextQuestions[String.fromCharCode(65 + index)] : '',
+                            evaluation: sceneData.choice_evaluations ? sceneData.choice_evaluations[index] : 0
+                        };
+                        choicesContainer.appendChild(createChoiceElement(choiceData));
+                    });
+                }
+
+                return sceneDiv;
+            }
+
+            // --- GESTION DES ÉVÉNEMENTS ---
+
+            // Gestion des personnages globaux
+            globalParticipantsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('global-participant-delete')) {
+                    if (confirm('Supprimer ce personnage ? Il sera retiré de tous les messages qui l\'utilisent.')) {
+                        e.target.closest('.participant').remove();
+                        updateAllMessageSenders();
+                    }
+                }
+            });
+
+            globalParticipantsContainer.addEventListener('input', (e) => {
+                if (e.target.classList.contains('global-participant-id') || e.target.classList.contains('global-participant-name')) {
+                    updateAllMessageSenders();
+                }
+            });
+
+            addGlobalParticipantBtn.addEventListener('click', () => {
+                globalParticipantsContainer.appendChild(createGlobalParticipantElement());
+                updateAllMessageSenders();
+            });
+
+            // Gestion des scènes
+            scenesContainer.addEventListener('click', (e) => {
+                const sceneDiv = e.target.closest('.scene');
+                
+                if (e.target.classList.contains('delete-scene-btn')) {
+                    if (confirm('Êtes-vous sûr de vouloir supprimer cette scène ?')) {
+                        sceneDiv.remove();
+                        updateNextSceneDropdowns();
+                        updateVisualizerIfOpen();
+                    }
+                }
+                
+                if (e.target.classList.contains('add-message')) {
+                    const container = sceneDiv.querySelector('.messages-container');
+                    container.appendChild(createMessageElement());
+                    updateAllMessageSenders();
+                }
+                
+                if (e.target.classList.contains('add-choice')) {
+                    const container = sceneDiv.querySelector('.choices-container');
+                    container.appendChild(createChoiceElement());
+                    updateNextSceneDropdowns();
+                    updateVisualizerIfOpen();
+                }
+                
+                if (e.target.classList.contains('message-delete')) {
+                    e.target.closest('.message').remove();
+                }
+                
+                if (e.target.classList.contains('choice-delete')) {
+                    e.target.closest('.choice').remove();
+                    updateVisualizerIfOpen();
+                }
+            });
+
+            scenesContainer.addEventListener('input', (e) => {
+                if (e.target.classList.contains('scene-id-input')) {
+                    clearTimeout(window.idUpdateTimeout);
+                    window.idUpdateTimeout = setTimeout(() => {
+                        updateNextSceneDropdowns();
+                        updateVisualizerIfOpen();
+                    }, 300);
+                } else if (e.target.classList.contains('scene-text') || 
+                           e.target.classList.contains('choice-text') ||
+                           e.target.classList.contains('choice-next')) {
+                    clearTimeout(window.contentUpdateTimeout);
+                    window.contentUpdateTimeout = setTimeout(() => {
+                        updateVisualizerIfOpen();
+                    }, 500);
+                }
+            });
+
+            function getAllGlobalParticipants() {
+                return Array.from(globalParticipantsContainer.querySelectorAll('.participant')).map(p => ({
+                    id: p.querySelector('.global-participant-id').value.trim(),
+                    name: p.querySelector('.global-participant-name').value.trim(),
+                    avatar: p.querySelector('.global-participant-avatar').value.trim(),
+                    isCurrentUser: p.querySelector('.global-participant-current').checked
+                })).filter(p => p.id);
+            }
+
+            function updateAllMessageSenders() {
+                const globalParticipants = getAllGlobalParticipants();
+                
+                scenesContainer.querySelectorAll('.message-sender').forEach(select => {
+                    const currentValue = select.value;
+                    select.innerHTML = '<option value="">Choisir l\'expéditeur</option>';
+                    
+                    globalParticipants.forEach(participant => {
+                        const option = document.createElement('option');
+                        option.value = participant.id;
+                        option.textContent = participant.name || participant.id;
+                        select.appendChild(option);
+                    });
+                    
+                    if (globalParticipants.find(p => p.id === currentValue)) {
+                        select.value = currentValue;
+                    }
+                });
+            }
+
+            function updateNextSceneDropdowns() {
+                const sceneIds = Array.from(scenesContainer.querySelectorAll('.scene-id-input'))
+                    .map(input => input.value.trim())
+                    .filter(id => id);
+
+                scenesContainer.querySelectorAll('.choice-next').forEach(select => {
+                    const currentValue = select.value;
+                    select.innerHTML = '<option value="">-- Choisir la suite --</option>';
+                    
+                    sceneIds.forEach(id => {
+                        const option = document.createElement('option');
+                        option.value = id;
+                        option.textContent = id;
+                        select.appendChild(option);
+                    });
+                    
+                    if (sceneIds.includes(currentValue)) {
+                        select.value = currentValue;
+                    }
+                });
+            }
+
+            // --- GESTION DES FICHIERS ---
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        loadScenarioData(data);
+                        showNotification('Fichier chargé avec succès !');
+                        updateVisualizerIfOpen();
+                    } catch (error) {
+                        showNotification('Erreur lors du chargement du fichier JSON', true);
+                        console.error(error);
+                    }
+                };
+                reader.readAsText(file);
+            });
+
+            function loadScenarioData(data) {
+                titleInput.value = data.scenario_info?.title || '';
+                descriptionInput.value = data.scenario_info?.description || '';
+                startQuestionInput.value = data.scenario_info?.start_question || '';
+
+                // Charger les personnages globaux depuis scenario_info.characters
+                globalParticipantsContainer.innerHTML = '';
+                if (data.scenario_info?.characters) {
+                    data.scenario_info.characters.forEach(characterName => {
+                        // Essayer de trouver plus d'infos dans les conversations
+                        let participantData = { id: characterName.toLowerCase(), name: characterName };
+                        
+                        // Chercher dans les conversations pour récupérer plus d'infos
+                        if (data.questions) {
+                            for (let [sceneId, sceneData] of Object.entries(data.questions)) {
+                                if (sceneData.conversation && sceneData.conversation.participants) {
+                                    const found = sceneData.conversation.participants.find(p => 
+                                        p.name === characterName || p.id === characterName.toLowerCase()
+                                    );
+                                    if (found) {
+                                        participantData = found;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        globalParticipantsContainer.appendChild(createGlobalParticipantElement(participantData));
+                    });
+                }
+
+                // Charger les scènes
+                scenesContainer.innerHTML = '';
+                if (data.questions) {
+                    Object.entries(data.questions).forEach(([id, sceneData]) => {
+                        scenesContainer.appendChild(createSceneElement(id, sceneData));
+                    });
+                }
+
+                updateNextSceneDropdowns();
+                updateAllMessageSenders();
+            }
+
+            // --- EXPORT ---
+
+            window.buildScenarioData = function() {
+                const globalParticipants = getAllGlobalParticipants();
+                const characters = globalParticipants.map(p => p.name || p.id);
+                
+                const scenario = {
+                    scenario_info: {
+                        title: titleInput.value.trim(),
+                        description: descriptionInput.value.trim(),
+                        characters: characters,
+                        start_question: startQuestionInput.value.trim()
+                    },
+                    questions: {}
+                };
+
+                scenesContainer.querySelectorAll('.scene').forEach(sceneDiv => {
+                    const id = sceneDiv.querySelector('.scene-id-input').value.trim();
+                    if (!id) return;
+
+                    // Utiliser les participants globaux pour cette scène
+                    const sceneParticipants = globalParticipants.map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        isCurrentUser: p.isCurrentUser
+                    }));
+
+                    const messages = Array.from(sceneDiv.querySelectorAll('.message')).map((m, index) => {
+                        const senderId = m.querySelector('.message-sender').value;
+                        const participant = globalParticipants.find(p => p.id === senderId);
+                        return {
+                            id: 'msg' + (index + 1),
+                            sender: senderId,
+                            avatar: participant?.avatar || `img/avatar_${senderId}.png`,
+                            content: m.querySelector('.message-content').value,
+                            type: 'text'
+                        };
+                    }).filter(m => m.sender && m.content);
+
+                    const choices = Array.from(sceneDiv.querySelectorAll('.choice')).map(c => 
+                        c.querySelector('.choice-text').value
+                    ).filter(choice => choice);
+
+                    const nextQuestions = {};
+                    const choiceEvaluations = [];
+                    
+                    sceneDiv.querySelectorAll('.choice').forEach((choiceDiv, index) => {
+                        const nextQuestion = choiceDiv.querySelector('.choice-next').value;
+                        const evaluation = parseInt(choiceDiv.querySelector('.choice-evaluation').value);
+                        
+                        if (nextQuestion) {
+                            nextQuestions[index] = nextQuestion;
+                        }
+                        choiceEvaluations.push(evaluation);
+                    });
+
+                    const themes = sceneDiv.querySelector('.scene-themes').value
+                        .split(',').map(s => s.trim()).filter(s => s);
+
+                    scenario.questions[id] = {
+                        id: id,
+                        type: sceneDiv.querySelector('.scene-type').value,
+                        context: sceneDiv.querySelector('.scene-context').value,
+                        contextual_image: sceneDiv.querySelector('.scene-contextual-image').value,
+                        conversation: {
+                            participants: sceneParticipants,
+                            messages: messages
+                        },
+                        question: sceneDiv.querySelector('.scene-text').value,
+                        choices: choices,
+                        nextQuestions: nextQuestions,
+                        choice_evaluations: choiceEvaluations,
+                        metadata: {
+                            themes_abordes: themes
+                        }
+                    };
+                });
+
+                return scenario;
+            }
+
+            exportBtn.addEventListener('click', () => {
+                const scenario = buildScenarioData();
+                const jsonStr = JSON.stringify(scenario, null, 2);
+                jsonOutput.textContent = jsonStr;
+                jsonPreview.classList.remove('hidden');
+                jsonPreview.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            copyJsonBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(jsonOutput.textContent).then(() => {
+                    showNotification('JSON copié dans le presse-papier !');
+                });
+            });
+
+            downloadJsonBtn.addEventListener('click', () => {
+                const scenario = buildScenarioData();
+                const jsonStr = JSON.stringify(scenario, null, 2);
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = (titleInput.value.trim() || 'scenario') + '.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showNotification('Fichier téléchargé !');
+            });
+
+            addSceneBtn.addEventListener('click', () => {
+                const newId = generateId();
+                scenesContainer.appendChild(createSceneElement(newId));
+                updateNextSceneDropdowns();
+                updateAllMessageSenders();
+                updateVisualizerIfOpen();
+            });
+
+            newScenarioBtn.addEventListener('click', () => {
+                if (confirm('Créer un nouveau scénario ? (Les données actuelles seront perdues)')) {
+                    titleInput.value = '';
+                    descriptionInput.value = '';
+                    startQuestionInput.value = '';
+                    globalParticipantsContainer.innerHTML = '';
+                    scenesContainer.innerHTML = '';
+                    jsonPreview.classList.add('hidden');
+                    showNotification('Nouveau scénario créé !');
+                    updateVisualizerIfOpen();
+                }
+            });
+
+            // Initialisation avec un exemple
+            if (globalParticipantsContainer.children.length === 0) {
+                globalParticipantsContainer.appendChild(createGlobalParticipantElement({
+                    id: 'narrateur',
+                    name: 'Narrateur',
+                    avatar: 'img/avatars/narrateur.png',
+                    isCurrentUser: false
+                }));
+                
+                globalParticipantsContainer.appendChild(createGlobalParticipantElement({
+                    id: 'joueur',
+                    name: 'Joueur',
+                    avatar: 'img/avatars/joueur.png',
+                    isCurrentUser: true
+                }));
+            }
+            
+            if (scenesContainer.children.length === 0) {
+                const exampleId = 'scene1';
+                scenesContainer.appendChild(createSceneElement(exampleId));
+                updateNextSceneDropdowns();
+                updateAllMessageSenders();
+            }
+
+            // ========================================
+            // VISUALISATEUR - CODE D'INTÉGRATION
+            // ========================================
+
+            let visualizerOpen = false;
+            let visualizerInitialized = false;
+            let vizCanvas = null;
+            let vizCtx = null;
+            let vizMinimapCanvas = null;
+            let vizMinimapCtx = null;
+            let vizNodes = {};
+            let vizConnections = [];
+            let vizSelectedNode = null;
+            let vizHoveredNode = null;
+            let vizDraggedNode = null;
+            let vizMode = 'select';
+            let vizOffsetX = 0;
+            let vizOffsetY = 0;
+            let vizZoom = 1;
+            let vizIsPanning = false;
+            let vizDragStartX = 0;
+            let vizDragStartY = 0;
+
+            const visualizerToggleBtn = document.getElementById('visualizer-toggle-btn');
+            const visualizerPanel = document.getElementById('visualizer-panel');
+            const visualizerCloseBtn = visualizerPanel.querySelector('.visualizer-close');
+
+            // Toggle visualizer
+            visualizerToggleBtn.addEventListener('click', () => {
+                if (!visualizerOpen) {
+                    openVisualizer();
+                } else {
+                    closeVisualizer();
+                }
+            });
+
+            visualizerCloseBtn.addEventListener('click', closeVisualizer);
+
+            function openVisualizer() {
+                visualizerOpen = true;
+                visualizerPanel.classList.add('open');
+                document.body.classList.add('visualizer-open');
+                visualizerToggleBtn.classList.add('active');
+                document.getElementById('visualizer-text').textContent = 'Fermer le Visualisateur';
+
+                if (!visualizerInitialized) {
+                    initVisualizer();
+                    visualizerInitialized = true;
+                }
+
+                updateVisualizer();
+            }
+
+            function closeVisualizer() {
+                visualizerOpen = false;
+                visualizerPanel.classList.remove('open');
+                document.body.classList.remove('visualizer-open');
+                visualizerToggleBtn.classList.remove('active');
+                document.getElementById('visualizer-text').textContent = 'Visualiser le Scénario';
+            }
+
+            function initVisualizer() {
+                vizCanvas = document.getElementById('visualizer-canvas');
+                vizCtx = vizCanvas.getContext('2d');
+                vizMinimapCanvas = document.getElementById('visualizer-minimap-canvas');
+                vizMinimapCtx = vizMinimapCanvas.getContext('2d');
+
+                resizeVisualizerCanvas();
+                
+                vizCanvas.addEventListener('mousedown', handleVizMouseDown);
+                vizCanvas.addEventListener('mousemove', handleVizMouseMove);
+                vizCanvas.addEventListener('mouseup', handleVizMouseUp);
+                vizCanvas.addEventListener('wheel', handleVizWheel, { passive: false });
+                vizCanvas.addEventListener('click', handleVizClick);
+                
+                window.addEventListener('resize', resizeVisualizerCanvas);
+            }
+
+            function resizeVisualizerCanvas() {
+                if (!vizCanvas) return;
+                const rect = vizCanvas.parentElement.getBoundingClientRect();
+                vizCanvas.width = rect.width;
+                vizCanvas.height = rect.height;
+                vizMinimapCanvas.width = 200;
+                vizMinimapCanvas.height = 150;
+                if (visualizerOpen) drawVisualizer();
+            }
+
+            function updateVisualizerIfOpen() {
+                if (visualizerOpen) {
+                    updateVisualizer();
+                }
+            }
+
+            function updateVisualizer() {
+                const scenario = buildScenarioData();
+                vizNodes = {};
+                vizConnections = [];
+
+                // Create nodes
+                let index = 0;
+                for (let qId in scenario.questions) {
+                    const q = scenario.questions[qId];
+                    vizNodes[qId] = {
+                        id: qId,
+                        data: q,
+                        x: 300 + (index % 4) * 350,
+                        y: 100 + Math.floor(index / 4) * 200,
+                        width: 280,
+                        height: 100
+                    };
+                    index++;
+                }
+
+                // Build connections
+                for (let qId in scenario.questions) {
+                    const q = scenario.questions[qId];
+                    if (q.nextQuestions) {
+                        for (let choice in q.nextQuestions) {
+                            const nextId = q.nextQuestions[choice];
+                            const choiceIndex = parseInt(choice);
+                            const choiceText = q.choices[choiceIndex] || '';
+                            
+                            vizConnections.push({
+                                from: qId,
+                                to: nextId,
+                                label: choiceText
+                            });
+                        }
+                    }
+                }
+
+                autoVisualizerLayout();
+                fitVisualizerToScreen();
+            }
+
+            window.setVisualizerMode = function(mode) {
+                vizMode = mode;
+                document.querySelectorAll('.visualizer-tool-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById(`viz-${mode}-btn`).classList.add('active');
+                
+                if (mode === 'pan') {
+                    vizCanvas.classList.add('pan-mode');
+                } else {
+                    vizCanvas.classList.remove('pan-mode');
+                }
+            }
+
+            window.fitVisualizerToScreen = function() {
+                if (Object.keys(vizNodes).length === 0) return;
+                
+                let minX = Infinity, maxX = -Infinity;
+                let minY = Infinity, maxY = -Infinity;
+                
+                for (let id in vizNodes) {
+                    const node = vizNodes[id];
+                    minX = Math.min(minX, node.x - node.width/2);
+                    maxX = Math.max(maxX, node.x + node.width/2);
+                    minY = Math.min(minY, node.y - node.height/2);
+                    maxY = Math.max(maxY, node.y + node.height/2);
+                }
+                
+                const padding = 50;
+                const contentWidth = maxX - minX + padding * 2;
+                const contentHeight = maxY - minY + padding * 2;
+                
+                const zoomX = vizCanvas.width / contentWidth;
+                const zoomY = vizCanvas.height / contentHeight;
+                vizZoom = Math.min(Math.min(zoomX, zoomY), 1);
+                
+                const centerX = (minX + maxX) / 2;
+                const centerY = (minY + maxY) / 2;
+                vizOffsetX = vizCanvas.width / 2 - centerX * vizZoom;
+                vizOffsetY = vizCanvas.height / 2 - centerY * vizZoom;
+                
+                drawVisualizer();
+            }
+
+            window.resetVisualizerView = function() {
+                vizZoom = 1;
+                vizOffsetX = 0;
+                vizOffsetY = 0;
+                drawVisualizer();
+            }
+
+            window.autoVisualizerLayout = function() {
+                const levels = {};
+                const startId = buildScenarioData().scenario_info.start_question;
+                
+                // Reset levels
+                for (let id in vizNodes) {
+                    vizNodes[id].level = -1;
+                }
+                
+                // Calculate levels using BFS
+                if (vizNodes[startId]) {
+                    const queue = [startId];
+                    vizNodes[startId].level = 0;
+                    
+                    while (queue.length > 0) {
+                        const currentId = queue.shift();
+                        const currentLevel = vizNodes[currentId].level;
+                        
+                        if (!levels[currentLevel]) levels[currentLevel] = [];
+                        levels[currentLevel].push(currentId);
+                        
+                        vizConnections.forEach(conn => {
+                            if (conn.from === currentId && vizNodes[conn.to] && vizNodes[conn.to].level === -1) {
+                                vizNodes[conn.to].level = currentLevel + 1;
+                                queue.push(conn.to);
+                            }
+                        });
+                    }
+                }
+                
+                // Position nodes by level
+                const levelHeight = 200;
+                const nodeSpacing = 350;
+                
+                for (let level in levels) {
+                    const nodesInLevel = levels[level];
+                    const totalWidth = nodesInLevel.length * nodeSpacing;
+                    const startX = (vizCanvas.width - totalWidth) / 2;
+                    
+                    nodesInLevel.forEach((id, index) => {
+                        vizNodes[id].x = startX + index * nodeSpacing + nodeSpacing / 2;
+                        vizNodes[id].y = 150 + parseInt(level) * levelHeight;
+                    });
+                }
+                
+                drawVisualizer();
+            }
+
+            function drawVisualizer() {
+                if (!vizCtx) return;
+                
+                vizCtx.clearRect(0, 0, vizCanvas.width, vizCanvas.height);
+                
+                vizCtx.save();
+                vizCtx.translate(vizOffsetX, vizOffsetY);
+                vizCtx.scale(vizZoom, vizZoom);
+                
+                // Draw grid
+                drawVisualizerGrid();
+                
+                // Draw connections
+                drawVisualizerConnections();
+                
+                // Draw nodes
+                for (let id in vizNodes) {
+                    drawVisualizerNode(vizNodes[id]);
+                }
+                
+                vizCtx.restore();
+                
+                // Draw minimap
+                drawVisualizerMinimap();
+            }
+
+            function drawVisualizerGrid() {
+                vizCtx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+                vizCtx.lineWidth = 1;
+                
+                const gridSize = 50;
+                const startX = -vizOffsetX / vizZoom - ((-vizOffsetX / vizZoom) % gridSize) - gridSize;
+                const endX = (vizCanvas.width - vizOffsetX) / vizZoom + gridSize;
+                const startY = -vizOffsetY / vizZoom - ((-vizOffsetY / vizZoom) % gridSize) - gridSize;
+                const endY = (vizCanvas.height - vizOffsetY) / vizZoom + gridSize;
+                
+                for (let x = startX; x < endX; x += gridSize) {
+                    vizCtx.beginPath();
+                    vizCtx.moveTo(x, startY);
+                    vizCtx.lineTo(x, endY);
+                    vizCtx.stroke();
+                }
+                
+                for (let y = startY; y < endY; y += gridSize) {
+                    vizCtx.beginPath();
+                    vizCtx.moveTo(startX, y);
+                    vizCtx.lineTo(endX, y);
+                    vizCtx.stroke();
+                }
+            }
+
+            function drawVisualizerConnections() {
+                vizConnections.forEach(conn => {
+                    if (!vizNodes[conn.from] || !vizNodes[conn.to]) return;
+                    
+                    const from = vizNodes[conn.from];
+                    const to = vizNodes[conn.to];
+                    const isHighlighted = vizSelectedNode === conn.from;
+                    
+                    vizCtx.strokeStyle = isHighlighted ? '#7a9ff8' : '#3a4556';
+                    vizCtx.lineWidth = isHighlighted ? 3 : 2;
+                    
+                    const fromX = from.x + from.width / 2;
+                    const fromY = from.y + from.height / 2;
+                    const toX = to.x - to.width / 2;
+                    const toY = to.y;
+                    
+                    // Draw bezier curve
+                    vizCtx.beginPath();
+                    vizCtx.moveTo(fromX, fromY);
+                    const cp1x = fromX + 100;
+                    const cp1y = fromY;
+                    const cp2x = toX - 100;
+                    const cp2y = toY;
+                    vizCtx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, toX, toY);
+                    vizCtx.stroke();
+                    
+                    // Draw arrow
+                    const angle = Math.atan2(toY - cp2y, toX - cp2x);
+                    const arrowLength = 12;
+                    vizCtx.beginPath();
+                    vizCtx.moveTo(toX, toY);
+                    vizCtx.lineTo(
+                        toX - arrowLength * Math.cos(angle - Math.PI / 6),
+                        toY - arrowLength * Math.sin(angle - Math.PI / 6)
+                    );
+                    vizCtx.moveTo(toX, toY);
+                    vizCtx.lineTo(
+                        toX - arrowLength * Math.cos(angle + Math.PI / 6),
+                        toY - arrowLength * Math.sin(angle + Math.PI / 6)
+                    );
+                    vizCtx.stroke();
+                    
+                    // Draw label
+                    if (conn.label) {
+                        const midX = (fromX + toX) / 2;
+                        const midY = (fromY + toY) / 2;
+                        
+                        vizCtx.fillStyle = '#1a1a1a';
+                        vizCtx.fillRect(midX - 60, midY - 10, 120, 20);
+                        
+                        vizCtx.fillStyle = isHighlighted ? '#a8c8ff' : '#888';
+                        vizCtx.font = '12px -apple-system, sans-serif';
+                        vizCtx.textAlign = 'center';
+                        vizCtx.textBaseline = 'middle';
+                        const label = conn.label.length > 20 ? conn.label.substring(0, 20) + '...' : conn.label;
+                        vizCtx.fillText(label, midX, midY);
+                    }
+                });
+            }
+
+            function drawVisualizerNode(node) {
+                const colors = getVisualizerNodeColor(node.id);
+                const isHovered = vizHoveredNode === node.id;
+                
+                // Shadow
+                if (isHovered) {
+                    vizCtx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                    vizCtx.shadowBlur = 20;
+                    vizCtx.shadowOffsetX = 0;
+                    vizCtx.shadowOffsetY = 5;
+                }
+                
+                // Main rectangle
+                const radius = 8;
+                vizCtx.fillStyle = colors.bg;
+                vizCtx.beginPath();
+                roundVizRect(vizCtx, node.x - node.width/2, node.y - node.height/2, node.width, node.height, radius);
+                vizCtx.fill();
+                
+                // Border
+                vizCtx.strokeStyle = colors.border;
+                vizCtx.lineWidth = isHovered ? 3 : 2;
+                vizCtx.stroke();
+                
+                // Reset shadow
+                vizCtx.shadowColor = 'transparent';
+                vizCtx.shadowBlur = 0;
+                
+                // Header
+                vizCtx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                vizCtx.beginPath();
+                roundVizRect(vizCtx, node.x - node.width/2, node.y - node.height/2, node.width, 30, [radius, radius, 0, 0]);
+                vizCtx.fill();
+                
+                // ID
+                vizCtx.fillStyle = '#fff';
+                vizCtx.font = 'bold 13px -apple-system, sans-serif';
+                vizCtx.textAlign = 'left';
+                vizCtx.fillText(node.id, node.x - node.width/2 + 10, node.y - node.height/2 + 18);
+                
+                // Question text
+                vizCtx.fillStyle = '#e0e0e0';
+                vizCtx.font = '14px -apple-system, sans-serif';
+                vizCtx.textAlign = 'center';
+                const lines = wrapVizText(node.data.question || '', node.width - 20);
+                lines.slice(0, 3).forEach((line, i) => {
+                    vizCtx.fillText(line, node.x, node.y + 10 + i * 18);
+                });
+                
+                // Choice count
+                if (node.data.choices && node.data.choices.length > 0) {
+                    vizCtx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                    vizCtx.fillRect(node.x + node.width/2 - 30, node.y + node.height/2 - 20, 28, 18);
+                    vizCtx.fillStyle = '#aaa';
+                    vizCtx.font = '11px -apple-system, sans-serif';
+                    vizCtx.textAlign = 'center';
+                    vizCtx.fillText(`${node.data.choices.length}→`, node.x + node.width/2 - 16, node.y + node.height/2 - 8);
+                }
+            }
+
+            function getVisualizerNodeColor(nodeId) {
+                const scenario = buildScenarioData();
+                const isStart = nodeId === scenario.scenario_info.start_question;
+                const isSelected = vizSelectedNode === nodeId;
+                
+                if (isSelected) {
+                    return { bg: '#7a9ff8', border: '#8aafff' };
+                } else if (isStart) {
+                    return { bg: '#5fb85f', border: '#6fc86f' };
+                } else {
+                    return { bg: '#4a5568', border: '#5a6578' };
+                }
+            }
+
+            function roundVizRect(ctx, x, y, width, height, radii) {
+                if (typeof radii === 'number') {
+                    radii = [radii, radii, radii, radii];
+                }
+                ctx.beginPath();
+                ctx.moveTo(x + radii[0], y);
+                ctx.lineTo(x + width - radii[1], y);
+                ctx.quadraticCurveTo(x + width, y, x + width, y + radii[1]);
+                ctx.lineTo(x + width, y + height - radii[2]);
+                ctx.quadraticCurveTo(x + width, y + height, x + width - radii[2], y + height);
+                ctx.lineTo(x + radii[3], y + height);
+                ctx.quadraticCurveTo(x, y + height, x, y + height - radii[3]);
+                ctx.lineTo(x, y + radii[0]);
+                ctx.quadraticCurveTo(x, y, x + radii[0], y);
+                ctx.closePath();
+            }
+
+            function wrapVizText(text, maxWidth) {
+                const words = text.split(' ');
+                const lines = [];
+                let currentLine = '';
+                
+                vizCtx.font = '14px -apple-system, sans-serif';
+                
+                for (let word of words) {
+                    const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                    const metrics = vizCtx.measureText(testLine);
+                    
+                    if (metrics.width > maxWidth && currentLine) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = testLine;
+                    }
+                }
+                
+                if (currentLine) lines.push(currentLine);
+                return lines;
+            }
+
+            function drawVisualizerMinimap() {
+                vizMinimapCtx.clearRect(0, 0, 200, 150);
+                vizMinimapCtx.fillStyle = '#1a1a1a';
+                vizMinimapCtx.fillRect(0, 0, 200, 150);
+                
+                // Calculate bounds
+                let minX = Infinity, maxX = -Infinity;
+                let minY = Infinity, maxY = -Infinity;
+                
+                for (let id in vizNodes) {
+                    const node = vizNodes[id];
+                    minX = Math.min(minX, node.x - node.width/2);
+                    maxX = Math.max(maxX, node.x + node.width/2);
+                    minY = Math.min(minY, node.y - node.height/2);
+                    maxY = Math.max(maxY, node.y + node.height/2);
+                }
+                
+                if (!isFinite(minX)) return;
+                
+                const padding = 20;
+                const scaleX = (200 - padding * 2) / (maxX - minX);
+                const scaleY = (150 - padding * 2) / (maxY - minY);
+                const scale = Math.min(scaleX, scaleY);
+                
+                // Draw nodes
+                for (let id in vizNodes) {
+                    const node = vizNodes[id];
+                    const x = padding + (node.x - minX) * scale;
+                    const y = padding + (node.y - minY) * scale;
+                    const w = node.width * scale;
+                    const h = node.height * scale;
+                    
+                    vizMinimapCtx.fillStyle = getVisualizerNodeColor(id).bg;
+                    vizMinimapCtx.fillRect(x - w/2, y - h/2, w, h);
+                }
+                
+                // Draw viewport
+                vizMinimapCtx.strokeStyle = '#5a7fd8';
+                vizMinimapCtx.lineWidth = 2;
+                const vpX = padding + (-vizOffsetX / vizZoom - minX) * scale;
+                const vpY = padding + (-vizOffsetY / vizZoom - minY) * scale;
+                const vpW = (vizCanvas.width / vizZoom) * scale;
+                const vpH = (vizCanvas.height / vizZoom) * scale;
+                vizMinimapCtx.strokeRect(vpX, vpY, vpW, vpH);
+            }
+
+            // Event handlers
+            function handleVizMouseDown(e) {
+                const rect = vizCanvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - vizOffsetX) / vizZoom;
+                const y = (e.clientY - rect.top - vizOffsetY) / vizZoom;
+                
+                // Check if clicking on a node
+                for (let id in vizNodes) {
+                    const node = vizNodes[id];
+                    if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                        y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                        
+                        if (vizMode === 'select') {
+                            vizSelectedNode = id;
+                            vizDraggedNode = id;
+                            drawVisualizer();
+                        }
+                        return;
+                    }
+                }
+                
+                // Pan mode
+                if (vizMode === 'pan') {
+                    vizIsPanning = true;
+                    vizDragStartX = e.clientX;
+                    vizDragStartY = e.clientY;
+                }
+            }
+
+            function handleVizMouseMove(e) {
+                const rect = vizCanvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                if (vizDraggedNode) {
+                    const x = (mouseX - vizOffsetX) / vizZoom;
+                    const y = (mouseY - vizOffsetY) / vizZoom;
+                    vizNodes[vizDraggedNode].x = x;
+                    vizNodes[vizDraggedNode].y = y;
+                    drawVisualizer();
+                } else if (vizIsPanning) {
+                    vizOffsetX += e.clientX - vizDragStartX;
+                    vizOffsetY += e.clientY - vizDragStartY;
+                    vizDragStartX = e.clientX;
+                    vizDragStartY = e.clientY;
+                    drawVisualizer();
+                } else {
+                    // Check hover
+                    const x = (mouseX - vizOffsetX) / vizZoom;
+                    const y = (mouseY - vizOffsetY) / vizZoom;
+                    
+                    let newHoveredNode = null;
+                    for (let id in vizNodes) {
+                        const node = vizNodes[id];
+                        if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                            y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                            newHoveredNode = id;
+                            showVisualizerTooltip(node, mouseX, mouseY);
+                            break;
+                        }
+                    }
+                    
+                    if (newHoveredNode !== vizHoveredNode) {
+                        vizHoveredNode = newHoveredNode;
+                        if (!vizHoveredNode) {
+                            hideVisualizerTooltip();
+                        }
+                        drawVisualizer();
+                    }
+                }
+            }
+
+            function handleVizMouseUp(e) {
+                vizDraggedNode = null;
+                vizIsPanning = false;
+            }
+
+            function handleVizWheel(e) {
+                e.preventDefault();
+                
+                const rect = vizCanvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                const zoomDelta = e.deltaY < 0 ? 1.1 : 0.9;
+                const oldZoom = vizZoom;
+                vizZoom = Math.max(0.2, Math.min(3, vizZoom * zoomDelta));
+                
+                // Adjust offset to keep mouse position stable
+                const worldX = (mouseX - vizOffsetX) / oldZoom;
+                const worldY = (mouseY - vizOffsetY) / oldZoom;
+                vizOffsetX = mouseX - worldX * vizZoom;
+                vizOffsetY = mouseY - worldY * vizZoom;
+                
+                drawVisualizer();
+            }
+
+            function handleVizClick(e) {
+                const rect = vizCanvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - vizOffsetX) / vizZoom;
+                const y = (e.clientY - rect.top - vizOffsetY) / vizZoom;
+                
+                for (let id in vizNodes) {
+                    const node = vizNodes[id];
+                    if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                        y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                        
+                        // Navigate to the scene in editor
+                        highlightSceneInEditor(id);
+                        return;
+                    }
+                }
+            }
+
+            function highlightSceneInEditor(sceneId) {
+                // Remove previous highlights
+                document.querySelectorAll('.scene.highlighted').forEach(scene => {
+                    scene.classList.remove('highlighted');
+                });
+                
+                // Find and highlight the scene
+                const sceneElement = document.querySelector(`.scene[data-scene-id="${sceneId}"]`);
+                if (sceneElement) {
+                    sceneElement.classList.add('highlighted');
+                    sceneElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Remove highlight after 2 seconds
+                    setTimeout(() => {
+                        sceneElement.classList.remove('highlighted');
+                    }, 2000);
+                }
+            }
+
+            function showVisualizerTooltip(node, x, y) {
+                const tooltip = document.getElementById('visualizer-tooltip');
+                let html = `
+                    <strong>${node.id}</strong><br>
+                    <small style="color: #888;">Cliquez pour voir dans l'éditeur</small><br>
+                    <div style="margin-top: 8px;">${node.data.question || 'Pas de question'}</div>
+                `;
+                
+                if (node.data.choices && node.data.choices.length > 0) {
+                    html += `<div style="margin-top: 8px; color: #5a7fd8;">→ ${node.data.choices.length} choix</div>`;
+                }
+                
+                tooltip.innerHTML = html;
+                tooltip.classList.add('visible');
+                tooltip.style.left = (x + 15) + 'px';
+                tooltip.style.top = (y - 10) + 'px';
+            }
+
+            function hideVisualizerTooltip() {
+                document.getElementById('visualizer-tooltip').classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
