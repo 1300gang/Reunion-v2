@@ -112,7 +112,7 @@ class InfoButton {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(244 108 48 / 35%);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border: 2px solid rgba(255, 255, 255, 0.2);

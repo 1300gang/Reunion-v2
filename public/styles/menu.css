@@ -89,7 +89,7 @@ h1 {
 .desktop-layout-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100svh;
   width: 100%;
 }
 
@@ -101,7 +101,7 @@ h1 {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden; /* Pour que l'image puisse couvrir toute la hauteur */
+  overflow: visible; /* Pour que l'image puisse couvrir toute la hauteur */
 }
 
 /* Images qui couvrent toute la hauteur de la zone */
@@ -109,6 +109,7 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover; /* L'image couvre toute la zone */
+  overflow: visible;
 }
 
 .desktop-content-zone {
@@ -234,7 +235,7 @@ body.level-active #level-view {
     height: 70%; /* 70% de la hauteur du conteneur */
     max-width: 70%;
     max-height: 70%;
-    object-fit: contain; /* Garde les proportions sans déformation */
+    object-fit: cover; /* Garde les proportions sans déformation */
     border-radius: 0;
     box-shadow: none;
   }
@@ -845,7 +846,7 @@ body.level-active #level-view {
   
   .desktop-content-zone .description {
     font-size: 1.1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
   
@@ -861,7 +862,7 @@ body.level-active #level-view {
  /* Réduction des marges de la description */
   .desktop-content-zone .description {
     font-size: 1rem; /* Réduction de 1.1rem à 1rem */
-    margin-bottom: 2rem; /* Réduction de 3rem à 2rem */
+    margin-bottom: 0.1rem; /* Réduction de 3rem à 2rem */
     line-height: 1.5; /* Légère réduction pour gagner de l'espace */
   }
   
@@ -877,7 +878,7 @@ body.level-active #level-view {
   
   .mode-options {
     gap: 1rem; /* Réduction de 1.5rem à 1rem */
-    margin-bottom: 2rem; /* Réduction de 3rem à 2rem */
+    margin-bottom: 0rem; /* Réduction de 3rem à 2rem */
   }
   
   .mode-option {

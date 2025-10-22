@@ -13,7 +13,7 @@ const levelsData = [
     description:
       "Scénario éducatif sur les stéréotypes de genre, le sexisme, la masculinité toxique et le consentement à travers une conversation entre deux lycéens.",
     colors: ["#f46c31", "#f9bb87"],
-    creators: ["eleves 1","eleves 2","eleves 3","eleves 4","eleves 5"],
+    creators: ["Équipe pédagogique RSG974", "Robin", "Maëcha", "Kyara", "Daphné", "Ramiona", "Myëlle", "Ohan", "Nahel", "Quentin", "Owen", "Louis", "Mathys", "Shana", "Eléna", "Léa du Planning 974"],
     scenarioFile: "scenario-leaV2.json"
   },
   {
@@ -36,7 +36,7 @@ const levelsData = [
     scenarioFile: "scenario_lgbtqia_V2.json"
   },
   {
-    name: "Anthology Complete",
+    name: "Anthology",
     image: "/img/Rive/img-context/(H8)_fond_C_discussion_apres_vol.png",
     stickers: [
       "img/Stykers/Stickers sexualité texte.png",
@@ -45,7 +45,7 @@ const levelsData = [
     description:
       "Une collection complète d'histoires interconnectées explorant différents aspects de la santé sexuelle et relationnelle. Un parcours complet et enrichissant.",
     colors: ["#ffb000", "#f9da82"],
-    creators: ["Équipe pédagogique RSG974"],
+    creators: ["Neïssa", "Kalel", "Nathan", "Kyrian", "Kensia", "Kenzi", "Léa", "Kéran", "Bryan", "Dharini", "Naomy", "Ameline", "Mathéo", "Clenesy", "Méhïr", "Lucinda", "Gabriel", "Maëlys", "Morane", "Kendryck"],
     scenarioFile: "anthology_completeh7.json"
   },
   {
