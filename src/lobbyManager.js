@@ -31,12 +31,14 @@ function generateSecureFilename(lobbyName, scenarioName) {
 }
 
 function isContinueQuestion(questionData) {
-  return questionData &&
-         questionData.choices &&
-         questionData.choices.length === 1 &&
-         (questionData.choices[0].toLowerCase() === 'continuer' ||
-          questionData.question === '' ||
-          questionData.question === null);
+    return questionData &&
+           questionData.choices &&
+           questionData.choices.length === 1 &&
+           questionData.choices[0] &&
+           typeof questionData.choices[0].text === 'string' &&
+           (questionData.choices[0].text.toLowerCase() === 'continuer' ||
+            questionData.question === '' ||
+            questionData.question === null);
 }
 
 // --- Database-driven Lobby Functions ---
@@ -132,7 +134,33 @@ async function getPlayerResponses(lobbyId, playerName) {
     }, {});
 }
 
+async function createPlayerScores(lobbyId, playerName) {
+    const sql = `INSERT OR IGNORE INTO player_scores (lobbyId, playerName) VALUES (?, ?)`;
+    return await db.run(sql, [lobbyId, playerName]);
+}
+
+async function updatePlayerScores(lobbyId, playerName, scores) {
+    const { consentement, entraide, resilience } = scores;
+    const sql = `UPDATE player_scores
+                 SET consentement = consentement + ?,
+                     entraide = entraide + ?,
+                     resilience = resilience + ?
+                 WHERE lobbyId = ? AND playerName = ?`;
+    return await db.run(sql, [consentement, entraide, resilience, lobbyId, playerName]);
+}
+
+async function getPlayerScores(lobbyId, playerName) {
+    const sql = `SELECT consentement, entraide, resilience FROM player_scores WHERE lobbyId = ? AND playerName = ?`;
+    return await db.get(sql, [lobbyId, playerName]);
+}
+
+async function getAllPlayerScores(lobbyId) {
+    const sql = `SELECT playerName, consentement, entraide, resilience FROM player_scores WHERE lobbyId = ?`;
+    return await db.all(sql, [lobbyId]);
+}
+
 async function deleteLobby(lobbyId) {
+    await db.run("DELETE FROM player_scores WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM feedbacks WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM responses WHERE lobbyId = ?", [lobbyId]);
     await db.run("DELETE FROM players WHERE lobbyId = ?", [lobbyId]);
@@ -175,6 +203,10 @@ module.exports = {
   recordFeedback,
   getVotesForQuestion,
   getPlayerResponses,
+  createPlayerScores,
+  updatePlayerScores,
+  getPlayerScores,
+  getAllPlayerScores,
   deleteLobby,
   cleanupInactiveLobbies,
   fileAccess,
