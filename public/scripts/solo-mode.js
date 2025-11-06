@@ -99,7 +99,7 @@ class SoloGameManager {
     
     const lobbyNameEl = document.getElementById('soloLobbyName');
     if (lobbyNameEl) {
-      lobbyNameEl.textContent = `Mode Solo - ${this.config.levelName || 'Niveau'}`;
+      lobbyNameEl.textContent = `Solo - ${this.config.levelName || 'Niveau'}`;
     }
   }
   

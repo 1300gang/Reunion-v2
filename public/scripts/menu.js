@@ -4,7 +4,7 @@
 // Adaptée pour vos fichiers de scénarios existants
 const levelsData = [
   {
-    name: "StérÉotypes, discriminations et consentement",
+    name: "StérÉotypes etc.",
     image: "img/Lea/img_contextuel/(H1)_fond_A.png",
     stickers: [
       "img/Stykers/Stickers consentement texte.png",
@@ -13,11 +13,11 @@ const levelsData = [
     description:
       "Scénario éducatif sur les stéréotypes de genre, le sexisme, la masculinité toxique et le consentement à travers une conversation entre deux lycéens.",
     colors: ["#f46c31", "#f9bb87"],
-    creators: ["Équipe pédagogique RSG974", "Robin", "Maëcha", "Kyara", "Daphné", "Ramiona", "Myëlle", "Ohan", "Nahel", "Quentin", "Owen", "Louis", "Mathys", "Shana", "Eléna", "Léa du Planning 974"],
+    creators: ["Robin", "Maëcha", "Kyara", "Daphné", "Ramiona", "Myëlle", "Ohan", "Nahel", "Quentin", "Owen", "Louis", "Mathys", "Shana", "Eléna", "Léa du Planning 974"],
     scenarioFile: "scenario-leaV2.json"
   },
   {
-    name: "LGBTQIA+",
+    name: "LgBtQia+",
     image: "/img/Lgbt/img_contextuel/nico_gaetan_marche_des_fierte.png",
     stickers: [
       "img/Stykers/Stickers consentement.png",
@@ -26,17 +26,12 @@ const levelsData = [
     description:
       "Explorez les questions d'identité, d'orientation et d'acceptation dans un parcours bienveillant et éducatif. Découvrez l'importance du respect et de la diversité.",
     colors: ["#f46c31", "#f9bb87"],
-    creators: [
-      "Élèves du collège de La Réunion",
-      "ARPSH",
-      "Planning Familial",
-      "Rive",
-      "Asetis",
-    ],
+    creators: ["Ivy", "Davy", "Kyliann", "Kélian", "Pablo", "Dêhvan", "Océane", "Elyana", "Kensy", "Melusine", "Kenjy", "Farida"]
+,
     scenarioFile: "scenario_lgbtqia_V2.json"
   },
   {
-    name: "Anthology",
+    name: "AnThologY",
     image: "/img/Rive/img-context/(H8)_fond_C_discussion_apres_vol.png",
     stickers: [
       "img/Stykers/Stickers sexualité texte.png",
@@ -49,7 +44,7 @@ const levelsData = [
     scenarioFile: "anthology_completeh7.json"
   },
   {
-    name: "La Spirale",
+    name: "lA SpiRalE",
     	image: "/img/Prostitu/img_contextuel/(H11)_fond_E_rencontre_nawel.png",
     stickers: [
       "img/Stykers/Stickers sexualité texte.png",
@@ -62,7 +57,7 @@ const levelsData = [
     scenarioFile: "spirale_salkira.json"
   },
   {
-    name: "Harcelement",
+    name: "haRceLemeNt",
     image: "/img/Harcene/img_contextuel/(H12)_fond_C_snap.png",
     stickers: [
       "img/Stykers/Stickers harcelement texte.png",

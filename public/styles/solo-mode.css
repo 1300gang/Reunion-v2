@@ -28,7 +28,7 @@
 #solo-screen .image-container {
   position: relative;
   width: 100%;
-  height: 30vh;
+  height: 30svh;
   margin-bottom: 1.5rem;
   border-radius: 12px;
   object-position: center bottom;
@@ -66,7 +66,7 @@
   border-radius: 12px;
   box-shadow: var(--effet-mediumDropShadow );
   margin-bottom: 1.5rem;
-  max-height: 60vh;
+  max-height: 60svh;
   overflow: hidden;
   position: relative;
 }
@@ -92,7 +92,7 @@
   position: relative;
   z-index: 1;
   padding: 1rem;
-  max-height: 60vh;
+  max-height: 60svh;
   overflow-y: auto;
 }
 
@@ -108,7 +108,7 @@
   transform: translateY(100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  max-height: 80vh;
+  max-height: 80svh;
   overflow-y: auto;
 }
 
@@ -266,7 +266,7 @@
 /* === ÉCRAN DE FIN MODE SOLO === */
 #solo-end-screen {
   overflow-y: auto; /* auto au lieu de scroll */
-  max-height: 100vh; /* IMPORTANT : définis une hauteur max */
+  max-height: 100svh; /* IMPORTANT : définis une hauteur max */
   background: var(--couleur-blancSite);
   background-image: 
     linear-gradient(var(--couleur-secondary-light) 1px, transparent 1px),
@@ -527,11 +527,11 @@
   }
   
   #soloAnswerPanel {
-    max-height: 70vh;
+    max-height: 70svh;
   }
   
   #solo-screen .image-container {
-    height: 25vh;
+    height: 25svh;
   }
   
   .solo-end-title {

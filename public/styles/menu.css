@@ -60,7 +60,7 @@ body {
     ),
     linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
   background-size: 20px 20px;
-  min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   color: var(--couleur-noirVolcan);
 }
@@ -89,13 +89,13 @@ h1 {
 .desktop-layout-container {
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  min-height: 100ssvh;
   width: 100%;
 }
 
 .desktop-image-zone {
   width: 100%;
-  height: 30vh; /* 30% de la hauteur sur mobile */
+  height: 30svh; /* 30% de la hauteur sur mobile */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,29 +116,29 @@ h1 {
   flex: 1;
   overflow-y: auto;
   padding: 2rem 1.5rem;
-  padding-bottom: 10vh;
+  padding-bottom: 10svh;
 }
 
 /* Desktop uniquement */
 @media (min-width: 1024px) {
   .desktop-layout-container {
     flex-direction: row;
-    height: 100vh;
-    max-height: 100vh; /* Empêche de dépasser la hauteur de l'écran */
+    height: 100svh;
+    max-height: 100svh; /* Empêche de dépasser la hauteur de l'écran */
     overflow: hidden; /* Pas de scroll sur le conteneur principal */
   }
   
   .desktop-image-zone {
     width: 50%;
-    height: 100vh;
-    max-height: 100vh; /* Limite stricte */
+    height: 100svh;
+    max-height: 100svh; /* Limite stricte */
     padding: 2rem;
   }
   
   .desktop-content-zone {
     width: 50%;
-    height: 100vh;
-    max-height: 100vh; /* Limite stricte */
+    height: 100svh;
+    max-height: 100svh; /* Limite stricte */
     padding: 4rem;
     display: flex;
     flex-direction: column;
@@ -153,7 +153,7 @@ h1 {
 
 .container {
   max-width: 375px;
-  height: 100vh;
+  height: 100svh;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -163,8 +163,8 @@ h1 {
   .container {
     max-width: none; /* Pas de limitation de largeur */
     width: 100vw;
-    height: 100vh; /* Hauteur fixe à la taille de l'écran */
-    max-height: 100vh; /* Empêche le dépassement */
+    height: 100svh; /* Hauteur fixe à la taille de l'écran */
+    max-height: 100svh; /* Empêche le dépassement */
     margin: 0;
     overflow: hidden; /* Pas de scroll sur le conteneur principal */
   }
@@ -213,7 +213,7 @@ body.level-active #level-view {
 
 .header {
   position: relative;
-  height: 40vh;
+  height: 40svh;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -274,7 +274,7 @@ body.level-active #level-view {
 .main-content {
   margin-top: 50px;
   padding: 2rem 1.5rem;
-  padding-bottom: 10vh;
+  padding-bottom: 10svh;
 }
 
 .description {
@@ -831,8 +831,8 @@ body.level-active #level-view {
 @media (min-width: 1024px) {
     .desktop-content-zone {
     width: 50%;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100svh;
+    max-height: 100svh;
     padding: 2rem; /* Réduction du padding de 4rem à 2rem */
     display: flex;
     flex-direction: column;
@@ -918,7 +918,7 @@ body.level-active #level-view {
     }
 
     .desktop-image-zone {
-        height: 30vh;
+        height: 30svh;
         min-height: 200px;
     }
 

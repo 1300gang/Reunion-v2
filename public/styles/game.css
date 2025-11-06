@@ -64,7 +64,7 @@ body {
     linear-gradient(var(--couleur-secondary-light) 1px, transparent 1px),
     linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
   background-size: 20px 20px;
-  min-height: 100vh;
+  min-height: 100svh;
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
@@ -100,7 +100,7 @@ h1, h2, h3 {
 /* === LAYOUT === */
 .screen {
   display: none;
-  min-height: 100vh;
+  min-height: 100svh;
   padding: 70px 20px 20px 20px;
   animation: fadeIn 0.3s ease-out;
   overflow-x: hidden;
@@ -375,7 +375,7 @@ h1, h2, h3 {
 .image-container {
   position: relative;
   width: 100%;
-  height: 30vh;
+  height: 30svh;
   margin-bottom: 1.5rem;
   border-radius: 12px;
   overflow: hidden;
@@ -387,7 +387,7 @@ h1, h2, h3 {
 #questionImage,
 #playerContextImage {
   width: 100%;
-  height: 67vh;
+  height: 67svh;
   object-fit: contain;
   object-position: center;
 }
@@ -470,7 +470,7 @@ h1, h2, h3 {
   box-shadow: var(--effet-miniDropShadow);
   margin-bottom: 1.5rem;
   min-height: 100px; /* Hauteur minimum */
-  max-height: 67vh; /* Hauteur maximum uniquement */
+  max-height: 67svh; /* Hauteur maximum uniquement */
   overflow: hidden;
   overflow-y: auto;
   position: relative;
@@ -586,7 +586,7 @@ h1, h2, h3 {
   transform: translateY(100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  max-height: 80vh;
+  max-height: 80svh;
   overflow-y: auto;
 }
 
@@ -1159,7 +1159,7 @@ h1, h2, h3 {
 
 .desktop-image-zone {
   width: 100%;
-  height: 80vh;
+  height: auto;
   display: flex;
   align-items: center;
   /* justify-content: center; */
@@ -1224,7 +1224,7 @@ h1, h2, h3 {
   }
 
   .desktop-image-zone {
-    /* height: 35vh; */
+    height: 35svh;
   }
 }
 
@@ -1241,7 +1241,7 @@ h1, h2, h3 {
 
   .desktop-layout-container {
     flex-direction: row;
-    height: 90vh;
+    height: 90svh;
     /* overflow: hidden; */
   }
 
@@ -1259,7 +1259,7 @@ h1, h2, h3 {
 
   .desktop-content-zone {
     width: 50%;
-    height: 100vh;
+    height: 100svh;
     padding: 60px 2rem 2rem 2rem;
     overflow-y: auto; /* Allow this column to scroll if needed, but we'll try to avoid it */
     -webkit-overflow-scrolling: touch;
@@ -1323,7 +1323,7 @@ h1, h2, h3 {
 
   .desktop-layout-container {
     flex-direction: row;
-    height: 100vh;
+    height: 100svh;
     overflow: hidden;
   }
 
@@ -1340,7 +1340,7 @@ h1, h2, h3 {
 
   .desktop-content-zone {
     width: 50%;
-    height: 100vh;
+    height: 100svh;
     padding: 70px 3rem 3rem 3rem; /* More padding for desktop */
     overflow-y: auto; /* Allow this column to scroll if needed */
     -webkit-overflow-scrolling: touch;

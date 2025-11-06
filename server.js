@@ -13,6 +13,19 @@ const { initializeSocketIO } = require('./src/socketHandlers');
 const db = require('./src/database'); // Cette ligne initialise la connexion à la BDD
 
 const app = express();
+
+// AJOUTE CETTE LIGNE (si pas déjà là)
+app.use(express.static('public')); // ou le nom de ton dossier avec HTML/CSS/JS
+
+// Ou si tes fichiers sont à la racine :
+app.use(express.static(__dirname));
+
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server sur http://10.1.202.108:3000');
+});
+
+
+
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
