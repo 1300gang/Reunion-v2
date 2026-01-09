@@ -77,35 +77,3 @@ Le mode groupe est conçu pour être animé par un intervenant, où les particip
     *   Cliquez sur le choix que vous préférez. Votre vote est automatiquement envoyé à l'animateur.
     *   Attendez que l'animateur fasse avancer l'histoire.
 
-### 3. Comment Utiliser l'Éditeur de Scénarios
-
-L'éditeur vous permet de créer vos propres histoires interactives ou de modifier celles qui existent déjà.
-
-1.  **Accédez à l'Éditeur :** Allez directement à l'adresse [http://localhost:3000/editor.html](http://localhost:3000/editor.html).
-
-2.  **Charger un Scénario Existant :**
-    *   Utilisez le menu déroulant "Choisir un scénario à modifier" pour voir la liste des scénarios disponibles.
-    *   Sélectionnez un scénario et cliquez sur "Charger". Les détails et les questions du scénario rempliront le formulaire.
-
-3.  **Créer un Nouveau Scénario :**
-    *   Si vous ne chargez aucun scénario, vous pouvez commencer à en créer un nouveau directement.
-    *   **Titre du Scénario :** Donnez un nom clair et descriptif à votre histoire.
-    *   **Nom du Fichier :** Choisissez un nom de fichier unique (par exemple, `mon-histoire.json`). Ce nom est important pour sauvegarder et charger le scénario.
-    *   **ID de la Question de Départ :** Indiquez l'ID de la toute première question de votre histoire (par exemple, `intro`).
-
-4.  **Gérer les Questions :**
-    *   **Ajouter une Question :** Cliquez sur "Ajouter une Question". Un nouveau bloc de question apparaît.
-    *   **ID de la Question :** Donnez un identifiant unique à chaque question (par exemple, `intro`, `choix1_consequence`, etc.). Cet ID est utilisé pour lier les questions entre elles.
-    *   **Texte de la question :** Écrivez le texte principal de la question ou de la situation.
-    *   **Image de fond :** (Optionnel) Indiquez le chemin vers une image (par exemple, `/img/mon_image.png`). L'image doit se trouver dans le dossier `public`.
-    *   **Supprimer une Question :** Cliquez sur le bouton de suppression en haut à droite du bloc de la question.
-
-5.  **Gérer les Choix :**
-    *   **Ajouter un Choix :** Dans une question, cliquez sur "Ajouter un choix".
-    *   **Texte du choix :** Écrivez le texte que le joueur verra.
-    *   **Question Suivante :** C'est ici que vous liez l'histoire. Utilisez le menu déroulant pour sélectionner l'ID de la question qui suivra si le joueur sélectionne ce choix.
-    *   **Supprimer un Choix :** Cliquez sur le `X` à côté du choix.
-
-6.  **Sauvegarder votre Scénario :**
-    *   Une fois que vous avez terminé, cliquez sur le bouton "Sauvegarder le Scénario" en bas de la page.
-    *   Une notification vous confirmera que la sauvegarde a réussi. Votre scénario sera maintenant disponible dans les modes de jeu Solo et Groupe.
