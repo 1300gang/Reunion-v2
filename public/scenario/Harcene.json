@@ -1,0 +1,321 @@
+{
+  "scenario_info": {
+    "title": "Harcèlement - Le Choix de Wassim",
+    "description": "Un scénario interactif sur le cyberharcèlement, la vengeance et l'importance de la parole des témoins et des victimes, basé sur le scénario de l'ARPSH.",
+    "characters": ["Dora", "Wassim", "Bean", "Professeur", "Père", "Mère", "Lucas", "Proviseur", "Marguerite"],
+    "start_question": "scene_ouverture_classe"
+  },
+  "questions": {
+    "scene_ouverture_classe": {
+      "id": "scene_ouverture_classe",
+      "type": "messenger_scenario",
+      "context": "Dans la salle de classe, le cours a commencé.",
+      "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_A_classe.png",
+      "conversation": {
+        "participants": [
+          { "id": "professeur", "name": "Professeur", "isCurrentUser": false },
+          { "id": "bean", "name": "Bean", "isCurrentUser": false },
+          { "id": "dora", "name": "Dora", "isCurrentUser": true },
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "professeur", "avatar": "/../img/Harcene/perso_emo/emo_professeur.png", "content": "Alors, qui peut me dire la date de la Révolution française ?", "type": "text" },
+          { "id": "msg2", "sender": "bean", "avatar": "/../img/Harcene/perso_emo/emo_bean_stress.png", "content": "Euh... 1801, monsieur?", "type": "text" },
+          { "id": "msg3", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_moqueuse.png", "content": "Hahaha, mais t'es sérieux ? C'est 1789, tout le monde sait ça !", "type": "text" },
+          { "id": "msg$", "sender": "narrateur", "avatar": "", "content": "La classe éclate de rire. Bean baisse la tête, vexé.", "type": "text" }
+        ]
+      },
+      "question": "La classe éclate de rire. Bean baisse la tête, vexé.",
+      "choices": ["Continuer"],
+      "nextQuestions": { "A": "scene_cour_revelation" },
+      "metadata": { "themes_abordes": ["moquerie", "humiliation", "contexte scolaire"], "characters": ["Professeur", "Bean", "Dora"] }
+    },
+    "scene_cour_revelation": {
+      "id": "scene_cour_revelation",
+      "type": "messenger_scenario",
+      "context": "Dans la cour, Bean erre seul. Il aperçoit Dora et Marguerite dans un recoin.",
+      "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_B_bean_surprends_dora.png",
+      "conversation": {
+        "participants": [
+          { "id": "bean", "name": "Bean", "isCurrentUser": false },
+            { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "bean", "avatar": "/../img/Harcene/perso_emo/emo_bean_colere.png", "content": "La meuf qui se fout de moi... Et maintenant elle fait genre la meuf parfaite.", "type": "text" },
+        { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Il les voit s'embrasser. Il sort son téléphone, prend une photo et filme.", "type": "text" }
+        ]
+      },
+      "question": "Il les voit s'embrasser. Il sort son téléphone, prend une photo et filme.",
+      "choices": ["Continuer"],
+      "nextQuestions": { "A": "scene_snapchat_publication" },
+      "metadata": { "themes_abordes": ["vengeance", "droit à l'image", "voyeurisme"], "characters": ["Bean", "Dora", "Marguerite"] }
+    },
+    "scene_snapchat_publication": {
+        "id": "scene_snapchat_publication",
+        "type": "messenger_scenario",
+        "context": "Bean publie la photo sur Snapchat avec une légende haineuse.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_C_snap.png",
+        "conversation": {
+          "participants": [
+            { "id": "bean", "name": "Bean", "isCurrentUser": false },
+            { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "bean", "avatar": "/../img/Harcene/perso_emo/emo_bean_colere.png", "content": "C'est l'heure de la vérité...", "type": "text" },
+            { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Légende : << Voilà la pseudo star de la classe #fakenews #hypocrite >>>", "type": "text" }
+          ]
+        },
+        "question": "Légende : << Voilà la pseudo star de la classe #fakenews #hypocrite >>>",
+        "choices": ["Continuer"],
+        "nextQuestions": { "A": "scene_decouverte_wassim" },
+        "metadata": { "themes_abordes": ["cyberharcèlement", "publication en ligne", "haine"], "characters": ["Bean"] }
+    },
+    "scene_decouverte_wassim": {
+        "id": "scene_decouverte_wassim",
+        "type": "messenger_scenario",
+        "context": "Dans sa chambre, Wassim voit le Snap et rigole. Dora, intriguée, l'interroge et aperçoit le reflet du téléphone dans un miroir.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_E_miroir.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_neutre.png", "content": "Wassim? Tu rigoles à quoi là ?", "type": "text" },
+            { "id": "msg2", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_crispe.png", "content": "Rien, t'inquiète.", "type": "text" },
+            { "id": "msg3", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_contrariee.png", "content": "C'est quoi ça ?! C'est MOI ! C'est NOUS!", "type": "text" },
+            { "id": "msg4", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_inquiet.png", "content": "Attends, je vais supprimer, c'est pas moi qui ai posté !", "type": "text" },
+            { "id": "msg5", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_bleme.png", "content": "Et tu trouvais ça drôle ?!", "type": "text" }
+          ]
+        },
+        "question": "Wassim, le demi-frère de Dora, voit la publication sur Snapchat. Il a un choix à faire :",
+        "choices": [
+          "Dire la vérité sur l'auteur de la photo.",
+          "Mentir pour protéger l'auteur et accuser quelqu'un d'autre.",
+          "Se taire et supprimer le Snap pour éviter les problèmes."
+        ],
+        "nextQuestions": { "A": "scenario1_dire_verite", "B": "scenario2_mentir", "C": "scenario3_setaire" },
+        "metadata": { "themes_abordes": ["dilemme moral", "responsabilité du témoin", "choix"], "characters": ["Dora", "Wassim"] }
+    },
+    "scenario1_dire_verite": {
+        "id": "scenario1_dire_verite",
+        "type": "messenger_scenario",
+        "context": "Bouleversée, Dora décide de parler à ses parents. Wassim est présent.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_F_discussion_parents.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "pere", "name": "Père", "isCurrentUser": false },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false },
+            { "id": "mere", "name": "Mère", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_larmoyante.png", "content": "Quelqu'un a posté une vidéo de moi et Marguerite... Et Wassim l'a vue.", "type": "text" },
+            { "id": "msg2", "sender": "pere", "avatar": "/../img/Harcene/perso_emo/emo_pere_dora.png", "content": "Wassim? Dis-nous ce qu'il s'est passé.", "type": "text" },
+            { "id": "msg3", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_regret.png", "content": "C'est Bean. Il l'a prise en douce. J'ai rien dit au début...", "type": "text" },
+            { "id": "msg4", "sender": "mere", "avatar": "/../img/Harcene/perso_emo/emo_mere_dora.png", "content": "C'est une atteinte grave à votre intimité. On va faire quelque chose.", "type": "text" }
+          ]
+        },
+        "question": "",
+        "choices": ["Voir les conséquences"],
+        "nextQuestions": { "A": "scenario1_consequences_positives" },
+        "metadata": { "themes_abordes": ["dialogue familial", "soutien parental", "vérité"], "characters": ["Dora", "Wassim", "Père", "Mère"] }
+    },
+    "scenario1_consequences_positives": {
+        "id": "scenario1_consequences_positives",
+        "type": "messenger_scenario",
+        "context": "Les parents agissent. Le proviseur convoque Bean qui finit par avouer.",
+        "contextual_image": "/../img/Harcene/(H12)_fond_G_proviseurVener.png",
+        "conversation": {
+            "participants": [
+                { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+            ],
+            "messages": [
+                { "id": "msg1", "sender": "narrateur", "avatar": "/../img/Harcene/perso_emo/emo_proviseur.png", "content": "Les parents déposent plainte. Bean est suspendu avec obligation de suivi. Les élèves ayant partagé le Snap sont sanctionnés et sensibilisés. Une intervention est organisée au lycée et Dora et Marguerite reçoivent un soutien.", "type": "text" },
+                { "id": "msg2", "sender": "narrateur", "avatar": "/../img/Harcene/perso_emo/emo_dora_soulagee.png", "content": "Dora est protégée, Marguerite la soutient, Wassim a agi.", "type": "text" }
+              ]
+        },
+        "question": "",
+        "choices": [],
+        "nextQuestions": {},
+        "metadata": { "themes_abordes": ["résolution", "sanctions", "soutien psychologique", "sensibilisation"], "characters": ["Proviseur", "Bean", "Dora"] }
+    },
+    "scenario2_mentir": {
+        "id": "scenario2_mentir",
+        "type": "messenger_scenario",
+        "context": "Face à la détresse de Dora, Wassim panique et décide de mentir.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_E_miroir.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_pleurs.png", "content": "Qui a posté ça ?", "type": "text" },
+            { "id": "msg2", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_inquiet.png", "content": "C'est... je crois que c'est Lucas.", "type": "text" },
+            { "id": "msg3", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_contrariee.png", "content": "Lucas ? Mais pourquoi il ferait ça ?", "type": "text" },
+            { "id": "msg4", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_inquiet.png", "content": "Il traîne avec les mecs de la classe... J'suis sûr que c'est lui.", "type": "text" }
+          ]
+        },
+        "question": "",
+        "choices": ["Voir les conséquences"],
+        "nextQuestions": { "A": "scenario2_consequences_negatives" },
+        "metadata": { "themes_abordes": ["mensonge", "fausse accusation", "panique"], "characters": ["Dora", "Wassim"] }
+    },
+    "scenario2_consequences_negatives": {
+        "id": "scenario2_consequences_negatives",
+        "type": "messenger_scenario",
+        "context": "Lucas est injustement convoqué et suspendu. Le vrai coupable, Bean, n'est pas inquiété et continue de harceler Dora.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_G_lucas_proviseur.png",
+        "conversation": {
+          "participants": [
+            { "id": "lucas", "name": "Lucas", "isCurrentUser": false },
+            { "id": "bean", "name": "Bean", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "lucas", "avatar": "/../img/Harcene/perso_emo/emo_lucas.png", "content": "Mais... j'ai rien fait ! Pourquoi j'aurais posté ça ?!", "type": "text" },
+            { "id": "msg2", "sender": "bean", "avatar": "/../img/Harcene/perso_emo/emo_bean_moqueur.png", "content": "T'as kiffé ta minute de gloire, ou tu veux repasser en replay ?", "type": "text" }
+          ]
+        },
+        "question": "Dora s'isole, évite Marguerite. Elle perd confiance.",
+        "choices": ["Continuer"],
+        "nextQuestions": { "A": "scenario2_retour_possible" },
+        "metadata": { "themes_abordes": ["injustice", "isolement", "harcèlement continu"], "characters": ["Lucas", "Proviseur", "Bean", "Dora"] }
+    },
+    "scenario2_retour_possible": {
+        "id": "scenario2_retour_possible",
+        "type": "messenger_scenario",
+        "context": "Plus tard, rongé par la culpabilité, Wassim craque.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_E_miroir.png",
+        "conversation": {
+          "participants": [
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_pleurs.png", "content": "C'est pas Lucas. C'était Bean... Je voulais pas créer d'ennuis.", "type": "text" }
+          ]
+        },
+        "question": "Le remords de Wassim peut encore changer les choses.",
+        "choices": ["Réparer l'erreur"],
+        "nextQuestions": { "A": "scenario4_regret" },
+        "metadata": { "themes_abordes": ["culpabilité", "remords", "aveu"], "characters": ["Wassim"] }
+    },
+    "scenario3_setaire": {
+        "id": "scenario3_setaire",
+        "type": "messenger_scenario",
+        "context": "Wassim décide de supprimer le Snap, pensant étouffer l'affaire.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_E_miroir.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_neutre.png", "content": "Voilà. Supprimé. On en parle plus.", "type": "text" },
+            { "id": "msg2", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_contrariee.png", "content": "Tu vas pas dire qui c'est ?", "type": "text" },
+            { "id": "msg3", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_inquiet.png", "content": "Ça sert à rien... Tout le monde en parle déjà.", "type": "text" }
+          ]
+        },
+        "question": "",
+        "choices": ["Voir les conséquences"],
+        "nextQuestions": { "A": "scenario3_consequences_ambigues" },
+        "metadata": { "themes_abordes": ["silence", "fuite", "passivité"], "characters": ["Dora", "Wassim"] }
+    },
+    "scenario3_consequences_ambigues": {
+        "id": "scenario3_consequences_ambigues",
+        "type": "messenger_scenario",
+        "context": "Le Snap continue de circuler. Dora est surnommée 'La honte du lycée' et s'enferme dans le silence. Les adultes ne savent rien.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_H_dora_deprime.png",
+        "conversation": {
+            "participants": [
+                { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+            ],
+            "messages": [
+                { "id": "msg1", "sender": "narrateur", "avatar": "/../img/Harcene/perso_emo/emo_dora_pleurs.png", "content": "Marguerite tente de défendre Dora mais se fait isoler. Wassim culpabilise, mais ne dit rien. Bean continue ses provocations sans être confronté.", "type": "text" }
+            ]
+        },
+        "question": "",
+        "choices": ["Continuer"],
+        "nextQuestions": { "A": "scenario3_retour_possible" },
+        "metadata": { "themes_abordes": ["rumeur", "isolement", "non-assistance", "culpabilité"], "characters": ["Dora", "Wassim", "Bean", "Marguerite"] }
+    },
+    "scenario3_retour_possible": {
+        "id": "scenario3_retour_possible",
+        "type": "messenger_scenario",
+        "context": "Un jour, Wassim voit Dora déchirer une photo d'elle et Marguerite. C'est le déclic.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_H_dora_deprime.png",
+        "conversation": {
+          "participants": [
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_pleurs.png", "content": "Je peux plus me taire...", "type": "text" }
+          ]
+        },
+        "question": "Le remords de Wassim peut encore changer les choses.",
+        "choices": ["Réparer l'erreur"],
+        "nextQuestions": { "A": "scenario4_regret" },
+        "metadata": { "themes_abordes": ["prise de conscience", "remords", "décision"], "characters": ["Wassim", "Dora"] }
+    },
+    "scenario4_regret": {
+        "id": "scenario4_regret",
+        "type": "messenger_scenario",
+        "context": "Dora est seule dans sa chambre. Wassim frappe doucement à sa porte.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_H_dora_deprime.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_regret.png", "content": "Dora? Je suis désolé.", "type": "text" },
+            { "id": "msg2", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_pleurs.png", "content": "C'est Bean. C'est lui qui a posté. Je voulais pas t'enfoncer... Mais maintenant, je veux réparer.", "type": "text" }
+          ]
+        },
+        "question": "",
+        "choices": ["Continuer"],
+        "nextQuestions": { "A": "scenario4_reparation" },
+        "metadata": { "themes_abordes": ["excuses", "aveu tardif", "réparation"], "characters": ["Dora", "Wassim"] }
+    },
+    "scenario4_reparation": {
+        "id": "scenario4_reparation",
+        "type": "messenger_scenario",
+        "context": "Le lendemain, Wassim va parler au proviseur et dénonce Bean.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_G_proviseurVener.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "wassim", "avatar": "/../img/Harcene/perso_emo/emo_wassim_regret.png", "content": "Je sais qui a lancé le Snap. C'est Bean. Je l'ai vu faire.", "type": "text" }
+          ]
+        },
+        "question": "Bean nie, mais finit par craquer. Il est sanctionné tardivement.",
+        "choices": ["Voir les conséquences finales"],
+        "nextQuestions": { "A": "scenario4_consequences_finales" },
+        "metadata": { "themes_abordes": ["dénonciation", "sanction tardive", "justice"], "characters": ["Wassim", "Proviseur", "Bean"] }
+    },
+    "scenario4_consequences_finales": {
+        "id": "scenario4_consequences_finales",
+        "type": "messenger_scenario",
+        "context": "La vérité a éclaté, mais le temps a passé.",
+        "contextual_image": "/../img/Harcene/img_contextuel/(H12)_fond_H_dora_deprime.png",
+        "conversation": {
+          "participants": [
+            { "id": "dora", "name": "Dora", "isCurrentUser": true },
+            { "id": "wassim", "name": "Wassim", "isCurrentUser": false },
+            { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+          ],
+          "messages": [
+            { "id": "msg1", "sender": "dora", "avatar": "/../img/Harcene/perso_emo/emo_dora_soulagee.png", "content": "Tu l'as dit, c'est ça qui compte. Merci.", "type": "text" },
+            { "id": "msg2", "sender":"narrateur", "avatar":"", "content":"Dora reprend peu à peu confiance, mais une blessure reste. Elle accepte les excuses de Wassim, mais garde une distance. Le plus important est qu'elle est maintenant soutenue.", "type":"text" }
+          ]
+        },
+        "question": "",
+        "choices": [],
+        "nextQuestions": {},
+        "metadata": { "themes_abordes": ["confiance", "séquelles psychologiques", "pardon", "soutien"], "characters": ["Dora", "Wassim"] }
+    }
+  }
+}
