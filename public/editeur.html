@@ -12,7 +12,7 @@
         @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
         @import url("styles/satoshi.css");
         
-
+ 
         /* Variables CSS */
         :root {
           /* Couleurs de base (ne changent pas) */
@@ -26,7 +26,7 @@
           
           --couleur-blancSite: #fafff6;
           --couleur-beigeNorm: #ede0cf;
-
+ 
           /* Couleur d'accentuation de l'UI */
           --ui-accent-color: var(--couleur-jaunePeps);
           
@@ -35,24 +35,24 @@
           --couleur-primary-hover: rgba(233, 188, 64, 0.8);
           --couleur-secondary-light: rgba(201, 226, 229, 0.3);
           --couleur-secondary-hover: rgba(201, 226, 229, 0.8);
-
+ 
           /* Effets */
           --effet-backgroundBlur: blur(4px);
           --effet-innerShadow: inset -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
           --effet-grosDropShadow: -9px 4px 11px 0px rgba(0, 0, 0, 0.25);
           --effet-miniDropShadow: -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Styles Généraux et Réinitialisation */
         /* ---------------------------------------------------- */
-
+ 
         * {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
         }
-
+ 
         body {
           font-family: "Satoshi-Medium", sans-serif;
           background: var(--couleur-blancSite);
@@ -67,32 +67,32 @@
           color: var(--couleur-noirVolcan);
           padding: 2rem;
         }
-
+ 
         body.visualizer-open {
             padding-right: 52%; /* Espace pour le visualisateur */
         }
-
+ 
         p {
           color: var(--couleur-noirVolcan);
           font-family: "Satoshi-Medium", sans-serif;
         }
-
+ 
         h2 {
           color: var(--couleur-noirVolcan);
           font-family: "mocraRegular", sans-serif;
           
         }
-
+ 
         h1 {
           color: var(--couleur-noirVolcan);
           font-family: "mocraRegular", sans-serif;
           
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Container principal */
         /* ---------------------------------------------------- */
-
+ 
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -104,12 +104,12 @@
             position: relative;
             transition: all 0.3s ease;
         }
-
+ 
         body.visualizer-open .container {
             max-width: 100%;
             /* margin-right: 50%; */
         }
-
+ 
         .container::before {
             content: '';
             position: absolute;
@@ -122,7 +122,7 @@
             border-radius: 18px;
             pointer-events: none;
         }
-
+ 
         h1 {
             font-size: 3rem;
             text-align: center;
@@ -130,7 +130,7 @@
             color: var(--couleur-grisFonce);
             text-shadow: var(--effet-miniDropShadow);
         }
-
+ 
         h2 {
             font-size: 1.8rem;
             margin-top: 3rem;
@@ -139,7 +139,7 @@
             border-bottom: 3px solid var(--couleur-jaunePeps);
             color: var(--couleur-grisFonce);
         }
-
+ 
         .subtitle {
             text-align: center;
             font-size: 1.2rem;
@@ -147,16 +147,16 @@
             margin-bottom: 3rem;
             font-weight: 500;
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Éléments de formulaire */
         /* ---------------------------------------------------- */
-
+ 
         .form-group {
             margin-bottom: 2rem;
             position: relative;
         }
-
+ 
         label {
             display: block;
             margin-bottom: 0.8rem;
@@ -165,7 +165,7 @@
             font-size: 1.1rem;
             font-family: "Inter", sans-serif;
         }
-
+ 
         input[type="text"],
         select,
         textarea {
@@ -181,7 +181,7 @@
             font-family: "Inter", sans-serif;
             box-shadow: var(--effet-innerShadow);
         }
-
+ 
         input[type="text"]:focus,
         select:focus,
         textarea:focus {
@@ -190,16 +190,16 @@
             box-shadow: 0 0 0 4px var(--couleur-primary-light);
             transform: translateY(-2px);
         }
-
+ 
         textarea {
             min-height: 120px;
             resize: vertical;
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Sections spéciales */
         /* ---------------------------------------------------- */
-
+ 
         .scenario-details, 
         .global-participants {
             background: linear-gradient(135deg, var(--couleur-beigeNorm) 0%, var(--couleur-blancSite) 100%);
@@ -210,7 +210,7 @@
             box-shadow: var(--effet-miniDropShadow);
             position: relative;
         }
-
+ 
         .scene {
             border: 2px solid var(--couleur-grisBleuClair);
             padding: 2.5rem;
@@ -221,22 +221,22 @@
             position: relative;
             transition: all 0.3s ease;
         }
-
+ 
         .scene:hover {
             transform: translateY(-3px);
             box-shadow: var(--effet-grosDropShadow);
         }
-
+ 
         .scene.highlighted {
             border-color: var(--couleur-jaunePeps);
             border-width: 3px;
             box-shadow: 0 0 20px rgba(233, 188, 64, 0.4);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Boutons */
         /* ---------------------------------------------------- */
-
+ 
         .menu-button {
             background: linear-gradient(135deg, var(--couleur-jaunePeps) 0%, var(--couleur-primary-hover) 100%);
             color: var(--couleur-noirVolcan);
@@ -252,13 +252,13 @@
             letter-spacing: 0.5px;
             box-shadow: var(--effet-miniDropShadow);
         }
-
+ 
         .menu-button:hover {
             transform: translateY(-3px);
             box-shadow: var(--effet-grosDropShadow);
             background: linear-gradient(135deg, var(--couleur-primary-hover) 0%, var(--couleur-jaunePeps) 100%);
         }
-
+ 
         .menu-button.add-choice {
             background: linear-gradient(135deg, var(--couleur-grisBleuClair) 0%, var(--couleur-secondary-hover) 100%);
             color: var(--couleur-grisFonce);
@@ -266,35 +266,35 @@
             padding: 0.8rem 1.5rem;
             margin-top: 1rem;
         }
-
+ 
         .menu-button.add-choice:hover {
             background: linear-gradient(135deg, var(--couleur-secondary-hover) 0%, var(--couleur-grisBleuClair) 100%);
         }
-
+ 
         .action-button {
             background: linear-gradient(135deg, var(--couleur-grisFonce) 0%, #2d3e35 100%);
             color: var(--couleur-blancSite);
             padding: 1.2rem 2.5rem;
             font-size: 1.1rem;
         }
-
+ 
         .action-button:hover {
             background: linear-gradient(135deg, #2d3e35 0%, var(--couleur-grisFonce) 100%);
         }
-
+ 
         .load-button {
             background: linear-gradient(135deg, var(--couleur-beigeVif) 0%, #d4b88a 100%);
             color: var(--couleur-noirVolcan);
         }
-
+ 
         .load-button:hover {
             background: linear-gradient(135deg, #d4b88a 0%, var(--couleur-beigeVif) 100%);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Visualisateur Toggle Button */
         /* ---------------------------------------------------- */
-
+ 
         #visualizer-toggle-btn {
             position: fixed;
             bottom: 30px;
@@ -315,25 +315,25 @@
             align-items: center;
             gap: 10px;
         }
-
+ 
         #visualizer-toggle-btn:hover {
             transform: translateX(-50%) translateY(-3px);
             box-shadow: 0 12px 30px rgba(90, 127, 216, 0.4);
             background: linear-gradient(135deg, #6a8fe8 0%, #5a7fd8 100%);
         }
-
+ 
         #visualizer-toggle-btn.active {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
         }
-
+ 
         #visualizer-toggle-btn.active:hover {
             background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Visualisateur Panel */
         /* ---------------------------------------------------- */
-
+ 
         #visualizer-panel {
             position: fixed;
             top: 0;
@@ -347,11 +347,11 @@
             flex-direction: column;
             box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
         }
-
+ 
         #visualizer-panel.open {
             right: 0;
         }
-
+ 
         .visualizer-header {
             background: #242424;
             padding: 20px;
@@ -360,7 +360,7 @@
             justify-content: space-between;
             align-items: center;
         }
-
+ 
         .visualizer-title {
             color: #e0e0e0;
             font-size: 1.5rem;
@@ -369,7 +369,7 @@
             align-items: center;
             gap: 10px;
         }
-
+ 
         .visualizer-close {
             background: #e74c3c;
             color: white;
@@ -380,12 +380,12 @@
             font-size: 14px;
             transition: all 0.2s;
         }
-
+ 
         .visualizer-close:hover {
             background: #c0392b;
             transform: translateY(-1px);
         }
-
+ 
         .visualizer-content {
             flex: 1;
             position: relative;
@@ -394,7 +394,7 @@
                 linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
-
+ 
         .visualizer-toolbar {
             position: absolute;
             top: 20px;
@@ -408,7 +408,7 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-
+ 
         .visualizer-tool-btn {
             padding: 8px 12px;
             background: #3a3a3a;
@@ -422,18 +422,18 @@
             align-items: center;
             gap: 6px;
         }
-
+ 
         .visualizer-tool-btn:hover {
             background: #4a4a4a;
             border-color: #5a5a5a;
             transform: translateY(-1px);
         }
-
+ 
         .visualizer-tool-btn.active {
             background: #5a7fd8;
             border-color: #6a8fe8;
         }
-
+ 
         .visualizer-minimap {
             position: absolute;
             bottom: 20px;
@@ -448,25 +448,25 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-
+ 
         #visualizer-canvas {
             width: 100%;
             height: 100%;
             cursor: crosshair;
         }
-
+ 
         #visualizer-canvas.pan-mode {
             cursor: grab;
         }
-
+ 
         #visualizer-canvas.pan-mode:active {
             cursor: grabbing;
         }
-
+ 
         #visualizer-canvas.dragging-node {
             cursor: move;
         }
-
+ 
         .visualizer-tooltip {
             position: absolute;
             background: rgba(36, 36, 36, 0.95);
@@ -482,15 +482,15 @@
             display: none;
             backdrop-filter: blur(10px);
         }
-
+ 
         .visualizer-tooltip.visible {
             display: block;
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Éléments spécifiques */
         /* ---------------------------------------------------- */
-
+ 
         .choice {
             display: flex;
             flex-direction: column;
@@ -504,7 +504,7 @@
             border: 1px solid var(--couleur-beigeVif);
             box-shadow: var(--effet-innerShadow);
         }
-
+ 
         .choice-evaluation,
         .choice-evaluation-display {
             padding: 0.6rem 1rem;
@@ -516,7 +516,7 @@
             min-width: 80px;
             box-shadow: var(--effet-miniDropShadow);
         }
-
+ 
         .choice-evaluation.good, 
         .choice-evaluation-display.good { 
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
@@ -531,7 +531,7 @@
         .choice-evaluation-display.bad { 
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
         }
-
+ 
         .delete-btn {
             color: #e74c3c;
             cursor: pointer;
@@ -543,13 +543,13 @@
             font-weight: bold;
             border-radius: 50%;
         }
-
+ 
         .delete-btn:hover {
             color: #c0392b;
             transform: scale(1.2);
             background: rgba(231, 76, 60, 0.1);
         }
-
+ 
         .delete-scene-btn {
             position: absolute;
             top: 2rem;
@@ -565,17 +565,17 @@
             transition: all 0.3s ease;
             box-shadow: var(--effet-miniDropShadow);
         }
-
+ 
         .delete-scene-btn:hover {
             background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
             transform: scale(1.1);
             box-shadow: var(--effet-grosDropShadow);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Layouts */
         /* ---------------------------------------------------- */
-
+ 
         .main-actions {
             display: flex;
             gap: 1.5rem;
@@ -583,14 +583,14 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
+ 
         .participants-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-
+ 
         .participant {
             background: linear-gradient(135deg, var(--couleur-blancSite) 0%, var(--couleur-beigeVif) 100%);
             padding: 1.8rem;
@@ -599,7 +599,7 @@
             position: relative;
             box-shadow: var(--effet-innerShadow);
         }
-
+ 
         .messages-container {
             border: 2px solid var(--couleur-grisBleuClair);
             border-radius: 12px;
@@ -608,7 +608,7 @@
             margin-bottom: 1.5rem;
             background: var(--couleur-blancSite);
         }
-
+ 
         .message {
             display: grid;
             grid-template-columns: 200px 1fr auto;
@@ -617,23 +617,23 @@
             border-bottom: 1px solid var(--couleur-secondary-light);
             align-items: center;
         }
-
+ 
         .message:last-child {
             border-bottom: none;
         }
-
+ 
         .message:nth-child(even) {
             background: var(--couleur-secondary-light);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* États et animations */
         /* ---------------------------------------------------- */
-
+ 
         .hidden {
             display: none;
         }
-
+ 
         #notification-area {
             position: fixed;
             top: 30px;
@@ -649,43 +649,45 @@
             transition: transform 0.5s ease-in-out;
             border: 2px solid transparent;
         }
-
+ 
         #notification-area.show {
             transform: translateX(0);
         }
-
+ 
         body.visualizer-open #notification-area.show {
             right: 52%;
         }
-
+ 
         #notification-area.success {
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
             border-color: #1e8449;
         }
-
+ 
         #notification-area.error {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             border-color: #a93226;
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Éléments spéciaux */
         /* ---------------------------------------------------- */
-
+ 
         .file-input-wrapper {
             position: relative;
             display: inline-block;
             cursor: pointer;
         }
-
+ 
         .file-input-wrapper input[type="file"] {
             position: absolute;
+            top: 0;
+            left: 0;
             opacity: 0;
             width: 100%;
             height: 100%;
             cursor: pointer;
         }
-
+ 
         .json-output {
             background: var(--couleur-noirVolcan);
             color: var(--couleur-beigeVif);
@@ -700,11 +702,11 @@
             border: 2px solid var(--couleur-grisFonce);
             box-shadow: var(--effet-innerShadow);
         }
-
+ 
         /* ---------------------------------------------------- */
         /* Responsive */
         /* ---------------------------------------------------- */
-
+ 
         @media (max-width: 768px) {
             body { 
                 padding: 1rem; 
@@ -727,51 +729,51 @@
             .participants-container {
                 grid-template-columns: 1fr;
             }
-
+ 
             h1 {
                 font-size: 2.2rem;
             }
-
+ 
             .message {
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
             }
-
+ 
             #notification-area {
                 width: 90%;
                 right: 5%;
             }
-
+ 
             #visualizer-panel {
                 width: 100%;
             }
-
+ 
             body.visualizer-open {
                 padding-right: 2rem;
             }
-
+ 
             body.visualizer-open .container {
                 margin-right: 0;
             }
         }
-
+ 
         @media (max-width: 480px) {
             .container {
                 padding: 1.5rem;
             }
-
+ 
             h1 {
                 font-size: 1.8rem;
             }
-
+ 
             h2 {
                 font-size: 1.4rem;
             }
-
+ 
             .scene {
                 padding: 1.5rem;
             }
-
+ 
             .delete-scene-btn {
                 width: 35px;
                 height: 35px;
@@ -784,7 +786,7 @@
     <div class="container">
         <h1>Éditeur de Scénarios</h1>
         <p class="subtitle">Créez et modifiez vos scénarios de jeu à embranchement</p>
-
+ 
         <div class="main-actions">
             <div class="file-input-wrapper">
                 <button class="menu-button load-button">Charger un fichier JSON</button>
@@ -793,7 +795,7 @@
             <button id="export-btn" class="menu-button action-button">Exporter le JSON</button>
             <button id="new-scenario-btn" class="menu-button">Nouveau Scénario</button>
         </div>
-
+ 
         <form id="editor-form">
             <div class="scenario-details">
                 <h2>Détails du Scénario</h2>
@@ -810,7 +812,7 @@
                     <input type="text" id="start-question" placeholder="Ex: scene1">
                 </div>
             </div>
-
+ 
             <div class="global-participants">
                 <h2>Personnages</h2>
                 <p style="color: var(--couleur-grisFonce); margin-bottom: 1.5rem; font-style: italic;">Définissez ici tous les personnages de votre scénario. Ils pourront être utilisés dans toutes les scènes.</p>
@@ -819,7 +821,7 @@
                 </div>
                 <button type="button" id="add-global-participant-btn" class="menu-button add-choice">Ajouter un Personnage</button>
             </div>
-
+ 
             <h2>Scènes</h2>
             <div id="scenes-container">
                 <!-- Les scènes seront générées ici -->
@@ -827,7 +829,7 @@
             
             <button type="button" id="add-scene-btn" class="menu-button add-choice">Ajouter une Scène</button>
         </form>
-
+ 
         <div id="json-preview" class="hidden">
             <h2>Aperçu JSON</h2>
             <div id="json-output" class="json-output"></div>
@@ -837,13 +839,13 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- Visualizer Toggle Button -->
     <button id="visualizer-toggle-btn">
         <span id="visualizer-icon">📊</span>
         <span id="visualizer-text">Visualiser le Scénario</span>
     </button>
-
+ 
     <!-- Visualizer Panel -->
     <div id="visualizer-panel">
         <div class="visualizer-header">
@@ -881,10 +883,10 @@
             <div id="visualizer-tooltip" class="visualizer-tooltip"></div>
         </div>
     </div>
-
+ 
     <!-- Notification Area -->
     <div id="notification-area" class="hidden"></div>
-
+ 
     <script>
         // ========================================
         // ÉDITEUR DE SCÉNARIOS - CODE PRINCIPAL
@@ -902,15 +904,15 @@
             const jsonOutput = document.getElementById('json-output');
             const copyJsonBtn = document.getElementById('copy-json-btn');
             const downloadJsonBtn = document.getElementById('download-json-btn');
-
+ 
             const titleInput = document.getElementById('scenario-title');
             const descriptionInput = document.getElementById('scenario-description');
             const startQuestionInput = document.getElementById('start-question');
-
+ 
             const notificationArea = document.getElementById('notification-area');
-
+ 
             // --- FONCTIONS UTILITAIRES ---
-
+ 
             function showNotification(message, isError = false) {
                 notificationArea.textContent = message;
                 notificationArea.className = isError ? 'error show' : 'success show';
@@ -918,13 +920,13 @@
                     notificationArea.classList.remove('show');
                 }, 3000);
             }
-
+ 
             function generateId() {
                 return 'scene' + Date.now();
             }
-
+ 
             // --- CRÉATION DES ÉLÉMENTS ---
-
+ 
             function createGlobalParticipantElement(participant = {}) {
                 const div = document.createElement('div');
                 div.className = 'participant';
@@ -951,7 +953,7 @@
                 `;
                 return div;
             }
-
+ 
             function createMessageElement(message = {}) {
                 const div = document.createElement('div');
                 div.className = 'message';
@@ -964,7 +966,7 @@
                 `;
                 return div;
             }
-
+ 
             function createChoiceElement(choice = {}) {
                 const div = document.createElement('div');
                 div.className = 'choice';
@@ -995,12 +997,12 @@
                 
                 return div;
             }
-
+ 
             function createSceneElement(id, sceneData = {}) {
                 const sceneDiv = document.createElement('div');
                 sceneDiv.className = 'scene';
                 sceneDiv.dataset.sceneId = id;
-
+ 
                 sceneDiv.innerHTML = `
                     <button type="button" class="delete-scene-btn">×</button>
                     
@@ -1049,7 +1051,7 @@
                         <input type="text" class="scene-themes" value="${sceneData.metadata?.themes_abordes?.join(', ') || ''}" placeholder="Ex: stéréotypes, consentement">
                     </div>
                 `;
-
+ 
                 // Ajouter les messages existants
                 const messagesContainer = sceneDiv.querySelector('.messages-container');
                 if (sceneData.conversation && sceneData.conversation.messages) {
@@ -1057,7 +1059,7 @@
                         messagesContainer.appendChild(createMessageElement(message));
                     });
                 }
-
+ 
                 // Ajouter les choix existants
                 const choicesContainer = sceneDiv.querySelector('.choices-container');
                 if (sceneData.choices) {
@@ -1070,12 +1072,12 @@
                         choicesContainer.appendChild(createChoiceElement(choiceData));
                     });
                 }
-
+ 
                 return sceneDiv;
             }
-
+ 
             // --- GESTION DES ÉVÉNEMENTS ---
-
+ 
             // Gestion des personnages globaux
             globalParticipantsContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('global-participant-delete')) {
@@ -1085,18 +1087,18 @@
                     }
                 }
             });
-
+ 
             globalParticipantsContainer.addEventListener('input', (e) => {
                 if (e.target.classList.contains('global-participant-id') || e.target.classList.contains('global-participant-name')) {
                     updateAllMessageSenders();
                 }
             });
-
+ 
             addGlobalParticipantBtn.addEventListener('click', () => {
                 globalParticipantsContainer.appendChild(createGlobalParticipantElement());
                 updateAllMessageSenders();
             });
-
+ 
             // Gestion des scènes
             scenesContainer.addEventListener('click', (e) => {
                 const sceneDiv = e.target.closest('.scene');
@@ -1131,7 +1133,7 @@
                     updateVisualizerIfOpen();
                 }
             });
-
+ 
             scenesContainer.addEventListener('input', (e) => {
                 if (e.target.classList.contains('scene-id-input')) {
                     clearTimeout(window.idUpdateTimeout);
@@ -1148,7 +1150,7 @@
                     }, 500);
                 }
             });
-
+ 
             function getAllGlobalParticipants() {
                 return Array.from(globalParticipantsContainer.querySelectorAll('.participant')).map(p => ({
                     id: p.querySelector('.global-participant-id').value.trim(),
@@ -1157,7 +1159,7 @@
                     isCurrentUser: p.querySelector('.global-participant-current').checked
                 })).filter(p => p.id);
             }
-
+ 
             function updateAllMessageSenders() {
                 const globalParticipants = getAllGlobalParticipants();
                 
@@ -1177,12 +1179,12 @@
                     }
                 });
             }
-
+ 
             function updateNextSceneDropdowns() {
                 const sceneIds = Array.from(scenesContainer.querySelectorAll('.scene-id-input'))
                     .map(input => input.value.trim())
                     .filter(id => id);
-
+ 
                 scenesContainer.querySelectorAll('.choice-next').forEach(select => {
                     const currentValue = select.value;
                     select.innerHTML = '<option value="">-- Choisir la suite --</option>';
@@ -1199,13 +1201,13 @@
                     }
                 });
             }
-
+ 
             // --- GESTION DES FICHIERS ---
-
+ 
             fileInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
-
+ 
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     try {
@@ -1220,12 +1222,12 @@
                 };
                 reader.readAsText(file);
             });
-
+ 
             function loadScenarioData(data) {
                 titleInput.value = data.scenario_info?.title || '';
                 descriptionInput.value = data.scenario_info?.description || '';
                 startQuestionInput.value = data.scenario_info?.start_question || '';
-
+ 
                 // Charger les personnages globaux depuis scenario_info.characters
                 globalParticipantsContainer.innerHTML = '';
                 if (data.scenario_info?.characters) {
@@ -1251,7 +1253,7 @@
                         globalParticipantsContainer.appendChild(createGlobalParticipantElement(participantData));
                     });
                 }
-
+ 
                 // Charger les scènes
                 scenesContainer.innerHTML = '';
                 if (data.questions) {
@@ -1259,13 +1261,13 @@
                         scenesContainer.appendChild(createSceneElement(id, sceneData));
                     });
                 }
-
+ 
                 updateNextSceneDropdowns();
                 updateAllMessageSenders();
             }
-
+ 
             // --- EXPORT ---
-
+ 
             window.buildScenarioData = function() {
                 const globalParticipants = getAllGlobalParticipants();
                 const characters = globalParticipants.map(p => p.name || p.id);
@@ -1279,18 +1281,18 @@
                     },
                     questions: {}
                 };
-
+ 
                 scenesContainer.querySelectorAll('.scene').forEach(sceneDiv => {
                     const id = sceneDiv.querySelector('.scene-id-input').value.trim();
                     if (!id) return;
-
+ 
                     // Utiliser les participants globaux pour cette scène
                     const sceneParticipants = globalParticipants.map(p => ({
                         id: p.id,
                         name: p.name,
                         isCurrentUser: p.isCurrentUser
                     }));
-
+ 
                     const messages = Array.from(sceneDiv.querySelectorAll('.message')).map((m, index) => {
                         const senderId = m.querySelector('.message-sender').value;
                         const participant = globalParticipants.find(p => p.id === senderId);
@@ -1302,11 +1304,11 @@
                             type: 'text'
                         };
                     }).filter(m => m.sender && m.content);
-
+ 
                     const choices = Array.from(sceneDiv.querySelectorAll('.choice')).map(c => 
                         c.querySelector('.choice-text').value
                     ).filter(choice => choice);
-
+ 
                     const nextQuestions = {};
                     const choiceEvaluations = [];
                     
@@ -1319,10 +1321,10 @@
                         }
                         choiceEvaluations.push(evaluation);
                     });
-
+ 
                     const themes = sceneDiv.querySelector('.scene-themes').value
                         .split(',').map(s => s.trim()).filter(s => s);
-
+ 
                     scenario.questions[id] = {
                         id: id,
                         type: sceneDiv.querySelector('.scene-type').value,
@@ -1341,10 +1343,10 @@
                         }
                     };
                 });
-
+ 
                 return scenario;
             }
-
+ 
             exportBtn.addEventListener('click', () => {
                 const scenario = buildScenarioData();
                 const jsonStr = JSON.stringify(scenario, null, 2);
@@ -1352,13 +1354,13 @@
                 jsonPreview.classList.remove('hidden');
                 jsonPreview.scrollIntoView({ behavior: 'smooth' });
             });
-
+ 
             copyJsonBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(jsonOutput.textContent).then(() => {
                     showNotification('JSON copié dans le presse-papier !');
                 });
             });
-
+ 
             downloadJsonBtn.addEventListener('click', () => {
                 const scenario = buildScenarioData();
                 const jsonStr = JSON.stringify(scenario, null, 2);
@@ -1373,7 +1375,7 @@
                 URL.revokeObjectURL(url);
                 showNotification('Fichier téléchargé !');
             });
-
+ 
             addSceneBtn.addEventListener('click', () => {
                 const newId = generateId();
                 scenesContainer.appendChild(createSceneElement(newId));
@@ -1381,7 +1383,7 @@
                 updateAllMessageSenders();
                 updateVisualizerIfOpen();
             });
-
+ 
             newScenarioBtn.addEventListener('click', () => {
                 if (confirm('Créer un nouveau scénario ? (Les données actuelles seront perdues)')) {
                     titleInput.value = '';
@@ -1394,7 +1396,7 @@
                     updateVisualizerIfOpen();
                 }
             });
-
+ 
             // Initialisation avec un exemple
             if (globalParticipantsContainer.children.length === 0) {
                 globalParticipantsContainer.appendChild(createGlobalParticipantElement({
@@ -1418,11 +1420,11 @@
                 updateNextSceneDropdowns();
                 updateAllMessageSenders();
             }
-
+ 
             // ========================================
             // VISUALISATEUR - CODE D'INTÉGRATION
             // ========================================
-
+ 
             let visualizerOpen = false;
             let visualizerInitialized = false;
             let vizCanvas = null;
@@ -1441,11 +1443,11 @@
             let vizIsPanning = false;
             let vizDragStartX = 0;
             let vizDragStartY = 0;
-
+ 
             const visualizerToggleBtn = document.getElementById('visualizer-toggle-btn');
             const visualizerPanel = document.getElementById('visualizer-panel');
             const visualizerCloseBtn = visualizerPanel.querySelector('.visualizer-close');
-
+ 
             // Toggle visualizer
             visualizerToggleBtn.addEventListener('click', () => {
                 if (!visualizerOpen) {
@@ -1454,24 +1456,24 @@
                     closeVisualizer();
                 }
             });
-
+ 
             visualizerCloseBtn.addEventListener('click', closeVisualizer);
-
+ 
             function openVisualizer() {
                 visualizerOpen = true;
                 visualizerPanel.classList.add('open');
                 document.body.classList.add('visualizer-open');
                 visualizerToggleBtn.classList.add('active');
                 document.getElementById('visualizer-text').textContent = 'Fermer le Visualisateur';
-
+ 
                 if (!visualizerInitialized) {
                     initVisualizer();
                     visualizerInitialized = true;
                 }
-
+ 
                 updateVisualizer();
             }
-
+ 
             function closeVisualizer() {
                 visualizerOpen = false;
                 visualizerPanel.classList.remove('open');
@@ -1479,13 +1481,13 @@
                 visualizerToggleBtn.classList.remove('active');
                 document.getElementById('visualizer-text').textContent = 'Visualiser le Scénario';
             }
-
+ 
             function initVisualizer() {
                 vizCanvas = document.getElementById('visualizer-canvas');
                 vizCtx = vizCanvas.getContext('2d');
                 vizMinimapCanvas = document.getElementById('visualizer-minimap-canvas');
                 vizMinimapCtx = vizMinimapCanvas.getContext('2d');
-
+ 
                 resizeVisualizerCanvas();
                 
                 vizCanvas.addEventListener('mousedown', handleVizMouseDown);
@@ -1496,7 +1498,7 @@
                 
                 window.addEventListener('resize', resizeVisualizerCanvas);
             }
-
+ 
             function resizeVisualizerCanvas() {
                 if (!vizCanvas) return;
                 const rect = vizCanvas.parentElement.getBoundingClientRect();
@@ -1506,18 +1508,18 @@
                 vizMinimapCanvas.height = 150;
                 if (visualizerOpen) drawVisualizer();
             }
-
+ 
             function updateVisualizerIfOpen() {
                 if (visualizerOpen) {
                     updateVisualizer();
                 }
             }
-
+ 
             function updateVisualizer() {
                 const scenario = buildScenarioData();
                 vizNodes = {};
                 vizConnections = [];
-
+ 
                 // Create nodes
                 let index = 0;
                 for (let qId in scenario.questions) {
@@ -1532,7 +1534,7 @@
                     };
                     index++;
                 }
-
+ 
                 // Build connections
                 for (let qId in scenario.questions) {
                     const q = scenario.questions[qId];
@@ -1550,11 +1552,11 @@
                         }
                     }
                 }
-
+ 
                 autoVisualizerLayout();
                 fitVisualizerToScreen();
             }
-
+ 
             window.setVisualizerMode = function(mode) {
                 vizMode = mode;
                 document.querySelectorAll('.visualizer-tool-btn').forEach(btn => btn.classList.remove('active'));
@@ -1566,7 +1568,7 @@
                     vizCanvas.classList.remove('pan-mode');
                 }
             }
-
+ 
             window.fitVisualizerToScreen = function() {
                 if (Object.keys(vizNodes).length === 0) return;
                 
@@ -1596,14 +1598,14 @@
                 
                 drawVisualizer();
             }
-
+ 
             window.resetVisualizerView = function() {
                 vizZoom = 1;
                 vizOffsetX = 0;
                 vizOffsetY = 0;
                 drawVisualizer();
             }
-
+ 
             window.autoVisualizerLayout = function() {
                 const levels = {};
                 const startId = buildScenarioData().scenario_info.start_question;
@@ -1651,7 +1653,7 @@
                 
                 drawVisualizer();
             }
-
+ 
             function drawVisualizer() {
                 if (!vizCtx) return;
                 
@@ -1677,7 +1679,7 @@
                 // Draw minimap
                 drawVisualizerMinimap();
             }
-
+ 
             function drawVisualizerGrid() {
                 vizCtx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
                 vizCtx.lineWidth = 1;
@@ -1702,7 +1704,7 @@
                     vizCtx.stroke();
                 }
             }
-
+ 
             function drawVisualizerConnections() {
                 vizConnections.forEach(conn => {
                     if (!vizNodes[conn.from] || !vizNodes[conn.to]) return;
@@ -1762,7 +1764,7 @@
                     }
                 });
             }
-
+ 
             function drawVisualizerNode(node) {
                 const colors = getVisualizerNodeColor(node.id);
                 const isHovered = vizHoveredNode === node.id;
@@ -1822,7 +1824,7 @@
                     vizCtx.fillText(`${node.data.choices.length}→`, node.x + node.width/2 - 16, node.y + node.height/2 - 8);
                 }
             }
-
+ 
             function getVisualizerNodeColor(nodeId) {
                 const scenario = buildScenarioData();
                 const isStart = nodeId === scenario.scenario_info.start_question;
@@ -1836,7 +1838,7 @@
                     return { bg: '#4a5568', border: '#5a6578' };
                 }
             }
-
+ 
             function roundVizRect(ctx, x, y, width, height, radii) {
                 if (typeof radii === 'number') {
                     radii = [radii, radii, radii, radii];
@@ -1853,7 +1855,7 @@
                 ctx.quadraticCurveTo(x, y, x + radii[0], y);
                 ctx.closePath();
             }
-
+ 
             function wrapVizText(text, maxWidth) {
                 const words = text.split(' ');
                 const lines = [];
@@ -1876,7 +1878,7 @@
                 if (currentLine) lines.push(currentLine);
                 return lines;
             }
-
+ 
             function drawVisualizerMinimap() {
                 vizMinimapCtx.clearRect(0, 0, 200, 150);
                 vizMinimapCtx.fillStyle = '#1a1a1a';
@@ -1922,7 +1924,7 @@
                 const vpH = (vizCanvas.height / vizZoom) * scale;
                 vizMinimapCtx.strokeRect(vpX, vpY, vpW, vpH);
             }
-
+ 
             // Event handlers
             function handleVizMouseDown(e) {
                 const rect = vizCanvas.getBoundingClientRect();
@@ -1951,7 +1953,7 @@
                     vizDragStartY = e.clientY;
                 }
             }
-
+ 
             function handleVizMouseMove(e) {
                 const rect = vizCanvas.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
@@ -1994,12 +1996,12 @@
                     }
                 }
             }
-
+ 
             function handleVizMouseUp(e) {
                 vizDraggedNode = null;
                 vizIsPanning = false;
             }
-
+ 
             function handleVizWheel(e) {
                 e.preventDefault();
                 
@@ -2019,7 +2021,7 @@
                 
                 drawVisualizer();
             }
-
+ 
             function handleVizClick(e) {
                 const rect = vizCanvas.getBoundingClientRect();
                 const x = (e.clientX - rect.left - vizOffsetX) / vizZoom;
@@ -2036,7 +2038,7 @@
                     }
                 }
             }
-
+ 
             function highlightSceneInEditor(sceneId) {
                 // Remove previous highlights
                 document.querySelectorAll('.scene.highlighted').forEach(scene => {
@@ -2055,7 +2057,7 @@
                     }, 2000);
                 }
             }
-
+ 
             function showVisualizerTooltip(node, x, y) {
                 const tooltip = document.getElementById('visualizer-tooltip');
                 let html = `
@@ -2073,7 +2075,7 @@
                 tooltip.style.left = (x + 15) + 'px';
                 tooltip.style.top = (y - 10) + 'px';
             }
-
+ 
             function hideVisualizerTooltip() {
                 document.getElementById('visualizer-tooltip').classList.remove('visible');
             }
