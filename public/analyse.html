@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenario Analytics - Analyseur CSV Moderne</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="icon" type="image/png" href="/img/css/favicon_test.png" />
+    
+
+    <style>
+        /* Import des polices */
+        @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        @import url("styles/satoshi.css");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Couleurs de base du design system */
+            --couleur-noirVolcan: #322a22;
+            --couleur-beigeVif: #f1e1b8;
+            --couleur-grisFonce: #415a51;
+            --couleur-jaunePeps: #e9bc40;
+            --couleur-grisBleuClair: #c9e2e5;
+            --couleur-blancSite: #fafff6;
+            --couleur-beigeNorm: #ede0cf;
+
+            /* Couleur d'accentuation de l'UI */
+            --ui-accent-color: var(--couleur-jaunePeps);
+            
+            /* Variations avec transparence */
+            --couleur-primary-light: rgba(233, 188, 64, 0.2);
+            --couleur-primary-hover: rgba(233, 188, 64, 0.8);
+            --couleur-secondary-light: rgba(201, 226, 229, 0.3);
+            --couleur-secondary-hover: rgba(201, 226, 229, 0.8);
+
+            /* Effets */
+            --effet-backgroundBlur: blur(4px);
+            --effet-innerShadow: inset -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+            --effet-grosDropShadow: -9px 4px 11px 0px rgba(0, 0, 0, 0.25);
+            --effet-miniDropShadow: -1px 1px 1.4px 0px rgba(0, 0, 0, 0.25);
+
+            /* Variables pour la texture de papier */
+            --texture-papier-opacity: 0.5;
+            --texture-papier-blend-mode: multiply;
+        }
+
+        body {
+            font-family: "Satoshi-Medium", sans-serif;
+            background: var(--couleur-blancSite);
+            background-image: 
+                linear-gradient(var(--couleur-secondary-light) 1px, transparent 1px),
+                linear-gradient(90deg, var(--couleur-secondary-light) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: var(--couleur-noirVolcan);
+            position: relative;
+            overflow-x: hidden;
+        }
+        h3, h2, h1 {
+            font-family: "mocraRegular", sans-serif;
+            color: var(--couleur-noirVolcan);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header avec style du design system */
+        .header {
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--effet-grosDropShadow);
+            border: 1px solid var(--couleur-beigeNorm);
+            animation: slideDown 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--couleur-primary-light) 0%, var(--couleur-secondary-light) 100%);
+            opacity: var(--texture-papier-opacity);
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header-content {
+            font-family: "mocraRegular", sans-serif; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--couleur-noirVolcan);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--couleur-jaunePeps) 0%, var(--couleur-grisFonce) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--couleur-blancSite);
+            font-size: 1.5rem;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        /* Boutons avec style du design system */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .btn-primary {
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-grisFonce);
+            font-weight: 600;
+        }
+
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--couleur-primary-light) 0%, transparent 100%);
+            opacity: var(--texture-papier-opacity);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .btn-primary > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary:hover {
+            background: var(--couleur-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--effet-grosDropShadow);
+        }
+
+        .btn-secondary {
+            background: var(--couleur-grisBleuClair);
+            color: var(--couleur-grisFonce);
+            border: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .btn-secondary:hover {
+            background: var(--couleur-secondary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: var(--couleur-grisFonce);
+            color: var(--couleur-blancSite);
+        }
+
+        .btn-danger:hover {
+            background: #2f3d35;
+            transform: translateY(-1px);
+        }
+
+        /* Zone de dépôt */
+        .drop-zone {
+            
+            background: var(--couleur-grisBleuClair);
+            backdrop-filter: var(--effet-backgroundBlur);
+            /* border: 2px dashed var(--couleur-jaunePeps); */
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--couleur-primary-light) 0%, var(--couleur-secondary-light) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .drop-zone:hover::before,
+        .drop-zone.dragover::before {
+            opacity: 0.5;
+        }
+
+        .drop-zone.dragover {
+            border-color: var(--couleur-grisFonce);
+            transform: scale(1.02);
+        }
+
+        .drop-zone-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .drop-zone h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--couleur-noirVolcan);
+        }
+
+        .drop-zone p {
+            color: var(--couleur-grisFonce);
+            margin-bottom: 1rem;
+        }
+
+        /* Cartes de statistiques */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--effet-miniDropShadow);
+            border: 1px solid var(--couleur-beigeNorm);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease;
+            animation-fill-mode: both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--couleur-primary-light);
+            opacity: 0.3;
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        .stat-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-card:nth-child(5) { animation-delay: 0.5s; }
+        .stat-card:nth-child(6) { animation-delay: 0.6s; }
+        .stat-card:nth-child(7) { animation-delay: 0.7s; }
+        .stat-card:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--effet-grosDropShadow);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        .stat-icon.primary { 
+            background: var(--couleur-jaunePeps); 
+            color: var(--couleur-grisFonce); 
+        }
+        .stat-icon.success { 
+            background: var(--couleur-grisBleuClair); 
+            color: var(--couleur-grisFonce); 
+        }
+        .stat-icon.warning { 
+            background: var(--couleur-beigeVif); 
+            color: var(--couleur-noirVolcan); 
+        }
+        .stat-icon.info { 
+            background: var(--couleur-grisFonce); 
+            color: var(--couleur-blancSite); 
+        }
+        .stat-icon.danger { 
+            background: var(--couleur-noirVolcan); 
+            color: var(--couleur-beigeVif); 
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--couleur-noirVolcan);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--couleur-grisFonce);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .stat-change.positive {
+            background: var(--couleur-primary-light);
+            color: var(--couleur-grisFonce);
+        }
+
+        /* Section des graphiques */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--effet-miniDropShadow);
+            border: 1px solid var(--couleur-beigeNorm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--couleur-secondary-light);
+            opacity: 0.2;
+            mix-blend-mode: var(--texture-papier-blend-mode);
+            pointer-events: none;
+        }
+
+        .chart-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--couleur-noirVolcan);
+        }
+
+        /* Visualisation des thèmes */
+        .themes-visualization {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .word-cloud {
+            padding: 2rem;
+            min-height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at center, var(--couleur-primary-light) 0%, transparent 70%);
+        }
+
+        .word-cloud-item {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: var(--couleur-grisBleuClair);
+            color: var(--couleur-grisFonce);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+            border: 1px solid var(--couleur-beigeNorm);
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .word-cloud-item:nth-child(odd) {
+            animation-delay: 0.5s;
+        }
+
+        .word-cloud-item:nth-child(even) {
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .word-cloud-item:hover {
+            transform: scale(1.2) rotate(-2deg);
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-noirVolcan);
+            box-shadow: var(--effet-grosDropShadow);
+            z-index: 10;
+        }
+
+        .word-cloud-item.size-1 { font-size: 0.875rem; opacity: 0.6; }
+        .word-cloud-item.size-2 { font-size: 1rem; opacity: 0.7; }
+        .word-cloud-item.size-3 { font-size: 1.25rem; opacity: 0.8; }
+        .word-cloud-item.size-4 { font-size: 1.5rem; opacity: 0.9; }
+        .word-cloud-item.size-5 { 
+            font-size: 1.875rem; 
+            opacity: 1; 
+            font-weight: 700;
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-noirVolcan);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .concepts-list {
+            padding: 1rem;
+        }
+
+        .concept-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: var(--couleur-primary-light);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-item:hover {
+            transform: translateX(10px);
+            background: var(--couleur-secondary-light);
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .concept-rank {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--couleur-jaunePeps);
+            color: var(--couleur-grisFonce);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        .concept-name {
+            flex: 1;
+            margin: 0 1rem;
+            font-weight: 600;
+            color: var(--couleur-noirVolcan);
+        }
+
+        .concept-count {
+            background: var(--couleur-grisFonce);
+            color: var(--couleur-blancSite);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        .concept-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--couleur-secondary-light) 0%, transparent 100%);
+            border-radius: 12px;
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        /* Filtres avancés */
+        .filters-section {
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--effet-miniDropShadow);
+            border: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--couleur-grisFonce);
+        }
+
+        .filter-input,
+        .filter-select {
+            padding: 0.625rem;
+            border: 1px solid var(--couleur-beigeNorm);
+            border-radius: 8px;
+            background: var(--couleur-blancSite);
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            color: var(--couleur-noirVolcan);
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--couleur-jaunePeps);
+            box-shadow: 0 0 0 3px var(--couleur-primary-light);
+        }
+
+        /* Styles pour les évaluations */
+        .evaluation-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            gap: 0.25rem;
+            min-width: 40px;
+            justify-content: center;
+        }
+
+        .evaluation-positive {
+            background: var(--couleur-grisBleuClair);
+            color: var(--couleur-grisFonce);
+            border: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .evaluation-neutral {
+            background: var(--couleur-beigeVif);
+            color: var(--couleur-noirVolcan);
+            border: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .evaluation-negative {
+            background: var(--couleur-grisFonce);
+            color: var(--couleur-blancSite);
+            border: 1px solid var(--couleur-noirVolcan);
+        }
+
+        .evaluation-na {
+            background: var(--couleur-beigeNorm);
+            color: var(--couleur-grisFonce);
+            border: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .scene-evaluation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background: var(--couleur-primary-light);
+            border-radius: 6px;
+            border-left: 3px solid transparent;
+        }
+
+        .scene-evaluation.positive {
+            border-left-color: var(--couleur-grisBleuClair);
+            background: var(--couleur-secondary-light);
+        }
+
+        .scene-evaluation.neutral {
+            border-left-color: var(--couleur-beigeVif);
+            background: rgba(241, 225, 184, 0.2);
+        }
+
+        .scene-evaluation.negative {
+            border-left-color: var(--couleur-grisFonce);
+            background: rgba(65, 90, 81, 0.1);
+        }
+
+        .scene-evaluation.na {
+            border-left-color: var(--couleur-beigeNorm);
+            background: rgba(237, 224, 207, 0.3);
+        }
+
+        .score-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+
+        .score-positive {
+            background: var(--couleur-grisBleuClair);
+            color: var(--couleur-grisFonce);
+            border: 2px solid var(--couleur-beigeNorm);
+        }
+
+        .score-negative {
+            background: var(--couleur-grisFonce);
+            color: var(--couleur-blancSite);
+            border: 2px solid var(--couleur-noirVolcan);
+        }
+
+        .score-neutral {
+            background: var(--couleur-beigeVif);
+            color: var(--couleur-noirVolcan);
+            border: 2px solid var(--couleur-beigeNorm);
+        }
+
+        .score-na {
+            background: var(--couleur-beigeNorm);
+            color: var(--couleur-grisFonce);
+            border: 2px solid var(--couleur-beigeNorm);
+        }
+
+        /* Cartes de données */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .data-card {
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--effet-miniDropShadow);
+            border: 1px solid var(--couleur-beigeNorm);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .data-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--effet-grosDropShadow);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            background: var(--couleur-primary-light);
+            border-bottom: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .card-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--couleur-jaunePeps);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--couleur-grisFonce);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            box-shadow: var(--effet-innerShadow);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--couleur-noirVolcan);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--couleur-grisFonce);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.875rem;
+            color: var(--couleur-grisFonce);
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 0.875rem;
+            color: var(--couleur-noirVolcan);
+            font-weight: 600;
+        }
+
+        /* Tags et badges */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: var(--couleur-secondary-light);
+            color: var(--couleur-grisFonce);
+            border: 1px solid var(--couleur-beigeNorm);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            gap: 0.25rem;
+        }
+
+        .badge-success {
+            background: var(--couleur-grisBleuClair);
+            color: var(--couleur-grisFonce);
+        }
+
+        .badge-warning {
+            background: var(--couleur-beigeVif);
+            color: var(--couleur-noirVolcan);
+        }
+
+        .badge-danger {
+            background: var(--couleur-grisFonce);
+            color: var(--couleur-blancSite);
+        }
+
+        /* Table moderne */
+        .table-container {
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            overflow: auto;
+            box-shadow: var(--effet-miniDropShadow);
+            border: 1px solid var(--couleur-beigeNorm);
+            max-width: 100%;
+            position: relative;
+        }
+
+        .data-table {
+            width: 100%;
+            min-width: 1200px;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: var(--couleur-primary-light);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--couleur-noirVolcan);
+            border-bottom: 2px solid var(--couleur-beigeNorm);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background: inherit;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: var(--couleur-noirVolcan);
+            border-bottom: 1px solid var(--couleur-beigeNorm);
+            max-width: 300px;
+        }
+
+        .data-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--couleur-secondary-light);
+        }
+
+        /* Loading et états vides */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--couleur-beigeNorm);
+            border-top-color: var(--couleur-jaunePeps);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            background: var(--couleur-blancSite);
+            backdrop-filter: var(--effet-backgroundBlur);
+            border-radius: 16px;
+            box-shadow: var(--effet-miniDropShadow);
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--couleur-primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            .themes-visualization {
+                grid-template-columns: 1fr;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-container {
+                border-radius: 8px;
+            }
+
+            .data-table {
+                font-size: 0.75rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--couleur-beigeNorm);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--couleur-jaunePeps);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--couleur-primary-hover);
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <!-- <div class="logo-icon"></div> -->
+                    <span>Outils d'anAlyse dEs scéNarioS</span>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+
+                    <button class="btn btn-primary" id="loadCsvBtn">
+                        <span>📁</span>
+                        Charger CSV
+                    </button>
+                    <button class="btn btn-danger" id="clearAllBtn">
+                        <span>🗑️</span>
+                        Effacer
+                    </button>
+                    <input type="file" id="fileInput" accept=".csv" multiple style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Zone de dépôt -->
+        <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-content">
+                <h3>📤 GlisSez vOs fiCHiers Csv icI</h3>
+                <p>ou cliquez pour sélectionner plusieurs fichiers</p>
+                <button class="btn btn-primary">Sélectionner les fichiers</button>
+            </div>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="stats-grid" id="statsGrid" style="display: none;">
+<div class="stat-card">
+    <div class="stat-icon primary">📊</div>
+    <div class="stat-value" id="totalEntries">0</div>
+    <div class="stat-label">Entrées totales</div>
+    <div class="stat-change positive">
+        <span>↗</span>
+        <span id="participantsChange">+0%</span>
+    </div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon warning">🎭</div>
+    <div class="stat-value" id="totalScenarios">0</div>
+    <div class="stat-label">Scénarios</div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon info">📁</div>
+    <div class="stat-value" id="totalFiles">0</div>
+    <div class="stat-label">Fichiers</div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon danger">📈</div>
+    <div class="stat-value" id="avgAge">0</div>
+    <div class="stat-label">Âge moyen</div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon success">✅</div>
+    <div class="stat-value" id="goodChoicesPercent">0%</div>
+    <div class="stat-label">Bons choix</div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon primary">⭐</div>
+    <div class="stat-value" id="avgScore">0</div>
+    <div class="stat-label">Score moyen</div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon info">🎯</div>
+    <div class="stat-value" id="totalDecisions">0</div>
+    <div class="stat-label">Décisions prises</div>
+</div>
+<div class="stat-card">
+    <div class="stat-icon warning">📋</div>
+    <div class="stat-value" id="evaluatedScenes">0</div>
+    <div class="stat-label">Scènes évaluées</div>
+</div>
+        </div>
+
+        <!-- Section des graphiques -->
+        <div class="charts-section" id="chartsSection" style="display: none;">
+<div class="chart-card">
+    <div class="chart-header">
+        <h3 class="chart-title">DistrIbutiOn pAr geNre</h3>
+    </div>
+    <canvas id="genderChart"></canvas>
+</div>
+<div class="chart-card">
+    <div class="chart-header">
+        <h3 class="chart-title">RéparTition Par âGe</h3>
+    </div>
+    <canvas id="ageChart"></canvas>
+</div>
+<div class="chart-card">
+    <div class="chart-header">
+        <h3 class="chart-title"> ScénaRioS leS plUs utiLiSés</h3>
+    </div>
+    <canvas id="scenarioChart"></canvas>
+</div>
+<div class="chart-card">
+    <div class="chart-header">
+        <h3 class="chart-title"> distriButioN deS ÉvaluAtiOns</h3>
+    </div>
+    <canvas id="evaluationChart"></canvas>
+</div>
+<div class="chart-card">
+    <div class="chart-header">
+        <h3 class="chart-title"> perFormaNce paR sCénaRio</h3>
+    </div>
+    <canvas id="scenarioPerformanceChart"></canvas>
+</div>
+<div class="chart-card" style="grid-column: 1 / -1;">
+    <div class="chart-header">
+        <h3 class="chart-title"> thèMes & notions lEs plus abOrDés</h3>
+    </div>
+    <canvas id="themesChart" style="max-height: 400px;"></canvas>
+</div>
+        </div>
+
+        <!-- Section des thèmes visuels -->
+        <div class="themes-visualization" id="themesViz" style="display: none;">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title"> nuaGe de noTions InterActIf</h3>
+                    <<button class="btn btn-secondary" id="refreshWordCloudBtn">
+                        <span>🔄</span> Actualiser
+                    </button>
+                </div>
+                <div id="wordCloud" class="word-cloud"></div>
+                <p style="text-align: center; color: var(--gray); font-size: 0.875rem; margin-top: 1rem;">
+                    💡 Cliquez sur un terme pour filtrer les résultats
+                </p>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">🎯 toP 10 des coNcePtS</h3>
+                </div>
+                <div id="topConcepts" class="concepts-list"></div>
+                <p style="text-align: center; color: var(--gray); font-size: 0.875rem; margin-top: 1rem;">
+                     Les concepts les plus fréquents dans vos scénarios
+                </p>
+            </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="filters-section" id="filtersSection" style="display: none;">
+            <div class="filters-header">
+                <h3>🔍 filtRes avAncéS</h3>
+                <button class="btn btn-secondary" id="resetFiltersBtn">Réinitialiser</button>
+                <button class="btn btn-secondary" id="toggleViewBtn">
+                        <span id="viewIcon"></span>
+                        <span id="viewText">Vue Tableau</span>
+                </button>
+            </div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Recherche</label>
+                    <input type="text" class="filter-input" id="searchInput" placeholder="Rechercher...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Fichier</label>
+                    <select class="filter-select" id="fileFilter">
+                        <option value="">Tous les fichiers</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Scénario</label>
+                    <select class="filter-select" id="scenarioFilter">
+                        <option value="">Tous les scénarios</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Genre</label>
+                    <select class="filter-select" id="genderFilter">
+                        <option value="">Tous les genres</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">École</label>
+                    <select class="filter-select" id="schoolFilter">
+                        <option value="">Toutes les écoles</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Tranche d'âge</label>
+                    <select class="filter-select" id="ageRangeFilter">
+                        <option value="">Tous les âges</option>
+                        <option value="9">9 ans</option>
+                        <option value="10">10 ans</option>
+                        <option value="11">11 ans</option>
+                        <option value="12">12 ans</option>
+                        <option value="13">13 ans</option>
+                        <option value="14">14 ans</option>
+                        <option value="15">15 ans</option>
+                        <option value="16">16 ans</option>
+                        <option value="17">17 ans</option>
+                        <option value="18">18 ans</option>
+                        <option value="19">19 ans</option>
+                        <option value="20">20 ans</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille de données -->
+        <div id="dataContainer"></div>
+    </div>
+
+    <script>
+        let allData = [];
+        let filteredData = [];
+        let loadedFiles = new Map();
+        let currentView = 'cards';
+        let charts = {};
+
+// Système d'évaluation des choix
+const evaluationData = {
+    "Stéréotypes, discriminations et consentement": {
+        "scene1": { "A": 1, "B": -1, "C": -1 },
+        "scene2": { "A": 1, "B": -1, "C": 0 },
+        "scene3": { "A": -1, "B": -1, "C": 1 },
+        "scene5": { "A": 1, "B": -1, "C": -1 },
+        "scene6": { "A": 1, "B": -1, "C": 0 },
+        "scene8": { "A": -1, "B": -1, "C": 1 }
+    },
+    "Harcèlement - Le Choix de Wassim": {
+        "scene_decouverte_wassim": { "A": 1, "B": -1, "C": 0 }
+    },
+    "Parcours de Vie - Anthologie d'éducation à la santé et à la citoyenneté": {
+        "scene1": { "A": 1, "B": -1, "C": -1 },
+        "scene4_2A": { "A": 1, "B": 0 },
+        "scene4_3B": { "A": 1, "B": -1 },
+        "scene5_1": { "A": 1, "B": 0, "C": -1 },
+        "scene5_3": { "A": 1, "B": -1, "C": -1 },
+        "scene5_5": { "A": 1, "B": -1, "C": -1 },
+        "scene6_1": { "A": 1, "B": 0, "C": -1 },
+        "scene7_1": { "A": 1, "B": -1, "C": -1 },
+        "scene7_2B": { "A": 1, "B": -1 },
+        "scene7_4": { "A": 1, "B": -1 }
+    },
+    "Sensibilisation LGBTQIA+ - Gaëtan et Nicolas": {
+        "scene1": { "A": 1, "B": -1, "C": -1 },
+        "scene2": { "A": -1, "B": 1, "C": -1 },
+        "scene4": { "A": -1, "B": -1, "C": 1 },
+        "scene5": { "A": -1, "B": -1, "C": 1 },
+        "scene6": { "A": 1, "B": -1, "C": -1 }
+    },
+    "La Prostitution - Parcours de Salkira": {
+        "scene1_spirale": { "A": -1, "B": 1, "C": 0 },
+        "scene2_changement": { "A": 1, "B": 1 },
+        "scene3_parole": { "A": 1, "B": -1 },
+        "scene4_fuite": { "A": 1 }
+    }
+};
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', async () => {
+            setupEventListeners();
+            
+            // Essayer de charger le fichier par défaut
+            try {
+                const csvContent = await window.fs.readFile('results_St_r_otypes__discrim_egrtrttrrd_20250912_a9320aed48d722ce.csv', { encoding: 'utf8' });
+                processCSV('results_St_r_otypes__discrim_egrtrttrrd_20250912_a9320aed48d722ce.csv', csvContent);
+            } catch (error) {
+                console.log('Fichier par défaut non trouvé');
+            }
+        });
+
+        // Configuration des événements
+        function setupEventListeners() {
+            // Drag and drop
+            const dropZone = document.getElementById('dropZone');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            });
+
+            dropZone.addEventListener('drop', handleDrop, false);
+            dropZone.addEventListener('click', () => document.getElementById('fileInput').click());
+
+            // File input
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+            // Filtres
+            ['searchInput', 'fileFilter', 'scenarioFilter', 'genderFilter', 'schoolFilter', 'ageRangeFilter'].forEach(id => {
+                document.getElementById(id).addEventListener('input', applyFilters);
+                document.getElementById(id).addEventListener('change', applyFilters);
+            });
+
+            // Boutons d'en-tête
+document.getElementById('toggleViewBtn').addEventListener('click', toggleView);
+document.getElementById('loadCsvBtn').addEventListener('click', () => document.getElementById('fileInput').click());
+document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+document.getElementById('refreshWordCloudBtn').addEventListener('click', refreshWordCloud);
+document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+document.addEventListener('click', function(e) {
+    if (e.target.dataset.theme) {
+        filterByTheme(e.target.dataset.theme);
+    }
+});
+
+        }
+
+        // Gestion des fichiers
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            processFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            processFiles(e.target.files);
+        }
+
+        function processFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => processCSV(file.name, e.target.result);
+                    reader.readAsText(file);
+                }
+            });
+        }
+
+function processCSV(fileName, content) {
+    Papa.parse(content, {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+            const cleanedData = results.data.filter(row => 
+                Object.values(row).some(value => value !== null && value !== '')
+            ).map(row => ({
+                ...row,
+                _sourceFile: fileName
+            }));
+
+            // Ajouter les évaluations des choix
+            const evaluatedData = cleanedData.map(row => evaluateChoices(row));
+
+            loadedFiles.set(fileName, {
+                name: fileName,
+                data: evaluatedData,
+                timestamp: new Date()
+            });
+
+            combineData();
+            updateUI();
+        }
+    });
+}
+
+// Fonction d'évaluation des choix
+function evaluateChoices(row) {
+    const scenario = row['Nom du scénario'];
+    const evaluatedRow = { ...row };
+    let totalScore = 0;
+    let evaluatedScenes = 0;
+
+    console.log('Evaluating scenario:', scenario); // Ajoutez ce log
+
+    // Parcourir toutes les colonnes pour trouver les scènes
+    Object.keys(row).forEach(key => {
+        // Ignorer les colonnes qui ne sont pas des scènes
+        if (key.includes('theme_aborde') || 
+            ['Nom de la partie', 'Nom du scénario', 'Mode', 'Prénom', 'Âge', 'Genre', 'École', '_sourceFile'].includes(key) ||
+            key.startsWith('fin') || 
+            key.includes('conclusion') || 
+            key.includes('ressources') ||
+            key.includes('introduction')) {
+            return;
+        }
+
+        const choice = row[key];
+        
+        // Vérifier si c'est un choix valide (A, B, ou C)
+        if (typeof choice === 'string' && ['A', 'B', 'C'].includes(choice.toUpperCase())) {
+            const sceneName = key;
+            let evaluation = 'N/A';
+            
+            // Chercher l'évaluation dans le JSON
+            if (evaluationData[scenario] && evaluationData[scenario][sceneName]) {
+                const sceneEvaluations = evaluationData[scenario][sceneName];
+                if (sceneEvaluations[choice.toUpperCase()] !== undefined) {
+                    evaluation = sceneEvaluations[choice.toUpperCase()];
+                    totalScore += evaluation;
+                    evaluatedScenes++;
+                    console.log('Evaluation added:', sceneName, choice, evaluation); // Ajoutez ce log
+
+                }
+            }
+            
+            // Ajouter la colonne d'évaluation
+            evaluatedRow[`evaluation_${sceneName}`] = evaluation;
+        }
+    });
+
+    // Ajouter le score total
+    evaluatedRow['score_total'] = evaluatedScenes > 0 ? totalScore : 'N/A';
+    evaluatedRow['scenes_evaluees'] = evaluatedScenes;
+
+
+    console.log('Final row score:', evaluatedRow['score_total'], evaluatedRow['scenes_evaluees']); // Ajoutez ce log
+
+
+    return evaluatedRow;
+}
+
+
+// Fonctions utilitaires pour l'affichage des évaluations
+function getEvaluationBadge(evaluation, choice = '') {
+    if (evaluation === 'N/A') {
+        return `<span class="evaluation-badge evaluation-na">N/A</span>`;
+    }
+    
+    const choiceText = choice ? ` (${choice})` : '';
+    
+    switch(evaluation) {
+        case 1:
+            return `<span class="evaluation-badge evaluation-positive">+1${choiceText}</span>`;
+        case 0:
+            return `<span class="evaluation-badge evaluation-neutral">0${choiceText}</span>`;
+        case -1:
+            return `<span class="evaluation-badge evaluation-negative">-1${choiceText}</span>`;
+        default:
+            return `<span class="evaluation-badge evaluation-na">N/A</span>`;
+    }
+}
+
+function getScoreClass(score) {
+    if (score === 'N/A') return 'score-na';
+    if (score > 0) return 'score-positive';
+    if (score < 0) return 'score-negative';
+    return 'score-neutral';
+}
+
+function getSceneEvaluationClass(evaluation) {
+    if (evaluation === 'N/A') return 'na';
+    if (evaluation === 1) return 'positive';
+    if (evaluation === 0) return 'neutral';
+    if (evaluation === -1) return 'negative';
+    return 'na';
+}
+
+
+
+
+        function combineData() {
+            allData = [];
+            loadedFiles.forEach(file => {
+                allData = allData.concat(file.data);
+            });
+            filteredData = [...allData];
+        }
+
+        function updateUI() {
+            if (allData.length === 0) {
+                document.getElementById('dropZone').style.display = 'block';
+                document.getElementById('statsGrid').style.display = 'none';
+                document.getElementById('chartsSection').style.display = 'none';
+                document.getElementById('themesViz').style.display = 'none';
+                document.getElementById('filtersSection').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('dropZone').style.display = 'none';
+            document.getElementById('statsGrid').style.display = 'grid';
+            document.getElementById('chartsSection').style.display = 'grid';
+            document.getElementById('themesViz').style.display = 'grid';
+            document.getElementById('filtersSection').style.display = 'block';
+
+            updateStats();
+            updateFilters();
+            updateCharts();
+            updateThemesVisualization();
+            renderData();
+        }
+
+        function updateStats() {
+    // Calcul des statistiques de base
+    const totalEntries = filteredData.length;
+    const participants = new Set(filteredData.map(row => row['Prénom']).filter(Boolean));
+    const scenarios = new Set(filteredData.map(row => row['Nom du scénario']).filter(Boolean));
+    const ages = filteredData.map(row => parseInt(row['Âge'])).filter(age => !isNaN(age));
+    const avgAge = ages.length > 0 ? Math.round(ages.reduce((a, b) => a + b, 0) / ages.length) : 0;
+
+    // Calcul des statistiques d'évaluation
+    let totalDecisions = 0;
+    let evaluatedDecisions = 0;
+    let positiveChoices = 0;
+    let neutralChoices = 0;
+    let negativeChoices = 0;
+    let totalScore = 0;
+    let playersWithScores = 0;
+
+    filteredData.forEach(row => {
+        // Compter les décisions totales
+        Object.keys(row).forEach(key => {
+            if (!key.includes('theme_aborde') && 
+                !['Nom de la partie', 'Nom du scénario', 'Mode', 'Prénom', 'Âge', 'Genre', 'École', '_sourceFile', 'score_total', 'scenes_evaluees'].includes(key) &&
+                !key.startsWith('evaluation_') &&
+                !key.startsWith('fin') && 
+                !key.includes('conclusion') && 
+                !key.includes('ressources') &&
+                !key.includes('introduction')) {
+                
+                const choice = row[key];
+                if (typeof choice === 'string' && ['A', 'B', 'C'].includes(choice.toUpperCase())) {
+                    totalDecisions++;
+                    
+                    // Vérifier l'évaluation correspondante
+                    const evaluation = row[`evaluation_${key}`];
+                    if (evaluation !== 'N/A' && evaluation !== undefined) {
+                        evaluatedDecisions++;
+                        if (evaluation === 1) positiveChoices++;
+                        else if (evaluation === 0) neutralChoices++;
+                        else if (evaluation === -1) negativeChoices++;
+                    }
+                }
+            }
+        });
+
+        // Compter les scores totaux
+        const playerScore = row['score_total'];
+        if (playerScore !== 'N/A' && playerScore !== undefined && !isNaN(playerScore)) {
+            totalScore += playerScore;
+            playersWithScores++;
+        }
+    });
+
+    // Calculs des pourcentages et moyennes
+    const goodChoicesPercent = evaluatedDecisions > 0 ? Math.round((positiveChoices / evaluatedDecisions) * 100) : 0;
+    const avgScore = playersWithScores > 0 ? (totalScore / playersWithScores).toFixed(1) : 0;
+
+    // Mise à jour des valeurs
+    document.getElementById('totalEntries').textContent = totalEntries.toLocaleString();
+    document.getElementById('totalScenarios').textContent = scenarios.size.toLocaleString();
+    document.getElementById('totalFiles').textContent = loadedFiles.size.toLocaleString();
+    document.getElementById('avgAge').textContent = avgAge;
+    document.getElementById('goodChoicesPercent').textContent = `${goodChoicesPercent}%`;
+    document.getElementById('avgScore').textContent = avgScore;
+    document.getElementById('totalDecisions').textContent = totalDecisions.toLocaleString();
+    document.getElementById('evaluatedScenes').textContent = evaluatedDecisions.toLocaleString();
+
+    // Calcul des changements (simulé pour la démo)
+    const entriesChange = Math.round(Math.random() * 20 + 5);
+    const participantsChange = Math.round(Math.random() * 15 + 3);
+    
+    document.getElementById('participantsChange').textContent = `+${participantsChange}%`;
+}
+
+
+
+
+
+
+        function updateFilters() {
+            // Fichiers
+            const fileSelect = document.getElementById('fileFilter');
+            const currentFile = fileSelect.value;
+            fileSelect.innerHTML = '<option value="">Tous les fichiers</option>';
+            loadedFiles.forEach((file, name) => {
+                fileSelect.innerHTML += `<option value="${name}">${name}</option>`;
+            });
+            fileSelect.value = currentFile;
+
+            // Scénarios
+            const scenarios = [...new Set(allData.map(row => row['Nom du scénario']).filter(Boolean))];
+            updateSelectOptions('scenarioFilter', scenarios);
+
+            // Genres
+            const genders = [...new Set(allData.map(row => row['Genre']).filter(Boolean))];
+            updateSelectOptions('genderFilter', genders);
+
+            // Écoles
+            const schools = [...new Set(allData.map(row => row['École']).filter(Boolean))];
+            updateSelectOptions('schoolFilter', schools);
+        }
+
+        function updateSelectOptions(selectId, options) {
+            const select = document.getElementById(selectId);
+            const currentValue = select.value;
+            const defaultOption = select.querySelector('option').textContent;
+            
+            select.innerHTML = `<option value="">${defaultOption}</option>`;
+            options.sort().forEach(option => {
+                select.innerHTML += `<option value="${option}">${option}</option>`;
+            });
+            
+            if (options.includes(currentValue)) {
+                select.value = currentValue;
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const fileFilter = document.getElementById('fileFilter').value;
+            const scenarioFilter = document.getElementById('scenarioFilter').value;
+            const genderFilter = document.getElementById('genderFilter').value;
+            const schoolFilter = document.getElementById('schoolFilter').value;
+            const ageRangeFilter = document.getElementById('ageRangeFilter').value;
+
+            filteredData = allData.filter(row => {
+                // Recherche textuelle
+                const matchesSearch = !searchTerm || 
+                    Object.values(row).some(value => 
+                        value && value.toString().toLowerCase().includes(searchTerm)
+                    );
+
+                // Filtres spécifiques
+                const matchesFile = !fileFilter || row._sourceFile === fileFilter;
+                const matchesScenario = !scenarioFilter || row['Nom du scénario'] === scenarioFilter;
+                const matchesGender = !genderFilter || row['Genre'] === genderFilter;
+                const matchesSchool = !schoolFilter || row['École'] === schoolFilter;
+
+                // Filtre d'âge
+                let matchesAge = true;
+                if (ageRangeFilter) {
+                    const age = parseInt(row['Âge']);
+                    if (!isNaN(age)) {
+                        matchesAge = age == parseInt(ageRangeFilter);
+                    } else {
+                        matchesAge = false;
+                    }
+                }
+
+
+                return matchesSearch && matchesFile && matchesScenario && 
+                       matchesGender && matchesSchool && matchesAge;
+            });
+
+            updateStats();
+            updateCharts();
+            updateThemesVisualization();
+            renderData();
+        }
+
+        function updateCharts() {
+                // Détruire tous les graphiques existants
+    Object.keys(charts).forEach(key => {
+        if (charts[key] && typeof charts[key].destroy === 'function') {
+            charts[key].destroy();
+            delete charts[key];
+        }
+    });
+            // Graphique des genres
+            const genderCounts = {};
+            filteredData.forEach(row => {
+                const gender = row['Genre'] || 'Non spécifié';
+                genderCounts[gender] = (genderCounts[gender] || 0) + 1;
+            });
+
+            const genderCtx = document.getElementById('genderChart').getContext('2d');
+            if (charts.gender) charts.gender.destroy();
+            
+            charts.gender = new Chart(genderCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(genderCounts),
+                    datasets: [{
+                        data: Object.values(genderCounts),
+                            backgroundColor: [
+                                '#e9bc40',  // var(--couleur-jaunePeps)
+                                '#c9e2e5',  // var(--couleur-grisBleuClair)
+                                '#415a51',  // var(--couleur-grisFonce)
+                                '#f1e1b8'   // var(--couleur-beigeVif)
+                            ],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique des âges (par année de 9 à 20 ans)
+            const ageRanges = {};
+            for (let age = 9; age <= 20; age++) {
+                ageRanges[age.toString()] = 0;
+            }
+
+            filteredData.forEach(row => {
+                const age = parseInt(row['Âge']);
+                if (!isNaN(age) && age >= 9 && age <= 20) {
+                    ageRanges[age.toString()]++;
+                }
+            });
+
+            const ageCtx = document.getElementById('ageChart').getContext('2d');
+            if (charts.age) charts.age.destroy();
+            
+            charts.age = new Chart(ageCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(ageRanges),
+                    datasets: [{
+                        label: 'Nombre de participants',
+                        data: Object.values(ageRanges),
+                        backgroundColor: '#e9bc40',  // Couleur principale
+                        borderColor: '#415a51',      // Couleur de bordure
+                        borderWidth: 1,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+
+            // Graphique des scénarios
+            const scenarioCounts = {};
+            filteredData.forEach(row => {
+                const scenario = row['Nom du scénario'] || 'Non spécifié';
+                scenarioCounts[scenario] = (scenarioCounts[scenario] || 0) + 1;
+            });
+
+            const sortedScenarios = Object.entries(scenarioCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            const scenarioCtx = document.getElementById('scenarioChart').getContext('2d');
+            if (charts.scenario) charts.scenario.destroy();
+
+            charts.scenario = new Chart(scenarioCtx, {
+                type: 'pie',
+                data: {
+                    labels: sortedScenarios.map(s => s[0]),
+                    datasets: [{
+                        data: sortedScenarios.map(s => s[1]),
+                            backgroundColor: [
+                                '#e9bc40',  // Jaune peps
+                                '#c9e2e5',  // Gris bleu clair
+                                '#415a51',  // Gris foncé
+                                '#f1e1b8',  // Beige vif
+                                '#ede0cf'   // Beige norm
+                            ],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 10,
+                                font: { size: 11 },
+                                callback: function(label) {
+                                    return label.length > 20 ? label.substr(0, 20) + '...' : label;
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique des thèmes
+            const themeCounts = {};
+            filteredData.forEach(row => {
+                Object.keys(row).forEach(key => {
+                    if (key.includes('theme_aborde') && row[key]) {
+                        const themes = row[key].split(';');
+                        themes.forEach(theme => {
+                            const cleanTheme = theme.trim();
+                            if (cleanTheme) {
+                                themeCounts[cleanTheme] = (themeCounts[cleanTheme] || 0) + 1;
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Trier et prendre les 15 premiers thèmes
+            const sortedThemes = Object.entries(themeCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 15);
+
+            const themesCtx = document.getElementById('themesChart').getContext('2d');
+            if (charts.themes) charts.themes.destroy();
+
+            charts.themes = new Chart(themesCtx, {
+                type: 'bar',
+                data: {
+                    labels: sortedThemes.map(t => t[0]),
+                    datasets: [{
+                        label: 'Fréquence',
+                        data: sortedThemes.map(t => t[1]),
+                        backgroundColor: sortedThemes.map((_, i) => {
+                            const opacity = 1 - (i * 0.05);
+                            return `rgba(233, 188, 64, ${opacity})`;    // Jaune peps avec opacité
+                        }),
+                        borderColor: '#415a51',                         // Gris foncé
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',  // Ajoutez cette ligne
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Apparitions: ${context.parsed.x}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        },
+                        y: {
+                            ticks: { 
+                                font: { size: 11 },
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 30 ? label.substr(0, 30) + '...' : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            // Graphique de distribution des évaluations
+            const evaluationCounts = { positive: 0, neutral: 0, negative: 0, na: 0 };
+            filteredData.forEach(row => {
+                Object.keys(row).forEach(key => {
+                    if (key.startsWith('evaluation_')) {
+                        const evaluation = row[key];
+                        console.log('Evaluation found:', key, evaluation); // Ajoutez ce log
+                        if (evaluation === 1) evaluationCounts.positive++;
+                        else if (evaluation === 0) evaluationCounts.neutral++;
+                        else if (evaluation === -1) evaluationCounts.negative++;
+                        else evaluationCounts.na++;
+                    }
+                });
+            });
+            console.log('Evaluation counts:', evaluationCounts); // Ajoutez ce log
+
+            const evaluationCtx = document.getElementById('evaluationChart').getContext('2d');
+            if (charts.evaluation) charts.evaluation.destroy();
+
+            charts.evaluation = new Chart(evaluationCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Bons choix (+1)', 'Choix neutres (0)', 'Mauvais choix (-1)', 'Non évalués'],
+                    datasets: [{
+                        data: [evaluationCounts.positive, evaluationCounts.neutral, evaluationCounts.negative, evaluationCounts.na],
+                        backgroundColor: [
+                            '#c9e2e5',  // Positif - gris bleu clair
+                            '#f1e1b8',  // Neutre - beige vif
+                            '#415a51',  // Négatif - gris foncé
+                            '#ede0cf'   // N/A - beige norm
+                        ],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: { size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique de performance par scénario
+            const scenarioPerformance = {};
+            filteredData.forEach(row => {
+                const scenario = row['Nom du scénario'];
+                const score = row['score_total'];
+                const scenesEvaluees = row['scenes_evaluees'] || 0;
+                console.log('Processing row:', scenario, score, scenesEvaluees);
+
+
+                if (scenario && score !== 'N/A' && !isNaN(score)) {
+                    if (!scenarioPerformance[scenario]) {
+                        scenarioPerformance[scenario] = {
+                            totalScore: 0,
+                            totalScenes: 0,
+                            count: 0
+                        };
+                    }
+                    scenarioPerformance[scenario].totalScore += score;
+                    scenarioPerformance[scenario].totalScenes += scenesEvaluees;
+                    scenarioPerformance[scenario].count++;
+                }
+            });
+
+            console.log('Scenario performance:', scenarioPerformance); 
+
+            const scenarioNames = Object.keys(scenarioPerformance);
+            const avgScores = scenarioNames.map(scenario => {
+                const perf = scenarioPerformance[scenario];
+                return (perf.totalScore / perf.count).toFixed(1);
+            });
+
+            const scenarioPerformanceCtx = document.getElementById('scenarioPerformanceChart').getContext('2d');
+            if (charts.scenarioPerformance) charts.scenarioPerformance.destroy();
+
+            charts.scenarioPerformance = new Chart(scenarioPerformanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: scenarioNames.map(name => name.length > 25 ? name.substring(0, 25) + '...' : name),
+                    datasets: [{
+                        label: 'Score moyen',
+                        data: avgScores,
+                        backgroundColor: avgScores.map(score => {
+                            if (score > 0) return '#c9e2e5';  // Positif
+                            if (score < 0) return '#415a51';  // Négatif
+                            return '#f1e1b8';                 // Neutre
+                        }),
+                        borderColor: avgScores.map(score => {
+                            if (score > 0) return '#415a51';  // Bordure foncée
+                            if (score < 0) return '#322a22';  // Noir volcan
+                            return '#e9bc40';                 // Jaune peps
+                        }),
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const scenarioName = scenarioNames[context.dataIndex];
+                                    const perf = scenarioPerformance[scenarioName];
+                                    return [
+                                        `Score moyen: ${context.parsed.y}`,
+                                        `Participants: ${perf.count}`,
+                                        `Total décisions: ${perf.totalScenes}`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Score moyen'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Nouvelle fonction pour visualiser les thèmes
+        function updateThemesVisualization() {
+            // Collecter tous les thèmes
+            const allThemes = {};
+            filteredData.forEach(row => {
+                Object.keys(row).forEach(key => {
+                    if (key.includes('theme_aborde') && row[key]) {
+                        const themes = row[key].split(';');
+                        themes.forEach(theme => {
+                            const cleanTheme = theme.trim();
+                            if (cleanTheme) {
+                                allThemes[cleanTheme] = (allThemes[cleanTheme] || 0) + 1;
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Créer le nuage de mots
+            createWordCloud(allThemes);
+            
+            // Créer le top 10 des concepts
+            createTopConcepts(allThemes);
+        }
+
+        function createWordCloud(themes) {
+            const wordCloudDiv = document.getElementById('wordCloud');
+            const sortedThemes = Object.entries(themes).sort((a, b) => b[1] - a[1]);
+            const maxCount = sortedThemes[0] ? sortedThemes[0][1] : 1;
+            
+            let html = '';
+            sortedThemes.slice(0, 30).forEach(([theme, count]) => {
+                const size = Math.ceil((count / maxCount) * 5);
+                const randomDelay = Math.random() * 2;
+                html += `
+                    <span class="word-cloud-item size-${size}" 
+                          style="animation-delay: ${randomDelay}s"
+                          data-theme="${theme}" style="cursor: pointer"
+                          title="${theme}: ${count} occurrences">
+                        ${theme}
+                        <span style="font-size: 0.7em; opacity: 0.7; margin-left: 4px;">(${count})</span>
+                    </span>
+                `;
+            });
+            
+            wordCloudDiv.innerHTML = html || '<p style="color: var(--gray);">Aucun thème trouvé</p>';
+        }
+
+        function createTopConcepts(themes) {
+            const topConceptsDiv = document.getElementById('topConcepts');
+            const sortedThemes = Object.entries(themes).sort((a, b) => b[1] - a[1]).slice(0, 10);
+            const maxCount = sortedThemes[0] ? sortedThemes[0][1] : 1;
+            
+            let html = '';
+            sortedThemes.forEach(([theme, count], index) => {
+                const percentage = (count / maxCount) * 100;
+                html += `
+                    <div class="concept-item" data-theme="${theme}" style="cursor: pointer" style="position: relative;">
+                        <div class="concept-bar" style="width: ${percentage}%;"></div>
+                        <span class="concept-rank">${index + 1}</span>
+                        <span class="concept-name">${theme}</span>
+                        <span class="concept-count">${count}</span>
+                    </div>
+                `;
+            });
+            
+            topConceptsDiv.innerHTML = html || '<p style="color: var(--gray); text-align: center;">Aucun concept trouvé</p>';
+        }
+
+        function filterByTheme(theme) {
+            // Mettre le thème dans la barre de recherche
+            document.getElementById('searchInput').value = theme;
+            applyFilters();
+            
+            // Faire défiler jusqu'aux résultats
+            document.getElementById('dataContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function refreshWordCloud() {
+            updateThemesVisualization();
+        }
+
+        function renderData() {
+            const container = document.getElementById('dataContainer');
+            
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h3>Aucune donnée trouvée</h3>
+                        <p>Modifiez vos filtres ou chargez de nouveaux fichiers</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (currentView === 'cards') {
+                renderCardsView(container);
+            } else {
+                renderTableView(container);
+            }
+        }
+    
+
+
+function renderCardsView(container) {
+    const html = filteredData.map((row, index) => {
+        const firstName = row['Prénom'] || 'Anonyme';
+        const age = row['Âge'] || '?';
+        const gender = row['Genre'] || 'Non spécifié';
+        const school = row['École'] || 'Non spécifiée';
+        const scenario = row['Nom du scénario'] || 'Scénario inconnu';
+        const avatar = firstName.charAt(0).toUpperCase();
+        const scoreTotal = row['score_total'];
+        const scenesEvaluees = row['scenes_evaluees'] || 0;
+
+        // Extraire les scènes avec leurs évaluations
+        const scenes = Object.keys(row)
+            .filter(key => key.startsWith('scene') && !key.includes('theme') && !key.startsWith('scenes_'))
+            .map(key => ({
+                name: key,
+                choice: row[key],
+                evaluation: row[`evaluation_${key}`],
+                themes: row[`theme_aborde_${key}`]
+            }))
+            .filter(scene => scene.choice && ['A', 'B', 'C'].includes(scene.choice.toString().toUpperCase()));
+
+        // Calculer les statistiques d'évaluations
+        const evaluationStats = scenes.reduce((stats, scene) => {
+            if (scene.evaluation !== 'N/A' && scene.evaluation !== undefined) {
+                if (scene.evaluation === 1) stats.positive++;
+                else if (scene.evaluation === 0) stats.neutral++;
+                else if (scene.evaluation === -1) stats.negative++;
+            } else {
+                stats.na++;
+            }
+            return stats;
+        }, { positive: 0, neutral: 0, negative: 0, na: 0 });
+
+        return `
+            <div class="data-card" style="animation-delay: ${index * 0.05}s">
+                <div class="card-header">
+                    <div class="card-avatar">${avatar}</div>
+                    <div>
+                        <h3 class="card-title">${firstName}</h3>
+                        <div class="card-subtitle">
+                            <span class="badge badge-success">${age} ans</span>
+                            <span class="badge badge-warning">${gender}</span>
+                            <span class="tag">${school}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Scénario</span>
+                        <span class="info-value">${scenario}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Score Total</span>
+                        <div class="score-total ${getScoreClass(scoreTotal)}">
+                            ${scoreTotal !== 'N/A' ? scoreTotal : 'N/A'} 
+                            ${scenesEvaluees > 0 ? `/ ${scenesEvaluees} scènes` : ''}
+                        </div>
+                    </div>
+                    ${evaluationStats.positive + evaluationStats.neutral + evaluationStats.negative + evaluationStats.na > 0 ? `
+                        <div class="info-row">
+                            <span class="info-label">Répartition</span>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                ${evaluationStats.positive > 0 ? `<span class="evaluation-badge evaluation-positive">+${evaluationStats.positive}</span>` : ''}
+                                ${evaluationStats.neutral > 0 ? `<span class="evaluation-badge evaluation-neutral">${evaluationStats.neutral}</span>` : ''}
+                                ${evaluationStats.negative > 0 ? `<span class="evaluation-badge evaluation-negative">-${evaluationStats.negative}</span>` : ''}
+                                ${evaluationStats.na > 0 ? `<span class="evaluation-badge evaluation-na">${evaluationStats.na}</span>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+                    <div class="info-row">
+                        <span class="info-label">Fichier source</span>
+                        <span class="info-value" style="font-size: 0.75rem;">${row._sourceFile}</span>
+                    </div>
+                    ${scenes.length > 0 ? `
+                        <div class="info-row">
+                            <span class="info-label">Décisions (${scenes.length})</span>
+                        </div>
+                        ${scenes.map(scene => `
+                            <div class="scene-evaluation ${getSceneEvaluationClass(scene.evaluation)}">
+                                <div>
+                                    <strong style="color: var(--primary);">${scene.name}</strong>
+                                    <div style="margin-top: 0.25rem;">Choix: <strong>${scene.choice.toUpperCase()}</strong></div>
+                                    ${scene.themes ? `
+                                        <div style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                                            ${scene.themes.split(';').map(theme => 
+                                                `<span class="tag">${theme.trim()}</span>`
+                                            ).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div>
+                                    ${getEvaluationBadge(scene.evaluation)}
+                                </div>
+                            </div>
+                        `).join('')}
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = `<div class="data-grid">${html}</div>`;
+}
+
+
+
+
+function renderTableView(container) {
+    const headers = Object.keys(filteredData[0] || {}).filter(h => h !== '_sourceFile' && h !== 'scenes_evaluees');
+    
+    const html = `
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Fichier</th>
+                        ${headers.map(h => `<th>${h}</th>`).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${filteredData.map(row => `
+                        <tr>
+                            <td><span class="tag">${row._sourceFile}</span></td>
+                            ${headers.map(h => {
+                                const value = row[h] || '';
+                                
+                                // Traitement spécial pour les colonnes d'évaluation
+                                if (h.startsWith('evaluation_')) {
+                                    return `<td>${getEvaluationBadge(value)}</td>`;
+                                }
+                                
+                                // Traitement spécial pour le score total
+                                if (h === 'score_total') {
+                                    return `<td><span class="evaluation-badge ${getScoreClass(value).replace('score-', 'evaluation-')}">${value}</span></td>`;
+                                }
+                                
+                                // Traitement spécial pour les choix (A, B, C)
+                                if (typeof value === 'string' && ['A', 'B', 'C'].includes(value.toUpperCase()) && !h.includes('theme')) {
+                                    const evaluation = row[`evaluation_${h}`];
+                                    return `<td>${getEvaluationBadge(evaluation, value)}</td>`;
+                                }
+                                
+                                // Traitement standard pour les autres colonnes
+                                if (typeof value === 'string' && value.includes(';')) {
+                                    return `<td>${value.split(';').map(v => 
+                                        `<span class="tag">${v.trim()}</span>`
+                                    ).join(' ')}</td>`;
+                                }
+                                return `<td>${value}</td>`;
+                            }).join('')}
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
+
+
+
+
+
+        function toggleView() {
+            currentView = currentView === 'cards' ? 'table' : 'cards';
+            document.getElementById('viewIcon').textContent = currentView === 'cards' ? '📊' : '📇';
+            document.getElementById('viewText').textContent = currentView === 'cards' ? 'Vue Tableau' : 'Vue Cartes';
+            renderData();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('fileFilter').value = '';
+            document.getElementById('scenarioFilter').value = '';
+            document.getElementById('genderFilter').value = '';
+            document.getElementById('schoolFilter').value = '';
+            document.getElementById('ageRangeFilter').value = '';
+            
+            filteredData = [...allData];
+            updateStats();
+            updateCharts();
+            updateThemesVisualization();
+            renderData();
+        }
+
+        function clearAll() {
+            if (!confirm('Êtes-vous sûr de vouloir effacer toutes les données ?')) return;
+            
+            allData = [];
+            filteredData = [];
+            loadedFiles.clear();
+            
+            // Détruire les graphiques
+            Object.values(charts).forEach(chart => {
+                if (chart) chart.destroy();
+            });
+            charts = {};
+            
+            // Réinitialiser les visualisations de thèmes
+            document.getElementById('wordCloud').innerHTML = '';
+            document.getElementById('topConcepts').innerHTML = '';
+            
+            updateUI();
+        }
+    </script>
+</body>
+</html>    
+<!-- <span>↑</span>
+                    <span id="entriesChange">+0%</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon success"></div>
+                <div class="stat-value" id="totalParticipants">0</div>
+                <div class="stat-label">Participants</div>
+                <div class="stat-change positive">
+                 -->

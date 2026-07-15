@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Debug Menu</title>
+</head>
+<body>
+  <h1>Test de Debug du Menu</h1>
+  
+  <div id="test-results"></div>
+  
+  <script>
+    // Script de test pour diagnostiquer les problèmes
+    const results = document.getElementById('test-results');
+    
+    function log(message, type = 'info') {
+      const p = document.createElement('p');
+      p.style.color = type === 'error' ? 'red' : type === 'success' ? 'green' : 'blue';
+      p.textContent = message;
+      results.appendChild(p);
+      console.log(message);
+    }
+    
+    // Test 1: Vérifier sessionStorage
+    log('=== Test SessionStorage ===');
+    try {
+      sessionStorage.setItem('test', 'value');
+      const value = sessionStorage.getItem('test');
+      if (value === 'value') {
+        log('✅ SessionStorage fonctionne', 'success');
+      } else {
+        log('❌ SessionStorage ne fonctionne pas correctement', 'error');
+      }
+    } catch (e) {
+      log('❌ Erreur SessionStorage: ' + e.message, 'error');
+    }
+    
+    // Test 2: Vérifier la structure des fichiers
+    log('=== Test Structure Fichiers ===');
+    
+    // Vérifier que index.html existe (page du jeu)
+    fetch('/index.html')
+      .then(response => {
+        if (response.ok) {
+          log('✅ /index.html trouvé', 'success');
+        } else {
+          log('❌ /index.html non trouvé (status: ' + response.status + ')', 'error');
+        }
+      })
+      .catch(err => {
+        log('❌ Erreur accès /index.html: ' + err.message, 'error');
+      });
+    
+    // Vérifier que le dossier scenarios existe
+    fetch('/scenario/scenario_lgbtqia_V2.json')
+      .then(response => {
+        if (response.ok) {
+          log('✅ Dossier /scenario/ accessible', 'success');
+          return response.json();
+        } else {
+          log('⚠️ /scenarios/le scenario.json non trouvé, essai /scenario/', 'error');
+          return fetch('/scenario/scenario_lgbtqia_V2.json');
+        }
+      })
+      .then(response => {
+        if (response.ok || response.scenario_info) {
+          log('✅ Au moins un scénario accessible', 'success');
+        }
+      })
+      .catch(err => {
+        log('❌ Aucun scénario accessible: ' + err.message, 'error');
+      });
+    
+    // Test 3: Simuler le lancement
+    log('=== Test Simulation Lancement ===');
+    
+    const testConfig = {
+      mode: 'solo',
+      level: 'Test',
+      scenarioFile: 'test.json',
+      levelColors: ['#FF6B6B', '#FFD166'],
+      levelDescription: 'Test description'
+    };
+    
+    sessionStorage.setItem('gameConfig', JSON.stringify(testConfig));
+    
+    const stored = sessionStorage.getItem('gameConfig');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      log('✅ Configuration stockée: ' + JSON.stringify(parsed, null, 2), 'success');
+      
+      // Construire l'URL de redirection
+      const params = new URLSearchParams({
+        mode: parsed.mode,
+        scenario: parsed.scenarioFile,
+        level: parsed.level
+      });
+      
+      const redirectUrl = `/index.html?${params.toString()}`;
+      log('URL de redirection générée: ' + redirectUrl, 'info');
+      
+      // Bouton pour tester la redirection
+      const btn = document.createElement('button');
+      btn.textContent = 'Tester la redirection';
+      btn.style.padding = '10px 20px';
+      btn.style.fontSize = '16px';
+      btn.style.marginTop = '20px';
+      btn.onclick = () => {
+        log('Redirection vers: ' + redirectUrl, 'info');
+        window.location.href = redirectUrl;
+      };
+      results.appendChild(btn);
+    } else {
+      log('❌ Impossible de récupérer la configuration', 'error');
+    }
+    
+    // Test 4: Vérifier window.location
+    log('=== Test Window.location ===');
+    log('Origin: ' + window.location.origin);
+    log('Pathname: ' + window.location.pathname);
+    log('Host: ' + window.location.host);
+    
+    // Test 5: Vérifier les événements
+    log('=== Test Événements ===');
+    const testDiv = document.createElement('div');
+    testDiv.innerHTML = '<button id="test-btn">Test Click</button>';
+    results.appendChild(testDiv);
+    
+    document.getElementById('test-btn').addEventListener('click', function() {
+      log('✅ Event listener fonctionne!', 'success');
+    });
+    
+    // Instructions finales
+    const instructions = document.createElement('div');
+    instructions.style.marginTop = '30px';
+    instructions.style.padding = '20px';
+    instructions.style.background = '#f0f0f0';
+    instructions.style.borderRadius = '10px';
+    instructions.innerHTML = `
+      <h2>Instructions:</h2>
+      <ol>
+        <li>Vérifiez que tous les tests sont verts ✅</li>
+        <li>Si /index.html n'est pas trouvé, créez-le</li>
+        <li>Si les scénarios ne sont pas trouvés, vérifiez le chemin du dossier</li>
+        <li>Cliquez sur "Test Click" pour vérifier les événements</li>
+        <li>Cliquez sur "Tester la redirection" pour vérifier la navigation</li>
+      </ol>
+      <h3>Structure attendue:</h3>
+      <pre>
+projet/
+├── menu.html
+├── index.html (jeu)
+├── styles/
+│   └── menu.css
+├── scripts/
+│   └── menu.js
+└── scenarios/ (ou scenario/)
+    └── lea_scenario.json (ou autres)
+      </pre>
+    `;
+    results.appendChild(instructions);
+  </script>
+</body>
+</html>

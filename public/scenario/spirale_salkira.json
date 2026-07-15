@@ -1,0 +1,391 @@
+{
+  "scenario_info": {
+    "title": "La Prostitution - Parcours de Salkira",
+    "description": "Les choix difficiles, la résilience et les conséquences de la prostitution.",
+    "characters": [
+      "Salkira",
+      "Nawel",
+      "AB",
+      "Conseillère",
+      "Client",
+      "Compagnon",
+      "Gendarme",
+      "Fille",
+      "Parents",
+      "Narrateur"
+    ],
+    "start_question": "scene1_spirale",
+    "emotion_mapping": {
+      "note": "Les émotions des personnages utilisent les avatars Olivia pour Salkira, Steven pour le compagnon violent, et d'autres assets appropriés pour les autres personnages"
+    }
+  },
+  "questions": {
+    "scene1_spirale": {
+      "id": "scene1_spirale",
+      "type": "messenger_scenario",
+      "context": "Salkira, 20 ans, sans emploi et sans papiers, vit dans la précarité avec son compagnon violent et sa fille de 2 ans. Désespérée par le manque d'argent, elle ouvre une application de rencontre.",
+      "contextual_image": "/img/Prostitu/img_contextuel/(H11)_fond_B_appli_rencontre.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "salkira",
+            "name": "Salkira",
+            "isCurrentUser": true
+          },
+          {
+            "id": "client",
+            "name": "Client",
+            "isCurrentUser": false
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_resignee.png",
+            "content": "Je voulais juste un peu de reconnaissance, un téléphone, un truc à moi. C'est rien... juste une nuit."
+          },
+          {
+            "id": "msg2",
+            "sender": "client",
+            "avatar": "/img/Prostitu/perso_emo/emo_client.png",
+            "content": "Tu sais pourquoi tu es là. T'as un joli corps. Fais-moi plaisir."
+          },
+          {
+            "id": "msg3",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_tremblante.png",
+            "content": "[silence, regard vide]"
+          },
+          {
+            "id": "msg4",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Les soirs se répètent. Le regard vide, le maquillage encore présent le matin suivant."
+          }
+        ]
+      },
+      "question": "Face à l'enfermement dans cette spirale, que décide-t-elle?",
+      "choices": [
+        "Continuer la prostitution",
+        "Écouter Nawel et chercher de l'aide",
+        "Parler à son amie AB"
+      ],
+      "nextQuestions": {
+        "A": "scene4_fuite",
+        "B": "scene2_changement",
+        "C": "scene3_parole"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "précarité",
+          "désespoir",
+          "engrenage",
+          "perte_dignité"
+        ]
+      }
+    },
+    "scene2_changement": {
+      "id": "scene2_changement",
+      "type": "messenger_scenario",
+      "context": "Salkira et Nawel se rendent à Pôle Emploi pour chercher des solutions. L'issue est positive : la réinsertion sociale.",
+      "contextual_image": "/img/Prostitu/img_contextuel/(H11)_fond_F_pole_emploi.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "conseillere",
+            "name": "Conseillère",
+            "isCurrentUser": false
+          },
+          {
+            "id": "nawel",
+            "name": "Nawel",
+            "isCurrentUser": false
+          },
+          {
+            "id": "salkira",
+            "name": "Salkira",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "conseillere",
+            "avatar": "/img/Prostitu/perso_emo/emo_conseillere.png",
+            "content": "Il existe des solutions, même sans papiers. On va voir ce qu'on peut faire ensemble."
+          },
+          {
+            "id": "msg2",
+            "sender": "nawel",
+            "avatar": "/img/Prostitu/perso_emo/emo_nawel_compatissante.png",
+            "content": "On veut juste s'en sortir. Travailler. Être libres."
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Salkira s'inscrit à un atelier d'insertion et se dirige vers une formation d'aide à domicile. Nawel trouve un travail dans une boutique solidaire."
+          },
+          {
+            "id": "msg4",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_esperante.png",
+            "content": "Je retrouve mon estime de moi et j'offre un meilleur avenir à ma fille."
+          }
+        ]
+      },
+      "question": "Maintenant qu'elle se réinsère, que décide-t-elle de faire?",
+      "choices": [
+        "Recontacter ses parents",
+        "Témoigner anonymement"
+      ],
+      "nextQuestions": {
+        "A": "scene_fin_reconciliation",
+        "B": "scene_fin_temoignage"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "réinsertion",
+          "espoir",
+          "solidarité_institutionnelle"
+        ]
+      }
+    },
+    "scene3_parole": {
+      "id": "scene3_parole",
+      "type": "messenger_scenario",
+      "context": "Salkira confie son secret à AB, une amie proche. L'issue est ambiguë : une dépendance à l'aide d'une amie.",
+      "contextual_image": "/img/Prostitu/img_contextuel/(H11)_fond_I_discussion_AB.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "salkira",
+            "name": "Salkira",
+            "isCurrentUser": true
+          },
+          {
+            "id": "ab",
+            "name": "AB",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_triste.png",
+            "content": "J'ai couché avec des inconnus. Pour de l'argent. J'ai honte, AB."
+          },
+          {
+            "id": "msg2",
+            "sender": "ab",
+            "avatar": "/img/Prostitu/perso_emo/emo_AB_compatissante.png",
+            "content": "Je suis là. On va avancer ensemble. Je peux venir avec toi à Pôle Emploi."
+          }
+        ]
+      },
+      "question": "Que fait-elle?",
+      "choices": [
+        "Accepter l'aide d'AB et aller à Pôle Emploi",
+        "Refuser de parler à AB et retourner à sa vie d'avant"
+      ],
+      "nextQuestions": {
+        "A": "scene2_changement",
+        "B": "scene1_spirale"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "confiance",
+          "soutien_social",
+          "solidarité",
+          "non_jugement"
+        ]
+      }
+    },
+    "scene4_fuite": {
+      "id": "scene4_fuite",
+      "type": "messenger_scenario",
+      "context": "Salkira subit une nouvelle violence de la part de son compagnon. Elle fuit avec sa fille chez AB. L'issue est neutre : une échappatoire immédiate.",
+      "contextual_image": "/img/Prostitu/img_contextuel/(H11)_fond_K_quitte_mari_violent_chez_AB.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "salkira",
+            "name": "Salkira",
+            "isCurrentUser": true
+          },
+          {
+            "id": "gendarme",
+            "name": "Gendarme",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_triste.png",
+            "content": "Je peux pas rester. Il va nous tuer."
+          },
+          {
+            "id": "msg2",
+            "sender": "gendarme",
+            "avatar": "/img/Prostitu/perso_emo/emo_gendarme.png",
+            "content": "Vous êtes en sécurité ici. On va vous héberger dans un foyer spécialisé."
+          },
+          {
+            "id": "msg3",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Une place est proposée dans un foyer d'urgence. Le gendarme lui propose une formation et un accompagnement psychologique."
+          }
+        ]
+      },
+      "question": "Grâce à cette fuite, Salkira peut reconstruire sa vie. Elle croise Nawel dans le foyer. Que fait-elle?",
+      "choices": [
+        "Décider de reconstruire sa vie"
+      ],
+      "nextQuestions": {
+        "A": "scene2_changement"
+      },
+      "metadata": {
+        "themes_abordes": [
+          "fuite",
+          "protection",
+          "solidarité",
+          "sécurité"
+        ]
+      }
+    },
+    "scene_fin_reconciliation": {
+      "id": "scene_fin_reconciliation",
+      "type": "messenger_scenario",
+      "context": "Salkira recontacte ses parents pour se réconcilier.",
+      "contextual_image": "/img/Prostitu/img_contextuel/(H11)_fond_L_fin_histoire.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "salkira",
+            "name": "Salkira",
+            "isCurrentUser": true
+          },
+          {
+            "id": "parents",
+            "name": "Parents",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_triste.png",
+            "content": "Papa, Maman... j'ai besoin de vous. J'ai fait des erreurs, mais je veux changer."
+          },
+          {
+            "id": "msg2",
+            "sender": "parents",
+            "avatar": "/img/Prostitu/perso_emo/emo_parents.png",
+            "content": "On est là, ma fille. Rentre à la maison avec ta petite."
+          }
+        ]
+      },
+      "question": "",
+      "choices": [
+      ],
+      "nextQuestions": {
+      },
+      "metadata": {
+        "themes_abordes": [
+          "réconciliation",
+          "famille",
+          "pardon"
+        ]
+      }
+    },
+    "scene_fin_temoignage": {
+      "id": "scene_fin_temoignage",
+      "type": "messenger_scenario",
+      "context": "Salkira témoigne anonymement pour aider d'autres femmes.",
+      "contextual_image": "/img/Prostitu/img_contextuel/(H11)_fond_G_asso.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "salkira",
+            "name": "Salkira",
+            "isCurrentUser": true
+          },
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "salkira",
+            "avatar": "/img/Prostitu/perso_emo/emo_salkira_esperante2.png",
+            "content": "Je veux témoigner pour que d'autres femmes sachent qu'on peut s'en sortir."
+          },
+          {
+            "id": "msg2",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Son témoignage est diffusé sous forme de vidéo ou de podcast dans le jeu. Elle continue son travail et élève sa fille avec dignité."
+          }
+        ]
+      },
+      "question": "",
+      "choices": [
+      ],
+      "nextQuestions": {
+      },
+      "metadata": {
+        "themes_abordes": [
+          "témoignage",
+          "entraide",
+          "résilience"
+        ]
+      }
+    },
+    "fin": {
+      "id": "fin",
+      "type": "messenger_scenario",
+      "context": "Fin du jeu.",
+      "contextual_image": "",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "narrateur",
+            "avatar": "📖",
+            "content": "Merci d'avoir suivi le parcours de Salkira. Ce scénario illustre les défis et les possibilités de réinsertion face à la précarité et à la violence."
+          }
+        ]
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": {
+        "themes_abordes": [
+          "conclusion",
+          "message_final"
+        ]
+      }
+    }
+  }
+}

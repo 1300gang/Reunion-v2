@@ -1,0 +1,199 @@
+{
+  "scenario_info": {
+    "title": "Titre",
+    "description": "la description du p`renf",
+    "characters": [
+      "Narrateur",
+      "Joueur",
+      "saray",
+      "Mario",
+      "Julio",
+      "manuella"
+    ],
+    "start_question": "scene1"
+  },
+  "questions": {
+    "scene1": {
+      "id": "scene1",
+      "type": "messenger_scenario",
+      "context": "il sont a la maison",
+      "contextual_image": "",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "joueur",
+            "name": "Joueur",
+            "isCurrentUser": true
+          },
+          {
+            "id": "sarah",
+            "name": "saray",
+            "isCurrentUser": true
+          },
+          {
+            "id": "mario",
+            "name": "Mario",
+            "isCurrentUser": false
+          },
+          {
+            "id": "Julio",
+            "name": "Julio",
+            "isCurrentUser": false
+          },
+          {
+            "id": "manuella",
+            "name": "manuella",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "sarah",
+            "avatar": "img/avatar_sarah.png",
+            "content": "wwefwfewfwf",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "joueur",
+            "avatar": "img/avatars/joueur.png",
+            "content": "fwfwfwfw",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "manuella",
+            "avatar": "img/avatar_manuella.png",
+            "content": "wefeferf",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "Julio",
+            "avatar": "img/avatar_Julio.png",
+            "content": "proeiir re",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "pourquoi tu fais le fou?",
+      "choices": [
+        "je suis un dingo",
+        "je vais bien "
+      ],
+      "nextQuestions": {
+        "A": "scene1758044333875",
+        "B": "scene1758044457482"
+      },
+      "choice_evaluations": [
+        1,
+        -1
+      ],
+      "metadata": {
+        "themes_abordes": []
+      }
+    },
+    "scene1758044333875": {
+      "id": "scene1758044333875",
+      "type": "messenger_scenario",
+      "context": "Bon choix",
+      "contextual_image": "",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "joueur",
+            "name": "Joueur",
+            "isCurrentUser": true
+          },
+          {
+            "id": "sarah",
+            "name": "saray",
+            "isCurrentUser": true
+          },
+          {
+            "id": "mario",
+            "name": "Mario",
+            "isCurrentUser": false
+          },
+          {
+            "id": "Julio",
+            "name": "Julio",
+            "isCurrentUser": false
+          },
+          {
+            "id": "manuella",
+            "name": "manuella",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": []
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "choice_evaluations": [],
+      "metadata": {
+        "themes_abordes": []
+      }
+    },
+    "scene1758044457482": {
+      "id": "scene1758044457482",
+      "type": "messenger_scenario",
+      "context": "Mauvais Choix",
+      "contextual_image": "",
+      "conversation": {
+        "participants": [
+          {
+            "id": "narrateur",
+            "name": "Narrateur",
+            "isCurrentUser": false
+          },
+          {
+            "id": "joueur",
+            "name": "Joueur",
+            "isCurrentUser": true
+          },
+          {
+            "id": "sarah",
+            "name": "saray",
+            "isCurrentUser": true
+          },
+          {
+            "id": "mario",
+            "name": "Mario",
+            "isCurrentUser": false
+          },
+          {
+            "id": "Julio",
+            "name": "Julio",
+            "isCurrentUser": false
+          },
+          {
+            "id": "manuella",
+            "name": "manuella",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": []
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "choice_evaluations": [],
+      "metadata": {
+        "themes_abordes": []
+      }
+    }
+  }
+}

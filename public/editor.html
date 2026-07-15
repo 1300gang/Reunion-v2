@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditeur de Scénarios</title>
+    <link rel="stylesheet" href="/styles/satoshi.css">
+    <link rel="stylesheet" href="/styles/menu.css">
+    <link rel="stylesheet" href="/styles/editor.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Éditeur de Scénarios</h1>
+        <p class="subtitle">Chargez un scénario existant ou créez-en un nouveau.</p>
+
+        <div class="form-group">
+            <label for="scenario-select">Choisir un scénario à modifier :</label>
+            <select id="scenario-select">
+                <option value="">-- Nouveau Scénario --</option>
+            </select>
+            <button id="load-scenario-btn" class="menu-button">Charger</button>
+        </div>
+
+        <hr>
+
+        <form id="editor-form">
+            <div class="scenario-details">
+                <h2>Détails du Scénario</h2>
+            <div class="form-group">
+                <label for="scenario-title">Titre du Scénario</label>
+                <input type="text" id="scenario-title" required>
+            </div>
+            <div class="form-group">
+                <label for="scenario-file">Nom du Fichier (ex: mon_scenario.json)</label>
+                <input type="text" id="scenario-file" required>
+            </div>
+            <div class="form-group">
+                <label for="start-question">ID de la Question de Départ</label>
+                <input type="text" id="start-question" required>
+            </div>
+
+            <h2>Questions</h2>
+            <div id="questions-container">
+                <!-- Les questions seront injectées ici par le JavaScript -->
+            </div>
+            </div>
+            <button type="button" id="add-question-btn" class="menu-button">Ajouter une Question</button>
+        </form>
+
+        <hr>
+
+        <div class="main-actions">
+            <button id="save-scenario-btn" class="menu-button action-button">Sauvegarder le Scénario</button>
+            <a href="/menu.html" class="menu-button secondary-action-button">Retour au Menu</a>
+        </div>
+    </div>
+
+    <!-- Notification Area -->
+    <div id="notification-area" class="hidden"></div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <p id="modal-text">Êtes-vous sûr ?</p>
+            <div class="modal-actions">
+                <button id="modal-confirm-btn" class="menu-button action-button">Confirmer</button>
+                <button id="modal-cancel-btn" class="menu-button secondary-action-button">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/editor.js"></script>
+</body>
+</html>

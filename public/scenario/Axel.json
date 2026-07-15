@@ -1,0 +1,392 @@
+{
+  "scenario_info": {
+    "title": "Les Limites du Consentement",
+    "description": "Un scénario interactif pour aborder le consentement, la pression des pairs, le cyberharcèlement et l'importance de se confier à des adultes de confiance.",
+    "characters": ["Rachel", "Brandon", "Mélissa", "Catherine", "Narrateur"],
+    "start_question": "acte1_la_premiere_demande"
+  },
+  "questions": {
+    "acte1_la_premiere_demande": {
+      "id": "acte1_la_premiere_demande",
+      "type": "messenger_scenario",
+      "context": "Un soir, dans la chambre de Rachel. Son téléphone vibre. C'est Brandon, son petit ami.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_A_demande_nude.png",
+      "conversation": {
+        "participants": [
+          { "id": "brandon", "name": "Brandon", "isCurrentUser": false },
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_neutre.png", "content": "Salut bb. Ca va ?", "type": "text" },
+          { "id": "msg2", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_neutre.png", "content": "Salut ! Ca va et toi ? cv ett ?", "type": "text" },
+          { "id": "msg3", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_neutre.png", "content": "Ca va merci (çv mrc). Tu fais quoi ? (Tfk ?)", "type": "text" },
+          { "id": "msg4", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_neutre.png", "content": "Je regarde tiktok et toi ?", "type": "text" },
+          { "id": "msg5", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_coquin.png", "content": "Je suis dans mon lit, posé. Tu sais je me dis que tu pourrais me rejoindre. Dommage j'aimerais bien. J'aime bien t'imaginer avec moi... Dit, tu voudrais pas m'envoyer des nudes ?", "type": "text" },
+          { "id": "msg6", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_etonnee.png", "content": "De quoi tu parles ?", "type": "text" },
+          { "id": "msg7", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_neutre.png", "content": "Ben un nude c'est des photos de toi sans habit.", "type": "text" },
+          { "id": "msg8", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_genee.png", "content": "Hein ??? Mais pourquoi faire ??", "type": "text" },
+          { "id": "msg9", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_content.png", "content": "Pour moi, pour regarder ce soir.", "type": "text" },
+          { "id": "msg10", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "Mais brandon c'est super intime.", "type": "text" },
+          { "id": "msg11", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_contrarie.png", "content": "Bha il y a une premiere fois a tout, puis on est en couple c'est normal. Pourquoi tu veux pas ?", "type": "text" },
+          { "id": "msg12", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "Parce que je sais pas, je suis pas à l'aise.", "type": "text" },
+          { "id": "msg13", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_mecontent.png", "content": "Donc en gros tu m'aimes pas ? Aller stp je t'aime <3", "type": "text" }
+        ]
+      },
+      "question": "Que décide de faire Rachel face à l'insistance de Brandon ?",
+      "choices": [
+        "Rachel cède à la pression et accepte d'envoyer une photo.",
+        "Rachel refuse catégoriquement d'envoyer la photo.",
+        "Rachel hésite et appelle sa meilleure amie Mélissa pour avoir son avis.",
+        "Rachel hésite et appelle sa grande cousine Catherine pour en parler."
+      ],
+      "nextQuestions": {
+        "A": "acte2_branche_a",
+        "B": "acte2_branche_b",
+        "C": "acte3_melissa_dialogue1",
+        "D": "acte3_catherine_dialogue1"
+      },
+      "metadata": { "themes_abordes": ["pression de couple", "consentement", "intimité"], "characters": ["Rachel", "Brandon"] }
+    },
+    "acte2_branche_a": {
+      "id": "acte2_branche_a",
+      "type": "messenger_scenario",
+      "context": "Trois jours après avoir envoyé la première photo sous la pression, Brandon relance Rachel.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_B_chantage_affectif.png",
+      "conversation": {
+        "participants": [
+          { "id": "brandon", "name": "Brandon", "isCurrentUser": false },
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_neutre.png", "content": "Salut baby comment ça va ?", "type": "text" },
+          { "id": "msg2", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "Salut... Ouaii ça va.", "type": "text" },
+          { "id": "msg3", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_contrarie.png", "content": "Bhaaa t'es froide aujourd'hui quand même.. Écoute bb c'était trop bien les photos la dernière fois tu m'en ferais pas des nouvelles ? Des plus hot ?", "type": "text" },
+          { "id": "msg4", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "T'es sérieux brandon ? Je t'ai dit que ça me mettait mal à l'aise la dernière fois. Tu te contentes de celle de la dernière fois.", "type": "text" },
+          { "id": "msg5", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_mecontent.png", "content": "Aller bb tu es trop hot. C'est quoi ? Je compte pas pour toi ? Tu as pas envie que notre relation évolue ?", "type": "text" },
+          { "id": "msg6", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "C'est pas ça...", "type": "text" },
+          { "id": "msg7", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_satisfait.png", "content": "Mes potes leur meuf elle leur envoie des photos à eux, tout le monde fait ça. Tu as pas confiance en moi ? Tu as peur que j'envoie à d'autres personnes ?", "type": "text" }
+        ]
+      },
+      "question": "Que fait Rachel face à cette nouvelle insistance ?",
+      "choices": [
+        "Elle cède encore par peur de le perdre et lui envoie des photos plus explicites.",
+        "Elle le laisse en 'vu' et appelle sa meilleure amie Mélissa.",
+        "Elle le laisse en 'vu' et appelle sa grande cousine Catherine."
+      ],
+      "nextQuestions": {
+        "A": "fin_3_piege_silence",
+        "B": "acte3_melissa_dialogue2",
+        "C": "acte3_catherine_dialogue2"
+      },
+      "metadata": { "themes_abordes": ["chantage affectif", "escalade", "pression des pairs"], "characters": ["Rachel", "Brandon"] }
+    },
+    "acte2_branche_b": {
+      "id": "acte2_branche_b",
+      "type": "messenger_scenario",
+      "context": "Rachel a refusé d'envoyer la photo. Brandon bascule immédiatement dans la menace.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_B_chantage_affectif.png",
+      "conversation": {
+        "participants": [
+          { "id": "brandon", "name": "Brandon", "isCurrentUser": false },
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "Écoute brandon ça me met trop mal à l'aise je préfère pas.. à un moment je te dis non c'est non..", "type": "text" },
+          { "id": "msg2", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_contrarie.png", "content": "Aller bb fais pas ta coincée. Franchement c'est pas cool, tu es à moi oublie pas.", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_colere.png", "content": "Mais tu es un fou toi !! Moi j'appartiens à personne !", "type": "text" },
+          { "id": "msg4", "sender": "brandon", "avatar": "/img/Axel/perso_emo/emo_brandon_colere.png", "content": "Un femme ça appartient à son mec c'est comme ça. C'est simple bb soit tu m'envoies des photos soit je dis sur le snap des potes que tu fais ça avec plusieurs gars dans les toilettes du collège !!", "type": "text" },
+          { "id": "msg5", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_colere.png", "content": "Mais tu es sérieux, tu es un connard, va y dégage je veux plus te voir de ma vie !!!", "type": "text" }
+        ]
+      },
+      "question": "Rachel bloque Brandon. Le lendemain, il répand des rumeurs horribles au collège. Que fait Rachel face à ce harcèlement ?",
+      "choices": [
+        "Elle s'isole, refuse d'en parler et sombre dans la tristesse.",
+        "Elle appelle Mélissa pour lui raconter l'enfer qu'elle vit.",
+        "Elle appelle Catherine en larmes pour demander de l'aide."
+      ],
+      "nextQuestions": {
+        "A": "fin_2_engrenage_rumeurs",
+        "B": "acte3_melissa_dialogue3",
+        "C": "acte3_catherine_dialogue4"
+      },
+      "metadata": { "themes_abordes": ["cyberharcèlement", "menace", "chantage de réputation"], "characters": ["Rachel", "Brandon"] }
+    },
+    "acte3_melissa_dialogue1": {
+      "id": "acte3_melissa_dialogue1",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle sa meilleure amie Mélissa pour avoir des conseils avant de décider.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_D_appel_melissa.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "melissa", "name": "Mélissa", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_genee.png", "content": "Allo Mel ? Tu vas jamais deviner ce que Brandon m'a demandé ! Des photos intimes... tu en penses quoi toi ?", "type": "text" },
+          { "id": "msg2", "sender": "melissa", "avatar": "/img/Axel/perso_emo/emo_melissa_contente.png", "content": "Ouais ben c'est logique, vous êtes à un stade de votre relation où il faut un peu de nouveauté. Ce sera plus bénéfique pour votre relation. Tout le monde fait ça.", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "Ah ouais ? Moi ça me gêne... Bon, je vais voir alors.. je te rappelle plus tard.", "type": "text" }
+        ]
+      },
+      "question": "Influencée par Mélissa, Rachel décide finalement d'accepter la première demande.",
+      "choices": ["Continuer"],
+      "nextQuestions": { "A": "acte2_branche_a" },
+      "metadata": { "themes_abordes": ["pression des pairs", "banalisation"], "characters": ["Rachel", "Mélissa"] }
+    },
+    "acte3_melissa_dialogue2": {
+      "id": "acte3_melissa_dialogue2",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle Mélissa car Brandon insiste pour avoir des photos 'plus hot' et la menace.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_D_appel_melissa.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "melissa", "name": "Mélissa", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "Allo Mel ? Brandon insiste pour que j'envoie des photos plus hot... Quand je dis non, il me menace de faire tourner les photos d'avant sur le snap de l'école.", "type": "text" },
+          { "id": "msg2", "sender": "melissa", "avatar": "/img/Axel/perso_emo/emo_melissa_choquee.png", "content": "Ah ouais chaud ! Là meuf il faut le dire à quelqu'un, c'est trop tendu de dire ça ! Un adulte en qui tu as confiance ?", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_neutre.png", "content": "Ah ouais je sais, je vais appeler ma cousine Catherine. Je te rappelle plus tard.", "type": "text" }
+        ]
+      },
+      "question": "Rachel décide d'appeler sa cousine Catherine pour trouver une solution.",
+      "choices": ["Appeler Catherine"],
+      "nextQuestions": { "A": "acte3_catherine_dialogue3" },
+      "metadata": { "themes_abordes": ["prise de conscience", "recherche d'aide"], "characters": ["Rachel", "Mélissa"] }
+    },
+    "acte3_melissa_dialogue3": {
+      "id": "acte3_melissa_dialogue3",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle Mélissa après que Brandon a diffusé d'horribles rumeurs d'elle sur Snapchat.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_D_appel_melissa.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "melissa", "name": "Mélissa", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "Mel ça va pas du tout... Brandon a ouvert une discussion snap avec les gars du collège et raconte d'horribles mensonges sur moi...", "type": "text" },
+          { "id": "msg2", "sender": "melissa", "avatar": "/img/Axel/perso_emo/emo_melissa_colere.png", "content": "Hein ?? Mais il est sérieux ? C'est un fou !! Là meuf il faut le dire à quelqu'un !", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_genee.png", "content": "Mes parents ? T'es malade !! Ils vont penser que c'est de ma faute.", "type": "text" },
+          { "id": "msg4", "sender": "melissa", "avatar": "/img/Axel/perso_emo/emo_melissa_neutre.png", "content": "Ben un adulte en qui tu as confiance alors ?", "type": "text" },
+          { "id": "msg5", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_neutre.png", "content": "Ah ouais je sais, je vais appeler ma cousine Catherine. Je te rappelle plus tard.", "type": "text" }
+        ]
+      },
+      "question": "Rachel décide d'appeler sa cousine Catherine à la rescousse.",
+      "choices": ["Appeler Catherine"],
+      "nextQuestions": { "A": "acte3_catherine_dialogue4" },
+      "metadata": { "themes_abordes": ["cyberharcèlement", "honte", "isolement parental"], "characters": ["Rachel", "Mélissa"] }
+    },
+    "acte3_catherine_dialogue1": {
+      "id": "acte3_catherine_dialogue1",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle sa grande cousine Catherine pour lui faire part de son dilemme.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_E_appel_catherine.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "catherine", "name": "Catherine", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_genee.png", "content": "Allo Catherine ça va ? Mon gars brandon, il veut que je fasse des nudes et moi je sais pas quoi faire...", "type": "text" },
+          { "id": "msg2", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_surprise.png", "content": "Omg !! Est-ce que tu as déjà envoyé ou pas ?", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "Non mais ça me perturbe... Je sais pas si je suis prête.", "type": "text" },
+          { "id": "msg4", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_compatissante.png", "content": "Mais Rachel, tu es amoureuse de lui, mais il faut que tu penses à toi d'abord. Tu sais, il m'est arrivé une situation presque pareille à ton âge.", "type": "text" }
+        ]
+      },
+      "question": "Catherine partage son souvenir avec Rachel pour l'aider à comprendre.",
+      "choices": ["Écouter le témoignage de Catherine"],
+      "nextQuestions": { "A": "flashback_catherine_scene" },
+      "metadata": { "themes_abordes": ["écoute active", "prévention", "respect de soi"], "characters": ["Rachel", "Catherine"] }
+    },
+    "acte3_catherine_dialogue2": {
+      "id": "acte3_catherine_dialogue2",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle Catherine après avoir envoyé la première photo et regrette face aux nouvelles demandes.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_E_appel_catherine.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "catherine", "name": "Catherine", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_mal_a_laise.png", "content": "Mon gars brandon voulait des nudes, du coup je lui ai envoyé, mais maintenant il arrête pas de m'en demander des nouvelles...", "type": "text" },
+          { "id": "msg2", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_neutre.png", "content": "Je vois, ne t'inquiète pas, si tu n'en as pas envie tu n'as pas à le faire.", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "Mais si jamais après il ne m'aime plus et me quitte ?", "type": "text" },
+          { "id": "msg4", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_compatissante.png", "content": "S'il ne t'aime plus après, c'est que ce n'était pas de l'amour tu sais. Il faut que tu penses à toi d'abord. Quand j'avais ton âge, j'ai vécu une situation similaire.", "type": "text" }
+        ]
+      },
+      "question": "Catherine décide d'ouvrir son cœur à Rachel en lui racontant son passé.",
+      "choices": ["Voir le flash-back"],
+      "nextQuestions": { "A": "flashback_catherine_scene" },
+      "metadata": { "themes_abordes": ["amour propre", "limites personnelles"], "characters": ["Rachel", "Catherine"] }
+    },
+    "acte3_catherine_dialogue3": {
+      "id": "acte3_catherine_dialogue3",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle Catherine après avoir été encouragée à envoyer la photo par Mélissa.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_E_appel_catherine.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "catherine", "name": "Catherine", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "J'ai envoyé des nudes parce que Mélissa me disait que tout le monde fait ça... mais maintenant il insiste et me menace d'envoyer la première photo à toute l'école.", "type": "text" },
+          { "id": "msg2", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_colere.png", "content": "C'est une façon de voir... Mais si tu n'en as pas envie, tu n'as pas à le faire. Protège-toi d'abord. Laisse-moi te raconter ce que j'ai vécu à ton âge.", "type": "text" }
+        ]
+      },
+      "question": "Catherine explique les dangers du consentement forcé à travers son histoire.",
+      "choices": ["Écouter son histoire"],
+      "nextQuestions": { "A": "flashback_catherine_scene" },
+      "metadata": { "themes_abordes": ["chantage", "influence néfaste"], "characters": ["Rachel", "Catherine"] }
+    },
+    "acte3_catherine_dialogue4": {
+      "id": "acte3_catherine_dialogue4",
+      "type": "messenger_scenario",
+      "context": "Rachel appelle Catherine au secours car elle subit de graves menaces et le harcèlement de Brandon.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_E_appel_catherine.png",
+      "conversation": {
+        "participants": [
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true },
+          { "id": "catherine", "name": "Catherine", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "Catherine... Je t'ai pas écoutée la dernière fois... J'ai envoyé les photos et maintenant il me menace de les faire tourner ou harcèle mes amies si je n'envoie pas de nouvelles !", "type": "text" },
+          { "id": "msg2", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_severe.png", "content": "Okay Rachel, là c'est très grave ce qu'il te fait. Ça, c'est du harcèlement et du chantage. Ce qu'il fait est puni par la loi.", "type": "text" },
+          { "id": "msg3", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_contrariee.png", "content": "...On appelle qui pour ça ?", "type": "text" },
+          { "id": "msg4", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_severe.png", "content": "On va appeler les bonnes personnes ensemble. Laisse-moi juste t'expliquer pourquoi je m'en veux de ne pas t'avoir protégée plus tôt.", "type": "text" }
+        ]
+      },
+      "question": "Catherine se confie sur son passé avant d'aider Rachel à agir.",
+      "choices": ["Voir le souvenir de Catherine"],
+      "nextQuestions": { "A": "flashback_catherine_scene" },
+      "metadata": { "themes_abordes": ["cyberharcèlement", "loi", "sécurité", "urgence"], "characters": ["Rachel", "Catherine"] }
+    },
+    "flashback_catherine_scene": {
+      "id": "flashback_catherine_scene",
+      "type": "messenger_scenario",
+      "context": "SOUVENIR : Catherine plus jeune chez son petit ami Ryan. Il lance un film d'adultes sans son accord.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_F_flashback.png",
+      "conversation": {
+        "participants": [
+          { "id": "ryan", "name": "Ryan (Ex)", "isCurrentUser": false },
+          { "id": "catherine_jeune", "name": "Catherine (Jeune)", "isCurrentUser": true },
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "ryan", "avatar": "/img/Axel/perso_emo/emo_bryan_content.png", "content": "Tu sais mon cœur, tu es la seule étoile que je vois dans la nuit.", "type": "text" },
+          { "id": "msg2", "sender": "catherine_jeune", "avatar": "/img/Axel/perso_emo/emo_catherine_ado_genee.png", "content": "Merci... Tu voudrais pas qu'on change de site s'il te plaît ? Ça me met un peu mal à l'aise..", "type": "text" },
+          { "id": "msg3", "sender": "ryan", "avatar": "/img/Axel/perso_emo/emo_bryan_coquin.png", "content": "Pourquoi tu aimes pas ? Ouais, ça vaaaa, puis ça pourrait nous aider à avoir des idées.. Détend-toi, c'est rien, profite.", "type": "text" },
+          { "id": "msg4", "sender": "narrateur", "avatar": "", "content": "Ryan pose fermement sa main sur sa cuisse. Catherine se fige, silencieuse et terrifiée de le rejeter, acceptant passivement la situation sans mot dire.", "type": "text" }
+        ]
+      },
+      "question": "Fin du flash-back. De retour au présent, Catherine explique : 'Je n'ai pas envie qu'il t'arrive la même chose.' Qu'allez-vous faire ?",
+      "choices": [
+        "Demander conseil à Catherine (Rachel n'a pas encore envoyé de photos).",
+        "Demander de l'aide d'urgence à Catherine (Rachel a déjà envoyé des photos/subit le chantage)."
+      ],
+      "nextQuestions": {
+        "A": "orientation_secours_situation_a",
+        "B": "orientation_secours_situation_b"
+      },
+      "metadata": { "themes_abordes": ["consentement passif", "pression sexuelle", "leçon de vie"], "characters": ["Ryan", "Catherine_jeune"] }
+    },
+    "orientation_secours_situation_a": {
+      "id": "orientation_secours_situation_a",
+      "type": "messenger_scenario",
+      "context": "Catherine liste les personnes de confiance disponibles au collège pour Rachel.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_G_suivi_psy.png",
+      "conversation": {
+        "participants": [
+          { "id": "catherine", "name": "Catherine", "isCurrentUser": false },
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_compatissante.png", "content": "Puisque tu n'as rien envoyé, tu es en sécurité. Tu peux en parler à l'infirmière scolaire, l'assistante sociale, un professeur ou tes parents.", "type": "text" },
+          { "id": "msg2", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_soulagee.png", "content": "Merci Catherine. Je vais aller voir l'infirmière scolaire demain.", "type": "text" }
+        ]
+      },
+      "question": "",
+      "choices": ["Découvrir la conclusion"],
+      "nextQuestions": { "A": "fin_1_liberation_positive" },
+      "metadata": { "themes_abordes": ["prévention", "ressources scolaires"], "characters": ["Catherine", "Rachel"] }
+    },
+    "orientation_secours_situation_b": {
+      "id": "orientation_secours_situation_b",
+      "type": "messenger_scenario",
+      "context": "Catherine aide Rachel à réagir face au chantage et à la cyberviolence.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_G_suivi_psy.png",
+      "conversation": {
+        "participants": [
+          { "id": "catherine", "name": "Catherine", "isCurrentUser": false },
+          { "id": "rachel", "name": "Rachel", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "catherine", "avatar": "/img/Axel/perso_emo/emo_catherine_severe.png", "content": "Ce qu'il fait est illégal. On va contacter la Police/Gendarmerie pour porter plainte ou appeler le 3018 (cyberharcèlement). Je t'accompagne.", "type": "text" },
+          { "id": "msg2", "sender": "rachel", "avatar": "/img/Axel/perso_emo/emo_rachel_soulagee.png", "content": "D'accord... Merci d'être là. Allons-y.", "type": "text" }
+        ]
+      },
+      "question": "",
+      "choices": ["Découvrir la conclusion"],
+      "nextQuestions": { "A": "fin_1_liberation_positive" },
+      "metadata": { "themes_abordes": ["cyberharcèlement", "démarches juridiques", "3018"], "characters": ["Catherine", "Rachel"] }
+    },
+    "fin_1_liberation_positive": {
+      "id": "fin_1_liberation_positive",
+      "type": "messenger_scenario",
+      "context": "FIN 1 : Libération et Prise en charge. Rachel est sauvée.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_G_suivi_psy.png",
+      "conversation": {
+        "participants": [
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Grâce aux adultes de confiance et à sa cousine, Rachel a déposé un signalement. Brandon a été rappelé à l'ordre par la justice et le collège.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Rachel comprend que le respect de son consentement est essentiel dans un couple. Elle retrouve enfin le sourire, entourée de gens bienveillants.", "type": "text" }
+        ]
+      },
+      "question": "Félicitations, vous avez fait le choix de la communication et de la sécurité !",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": { "themes_abordes": ["résolution positive", "confiance", "consentement respecté"], "characters": [] }
+    },
+    "fin_2_engrenage_rumeurs": {
+      "id": "fin_2_engrenage_rumeurs",
+      "type": "messenger_scenario",
+      "context": "FIN 2 : L'engrenage des rumeurs. Rachel s'est murée dans le silence.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_C_deprime_rachel.png",
+      "conversation": {
+        "participants": [
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Rachel refuse d'en parler par honte. Au collège, sa réputation est détruite par de fausses rumeurs. Elle s'enferme dans sa chambre en pleurant.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Un jour, alors qu'elle pleure dans les couloirs, elle voit une affiche d'urgence affichant le numéro 3018. Elle prend son courage à deux mains et décide enfin d'appeler de l'aide.", "type": "text" }
+        ]
+      },
+      "question": "Le silence détruit. Ne restez jamais seuls face au cyberharcèlement. Composez le 3018.",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": { "themes_abordes": ["harcèlement scolaire", "dépression", "recherche d'aide tardive"], "characters": [] }
+    },
+    "fin_3_piege_silence": {
+      "id": "fin_3_piege_silence",
+      "type": "messenger_scenario",
+      "context": "FIN 3 : Le piège du silence. Rachel est prisonnière d'une relation toxique.",
+      "contextual_image": "/img/Axel/img_contextuel/(H10)_fond_C_deprime_rachel.png",
+      "conversation": {
+        "participants": [
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Rachel a cédé à toutes les demandes de Brandon. Elle vit dans l'angoisse constante qu'il diffuse ses images.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Isolée de Mélissa et de sa famille, elle s'éteint psychologiquement, victime silencieuse d'une relation toxique où son consentement a été bafoué.", "type": "text" }
+        ]
+      },
+      "question": "Le harcèlement et les nues forcés sont punis par la loi. Parlez-en immédiatement à un adulte.",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": { "themes_abordes": ["relation toxique", "dépression", "perte de consentement"], "characters": [] }
+    }
+  }
+}

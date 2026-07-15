@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisateur de ScÃ©nario - Node Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            padding: 0;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: #242424;
+            border-right: 1px solid #383838;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: #2a2a2a;
+            border-bottom: 1px solid #383838;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .canvas-area {
+            flex: 1;
+            position: relative;
+            background: #1a1a1a;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 0 0;
+        }
+
+        .toolbar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+            background: rgba(36, 36, 36, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-btn {
+            padding: 8px 12px;
+            background: #3a3a3a;
+            color: #e0e0e0;
+            border: 1px solid #4a4a4a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tool-btn:hover {
+            background: #4a4a4a;
+            border-color: #5a5a5a;
+            transform: translateY(-1px);
+        }
+
+        .tool-btn.active {
+            background: #5a7fd8;
+            border-color: #6a8fe8;
+        }
+
+        .minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: rgba(36, 36, 36, 0.9);
+            border: 1px solid #4a4a4a;
+            border-radius: 8px;
+            z-index: 100;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .minimap canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        #canvas.pan-mode {
+            cursor: grab;
+        }
+
+        #canvas.pan-mode:active {
+            cursor: grabbing;
+        }
+
+        #canvas.dragging-node {
+            cursor: move;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(36, 36, 36, 0.95);
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 350px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #4a4a4a;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .tooltip.visible {
+            display: block;
+        }
+
+        .context-menu {
+            position: absolute;
+            background: rgba(36, 36, 36, 0.98);
+            border: 1px solid #4a4a4a;
+            border-radius: 8px;
+            padding: 8px 0;
+            z-index: 1001;
+            display: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            min-width: 180px;
+        }
+
+        .context-menu.visible {
+            display: block;
+        }
+
+        .context-menu-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #e0e0e0;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .context-menu-item:hover {
+            background: #4a4a4a;
+        }
+
+        .context-menu-separator {
+            height: 1px;
+            background: #4a4a4a;
+            margin: 4px 0;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px dashed #4a4a4a;
+            border-radius: 8px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        input[type="file"]:hover {
+            border-color: #5a7fd8;
+            background: #222;
+        }
+
+        button {
+            padding: 10px 16px;
+            background: #5a7fd8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #6a8fe8;
+            transform: translateY(-1px);
+        }
+
+        .info-panel {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .info-panel h3 {
+            color: #5a7fd8;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-item {
+            padding: 8px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            border-left: 3px solid #5a7fd8;
+            font-size: 13px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #5a7fd8;
+            margin-right: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #383838;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #5a7fd8;
+        }
+
+        .stat-label {
+            color: #888;
+            margin-top: 4px;
+            font-size: 0.85em;
+        }
+
+        .shortcuts {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(36, 36, 36, 0.9);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #888;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            max-width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .shortcuts-title {
+            color: #5a7fd8;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .shortcut-list {
+            transition: all 0.3s ease;
+        }
+
+        .shortcut-item {
+            margin: 4px 0;
+        }
+
+        .shortcut-key {
+            color: #e0e0e0;
+            background: #3a3a3a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a5a5a;
+        }
+
+        .connection-preview {
+            stroke: #5a7fd8;
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+            fill: none;
+            pointer-events: none;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -10;
+            }
+        }
+
+        .connection-preview {
+            animation: dash 0.5s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>ðŸ“Š Node Editor</h1>
+                <p class="subtitle">Visualisateur de scÃ©nario interactif</p>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="controls">
+                    <input type="file" id="file-input" accept=".json" placeholder="Charger un fichier JSON...">
+                    <button onclick="loadDefaultScenario()">ðŸŽ¬ Charger le scÃ©nario de test</button>
+                </div>
+
+                <div class="info-panel">
+                    <h3>ðŸ“ NÅ“ud sÃ©lectionnÃ©</h3>
+                    <div id="info-content" class="info-content">
+                        <p style="color: #666; text-align: center;">Aucun nÅ“ud sÃ©lectionnÃ©</p>
+                    </div>
+                </div>
+
+                <div class="stats" id="stats">
+                    <!-- Stats will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-area">
+            <div class="toolbar">
+                <button class="tool-btn active" onclick="setMode('select')" id="select-btn">
+                    <span>â†–</span> SÃ©lection
+                </button>
+                <button class="tool-btn" onclick="setMode('pan')" id="pan-btn">
+                    <span>âœ‹</span> Navigation
+                </button>
+                <button class="tool-btn" onclick="fitToScreen()">
+                    <span>âŠ¡</span> Ajuster
+                </button>
+                <button class="tool-btn" onclick="resetView()">
+                    <span>âŸ²</span> RÃ©initialiser
+                </button>
+                <button class="tool-btn" onclick="autoLayout()">
+                    <span>âš¡</span> Auto-organiser
+                </button>
+            </div>
+
+            <canvas id="canvas"></canvas>
+            
+            <div class="minimap">
+                <canvas id="minimap-canvas"></canvas>
+            </div>
+
+            <div id="tooltip" class="tooltip"></div>
+            
+            <div id="context-menu" class="context-menu">
+                <div class="context-menu-item" onclick="centerOnNode()">
+                    <span>ðŸŽ¯</span> Centrer sur ce nÅ“ud
+                </div>
+                <div class="context-menu-item" onclick="isolateNode()">
+                    <span>ðŸ‘</span> Isoler la branche
+                </div>
+                <div class="context-menu-separator"></div>
+                <div class="context-menu-item" onclick="expandFromNode()">
+                    <span>ðŸ“Š</span> DÃ©velopper depuis ici
+                </div>
+                <div class="context-menu-item" onclick="collapseNode()">
+                    <span>ðŸ“¦</span> RÃ©duire la branche
+                </div>
+                <div class="context-menu-separator"></div>
+                <div class="context-menu-item" onclick="copyNodeInfo()">
+                    <span>ðŸ“‹</span> Copier les infos
+                </div>
+            </div>
+
+            <div class="shortcuts">
+                <div class="shortcuts-title">
+                    ðŸŽ® Raccourcis 
+                    <span style="float: right; cursor: pointer; color: #5a7fd8;" onclick="toggleShortcuts()">Ã—</span>
+                </div>
+                <div class="shortcut-list" id="shortcut-list">
+                    <div class="shortcut-item"><span class="shortcut-key">Clic</span> SÃ©lectionner</div>
+                    <div class="shortcut-item"><span class="shortcut-key">Glisser nÅ“ud</span> DÃ©placer</div>
+                    <div class="shortcut-item"><span class="shortcut-key">Clic droit</span> Menu contextuel</div>
+                    <div class="shortcut-item"><span class="shortcut-key">Espace + Glisser</span> Navigation</div>
+                    <div class="shortcut-item"><span class="shortcut-key">Scroll</span> Zoom</div>
+                    <div class="shortcut-item"><span class="shortcut-key">F</span> Ajuster Ã  l'Ã©cran</div>
+                    <div class="shortcut-item"><span class="shortcut-key">H</span> Afficher/Masquer aide</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let scenario = null;
+        let canvas = null;
+        let ctx = null;
+        let minimapCanvas = null;
+        let minimapCtx = null;
+        let nodes = {};
+        let connections = [];
+        let selectedNode = null;
+        let hoveredNode = null;
+        let draggedNode = null;
+        let childNodes = new Set();
+        let mode = 'select'; // 'select' or 'pan'
+        
+        // Navigation
+        let offsetX = 0;
+        let offsetY = 0;
+        let targetOffsetX = 0;
+        let targetOffsetY = 0;
+        let zoom = 1;
+        let targetZoom = 1;
+        
+        // Mouse tracking
+        let mouseX = 0;
+        let mouseY = 0;
+        let isDragging = false;
+        let isPanning = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let nodeDragOffsetX = 0;
+        let nodeDragOffsetY = 0;
+        
+        // Animation
+        let animationFrame = null;
+        let momentumX = 0;
+        let momentumY = 0;
+        
+        // Global variables
+        let spacePressed = false;
+        let shortcutsVisible = true;
+        
+        // Rest of variables...
+
+        // Test scenario
+        const testScenario = {
+            "scenario_info": {
+                "title": "ScÃ©nario de Test - Node Editor",
+                "description": "ScÃ©nario pour tester l'Ã©diteur de nÅ“uds",
+                "start_question": "question1",
+                "version": "2.0"
+            },
+            "questions": {
+                "question1": {
+                    "id": "question1",
+                    "type": "standard",
+                    "question": "Point de dÃ©part de l'aventure",
+                    "context": "Vous Ãªtes Ã  l'entrÃ©e du donjon mystÃ©rieux",
+                    "choices": [
+                        "Entrer courageusement",
+                        "Observer prudemment",
+                        "Chercher une autre entrÃ©e",
+                        "Faire demi-tour"
+                    ],
+                    "nextQuestions": {
+                        "0": "question2a",
+                        "1": "question2b",
+                        "2": "question2c",
+                        "3": "question_end1"
+                    }
+                },
+                "question2a": {
+                    "id": "question2a",
+                    "type": "standard",
+                    "question": "Vous entrez dans le hall principal",
+                    "context": "Une grande salle sombre s'ouvre devant vous",
+                    "choices": [
+                        "Explorer la gauche",
+                        "Explorer la droite",
+                        "Continuer tout droit"
+                    ],
+                    "nextQuestions": {
+                        "0": "question3a",
+                        "1": "question3b",
+                        "2": "question3c"
+                    }
+                },
+                "question2b": {
+                    "id": "question2b",
+                    "type": "standard",
+                    "question": "Vous observez attentivement",
+                    "context": "Vous remarquez des dÃ©tails importants",
+                    "choices": [
+                        "Noter les piÃ¨ges",
+                        "MÃ©moriser le chemin"
+                    ],
+                    "nextQuestions": {
+                        "0": "question3d",
+                        "1": "question3a"
+                    }
+                },
+                "question2c": {
+                    "id": "question2c",
+                    "type": "standard",
+                    "question": "Vous trouvez une entrÃ©e secrÃ¨te",
+                    "context": "Un passage dissimulÃ© s'offre Ã  vous",
+                    "choices": [
+                        "Emprunter le passage",
+                        "Revenir Ã  l'entrÃ©e principale"
+                    ],
+                    "nextQuestions": {
+                        "0": "question3e",
+                        "1": "question1"
+                    }
+                },
+                "question3a": {
+                    "id": "question3a",
+                    "type": "standard",
+                    "question": "La salle du trÃ©sor",
+                    "context": "Des coffres brillent dans l'obscuritÃ©",
+                    "choices": [
+                        "Ouvrir le grand coffre",
+                        "Examiner les petits coffres"
+                    ],
+                    "nextQuestions": {
+                        "0": "question_end2",
+                        "1": "question_end3"
+                    }
+                },
+                "question3b": {
+                    "id": "question3b",
+                    "type": "standard",
+                    "question": "Le laboratoire ancien",
+                    "context": "Des fioles mystÃ©rieuses sont alignÃ©es",
+                    "choices": [
+                        "Boire la potion rouge",
+                        "Prendre la potion bleue"
+                    ],
+                    "nextQuestions": {
+                        "0": "question_end4",
+                        "1": "question_end5"
+                    }
+                },
+                "question3c": {
+                    "id": "question3c",
+                    "type": "standard",
+                    "question": "La bibliothÃ¨que oubliÃ©e",
+                    "context": "Des livres anciens couvrent les murs",
+                    "choices": [
+                        "Lire le grimoire",
+                        "Chercher une carte"
+                    ],
+                    "nextQuestions": {
+                        "0": "question_end6",
+                        "1": "question3a"
+                    }
+                },
+                "question3d": {
+                    "id": "question3d",
+                    "type": "standard",
+                    "question": "PrÃ©paration minutieuse",
+                    "context": "Vous Ãªtes prÃªt pour l'exploration",
+                    "choices": [
+                        "Entrer avec prÃ©caution"
+                    ],
+                    "nextQuestions": {
+                        "0": "question2a"
+                    }
+                },
+                "question3e": {
+                    "id": "question3e",
+                    "type": "standard",
+                    "question": "Le passage secret",
+                    "context": "Un couloir Ã©troit et sombre",
+                    "choices": [
+                        "Avancer dans le noir",
+                        "Allumer une torche"
+                    ],
+                    "nextQuestions": {
+                        "0": "question_end7",
+                        "1": "question3a"
+                    }
+                },
+                "question_end1": {
+                    "id": "question_end1",
+                    "type": "final",
+                    "question": "Fin : La prudence excessive",
+                    "ending": "Vous rentrez chez vous sain et sauf, mais sans aventure."
+                },
+                "question_end2": {
+                    "id": "question_end2",
+                    "type": "final",
+                    "question": "Fin : Le trÃ©sor maudit",
+                    "ending": "Le grand coffre contenait un trÃ©sor... et une malÃ©diction!"
+                },
+                "question_end3": {
+                    "id": "question_end3",
+                    "type": "final",
+                    "question": "Fin : Richesse modeste",
+                    "ending": "Les petits coffres vous offrent une fortune raisonnable."
+                },
+                "question_end4": {
+                    "id": "question_end4",
+                    "type": "final",
+                    "question": "Fin : Transformation",
+                    "ending": "La potion rouge vous transforme en crÃ©ature magique!"
+                },
+                "question_end5": {
+                    "id": "question_end5",
+                    "type": "final",
+                    "question": "Fin : Sagesse infinie",
+                    "ending": "La potion bleue vous confÃ¨re une sagesse ancestrale."
+                },
+                "question_end6": {
+                    "id": "question_end6",
+                    "type": "final",
+                    "question": "Fin : MaÃ®tre des arcanes",
+                    "ending": "Le grimoire fait de vous un puissant magicien."
+                },
+                "question_end7": {
+                    "id": "question_end7",
+                    "type": "final",
+                    "question": "Fin : Perdu dans l'obscuritÃ©",
+                    "ending": "Vous vous perdez Ã  jamais dans les tÃ©nÃ¨bres."
+                }
+            }
+        };
+
+        function init() {
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');
+            minimapCanvas = document.getElementById('minimap-canvas');
+            minimapCtx = minimapCanvas.getContext('2d');
+            
+            resizeCanvas();
+            
+            canvas.addEventListener('mousedown', handleMouseDown);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            canvas.addEventListener('mouseup', handleMouseUp);
+            canvas.addEventListener('mouseleave', handleMouseLeave);
+            canvas.addEventListener('wheel', handleWheel, { passive: false });
+            canvas.addEventListener('dblclick', handleDoubleClick);
+            canvas.addEventListener('contextmenu', handleContextMenu);
+            
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
+            window.addEventListener('resize', resizeCanvas);
+            
+            document.getElementById('file-input').addEventListener('change', handleFileSelect);
+            
+            // Hide context menu when clicking elsewhere
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#context-menu')) {
+                    hideContextMenu();
+                }
+            });
+            
+            startAnimation();
+        }
+
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            minimapCanvas.width = 200;
+            minimapCanvas.height = 150;
+            if (scenario) draw();
+        }
+
+        function loadDefaultScenario() {
+            scenario = testScenario;
+            processScenario();
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        scenario = JSON.parse(event.target.result);
+                        processScenario();
+                    } catch (error) {
+                        alert('Erreur lors du chargement : ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function processScenario() {
+            if (!scenario || !scenario.questions) return;
+            
+            nodes = {};
+            connections = [];
+            
+            // Create nodes
+            let index = 0;
+            for (let qId in scenario.questions) {
+                const q = scenario.questions[qId];
+                nodes[qId] = {
+                    id: qId,
+                    data: q,
+                    x: 300 + (index % 4) * 350,
+                    y: 100 + Math.floor(index / 4) * 200,
+                    width: 280,
+                    height: 100,
+                    vx: 0,
+                    vy: 0,
+                    level: -1,
+                    visited: false
+                };
+                index++;
+            }
+            
+            // Build connections
+            for (let qId in scenario.questions) {
+                const q = scenario.questions[qId];
+                if (q.nextQuestions) {
+                    for (let choice in q.nextQuestions) {
+                        const nextId = q.nextQuestions[choice];
+                        const choiceIndex = isNaN(choice) ? choice.charCodeAt(0) - 65 : parseInt(choice);
+                        const choiceText = q.choices[choiceIndex] || q.choices[choice] || choice;
+                        
+                        connections.push({
+                            from: qId,
+                            to: nextId,
+                            label: choiceText
+                        });
+                    }
+                }
+            }
+            
+            // Calculate levels
+            const startId = scenario.scenario_info.start_question;
+            if (nodes[startId]) {
+                const queue = [startId];
+                nodes[startId].level = 0;
+                nodes[startId].visited = true;
+                
+                while (queue.length > 0) {
+                    const currentId = queue.shift();
+                    const current = nodes[currentId];
+                    
+                    connections.forEach(conn => {
+                        if (conn.from === currentId && nodes[conn.to] && !nodes[conn.to].visited) {
+                            nodes[conn.to].level = current.level + 1;
+                            nodes[conn.to].visited = true;
+                            queue.push(conn.to);
+                        }
+                    });
+                }
+            }
+            
+            autoLayout();
+            updateStats();
+            fitToScreen();
+        }
+
+        function autoLayout() {
+            const levels = {};
+            for (let id in nodes) {
+                const level = nodes[id].level;
+                if (level >= 0) {
+                    if (!levels[level]) levels[level] = [];
+                    levels[level].push(id);
+                }
+            }
+            
+            const levelHeight = 200;
+            const nodeSpacing = 350;
+            
+            for (let level in levels) {
+                const nodesInLevel = levels[level];
+                const totalWidth = nodesInLevel.length * nodeSpacing;
+                const startX = (canvas.width - totalWidth) / 2;
+                
+                nodesInLevel.forEach((id, index) => {
+                    nodes[id].x = startX + index * nodeSpacing + nodeSpacing / 2;
+                    nodes[id].y = 150 + level * levelHeight;
+                });
+            }
+            
+            draw();
+        }
+
+        function getNodeColor(nodeId) {
+            const node = nodes[nodeId];
+            const isStart = nodeId === scenario.scenario_info.start_question;
+            const isFinal = node.data.type === 'final';
+            const isSelected = selectedNode === nodeId;
+            const isChild = childNodes.has(nodeId);
+            
+            if (isSelected) {
+                return { bg: '#7a9ff8', border: '#8aafff' };
+            } else if (isChild) {
+                return { bg: '#6a8fd8', border: '#7a9fe8' };
+            } else if (isStart) {
+                return { bg: '#5fb85f', border: '#6fc86f' };
+            } else if (isFinal) {
+                return { bg: '#f07b3f', border: '#ff8b4f' };
+            } else {
+                return { bg: '#4a5568', border: '#5a6578' };
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(zoom, zoom);
+            
+            // Draw grid
+            drawGrid();
+            
+            // Draw connections
+            drawConnections();
+            
+            // Draw nodes
+            for (let id in nodes) {
+                drawNode(nodes[id]);
+            }
+            
+            ctx.restore();
+            
+            // Draw minimap
+            drawMinimap();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+            ctx.lineWidth = 1;
+            
+            const gridSize = 50;
+            const startX = -offsetX / zoom - ((-offsetX / zoom) % gridSize) - gridSize;
+            const endX = (canvas.width - offsetX) / zoom + gridSize;
+            const startY = -offsetY / zoom - ((-offsetY / zoom) % gridSize) - gridSize;
+            const endY = (canvas.height - offsetY) / zoom + gridSize;
+            
+            for (let x = startX; x < endX; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, startY);
+                ctx.lineTo(x, endY);
+                ctx.stroke();
+            }
+            
+            for (let y = startY; y < endY; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(startX, y);
+                ctx.lineTo(endX, y);
+                ctx.stroke();
+            }
+        }
+
+        function drawConnections() {
+            connections.forEach(conn => {
+                if (!nodes[conn.from] || !nodes[conn.to]) return;
+                
+                const from = nodes[conn.from];
+                const to = nodes[conn.to];
+                const isHighlighted = selectedNode === conn.from || childNodes.has(conn.to);
+                
+                // Connection line
+                ctx.strokeStyle = isHighlighted ? '#7a9ff8' : '#3a4556';
+                ctx.lineWidth = isHighlighted ? 3 : 2;
+                ctx.setLineDash([]);
+                
+                // Calculate connection points
+                const fromX = from.x + from.width / 2;
+                const fromY = from.y + from.height / 2;
+                const toX = to.x - to.width / 2;
+                const toY = to.y;
+                
+                // Draw bezier curve
+                ctx.beginPath();
+                ctx.moveTo(fromX, fromY);
+                const cp1x = fromX + 100;
+                const cp1y = fromY;
+                const cp2x = toX - 100;
+                const cp2y = toY;
+                ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, toX, toY);
+                ctx.stroke();
+                
+                // Draw arrow
+                const angle = Math.atan2(toY - cp2y, toX - cp2x);
+                const arrowLength = 12;
+                ctx.beginPath();
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(
+                    toX - arrowLength * Math.cos(angle - Math.PI / 6),
+                    toY - arrowLength * Math.sin(angle - Math.PI / 6)
+                );
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(
+                    toX - arrowLength * Math.cos(angle + Math.PI / 6),
+                    toY - arrowLength * Math.sin(angle + Math.PI / 6)
+                );
+                ctx.stroke();
+                
+                // Draw label
+                const midX = (fromX + toX) / 2;
+                const midY = (fromY + toY) / 2;
+                
+                ctx.fillStyle = '#1a1a1a';
+                ctx.fillRect(midX - 60, midY - 10, 120, 20);
+                
+                ctx.fillStyle = isHighlighted ? '#a8c8ff' : '#888';
+                ctx.font = '12px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const label = conn.label.length > 20 ? conn.label.substring(0, 20) + '...' : conn.label;
+                ctx.fillText(label, midX, midY);
+            });
+        }
+
+        function drawNode(node) {
+            const colors = getNodeColor(node.id);
+            const isHovered = hoveredNode === node.id;
+            const isDragged = draggedNode === node.id;
+            
+            // Shadow
+            if (isHovered || isDragged) {
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 20;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 5;
+            }
+            
+            // Main rectangle
+            const radius = 8;
+            ctx.fillStyle = colors.bg;
+            ctx.beginPath();
+            roundRect(ctx, node.x - node.width/2, node.y - node.height/2, node.width, node.height, radius);
+            ctx.fill();
+            
+            // Border
+            ctx.strokeStyle = colors.border;
+            ctx.lineWidth = isHovered ? 3 : 2;
+            ctx.stroke();
+            
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            
+            // Header
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.beginPath();
+            roundRect(ctx, node.x - node.width/2, node.y - node.height/2, node.width, 30, [radius, radius, 0, 0]);
+            ctx.fill();
+            
+            // ID and type
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 13px -apple-system, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(node.id, node.x - node.width/2 + 10, node.y - node.height/2 + 18);
+            
+            if (node.data.type === 'final') {
+                ctx.fillStyle = '#ffaa55';
+                ctx.textAlign = 'right';
+                ctx.fillText('â— FIN', node.x + node.width/2 - 10, node.y - node.height/2 + 18);
+            }
+            
+            // Question text
+            ctx.fillStyle = '#e0e0e0';
+            ctx.font = '14px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            const lines = wrapText(node.data.question, node.width - 20);
+            lines.slice(0, 3).forEach((line, i) => {
+                ctx.fillText(line, node.x, node.y + 10 + i * 18);
+            });
+            
+            // Choice count indicator
+            if (node.data.choices && node.data.choices.length > 0) {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(node.x + node.width/2 - 30, node.y + node.height/2 - 20, 28, 18);
+                ctx.fillStyle = '#aaa';
+                ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(`${node.data.choices.length}â†’`, node.x + node.width/2 - 16, node.y + node.height/2 - 8);
+            }
+        }
+
+        function roundRect(ctx, x, y, width, height, radii) {
+            if (typeof radii === 'number') {
+                radii = [radii, radii, radii, radii];
+            }
+            ctx.beginPath();
+            ctx.moveTo(x + radii[0], y);
+            ctx.lineTo(x + width - radii[1], y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radii[1]);
+            ctx.lineTo(x + width, y + height - radii[2]);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radii[2], y + height);
+            ctx.lineTo(x + radii[3], y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radii[3]);
+            ctx.lineTo(x, y + radii[0]);
+            ctx.quadraticCurveTo(x, y, x + radii[0], y);
+            ctx.closePath();
+        }
+
+        function wrapText(text, maxWidth) {
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            
+            ctx.font = '14px -apple-system, sans-serif';
+            
+            for (let word of words) {
+                const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                const metrics = ctx.measureText(testLine);
+                
+                if (metrics.width > maxWidth && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            
+            if (currentLine) lines.push(currentLine);
+            return lines;
+        }
+
+        function drawMinimap() {
+            minimapCtx.clearRect(0, 0, 200, 150);
+            minimapCtx.fillStyle = '#1a1a1a';
+            minimapCtx.fillRect(0, 0, 200, 150);
+            
+            // Calculate bounds
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            for (let id in nodes) {
+                const node = nodes[id];
+                minX = Math.min(minX, node.x - node.width/2);
+                maxX = Math.max(maxX, node.x + node.width/2);
+                minY = Math.min(minY, node.y - node.height/2);
+                maxY = Math.max(maxY, node.y + node.height/2);
+            }
+            
+            const padding = 20;
+            const scaleX = (200 - padding * 2) / (maxX - minX);
+            const scaleY = (150 - padding * 2) / (maxY - minY);
+            const scale = Math.min(scaleX, scaleY);
+            
+            // Draw nodes
+            for (let id in nodes) {
+                const node = nodes[id];
+                const x = padding + (node.x - minX) * scale;
+                const y = padding + (node.y - minY) * scale;
+                const w = node.width * scale;
+                const h = node.height * scale;
+                
+                minimapCtx.fillStyle = getNodeColor(id).bg;
+                minimapCtx.fillRect(x - w/2, y - h/2, w, h);
+            }
+            
+            // Draw viewport
+            minimapCtx.strokeStyle = '#5a7fd8';
+            minimapCtx.lineWidth = 2;
+            const vpX = padding + (-offsetX / zoom - minX) * scale;
+            const vpY = padding + (-offsetY / zoom - minY) * scale;
+            const vpW = (canvas.width / zoom) * scale;
+            const vpH = (canvas.height / zoom) * scale;
+            minimapCtx.strokeRect(vpX, vpY, vpW, vpH);
+        }
+
+        function handleMouseDown(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left - offsetX) / zoom;
+            const y = (e.clientY - rect.top - offsetY) / zoom;
+            
+            // Check if clicking on a node
+            for (let id in nodes) {
+                const node = nodes[id];
+                if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                    y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                    
+                    if (mode === 'select') {
+                        selectNode(id);
+                        draggedNode = id;
+                        nodeDragOffsetX = x - node.x;
+                        nodeDragOffsetY = y - node.y;
+                        canvas.classList.add('dragging-node');
+                    }
+                    return;
+                }
+            }
+            
+            // If clicking in empty space and in pan mode, or holding space
+            if (mode === 'pan' || spacePressed) {
+                isPanning = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                targetOffsetX = offsetX;
+                targetOffsetY = offsetY;
+                canvas.classList.add('pan-mode');
+            }
+        }
+
+        function handleMouseMove(e) {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            
+            if (draggedNode) {
+                // Dragging a node
+                const x = (mouseX - offsetX) / zoom;
+                const y = (mouseY - offsetY) / zoom;
+                nodes[draggedNode].x = x - nodeDragOffsetX;
+                nodes[draggedNode].y = y - nodeDragOffsetY;
+                draw();
+            } else if (isPanning) {
+                // Panning the view - Direct update
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+                offsetX = targetOffsetX + deltaX;
+                offsetY = targetOffsetY + deltaY;
+                draw();
+            } else {
+                // Check hover
+                const x = (mouseX - offsetX) / zoom;
+                const y = (mouseY - offsetY) / zoom;
+                
+                let newHoveredNode = null;
+                for (let id in nodes) {
+                    const node = nodes[id];
+                    if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                        y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                        newHoveredNode = id;
+                        showTooltip(node, mouseX, mouseY);
+                        break;
+                    }
+                }
+                
+                if (newHoveredNode !== hoveredNode) {
+                    hoveredNode = newHoveredNode;
+                    if (!hoveredNode) {
+                        hideTooltip();
+                    }
+                    draw();
+                } else if (hoveredNode) {
+                    updateTooltipPosition(mouseX, mouseY);
+                }
+            }
+        }
+
+        function handleMouseUp(e) {
+            if (isPanning) {
+                // Save final position
+                targetOffsetX = offsetX;
+                targetOffsetY = offsetY;
+            }
+            draggedNode = null;
+            isPanning = false;
+            canvas.classList.remove('dragging-node', 'pan-mode');
+        }
+
+        function handleMouseLeave(e) {
+            hideTooltip();
+            hoveredNode = null;
+            draw();
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Simple zoom calculation
+            let zoomDelta = 1;
+            if (e.deltaY < 0) {
+                // Zoom in
+                zoomDelta = 1.1;
+            } else {
+                // Zoom out
+                zoomDelta = 0.9;
+            }
+            
+            const oldZoom = zoom;
+            const newZoom = Math.max(0.2, Math.min(3, zoom * zoomDelta));
+            
+            // Calculate world position under mouse
+            const worldX = (mouseX - offsetX) / oldZoom;
+            const worldY = (mouseY - offsetY) / oldZoom;
+            
+            // Apply new zoom immediately
+            zoom = newZoom;
+            targetZoom = newZoom;
+            
+            // Adjust offset to keep mouse position stable
+            offsetX = mouseX - worldX * newZoom;
+            offsetY = mouseY - worldY * newZoom;
+            targetOffsetX = offsetX;
+            targetOffsetY = offsetY;
+            
+            // Redraw immediately
+            draw();
+        }
+
+        function handleDoubleClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left - offsetX) / zoom;
+            const y = (e.clientY - rect.top - offsetY) / zoom;
+            
+            for (let id in nodes) {
+                const node = nodes[id];
+                if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                    y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                    centerOnNode(id);
+                    return;
+                }
+            }
+        }
+
+        function handleContextMenu(e) {
+            e.preventDefault();
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left - offsetX) / zoom;
+            const y = (e.clientY - rect.top - offsetY) / zoom;
+            
+            for (let id in nodes) {
+                const node = nodes[id];
+                if (x >= node.x - node.width/2 && x <= node.x + node.width/2 &&
+                    y >= node.y - node.height/2 && y <= node.y + node.height/2) {
+                    showContextMenu(e.clientX, e.clientY, id);
+                    return;
+                }
+            }
+        }
+
+        function handleKeyDown(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                spacePressed = true;
+                canvas.classList.add('pan-mode');
+            } else if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                fitToScreen();
+            } else if (e.key === 'h' || e.key === 'H') {
+                e.preventDefault();
+                toggleShortcuts();
+            } else if (e.key === 'Escape') {
+                selectedNode = null;
+                childNodes.clear();
+                draw();
+                updateInfo();
+            }
+        }
+
+        function handleKeyUp(e) {
+            if (e.code === 'Space') {
+                spacePressed = false;
+                if (!isPanning) {
+                    canvas.classList.remove('pan-mode');
+                }
+            }
+        }
+        
+        function toggleShortcuts() {
+            const shortcutList = document.getElementById('shortcut-list');
+            shortcutsVisible = !shortcutsVisible;
+            shortcutList.style.display = shortcutsVisible ? 'block' : 'none';
+        }
+
+        function setMode(newMode) {
+            mode = newMode;
+            document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`${newMode}-btn`).classList.add('active');
+            
+            if (mode === 'pan') {
+                canvas.classList.add('pan-mode');
+            } else {
+                canvas.classList.remove('pan-mode');
+            }
+        }
+
+        function selectNode(nodeId) {
+            selectedNode = nodeId;
+            childNodes.clear();
+            
+            // Find child nodes
+            connections.forEach(conn => {
+                if (conn.from === nodeId && nodes[conn.to]) {
+                    childNodes.add(conn.to);
+                }
+            });
+            
+            updateInfo();
+            draw();
+        }
+
+        function centerOnNode(nodeId) {
+            if (!nodeId) nodeId = contextMenuNode;
+            if (!nodes[nodeId]) return;
+            
+            const node = nodes[nodeId];
+            targetOffsetX = canvas.width / 2 - node.x * zoom;
+            targetOffsetY = canvas.height / 2 - node.y * zoom;
+        }
+
+        function fitToScreen() {
+            if (Object.keys(nodes).length === 0) return;
+            
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+            
+            for (let id in nodes) {
+                const node = nodes[id];
+                minX = Math.min(minX, node.x - node.width/2);
+                maxX = Math.max(maxX, node.x + node.width/2);
+                minY = Math.min(minY, node.y - node.height/2);
+                maxY = Math.max(maxY, node.y + node.height/2);
+            }
+            
+            const padding = 50;
+            const contentWidth = maxX - minX + padding * 2;
+            const contentHeight = maxY - minY + padding * 2;
+            
+            const zoomX = canvas.width / contentWidth;
+            const zoomY = canvas.height / contentHeight;
+            targetZoom = Math.min(Math.min(zoomX, zoomY), 1);
+            
+            const centerX = (minX + maxX) / 2;
+            const centerY = (minY + maxY) / 2;
+            targetOffsetX = canvas.width / 2 - centerX * targetZoom;
+            targetOffsetY = canvas.height / 2 - centerY * targetZoom;
+        }
+
+        function resetView() {
+            targetZoom = 1;
+            targetOffsetX = 0;
+            targetOffsetY = 0;
+        }
+
+        function showTooltip(node, x, y) {
+            const tooltip = document.getElementById('tooltip');
+            let html = `
+                <strong>${node.id}</strong><br>
+                <small style="color: #888;">Type: ${node.data.type || 'standard'}</small><br>
+                <div style="margin-top: 8px;">${node.data.question}</div>
+            `;
+            
+            if (node.data.choices && node.data.choices.length > 0) {
+                html += `<div style="margin-top: 8px; color: #5a7fd8;">â†’ ${node.data.choices.length} choix</div>`;
+            }
+            
+            tooltip.innerHTML = html;
+            tooltip.classList.add('visible');
+            updateTooltipPosition(x, y);
+        }
+
+        function updateTooltipPosition(x, y) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.left = (x + 15) + 'px';
+            tooltip.style.top = (y - 10) + 'px';
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').classList.remove('visible');
+        }
+
+        function showContextMenu(x, y, nodeId) {
+            contextMenuNode = nodeId;
+            const menu = document.getElementById('context-menu');
+            menu.style.left = x + 'px';
+            menu.style.top = y + 'px';
+            menu.classList.add('visible');
+        }
+
+        function hideContextMenu() {
+            document.getElementById('context-menu').classList.remove('visible');
+        }
+
+        function isolateNode() {
+            // Implementation for isolating branch
+            hideContextMenu();
+        }
+
+        function expandFromNode() {
+            // Implementation for expanding
+            hideContextMenu();
+        }
+
+        function collapseNode() {
+            // Implementation for collapsing
+            hideContextMenu();
+        }
+
+        function copyNodeInfo() {
+            if (contextMenuNode && nodes[contextMenuNode]) {
+                const node = nodes[contextMenuNode];
+                const info = `${node.id}\n${node.data.question}\n${node.data.context || ''}`;
+                navigator.clipboard.writeText(info);
+            }
+            hideContextMenu();
+        }
+
+        function updateInfo() {
+            if (!selectedNode || !nodes[selectedNode]) {
+                document.getElementById('info-content').innerHTML = '<p style="color: #666; text-align: center;">Aucun nÅ“ud sÃ©lectionnÃ©</p>';
+                return;
+            }
+            
+            const node = nodes[selectedNode];
+            let html = `
+                <div class="info-item">
+                    <span class="info-label">ID:</span> ${node.id}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Type:</span> ${node.data.type || 'standard'}
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Question:</span><br>${node.data.question}
+                </div>
+            `;
+            
+            if (node.data.context) {
+                html += `<div class="info-item"><span class="info-label">Contexte:</span><br>${node.data.context}</div>`;
+            }
+            
+            if (node.data.choices && node.data.choices.length > 0) {
+                html += `<div class="info-item"><span class="info-label">Choix:</span></div>`;
+                node.data.choices.forEach((choice, i) => {
+                    html += `<div class="info-item" style="margin-left: 10px;">â€¢ ${choice}</div>`;
+                });
+            }
+            
+            document.getElementById('info-content').innerHTML = html;
+        }
+
+        function updateStats() {
+            const total = Object.keys(nodes).length;
+            const finals = Object.values(nodes).filter(n => n.data.type === 'final').length;
+            const choices = Object.values(nodes).reduce((sum, n) => sum + (n.data.choices ? n.data.choices.length : 0), 0);
+            
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${total}</div>
+                    <div class="stat-label">Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${finals}</div>
+                    <div class="stat-label">Fins</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${connections.length}</div>
+                    <div class="stat-label">Connexions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${choices}</div>
+                    <div class="stat-label">Choix totaux</div>
+                </div>
+            `;
+        }
+
+        function smoothAnimate() {
+            const easing = 0.15;
+            let needsAnimation = false;
+            
+            if (Math.abs(zoom - targetZoom) > 0.001) {
+                zoom += (targetZoom - zoom) * easing;
+                needsAnimation = true;
+            }
+            
+            if (Math.abs(offsetX - targetOffsetX) > 0.1 || Math.abs(offsetY - targetOffsetY) > 0.1) {
+                offsetX += (targetOffsetX - offsetX) * easing;
+                offsetY += (targetOffsetY - offsetY) * easing;
+                needsAnimation = true;
+            }
+            
+            draw();
+            
+            if (needsAnimation) {
+                animationFrame = requestAnimationFrame(smoothAnimate);
+            } else {
+                animationFrame = null;
+            }
+        }
+
+        function startAnimation() {
+            if (!animationFrame) {
+                animationFrame = requestAnimationFrame(smoothAnimate);
+            }
+        }
+
+        // Initialize
+        window.onload = function() {
+            init();
+            loadDefaultScenario();
+            
+            // Debug zoom
+            console.log('Zoom system initialized. Use mouse wheel to zoom.');
+        };
+    </script>
+</body>
+</html>

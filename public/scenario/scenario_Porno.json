@@ -1,0 +1,724 @@
+{
+  "scenario_info": {
+    "title": "Serious Game - La Pornographie et le Consentement",
+    "description": "Un scénario pédagogique interactif sur la pression affective, le consentement et l'impact de la pornographie dans les relations amoureuses.",
+    "characters": ["Mariley", "Pablos-Carlos", "Sofia", "La mère de Mariley", "Mme Lefèvre"],
+    "start_question": "scene1"
+  },
+  "questions": {
+    "scene1": {
+      "id": "scene1",
+      "type": "messenger_scenario",
+      "context": "Mariley et Pablos-Carlos sortent ensemble depuis deux mois. Vendredi soir, dans la chambre de Pablos-Carlos, il s'installe avec son téléphone.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Pablos-Carlos_Mariley_sur_lit.webp",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pablos",
+            "name": "Pablos-Carlos",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_content.png",
+            "content": "Hé, j'ai trouvé un truc cool. T'as envie qu'on regarde des photos ensemble ? C'est des photos de... tu vois. Des gens qui font des trucs.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_hesitante.png",
+            "content": "Euh... c'est quoi exactement ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_blase.png",
+            "content": "C'est normal, tout le monde regarde ça. Ça va, c'est des photos, c'est rien du tout. Je veux juste partager ça avec toi.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Mariley est mal à l'aise mais ne veut pas contrarier son copain. Que fait-elle ?",
+      "choices": [
+        "Elle refuse : elle explique qu'elle n'est pas à l'aise.",
+        "Elle accepte : elle cède pour lui faire plaisir sans rien dire."
+      ],
+      "nextQuestions": {
+        "A": "scene2A",
+        "B": "scene2B"
+      },
+      "metadata": {
+        "themes_abordes": ["consentement", "pornographie", "pression"],
+        "characters": ["Mariley", "Pablos-Carlos"]
+      }
+    },
+    "scene2A": {
+      "id": "scene2A",
+      "type": "messenger_scenario",
+      "context": "Le week-end suivant. Mariley avait refusé les photos. Pablos-Carlos revient à la charge.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Pablos-Carlos_Mariley_sur_lit.webp",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pablos",
+            "name": "Pablos-Carlos",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_hautain.png",
+            "content": "Allez, t'es trop coincée la dernière fois. Là c'est des vidéos, c'est beaucoup mieux. Tout le monde fait ça dans ma classe.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_genee.png",
+            "content": "Je t'ai dit non la semaine dernière... Pourquoi tu insistes ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_colere.png",
+            "content": "Parce que t'es ma copine ! C'est censé être un truc qu'on fait ensemble. Si t'aimes pas ça, ça veut dire que tu m'aimes pas vraiment.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_peur.png",
+            "content": "C'est pas pareil...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Mariley ressent une grosse pression. Elle se lève et prend du recul. Que fait-elle ?",
+      "choices": [
+        "Elle refuse encore et s'éloigne pour réfléchir.",
+        "Épuisée par la pression, elle finit par céder."
+      ],
+      "nextQuestions": {
+        "A": "scene3A",
+        "B": "scene_cede"
+      },
+      "metadata": {
+        "themes_abordes": ["chantage affectif", "insistance", "consentement"],
+        "characters": ["Mariley", "Pablos-Carlos"]
+      }
+    },
+    "scene2B": {
+      "id": "scene2B",
+      "type": "messenger_scenario",
+      "context": "Le week-end suivant. Mariley avait accepté les photos. Pablos-Carlos est enthousiaste et veut aller plus loin.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Pablos-Carlos_Mariley_sur_lit.webp",
+      "conversation": {
+        "participants": [
+          {
+            "id": "pablos",
+            "name": "Pablos-Carlos",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_content.png",
+            "content": "Tu vois, c'était super la semaine dernière ! Cette fois j'ai des vidéos. C'est encore mieux.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_genee.png",
+            "content": "Je... en fait, les photos j'aurais pas dû. Ça m'a pas plu.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_blase.png",
+            "content": "Arrête, tu m'as pas dit ça sur le coup ! T'avais même pas l'air mal à l'aise.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_triste.png",
+            "content": "Ben j'ai rien dit parce que je voulais pas te décevoir... Mais là les vidéos, c'est vraiment non.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_colere.png",
+            "content": "T'es sérieuse là ? On est en couple ! Sinon t'as qu'à rentrer chez toi.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Mariley est blessée par ces mots. Que fait-elle ?",
+      "choices": [
+        "Elle refuse et rentre chez elle pour digérer la situation.",
+        "Elle cède à nouveau."
+      ],
+      "nextQuestions": {
+        "A": "scene3B",
+        "B": "scene_cede"
+      },
+      "metadata": {
+        "themes_abordes": ["regret", "pression affective", "rupture de communication"],
+        "characters": ["Mariley", "Pablos-Carlos"]
+      }
+    },
+    "scene_cede": {
+      "id": "scene_cede",
+      "type": "messenger_scenario",
+      "context": "Mariley cède à la pression. Pendant le visionnage, Pablos-Carlos est excité, mais Mariley se sent mal, honteuse et seule.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_seul_sur_lit.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_desesperee.png",
+            "content": "Je n'aurais pas dû accepter... Je me sens vraiment mal.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Le malaise s'installe. Elle n'en parle à personne.",
+      "choices": [
+        "Continuer"
+      ],
+      "nextQuestions": {
+        "A": "scene4B"
+      },
+      "metadata": {
+        "themes_abordes": ["honte", "isolement"],
+        "characters": ["Mariley"]
+      }
+    },
+    "scene3A": {
+      "id": "scene3A",
+      "type": "messenger_scenario",
+      "context": "Dans sa chambre, un peu plus tard. Mariley tourne en rond. Elle pense à Pablos-Carlos et à ce qu'il lui demande depuis deux week-ends. Elle ne sait pas si elle réagit normalement.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_seul_sur_lit.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_peur.png",
+            "content": "Est-ce que c'est moi le problème ? J'ai besoin d'en parler...",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Vers qui Mariley décide-t-elle de se tourner ?",
+      "choices": [
+        "Elle appelle sa mère (adulte de confiance).",
+        "Elle envoie un message à sa meilleure amie, Sofia.",
+        "Elle garde le silence et n'en parle à personne.",
+        "Elle décide de confronter Pablos-Carlos directement."
+      ],
+      "nextQuestions": {
+        "A": "scene4A",
+        "B": "scene3A_sofia",
+        "C": "scene4B",
+        "D": "scene_confrontation"
+      },
+      "metadata": {
+        "themes_abordes": ["demande d'aide", "réflexion"],
+        "characters": ["Mariley"]
+      }
+    },
+    "scene3B": {
+      "id": "scene3B",
+      "type": "messenger_scenario",
+      "context": "Dans sa chambre, le lendemain matin. Mariley a regardé ces photos pour lui faire plaisir, mais elle se sent mal. Elle a honte.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_seul_sur_lit.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_triste.png",
+            "content": "Pourquoi j'ai dit oui au début... Qu'est-ce que je dois faire maintenant ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Que décide de faire Mariley ?",
+      "choices": [
+        "Elle prend son courage à deux mains et appelle sa mère.",
+        "Elle essaie d'oublier et ne dit rien."
+      ],
+      "nextQuestions": {
+        "A": "scene4A",
+        "B": "scene4B"
+      },
+      "metadata": {
+        "themes_abordes": ["honte", "demande d'aide", "silence"],
+        "characters": ["Mariley"]
+      }
+    },
+    "scene3A_sofia": {
+      "id": "scene3A_sofia",
+      "type": "messenger_scenario",
+      "context": "Mariley envoie un message à sa meilleure amie Sofia.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_Sofia_au_telephone.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          },
+          {
+            "id": "sofia",
+            "name": "Sofia",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_triste.png",
+            "content": "Sofia, tu peux parler ? C'est Pablos. Il veut qu'on regarde des trucs ensemble... du porno. La semaine dernière c'était des photos, là il veut des vidéos.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "sofia",
+            "avatar": "img/prevent_porno/perso_emo/sofia_surprise.png",
+            "content": "Ah ouais... mais c'est quoi le problème ? Mon frère regarde ça tout le temps.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_genee.png",
+            "content": "Ouais mais moi j'ai pas envie. Et il insiste vraiment...",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "sofia",
+            "avatar": "img/prevent_porno/perso_emo/sofia_serieuse.png",
+            "content": "Attends. Si t'as pas envie, il peut pas t'obliger. C'est pas normal qu'il insiste comme ça.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_serieuse.png",
+            "content": "Tu crois ? J'avais peur de réagir comme une enfant...",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "sofia",
+            "avatar": "img/prevent_porno/perso_emo/sofia_serieuse.png",
+            "content": "Non. Moi je pense que t'as bien fait de refuser. Mais là tu devrais en parler à ta mère ou à quelqu'un à l'école.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Les conseils de Sofia encouragent Mariley à chercher de l'aide auprès d'un adulte.",
+      "choices": [
+        "Continuer pour parler à sa mère"
+      ],
+      "nextQuestions": {
+        "A": "scene4A"
+      },
+      "metadata": {
+        "themes_abordes": ["soutien amical", "conseil", "banalisation"],
+        "characters": ["Mariley", "Sofia"]
+      }
+    },
+    "scene4A": {
+      "id": "scene4A",
+      "type": "messenger_scenario",
+      "context": "Mariley appelle sa mère. Sa voix tremble un peu.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_Mere_au_telephone.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          },
+          {
+            "id": "mere",
+            "name": "Mère de Mariley",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_triste.png",
+            "content": "Maman... il faut que je te parle de quelque chose. C'est sur Pablos-Carlos. Il m'a demandé de regarder des choses avec lui... des photos et des vidéos pornographiques. J'ai refusé mais il a beaucoup insisté.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mere",
+            "avatar": "img/prevent_porno/perso_emo/mere_mariley_triste.png",
+            "content": "Je suis contente que tu me le dises, ma chérie. Tu as très bien fait de refuser. Est-ce qu'il t'a forcée physiquement à quoi que ce soit ?",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_serieuse.png",
+            "content": "Non... mais il a dit que si je l'aimais vraiment, je le ferais.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mere",
+            "avatar": "img/prevent_porno/perso_emo/mere_mariley_serieuse.png",
+            "content": "C'est ce qu'on appelle une pression affective. Ce n'est pas normal dans une relation, quel que soit l'âge. Je vais venir te chercher, et demain on voit comment régler ça ensemble. D'accord ?",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Le lendemain, elles contactent l'infirmière scolaire.",
+      "choices": [
+        "Aller à l'infirmerie"
+      ],
+      "nextQuestions": {
+        "A": "scene4A_infirmiere"
+      },
+      "metadata": {
+        "themes_abordes": ["soutien parental", "pression affective", "sécurité"],
+        "characters": ["Mariley", "La mère de Mariley"]
+      }
+    },
+    "scene4A_infirmiere": {
+      "id": "scene4A_infirmiere",
+      "type": "messenger_scenario",
+      "context": "À l'infirmerie scolaire, Mariley rencontre Mme Lefèvre.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_MmeLefevre_dans_un_cabine.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          },
+          {
+            "id": "infirmiere",
+            "name": "Mme Lefèvre",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "infirmiere",
+            "avatar": "img/prevent_porno/perso_emo/me_lefevre_ecoute.png",
+            "content": "Mariley, merci d'être venue. Ce que tu vis est difficile à mettre en mots. Tu as été très courageuse d'en parler.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_hesitante.png",
+            "content": "Est-ce que c'est ma faute ? J'aurais peut-être dû dire non plus tôt...",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "infirmiere",
+            "avatar": "img/prevent_porno/perso_emo/me_lefevre_serieuse.png",
+            "content": "Non. La responsabilité est toujours du côté de celui qui insiste et qui ne respecte pas le 'non'. Toi, tu n'as rien à te reprocher.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_serieuse.png",
+            "content": "Et Pablos-Carlos ? Il va avoir des ennuis ?",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "infirmiere",
+            "avatar": "img/prevent_porno/perso_emo/me_lefevre_contente.png",
+            "content": "Il a besoin qu'on lui explique certaines choses sur le consentement et sur ce que véhicule la pornographie. Ce n'est pas une punition, c'est un apprentissage. Et toi, tu peux être accompagnée si tu le souhaites.",
+            "type": "text"
+          },          
+          {
+            "id": "msg6",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_determinee.png",
+            "content": "J'ai su dire non, demander de l'aide, et être écoutée. Je reprend confiance en moi.",
+            "type": "text"
+          }
+          
+        ]
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": {
+        "themes_abordes": ["déculpabilisation", "consentement", "pédagogie"],
+        "characters": ["Mariley", "Mme Lefèvre"]
+      }
+    },
+    "scene4B": {
+      "id": "scene4B",
+      "type": "messenger_scenario",
+      "context": "Quelques semaines plus tard. Mariley a tout gardé pour elle. Elle est de plus en plus absente en cours. Sofia remarque qu'elle est distante.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_Sofia_en_cours.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "sofia",
+            "name": "Sofia",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "sofia",
+            "avatar": "img/prevent_porno/perso_emo/sofia_triste.png",
+            "content": "Ça va pas toi ces derniers temps. T'es tout le temps dans ta tête...",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_genee.png",
+            "content": "C'est rien. Laisse tomber.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "sofia",
+            "avatar": "img/prevent_porno/perso_emo/sofia_serieuse.png",
+            "content": "C'est Pablos ? Dis-moi.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_triste.png",
+            "content": "Il me demande des trucs que j'aime pas. Et j'ai jamais vraiment dit non. Du coup maintenant... je sais plus où j'en suis.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "sofia",
+            "avatar": "img/prevent_porno/perso_emo/sofia_serieuse.png",
+            "content": "Mariley. T'as le droit de dire non MAINTENANT. Il est pas trop tard. Viens, on va voir Mme Lefèvre ensemble.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "Sofia accompagne Mariley à l'infirmerie.",
+      "choices": [
+        "Aller à l'infirmerie"
+      ],
+      "nextQuestions": {
+        "A": "scene4B_infirmiere"
+      },
+      "metadata": {
+        "themes_abordes": ["silence", "isolement", "soutien amical"],
+        "characters": ["Mariley", "Sofia"]
+      }
+    },
+    "scene4B_infirmiere": {
+      "id": "scene4B_infirmiere",
+      "type": "messenger_scenario",
+      "context": "Dans le bureau de Mme Lefèvre.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Mariley_MmeLefevre_dans_un_cabine.png",
+      "conversation": {
+        "participants": [
+          {
+            "id": "infirmiere",
+            "name": "Mme Lefèvre",
+            "isCurrentUser": false
+          },
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "infirmiere",
+            "avatar": "img/prevent_porno/perso_emo/me_lefevre_ecoute.png",
+            "content": "Je suis là. Prenez le temps de vous installer. Mariley, tu peux tout me dire à ton rythme.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_serieuse.png",
+            "content": "Je savais pas que j'avais le droit de me sentir mal. Je croyais que je réagissais mal... que c'était moi le problème.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "infirmiere",
+            "avatar": "img/prevent_porno/perso_emo/me_lefevre_contente.png",
+            "content": "Non. Ton ressenti est juste. Et c'est très bien que tu en parles maintenant, même si ça a pris du temps. On va avancer ensemble.",
+            "type": "text"
+          },
+                    {
+            "id": "msg4",
+            "sender": "infirmiere",
+            "avatar": "img/prevent_porno/perso_emo/me_lefevre_contente.png",
+            "content": "Il n'est jamais trop tard pour parler. Avec le soutien de Sofia et moi-memes, entamons ton parcours de reconstruction.",
+            "type": "text"
+          }
+        ]
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": {
+        "themes_abordes": ["reconstruction", "libération de la parole", "écoute"],
+        "characters": ["Mariley", "Mme Lefèvre"]
+      }
+    },
+    "scene_confrontation": {
+      "id": "scene_confrontation",
+      "type": "messenger_scenario",
+      "context": "Mariley décide de parler directement à Pablos-Carlos de ce qu'elle ressent, calmement.",
+      "contextual_image": "img/prevent_porno/img_contextuel/Pablos-Carlos_sexcuse_Mariley.webp",
+      "conversation": {
+        "participants": [
+          {
+            "id": "mariley",
+            "name": "Mariley",
+            "isCurrentUser": true
+          },
+          {
+            "id": "pablos",
+            "name": "Pablos-Carlos",
+            "isCurrentUser": false
+          }
+        ],
+        "messages": [
+          {
+            "id": "msg1",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_determinee.png",
+            "content": "Pablos, je veux qu'on parle. Ces dernières semaines, tu m'as mise dans une situation où je me sentais obligée d'accepter des trucs que je voulais pas. Et ça m'a fait du mal.",
+            "type": "text"
+          },
+          {
+            "id": "msg2",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_blase.png",
+            "content": "Mais... j'avais pas réalisé que ça te faisait ça.",
+            "type": "text"
+          },
+          {
+            "id": "msg3",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_serieuse.png",
+            "content": "Si quelqu'un hésite ou dit non, même à moitié, ça veut dire non. C'est ça le consentement.",
+            "type": "text"
+          },
+          {
+            "id": "msg4",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_triste.png",
+            "content": "Je pensais que regarder des vidéos ensemble c'était... normal. Les garçons dans ma classe parlent que de ça. J'aurais pas dû insister.",
+            "type": "text"
+          },
+          {
+            "id": "msg5",
+            "sender": "mariley",
+            "avatar": "img/prevent_porno/perso_emo/mariley_determinee.png",
+            "content": "Ce que tu vois dans les pornos, c'est pas la réalité. Ça montre pas le respect. Ça montre pas des vraies relations.",
+            "type": "text"
+          },
+          {
+            "id": "msg6",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_desole.png",
+            "content": "Je... t'as raison. Je suis vraiment désolé. On peut aller voir quelqu'un ensemble pour qu'on comprenne mieux tous les deux ?",
+            "type": "text"
+          },
+                    {
+            "id": "msg7",
+            "sender": "pablos",
+            "avatar": "img/prevent_porno/perso_emo/pablos_carlos_desole.png",
+            "content": "Je comprend l'impact de ses comportements. Leur relation change et reprend sur des bases saines.",
+            "type": "text"
+          }
+
+        ]
+      },
+      "question": "",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": {
+        "themes_abordes": ["communication", "prise de conscience", "réparation"],
+        "characters": ["Mariley", "Pablos-Carlos"]
+      }
+    }
+  }
+}
