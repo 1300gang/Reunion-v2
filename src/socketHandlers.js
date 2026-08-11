@@ -322,6 +322,78 @@ function initializeSocketIO(io) {
         } catch (err) { console.error('Erreur génération CSV:', err); socket.emit('error', 'Erreur serveur.'); }
     });
 
+    socket.on('get-game-summary', async () => {
+        try {
+            if (!socket.lobby) return socket.emit('error', 'Non autorisé');
+            const lobby = await lobbyManager.getLobby(socket.lobby);
+            if (!lobby) return socket.emit('error', 'Lobby non trouvé');
+
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
+            if (!scenario) return socket.emit('error', 'Scénario introuvable');
+
+            const players = await lobbyManager.getPlayers(socket.lobby);
+            const duration = Math.floor((Date.now() - lobby.createdAt) / 1000);
+            const questionPath = JSON.parse(lobby.questionPath);
+            const questionsData = {};
+            const allThemes = new Set();
+
+            for (const qId of questionPath) {
+                const question = getQuestionFromScenario(scenario, qId);
+                if (question) {
+                    questionsData[qId] = {
+                        question: question.question,
+                        choices: question.choices,
+                        context: question.context,
+                        themes: question.metadata?.themes_abordes || []
+                    };
+                    (question.metadata?.themes_abordes || []).forEach(theme => allThemes.add(theme));
+                }
+            }
+
+            const playerSummaries = [];
+            for (const player of players) {
+                const responses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
+                playerSummaries.push({
+                    ...player,
+                    responses
+                });
+            }
+
+            const globalVoteCounts = {};
+            for (const qId of questionPath) {
+                const question = getQuestionFromScenario(scenario, qId);
+                if (question && !lobbyManager.isContinueQuestion(question)) {
+                    const votes = await lobbyManager.getVotesForQuestion(socket.lobby, qId);
+                    globalVoteCounts[qId] = votes;
+                }
+            }
+
+            const summary = {
+                lobbyInfo: {
+                    id: lobby.id,
+                    scenarioTitle: lobby.scenarioTitle,
+                    mode: lobby.mode,
+                    duration: duration,
+                    playerCount: players.length
+                },
+                scenarioInfo: {
+                    creators: scenario.scenario_info?.creators || [],
+                    themes: Array.from(allThemes)
+                },
+                questionPath,
+                questionsData,
+                playerSummaries,
+                globalVoteCounts
+            };
+
+            socket.emit('game-summary-data', summary);
+
+        } catch (err) {
+            console.error('Erreur get-game-summary:', err);
+            socket.emit('error', 'Erreur lors de la récupération du résumé de la partie.');
+        }
+    });
+
     socket.on('disconnect', async () => {
         console.log(`Déconnexion: ${socket.id}`);
         try {

@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="styles/vote-component.css">
   <link rel="stylesheet" href="styles/chapter-menu.css">
   <link rel="stylesheet" href="styles/solo-mode.css">
+  <link rel="stylesheet" href="styles/analysis.css">
   
   <!-- Ajout de la police Mefta
   <style>
@@ -179,8 +180,10 @@
               <h2 class="end-title">Session terminée avec succès</h2>
               
               <div class="stats-section">
-                <h3>📊 Points de difficulté identifiés</h3>
-                <div id="difficultyPoints" class="difficulty-cards"></div>
+                <h3>📊 Analyse de la Session</h3>
+                <div id="gm-analysis-table-container" class="analysis-table-container">
+                  <!-- Le tableau d'analyse sera généré par JavaScript ici -->
+                </div>
               </div>
               
               <div class="observations-section">
@@ -345,24 +348,65 @@
             </div>
           </div>
 
-          <div id="player-game-over" class="hidden card institutional-card">
-            <div class="pill">
-              <span class="pill-icon">✅</span>
-              <span>Partie terminée</span>
-            </div>
-            
+          <div id="player-game-over" class="hidden card end-card institutional-card">
+            <div class="pill pill-success">🎉 Partie Terminée</div>
             <h2 class="end-title">Merci d'avoir participé !</h2>
             
+            <!-- Résumé de la partie -->
+            <div class="solo-summary">
+              <h3>📊 Résumé de votre parcours</h3>
+
+              <div class="summary-stats">
+                <div class="summary-stat">
+                  <span class="summary-icon">📖</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Scénario joué</span>
+                    <span class="summary-value" id="player-completed-scenario">-</span>
+                  </div>
+                </div>
+
+                <div class="summary-stat">
+                  <span class="summary-icon">❓</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Décisions prises</span>
+                    <span class="summary-value" id="player-total-answers">0</span>
+                  </div>
+                </div>
+
+                <div class="summary-stat">
+                  <span class="summary-icon">⏱️</span>
+                  <div class="summary-content">
+                    <span class="summary-label">Durée de la partie</span>
+                    <span class="summary-value" id="player-total-time">00:00</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thèmes abordés -->
+              <div class="themes-section">
+                <h4>🏷️ Thèmes abordés</h4>
+                <div id="player-themes-list" class="themes-pills"></div>
+              </div>
+
+              <!-- Choix marquants -->
+              <div class="key-choices-section">
+                <h4>🔑 Vos 3 derniers choix</h4>
+                <div id="player-key-choices" class="key-choices-list"></div>
+              </div>
+            </div>
+
+            <!-- Section Feedback -->
             <div class="feedback-section">
               <h3>💭 Avez-vous des observations à partager ?</h3>
               <textarea id="playerFeedback" rows="4" placeholder="Vos impressions, difficultés rencontrées..." class="textarea-institutional"></textarea>
             </div>
             
+            <!-- Actions finales -->
             <div class="final-actions">
               <button id="sendFeedbackBtn" class="button button-primary">
                 <span>Envoyer mon feedback</span>
               </button>
-              <button id="backToHomeBtn" class="button button-secondary">
+              <button id="backToHomeBtn" class="button">
                 <span>Retour à l'accueil</span>
               </button>
             </div>

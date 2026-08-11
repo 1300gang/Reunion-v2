@@ -1048,12 +1048,24 @@ function initializeSocketEvents() {
   });
   
   socket.on('game-over', () => {
+    // On masque l'écran de jeu principal
     if (gameConfig.mode === 'player') {
       hideElement('player-game');
       showElement('player-game-over');
     } else if (gameConfig.mode === 'intervenant') {
       hideElement('game-control');
       showElement('game-over-gm');
+    }
+    // On demande les données résumées pour les deux modes
+    socket.emit('get-game-summary');
+  });
+
+  socket.on('game-summary-data', (summary) => {
+    console.log("Résumé de la partie reçu:", summary);
+    if (gameConfig.mode === 'player') {
+        displayPlayerSummary(summary);
+    } else if (gameConfig.mode === 'intervenant') {
+        displayGmSummary(summary);
     }
   });
   
@@ -1285,6 +1297,164 @@ function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const screen = document.getElementById(screenId);
   if (screen) screen.classList.add('active');
+}
+
+function formatDuration(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function displayPlayerSummary(summary) {
+    const { lobbyInfo, scenarioInfo, questionsData, playerSummaries } = summary;
+    const me = playerSummaries.find(p => p.playerName === gameConfig.playerName);
+    if (!me) {
+      console.error("Impossible de trouver les données du joueur dans le résumé.");
+      return;
+    }
+
+    // Stats
+    document.getElementById('player-completed-scenario').textContent = lobbyInfo.scenarioTitle;
+    document.getElementById('player-total-answers').textContent = Object.keys(me.responses).length;
+    document.getElementById('player-total-time').textContent = formatDuration(lobbyInfo.duration);
+
+    // Themes
+    const themesContainer = document.getElementById('player-themes-list');
+    if (themesContainer) {
+        themesContainer.innerHTML = '';
+        if (scenarioInfo.themes && scenarioInfo.themes.length > 0) {
+          const themesToDisplay = scenarioInfo.themes.slice(0, 7);
+          themesToDisplay.forEach(theme => {
+              const pill = document.createElement('span');
+              pill.className = 'theme-pill';
+              pill.textContent = theme;
+              themesContainer.appendChild(pill);
+          });
+          if (scenarioInfo.themes.length > 7) {
+              const morePill = document.createElement('span');
+              morePill.className = 'theme-pill';
+              morePill.textContent = `+${scenarioInfo.themes.length - 7} autres...`;
+              themesContainer.appendChild(morePill);
+          }
+        } else {
+          themesContainer.textContent = "Aucun thème spécifique n'a été identifié pour ce parcours.";
+        }
+    }
+
+    // Key Choices
+    const keyChoicesContainer = document.getElementById('player-key-choices');
+    if (keyChoicesContainer) {
+        keyChoicesContainer.innerHTML = '';
+        const responseEntries = Object.entries(me.responses);
+        const keyChoices = responseEntries.slice(-3);
+
+        if (keyChoices.length > 0) {
+          keyChoices.forEach(([questionId, answer]) => {
+              const question = questionsData[questionId];
+              if (question) {
+                  const choiceDiv = document.createElement('div');
+                  choiceDiv.className = 'key-choice-item';
+                  const choiceIndex = answer.charCodeAt(0) - 65;
+                  const choiceText = question.choices?.[choiceIndex] || answer;
+
+                  choiceDiv.innerHTML = `
+                    <div>
+                      <strong>${question.question || 'Question'}</strong><br>
+                      <span>→ ${choiceText}</span>
+                    </div>
+                  `;
+                  keyChoicesContainer.appendChild(choiceDiv);
+              }
+          });
+        } else {
+          keyChoicesContainer.textContent = "Vous n'avez répondu à aucune question.";
+        }
+    }
+}
+
+function displayGmSummary(summary) {
+    const { lobbyInfo, questionsData, globalVoteCounts, questionPath } = summary;
+    const container = document.getElementById('gm-analysis-table-container');
+    if (!container) return;
+
+    container.innerHTML = ''; // Clear previous content
+
+    // Ajout d'un résumé rapide en haut
+    const summaryHeader = document.createElement('div');
+    summaryHeader.className = 'gm-summary-header';
+    summaryHeader.innerHTML = `
+      <span><strong>Scénario:</strong> ${lobbyInfo.scenarioTitle}</span>
+      <span><strong>Joueurs:</strong> ${lobbyInfo.playerCount}</span>
+      <span><strong>Durée:</strong> ${formatDuration(lobbyInfo.duration)}</span>
+    `;
+    container.appendChild(summaryHeader);
+
+    const table = document.createElement('table');
+    table.className = 'analysis-table';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>Question & Contexte</th>
+            <th>Distribution des Réponses</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    let questionsVoted = 0;
+    questionPath.forEach(qId => {
+        const question = questionsData[qId];
+        const votes = globalVoteCounts[qId];
+
+        if (question && votes && votes.length > 0) {
+            questionsVoted++;
+            const tr = document.createElement('tr');
+
+            const totalVotes = votes.reduce((acc, vote) => acc + vote.count, 0);
+
+            const tdQuestion = document.createElement('td');
+            tdQuestion.innerHTML = `<strong>${question.question}</strong><p>${question.context || ''}</p>`;
+
+            const tdDist = document.createElement('td');
+            tdDist.className = 'vote-distribution';
+
+            if (totalVotes > 0) {
+                question.choices.forEach((choiceText, index) => {
+                    const letter = String.fromCharCode(65 + index);
+                    const voteData = votes.find(v => v.answer === letter);
+                    const count = voteData ? voteData.count : 0;
+                    const percentage = totalVotes > 0 ? ((count / totalVotes) * 100) : 0;
+
+                    const bar = document.createElement('div');
+                    bar.className = 'vote-bar-container';
+                    bar.innerHTML = `
+                        <div class="vote-choice-text"><strong>${letter}.</strong> ${choiceText}</div>
+                        <div class="vote-bar-wrapper">
+                          <div class="vote-bar-fill" style="width: ${percentage}%; background-color: ${gameConfig.levelColors ? gameConfig.levelColors[0] : '#e9bc40'};"></div>
+                        </div>
+                        <div class="vote-count">${count} vote(s)</div>
+                        <div class="vote-percentage">${percentage.toFixed(1)}%</div>
+                    `;
+                    tdDist.appendChild(bar);
+                });
+            } else {
+                tdDist.textContent = "Aucun vote enregistré.";
+            }
+
+            tr.appendChild(tdQuestion);
+            tr.appendChild(tdDist);
+            tbody.appendChild(tr);
+        }
+    });
+
+    if (questionsVoted === 0) {
+      container.innerHTML += "<p>Aucune question n'a été votée durant cette session.</p>";
+      return;
+    }
+
+    table.appendChild(tbody);
+    container.appendChild(table);
 }
 
 function showElement(id) {
