@@ -127,6 +127,9 @@ function initializeSocketIO(io) {
             const token = await lobbyManager.addPlayer(socket.lobby, sanitizedInfo, socket.id);
             socket.playerName = sanitizedInfo.prenom;
 
+            // Initialize scores for the new player
+            await lobbyManager.createPlayerScores(socket.lobby, sanitizedInfo.prenom);
+
             // Send token to the client for reconnection purposes
             socket.emit('player-registered', { token: token, playerName: sanitizedInfo.prenom });
 
@@ -217,11 +220,24 @@ function initializeSocketIO(io) {
             if (!playerName) return;
 
             await lobbyManager.recordAnswer(socket.lobby, playerName, questionId, answer);
+
+            // Update thematic scores
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
+            const question = getQuestionFromScenario(scenario, questionId);
+            if (question && question.choices) {
+                const choice = question.choices.find(c => c.id === `choix${answer}`);
+                if (choice && choice.scores_thematiques) {
+                    await lobbyManager.updatePlayerScores(socket.lobby, playerName, choice.scores_thematiques);
+                }
+            }
+
             socket.emit('answer-recorded');
 
-            if (answer === 'continue') {
-                if (lobby.mode !== 'solo') io.to(lobby.gmId).emit('player-continued', { playerName, questionId });
-                return;
+            // The 'continue' case is now handled like a regular vote, so the GM can advance.
+            // We still emit player-continued for the GM UI.
+            if (lobbyManager.isContinueQuestion(question)) {
+                 if (lobby.mode !== 'solo') io.to(lobby.gmId).emit('player-continued', { playerName, questionId });
+                 return; // Don't broadcast vote updates for continue questions
             }
 
             const votes = await lobbyManager.getVotesForQuestion(socket.lobby, questionId);
@@ -293,7 +309,7 @@ function initializeSocketIO(io) {
         } catch (err) { console.error("Erreur 'end-game':", err); }
     });
 
-    socket.on('generate-csv', async () => {
+    socket.on('generate-json-report', async () => {
         try {
             if (!socket.lobby) return socket.emit('error', 'Non autorisé');
             const lobby = await lobbyManager.getLobby(socket.lobby);
@@ -301,25 +317,92 @@ function initializeSocketIO(io) {
 
             const exportsDir = path.join(__dirname, '..', 'exports');
             await fs.mkdir(exportsDir, { recursive: true });
-            const filename = lobbyManager.generateSecureFilename(lobby.id, lobby.scenarioTitle);
+
+            // Generate a secure filename with .json extension
+            const securePart = lobbyManager.generateSecureFilename(lobby.id, lobby.scenarioTitle).replace('.csv', '');
+            const filename = `${securePart}.json`;
             const filepath = path.join(exportsDir, filename);
 
             const players = await lobbyManager.getPlayers(socket.lobby);
+            const allScores = await lobbyManager.getAllPlayerScores(socket.lobby);
             const questionPath = JSON.parse(lobby.questionPath);
-            const headers = ['Nom de la partie', 'Nom du scénario', 'Mode', 'Prénom', 'Âge', 'Genre', 'École', ...questionPath];
-            const rows = [headers];
+
+            const scenario = await scenarioLoader.loadScenario(lobby.scenarioFile);
+            const report = {
+                gameInfo: {
+                    lobbyName: lobby.id,
+                    scenarioTitle: lobby.scenarioTitle,
+                    mode: lobby.mode,
+                    questionPath: questionPath,
+                    exportDate: new Date().toISOString()
+                },
+                players: [],
+                summary: {
+                    totalPlayers: players.length,
+                    averageScores: {
+                        consentement: 0,
+                        entraide: 0,
+                        resilience: 0
+                    }
+                }
+            };
+
+            let totalConsentement = 0;
+            let totalEntraide = 0;
+            let totalResilience = 0;
 
             for (const player of players) {
-                const playerResponses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
-                const row = [lobby.id, lobby.scenarioTitle, lobby.mode, player.playerName, player.age, player.genre, player.ecole, ...questionPath.map(qId => playerResponses[qId] || '')];
-                rows.push(row);
+                const rawResponses = await lobbyManager.getPlayerResponses(socket.lobby, player.playerName);
+                const detailedResponses = Object.entries(rawResponses).map(([qId, answerId]) => {
+                    const question = getQuestionFromScenario(scenario, qId);
+                    const choice = question ? question.choices.find(c => c.id === `choix${answerId}`) : null;
+                    return {
+                        questionId: qId,
+                        questionText: question ? question.question : 'Question non trouvée',
+                        answerId: answerId,
+                        answerText: choice ? choice.text : 'Réponse non trouvée'
+                    };
+                });
+
+                const playerScores = allScores.find(s => s.playerName === player.playerName) || { consentement: 0, entraide: 0, resilience: 0 };
+
+                totalConsentement += playerScores.consentement;
+                totalEntraide += playerScores.entraide;
+                totalResilience += playerScores.resilience;
+
+                report.players.push({
+                    playerInfo: {
+                        name: player.playerName,
+                        age: player.age,
+                        genre: player.genre,
+                        school: player.ecole
+                    },
+                    responses: detailedResponses,
+                    thematicScores: {
+                        consentement: playerScores.consentement,
+                        entraide: playerScores.entraide,
+                        resilience: playerScores.resilience
+                    }
+                });
             }
 
-            const csvContent = '\ufeff' + rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-            await fs.writeFile(filepath, csvContent, 'utf-8');
+            if (players.length > 0) {
+                report.summary.averageScores.consentement = totalConsentement / players.length;
+                report.summary.averageScores.entraide = totalEntraide / players.length;
+                report.summary.averageScores.resilience = totalResilience / players.length;
+            }
+
+            await fs.writeFile(filepath, JSON.stringify(report, null, 2), 'utf-8');
+
+            // Manage file access for download
             lobbyManager.fileAccess[filename] = { lobbyName: lobby.id, createdAt: Date.now() };
-            socket.emit('csv-ready', filename);
-        } catch (err) { console.error('Erreur génération CSV:', err); socket.emit('error', 'Erreur serveur.'); }
+
+            socket.emit('json-report-ready', filename);
+
+        } catch (err) {
+            console.error('Erreur génération JSON:', err);
+            socket.emit('error', 'Erreur serveur lors de la génération du rapport.');
+        }
     });
 
     socket.on('disconnect', async () => {
