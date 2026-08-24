@@ -85,7 +85,7 @@ const levelsData = [
       "Ce récit met en scène l'histoire de Rachel face à la pression de son copain Brandon. ",
     colors: ["#e22c1e", "#ef759d"],
     creators: ["Élèves", "Adrien", "Jule", "Denis"],
-    scenarioFile: "axel.json"
+    scenarioFile: "Axel.json"
   },
 ];
 
