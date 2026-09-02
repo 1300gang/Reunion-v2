@@ -1,0 +1,275 @@
+{
+  "scenario_info": {
+    "title": "Le Destin de Juliana : Au-delà des Apparences",
+    "description": "Une rencontre inattendue lors d'une fête qui pousse deux adolescents du Val-de-Marne à s'interroger sur le consentement, les secrets de famille et les limites de la loi.",
+    "characters": ["Mamoudou", "Djamilatou", "Papa", "Narrateur"],
+    "start_question": "scene1_la_rencontre"
+  },
+  "questions": {
+    "scene1_la_rencontre": {
+      "id": "scene1_la_rencontre",
+      "type": "messenger_scenario",
+      "context": "Mamoudou et Djamilatou se croisent à la fête d'un ami commun organisée sur Snapchat. Une complicité s'installe rapidement sur la piste de danse.",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_dans_une_fete.png",
+      "conversation": {
+        "participants": [
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false },
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Salut ! Ça va ? 😊", "type": "text" },
+          { "id": "msg2", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_heureuse.png", "content": "Ouais et toi ?", "type": "text" },
+          { "id": "msg3", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_neutre.png", "content": "Trkl. Tu viens d'où ?", "type": "text" },
+          { "id": "msg4", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Du 92.", "type": "text" },
+          { "id": "msg5", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Moi aussi ! Tu t'appelles comment ?", "type": "text" },
+          { "id": "msg6", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Djamilatou et toi ?", "type": "text" },
+          { "id": "msg7", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_neutre.png", "content": "Mamoudou. T'as quel âge ?", "type": "text" },
+          { "id": "msg8", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "16 ans et demi et toi ?", "type": "text" },
+          { "id": "msg9", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "15 ans. Allons danser !", "type": "text" },
+          { "id": "msg10", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_tres_heureuse.png", "content": "Aze (oui), carrément !", "type": "text" },
+          { "id": "msg11", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "C'est quoi ton snap ?", "type": "text" },
+          { "id": "msg12", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_timide_heureuse.png", "content": "djamil92 😏", "type": "text" },
+          { "id": "msg13", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "mamoud92. Tu es dans quel lycée ?", "type": "text" },
+          { "id": "msg14", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Jacques Prévert.", "type": "text" },
+          { "id": "msg15", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Tu sais t'es mignonne, tu veux qu'on se revoie ?", "type": "text" }
+        ]
+      },
+      "question": "Que répond Djamilatou à la proposition de rendez-vous de Mamoudou ?",
+      "choices": [
+        "Oui, mais sous certaines conditions de sécurité. (Consentement Valide)",
+        "Non, j'ai déjà prévu de voir ma meilleure amie. (Refus direct)",
+        "Je ne sais pas trop, mon père est très strict. (Hésitation)",
+        "Rester silencieuse et hausser les épaules. (Absence de réponse claire)"
+      ],
+      "nextQuestions": {
+        "A": "choix_oui_valide",
+        "B": "choix_non_insistance",
+        "C": "choix_hesitation_pression",
+        "D": "choix_silence_non_valide"
+      },
+      "metadata": { "themes_abordes": ["première rencontre", "demande de rendez-vous"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "choix_oui_valide": {
+      "id": "choix_oui_valide",
+      "type": "messenger_scenario",
+      "context": "Djamilatou accepte de revoir Mamoudou de manière claire, libre et éclairée.",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_parle_de_RDV.png",
+      "conversation": {
+        "participants": [
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false },
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Tu es bien d'accord pour qu'on se voie mercredi après-midi chez toi ?", "type": "text" },
+          { "id": "msg2", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Oui, nous serons seuls ?", "type": "text" },
+          { "id": "msg3", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_heureuse.png", "content": "Non t'inquiète pas, ma mère sera là, elle travaille que le matin le mercredi. 😊", "type": "text" },
+          { "id": "msg4", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Ok, ça me va alors. On se capte mercredi !", "type": "text" }
+        ]
+      },
+      "question": "Le consentement de Djamilatou est ici valide : libre, spécifique et enthousiaste.",
+      "choices": ["Se rendre chez Mamoudou le mercredi"],
+      "nextQuestions": { "A": "scene3_chez_mamoudou" },
+      "metadata": { "themes_abordes": ["consentement valide", "cadre rassurant"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "choix_non_insistance": {
+      "id": "choix_non_insistance",
+      "type": "messenger_scenario",
+      "context": "Djamilatou dit non car elle a d'autres projets, mais Mamoudou insiste pour la faire céder.",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_parle_de_RDV.png",
+      "conversation": {
+        "participants": [
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true },
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_sceptique.png", "content": "Non, car mercredi je vais voir ma meilleure amie. 😒", "type": "text" },
+          { "id": "msg2", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_neutre.png", "content": "T'es sûre sûre que tu ne peux pas voir ta meilleure amie un autre jour ?", "type": "text" },
+          { "id": "msg3", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_sceptique.png", "content": "J'aimerais te voir et la voir aussi.", "type": "text" },
+          { "id": "msg4", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Bien, bien, et ben voilà, on se voit mercredi après-midi et tu la verras samedi. Moi j'ai sport le samedi, ok ok ?", "type": "text" },
+          { "id": "msg5", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Bon d'accord alors.", "type": "text" }
+        ]
+      },
+      "question": "ATTENTION : Insister jusqu'à ce que l'autre dise oui n'est pas obtenir un consentement valide. C'est de la manipulation.",
+      "choices": ["Continuer vers le mercredi après-midi"],
+      "nextQuestions": { "A": "scene3_chez_mamoudou" },
+      "metadata": { "themes_abordes": ["insistance", "consentement non valide"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "choix_hesitation_pression": {
+      "id": "choix_hesitation_pression",
+      "type": "messenger_scenario",
+      "context": "Djamilatou hésite à cause des règles strictes de son père. Mamoudou s'énerve puis la supplie.",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_parle_de_RDV.png",
+      "conversation": {
+        "participants": [
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true },
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Je ne sais pas trop.", "type": "text" },
+          { "id": "msg2", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_colere.png", "content": "Quoi ? Tu as dit quoi ? 😠", "type": "text" },
+          { "id": "msg3", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_sceptique.png", "content": "Ben je sais pas, mon père est strict sur les sorties. Il m'a autorisée pour ce soir mais après je sais pas.", "type": "text" },
+          { "id": "msg4", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_colere.png", "content": "On s'en fiche de ton père, je suis venu vers toi, fais un effort, trouve une excuse.", "type": "text" },
+          { "id": "msg5", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_genee.png", "content": "Je sais pas, je suis confuse.", "type": "text" },
+          { "id": "msg6", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_douteux.png", "content": "(Il joint ses mains près de son visage en la suppliant) S'il te plaît, fais-le pour moi...", "type": "text" },
+          { "id": "msg7", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Bon ben d'accord alors, je trouverai une solution.", "type": "text" }
+        ]
+      },
+      "question": "ATTENTION : Céder par culpabilité ou par fatigue face aux supplications n'est pas un consentement réel.",
+      "choices": ["Continuer vers le mercredi après-midi"],
+      "nextQuestions": { "A": "scene3_chez_mamoudou" },
+      "metadata": { "themes_abordes": ["chantage affectif", "pression familiale", "consentement non valide"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "choix_silence_non_valide": {
+      "id": "choix_silence_non_valide",
+      "type": "messenger_scenario",
+      "context": "Djamilatou ne répond pas. Mamoudou interprète mal son silence.",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_parle_de_RDV.png",
+      "conversation": {
+        "participants": [
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true },
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_muette.png", "content": "(Reste muette en le regardant... 😶)", "type": "text" },
+          { "id": "msg2", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_neutre.png", "content": "Je prends ça pour un oui !", "type": "text" },
+          { "id": "msg3", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_evitante.png", "content": "(Elle hausse simplement les épaules sans mot dire)", "type": "text" },
+          { "id": "msg4", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "C'est oui ou non ? Moi j'aimerais trop qu'on se revoie. T'es timide ou quoi ?", "type": "text" },
+          { "id": "msg5", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_muette.png", "content": "(Elle continue de le regarder sans répondre, mal à l'aise)", "type": "text" }
+        ]
+      },
+      "question": "ATTENTION : 'Qui ne dit mot consent' est FAUX. L'absence de réponse claire (silence, haussement d'épaules) signifie un NON.",
+      "choices": ["Continuer vers le mercredi après-midi"],
+      "nextQuestions": { "A": "scene3_chez_mamoudou" },
+      "metadata": { "themes_abordes": ["silence", "fausse interprétation du consentement"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "scene3_chez_mamoudou": {
+      "id": "scene3_chez_mamoudou",
+      "type": "messenger_scenario",
+      "context": "Mercredi après-midi. Djamilatou arrive chez Mamoudou, salue poliment sa maman, puis monte dans sa chambre. C'est là que le doute s'installe devant une photo de bureau...",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_devant_un_bureaux.png",
+      "conversation": {
+        "participants": [
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false },
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_tres_heureux.png", "content": "Oté Kafrine, je suis trop content de te revoir, enfin ! J'étais pressé d'être à aujourd'hui.", "type": "text" },
+          { "id": "msg2", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_heureuse.png", "content": "Oui, moi aussi je suis heureuse. Dis-moi, je peux te faire un bisou ?", "type": "text" },
+          { "id": "msg3", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "Oui, avec plaisir.", "type": "text" },
+          { "id": "msg4", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_heureux.png", "content": "T'as faim, un petit chocolat, ça te dit ?", "type": "text" },
+          { "id": "msg5", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_heureuse.png", "content": "Oui (Aze). Pourquoi pas ?", "type": "text" },
+          { "id": "msg6", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_sceptique.png", "content": "What ? Tu connais la personne sur la photo là ? 🤨", "type": "text" },
+          { "id": "msg7", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_neutre.png", "content": "Ben c'est mon père, c'est la seule photo que j'ai de lui. Pourquoi ?", "type": "text" },
+          { "id": "msg8", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_etonnee.png", "content": "Ben, il ressemble beaucoup à mon père, c'est chelou...", "type": "text" },
+          { "id": "msg9", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_etonne.png", "content": "Quoi ? C'est quoi cette histoire ?", "type": "text" },
+          { "id": "msg10", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_affole.png", "content": "On aurait le même père ? Ta mère t'a pas menti ? T'as bien compris ?", "type": "text" }
+        ]
+      },
+      "question": "Le choc est total. Ils décident de mener l'enquête directement auprès de leurs parents.",
+      "choices": ["Djamilatou rentre chez elle confronter son père"],
+      "nextQuestions": { "A": "scene4_confrontation_pere" },
+      "metadata": { "themes_abordes": ["doute familial", "respect du consentement physique"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "scene4_confrontation_pere": {
+      "id": "scene4_confrontation_pere",
+      "type": "messenger_scenario",
+      "context": "Djamilatou arrive chez elle, anxieuse. Elle s'installe dans le salon pour avoir une discussion sérieuse avec son père.",
+      "contextual_image": "/../img/Destin/img_contextuel/Mamoudou_et_Djamilatou_sur_un_canape.png",
+      "conversation": {
+        "participants": [
+          { "id": "papa", "name": "Papa", "isCurrentUser": false },
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_heureux.png", "content": "Coucou ma chérie, ta journée s'est bien passée ?", "type": "text" },
+          { "id": "msg2", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_deprimee.png", "content": "Bof... 😔", "type": "text" },
+          { "id": "msg3", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_inquiet.png", "content": "Viens t'asseoir près de moi si tu veux ? Tu veux qu'on discute ?", "type": "text" },
+          { "id": "msg4", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Oui, je veux bien, j'en ai vraiment besoin. Mais t'énerve pas parce que tu ne vas pas être content.", "type": "text" },
+          { "id": "msg5", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_inquiet.png", "content": "Ah bon, pourquoi ? 😟", "type": "text" },
+          { "id": "msg6", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Je suis amoureuse d'un garçon et je suis partie le voir chez lui.", "type": "text" },
+          { "id": "msg7", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_decu.png", "content": "Quoi, tu ne m'as pas prévenu ? Tu sais que je ne t'aurais pas dit non, c'est important pour moi de savoir où tu es. 😞", "type": "text" },
+          { "id": "msg8", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_genee.png", "content": "Je suis désolée mon papa, mais tu sais sa maman était là, on s'est dit bonjour vite fait.", "type": "text" },
+          { "id": "msg9", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_neutre.png", "content": "Bien bien. Bon alors, comment s'appelle ce garçon ? Tu crois qu'on se connaît ?", "type": "text" },
+          { "id": "msg10", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "J'ai vu ta photo sur son bureau. Il s'appelle Mamoudou, il a 15 ans. Il est dans mon lycée.", "type": "text" },
+          { "id": "msg11", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_inquiet.png", "content": "Tu as une photo de lui ? (Il regarde son téléphone) Ok... tu as vu ses parents ? Tu sais d'où il vient ?", "type": "text" },
+          { "id": "msg12", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "J'ai vu sa mère rapidement mais non, on n'a pas beaucoup échangé. Dis papa... elle est où maman ? Tu ne m'en as jamais parlé. Aujourd'hui j'aimerais savoir.", "type": "text" },
+          { "id": "msg13", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_gene.png", "content": "Ta maman buvait beaucoup, elle était malade. Je suis parti avec toi d'un commun accord pour te protéger quand tu avais un an et demi. J'ai eu ta garde.", "type": "text" },
+          { "id": "msg14", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_neutre.png", "content": "Tu as une photo d'elle ?", "type": "text" },
+          { "id": "msg15", "sender": "papa", "avatar": "/../img/Destin/perso_emo/pere_djamilatou_neutre.png", "content": "Je dois partir travailler, je suis d'astreinte... Va dans ma chambre, il y a une boîte bleue dans le premier tiroir de la commode. Il y a des photos de toi petite et de ta maman.", "type": "text" }
+        ]
+      },
+      "question": "Le cœur serré, Djamilatou trouve la boîte bleue et découvre les photos de sa mère biologique.",
+      "choices": ["Appeler d'urgence Mamoudou pour confronter les photos"],
+      "nextQuestions": { "A": "scene5_la_revelation" },
+      "metadata": { "themes_abordes": ["secret de famille", "vérité parentale", "recherche de repères"], "characters": ["Papa", "Djamilatou"] }
+    },
+    "scene5_la_revelation": {
+      "id": "scene5_la_revelation",
+      "type": "messenger_scenario",
+      "context": "Rendez-vous urgent dans le parc en face du lycée. Djamilatou tend nerveusement les vieilles photos de sa maman à Mamoudou.",
+      "contextual_image": "/../img/Destin/img_contextuel/Regardent_un_vielle_photo .png",
+      "conversation": {
+        "participants": [
+          { "id": "djamilatou", "name": "Djamilatou", "isCurrentUser": true },
+          { "id": "mamoudou", "name": "Mamoudou", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_deprimee.png", "content": "J'ai des photos de ma maman, papa m'a enfin parlé d'elle. On peut se voir dans le parc face au lycée ? J'ai vraiment besoin d'en parler.", "type": "text" },
+          { "id": "msg2", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_affole.png", "content": "Ok, j'arrive tout de suite !", "type": "text" },
+          { "id": "msg3", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_etonne.png", "content": "Mais... mais c'est ma maman quand elle était plus jeune ! Qu'est-ce que ça veut dire ?!", "type": "text" },
+          { "id": "msg4", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_etonnee.png", "content": "Ben Mamoudou... ça veut dire qu'on a le même père et la même mère. Nous sommes frère et sœur.", "type": "text" },
+          { "id": "msg5", "sender": "mamoudou", "avatar": "/../img/Destin/perso_emo/mamoudou_douteux.png", "content": "Mais on est attirés l'un par l'autre... on commençait à tomber amoureux...", "type": "text" },
+          { "id": "msg6", "sender": "djamilatou", "avatar": "/../img/Destin/perso_emo/djamilatou_deprimee.png", "content": "Pouvons-nous vraiment être amoureux ?", "type": "text" }
+        ]
+      },
+      "question": "Que dit la loi face à la situation amoureuse de Mamoudou et Djamilatou ?",
+      "choices": [
+        "Leur relation amoureuse/sexuelle est interdite par la loi. C'est de l'inceste.",
+        "Ils peuvent continuer d'être ensemble s'ils ne le disent pas aux parents."
+      ],
+      "nextQuestions": {
+        "A": "conclusion_inceste_loi",
+        "B": "conclusion_erreur_inceste"
+      },
+      "metadata": { "themes_abordes": ["inceste", "limites de la loi", "liens de sang"], "characters": ["Mamoudou", "Djamilatou"] }
+    },
+    "conclusion_inceste_loi": {
+      "id": "conclusion_inceste_loi",
+      "type": "messenger_scenario",
+      "context": "Même s'ils ne se connaissaient pas, la loi française interdit formellement les relations sexuelles et le mariage entre personnes d'une même famille proche.",
+      "contextual_image": "/../img/Destin/img_contextuel/Regardent_un_vielle_photo .png",
+      "conversation": {
+        "participants": [
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Bravo pour votre choix éclairé. La loi interdit fermement les relations entre frères et sœurs (l'inceste) pour protéger l'ordre familial et prévenir les abus de vulnérabilité.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Mamoudou et Djamilatou doivent faire le deuil de leur attirance amoureuse. Ils vont apprendre à se construire un nouveau lien, celui de frère et sœur, pour rattraper le temps perdu.", "type": "text" }
+        ]
+      },
+      "question": "Merci d'avoir joué ! Rappelez-vous : le consentement commence par le respect de soi, des autres et du cadre légal.",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": { "themes_abordes": ["loi", "éducation sexuelle", "prévention inceste"], "characters": [] }
+    },
+    "conclusion_erreur_inceste": {
+      "id": "conclusion_erreur_inceste",
+      "type": "messenger_scenario",
+      "context": "ATTENTION : C'est une erreur lourde de conséquences.",
+      "contextual_image": "/../img/Destin/img_contextuel/Regardent_un_vielle_photo .png",
+      "conversation": {
+        "participants": [
+          { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
+        ],
+        "messages": [
+          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Poursuivre cette relation sous le sceau du secret est illégal. L'inceste est interdit par la loi et engendre des souffrances psychologiques destructrices.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Mamoudou et Djamilatou doivent impérativement être accompagnés par des professionnels (psychologues, conseillers familiaux) pour surmonter cette épreuve et redéfinir sainement leur relation de frère et sœur.", "type": "text" }
+        ]
+      },
+      "question": "Le saviez-vous ? L'inceste est une limite stricte posée par le Code Civil pour protéger les familles.",
+      "choices": [],
+      "nextQuestions": {},
+      "metadata": { "themes_abordes": ["conséquences psychologiques", "loi", "interdit de l'inceste"], "characters": [] }
+    }
+  }
+}
