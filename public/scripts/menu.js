@@ -87,6 +87,18 @@ const levelsData = [
     creators: ["Élèves", "Adrien", "Jule", "Denis"],
     scenarioFile: "Axel.json"
   },
+  {
+  "name": "Au-delà des Apparences",
+  "image": "/fonds/fond_fete_snap.png",
+  "stickers": [
+    "img/Stykers/Stickers consentement texte.png",
+    "img/Stykers/Stickers harcelement.png"
+  ],
+  "description": "Une rencontre entre Mamoudou et Djamilatou lors d'une fête qui les pousse à s'interroger sur le consentement, les secrets de famille et les limites de la loi.",
+  "colors": ["#8e44ad", "#3498db"],
+  "creators": ["Intervenant", "Participants"],
+  "scenarioFile": "Le_Destin_de_Juliana.json"
+}
 ];
 
 // === VARIABLES GLOBALES ===
