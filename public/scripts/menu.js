@@ -88,14 +88,14 @@ const levelsData = [
     scenarioFile: "Axel.json"
   },
   {
-  "name": "Au-delà des Apparences",
-  "image": "/fonds/fond_fete_snap.png",
+  "name": "au-DeLà dEs ApParenCes",
+  "image": "/img/Destin/img_contextuel/Mamoudou_et_Djamilatou_dans_une_fete.png",
   "stickers": [
-    "img/Stykers/Stickers consentement texte.png",
-    "img/Stykers/Stickers harcelement.png"
+    "img/Stykers/Stickers consentement.png",
+    "img/Stykers/Stickers Stereotype texte.png"
   ],
   "description": "Une rencontre entre Mamoudou et Djamilatou lors d'une fête qui les pousse à s'interroger sur le consentement, les secrets de famille et les limites de la loi.",
-  "colors": ["#8e44ad", "#3498db"],
+  "colors": ["#e22c1e", "#ef759d"],
   "creators": ["Intervenant", "Participants"],
   "scenarioFile": "Le_Destin_de_Juliana.json"
 }

@@ -36,10 +36,10 @@
       },
       "question": "Que répond Djamilatou à la proposition de rendez-vous de Mamoudou ?",
       "choices": [
-        "Oui, mais sous certaines conditions de sécurité. (Consentement Valide)",
-        "Non, j'ai déjà prévu de voir ma meilleure amie. (Refus direct)",
-        "Je ne sais pas trop, mon père est très strict. (Hésitation)",
-        "Rester silencieuse et hausser les épaules. (Absence de réponse claire)"
+        "Oui, mais sous certaines conditions de sécurité. ",
+        "Non, j'ai déjà prévu de voir ma meilleure amie.",
+        "Je ne sais pas trop, mon père est très strict. ",
+        "Rester silencieuse et hausser les épaules."
       ],
       "nextQuestions": {
         "A": "choix_oui_valide",
@@ -243,8 +243,8 @@
           { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
         ],
         "messages": [
-          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Bravo pour votre choix éclairé. La loi interdit fermement les relations entre frères et sœurs (l'inceste) pour protéger l'ordre familial et prévenir les abus de vulnérabilité.", "type": "text" },
-          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Mamoudou et Djamilatou doivent faire le deuil de leur attirance amoureuse. Ils vont apprendre à se construire un nouveau lien, celui de frère et sœur, pour rattraper le temps perdu.", "type": "text" }
+          { "id": "msg1", "sender": "narrateur", "avatar": "/../img/Rive/perso_emo/(ANT)_emo_robby_content.png", "content": "Bravo pour votre choix éclairé. La loi interdit fermement les relations entre frères et sœurs (l'inceste) pour protéger l'ordre familial et prévenir les abus de vulnérabilité.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "/../img/Rive/perso_emo/(ANT)_emo_robby_neutre.png", "content": "Mamoudou et Djamilatou doivent faire le deuil de leur attirance amoureuse. Ils vont apprendre à se construire un nouveau lien, celui de frère et sœur, pour rattraper le temps perdu.", "type": "text" }
         ]
       },
       "question": "Merci d'avoir joué ! Rappelez-vous : le consentement commence par le respect de soi, des autres et du cadre légal.",
@@ -262,8 +262,8 @@
           { "id": "narrateur", "name": "Narrateur", "isCurrentUser": false }
         ],
         "messages": [
-          { "id": "msg1", "sender": "narrateur", "avatar": "", "content": "Poursuivre cette relation sous le sceau du secret est illégal. L'inceste est interdit par la loi et engendre des souffrances psychologiques destructrices.", "type": "text" },
-          { "id": "msg2", "sender": "narrateur", "avatar": "", "content": "Mamoudou et Djamilatou doivent impérativement être accompagnés par des professionnels (psychologues, conseillers familiaux) pour surmonter cette épreuve et redéfinir sainement leur relation de frère et sœur.", "type": "text" }
+          { "id": "msg1", "sender": "narrateur", "avatar": "/../img/Rive/perso_emo/(ANT)_emo_robby_neutre.png", "content": "Poursuivre cette relation sous le sceau du secret est illégal. L'inceste est interdit par la loi et engendre des souffrances psychologiques destructrices.", "type": "text" },
+          { "id": "msg2", "sender": "narrateur", "avatar": "/../img/Rive/perso_emo/(ANT)_emo_robby_neutre.png", "content": "Mamoudou et Djamilatou doivent impérativement être accompagnés par des professionnels (psychologues, conseillers familiaux) pour surmonter cette épreuve et redéfinir sainement leur relation de frère et sœur.", "type": "text" }
         ]
       },
       "question": "Le saviez-vous ? L'inceste est une limite stricte posée par le Code Civil pour protéger les familles.",
